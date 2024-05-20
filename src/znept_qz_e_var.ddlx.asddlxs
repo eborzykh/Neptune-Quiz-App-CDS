@@ -1,0 +1,42 @@
+@Metadata.layer: #CUSTOMER
+
+@UI.headerInfo.description.label: 'Variants'
+
+annotate view ZNEPT_QZ_C_VAR with
+{
+
+  @UI.facet: [
+    {
+      id:       'Variant',
+      purpose:  #STANDARD,
+      type:     #IDENTIFICATION_REFERENCE,
+      label:    'Variant details',
+      position: 10 }
+  ]
+
+  @UI: {
+    lineItem: [ { position: 10, label: 'Variant' } ],
+    identification:[ { position: 10, label: 'Variant' } ]
+  }
+  Variant;
+
+  @UI: {
+    lineItem: [ { position: 20, label: 'Correct answer' } ],
+    identification:[ { position: 20, label: 'Correct answer' } ]
+
+  }
+  Correct;
+ 
+  @UI.hidden: true
+  Test_ID;
+  
+  @UI.hidden: true
+  Part_ID;
+  
+  @UI.hidden: true
+  Question_ID;
+  
+  @UI.hidden: true
+  Variant_ID;  
+
+}

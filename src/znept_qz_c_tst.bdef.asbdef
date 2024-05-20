@@ -1,0 +1,14 @@
+unmanaged implementation in class zbp_nept_qz_c_tst unique;
+
+define behavior for ZNEPT_QZ_C_TST alias Quiz
+{
+//  field ( readonly ) Test_ID;
+//  field ( readonly ) Upload_At, Upload_On, Upload_By_Name;
+//  field ( readonly ) Parts_Count, Questions_Count;
+//  field ( readonly ) UI_Published;
+
+//  field ( mandatory ) Description;
+
+  action Publish result [1] $self;
+  action Unpublish result [1] $self;
+}
