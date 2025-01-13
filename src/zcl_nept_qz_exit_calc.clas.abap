@@ -10,7 +10,10 @@ CLASS zcl_nept_qz_exit_calc DEFINITION
   PRIVATE SECTION.
 ENDCLASS.
 
-CLASS zcl_nept_qz_exit_calc IMPLEMENTATION.
+
+
+CLASS ZCL_NEPT_QZ_EXIT_CALC IMPLEMENTATION.
+
 
   METHOD if_sadl_exit_calc_element_read~calculate.
 
@@ -79,7 +82,7 @@ CLASS zcl_nept_qz_exit_calc IMPLEMENTATION.
 
   ENDMETHOD.
 
+
   METHOD if_sadl_exit_calc_element_read~get_calculation_info.
   ENDMETHOD.
-
 ENDCLASS.

@@ -5,7 +5,6 @@
 
 @EndUserText.label: 'Quiz (Consumption)'
 
-@ObjectModel.compositionRoot:true
 @Metadata.allowExtensions: true
 
 define root view ZNEPT_QZ_C_TST

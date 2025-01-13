@@ -5,6 +5,7 @@
    <SRVB>
     <METADATA>
      <NAME>ZNEPT_QZ_UI_QUIZ_02</NAME>
+     <TYPE>SRVB/SVB</TYPE>
      <DESCRIPTION>Neptune Quiz App (CDS)</DESCRIPTION>
     </METADATA>
     <CONTENT>
@@ -19,17 +20,24 @@
        <SERVICE_CONTENT>
         <item>
          <SERVICE_VERSION>0001</SERVICE_VERSION>
+         <RELEASE_STATE>NOT_RELEASED</RELEASE_STATE>
          <SRVD_REF>
           <URI>/sap/bc/adt/ddic/srvd/sources/znept_qz_ui_quiz</URI>
           <TYPE>SRVD/SRV</TYPE>
           <NAME>ZNEPT_QZ_UI_QUIZ</NAME>
          </SRVD_REF>
+         <BIND_TYPE_DATA>
+          <CONTENT>
+           <ENCODING>base64</ENCODING>
+          </CONTENT>
+         </BIND_TYPE_DATA>
         </item>
        </SERVICE_CONTENT>
       </item>
      </SERVICES>
     </CONTENT>
     <PUBLISHED>true</PUBLISHED>
+    <BINDING_CREATED>true</BINDING_CREATED>
    </SRVB>
   </asx:values>
  </asx:abap>

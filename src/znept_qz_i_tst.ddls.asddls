@@ -23,7 +23,6 @@ define root view ZNEPT_QZ_I_TST
       _C1.Parts_Count                   as Parts_Count,
       _C2.Questions_Count               as Questions_Count,
 
-      @ObjectModel.readOnly: true
       @ObjectModel.virtualElement: true
       @ObjectModel.virtualElementCalculatedBy: 'ABAP:ZCL_NEPT_QZ_EXIT_CALC'
       cast('' as znept_qz_upload_name_de) as Upload_By_Name
