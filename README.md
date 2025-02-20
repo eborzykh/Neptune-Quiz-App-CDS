@@ -4,29 +4,29 @@ ABAP CDS views created in this repository will be used in [Neptune-Quiz-App-Fior
 
 ### Naming convention used for ABAP CDS View
 
-| Component | Type | Name |
-| ---- | ---- | ---- |
-| Data definition | Basic interface view | Z [unit] _ [app] _ I _* | 30 |
-| Data definition | Composite interface view | Z [unit] _ [app] _ I _* | 30 |
-| Data definition | Value Help view | Z [unit] _ [app] _ I _*_VH | 30 |
-| Data definition | Basic restricted reuse view | Z [unit] _ [app] _ R _* | 30 |
-| Data definition | Composite restricted reuse view | Z [unit] _ [app] _ R _* | 30 |
-| Data definition | Consumption view | Z [unit] _ [app] _ C _* | 30 |
-| Data definition | Projection view | Z [unit] _ [app] _ C _* | 30 |
-| Data definition | Private view | Z [unit] _ [app] _ P _* | 30 |
-| Data definition | Remote API view | Z [unit] _ [app] _ A _* | 30 |
-| Data definition | View extend | Z [unit] _ [app] _ X _* | 30 |
-| Data definition | Derivation function | Z [unit] _ [app] _ F _* | 30 |
-| Data definition | Abstract entity | Z [unit] _ [app] _ D _* | 30 |
-| Metadata extensions | Extension include view | Z [unit] _ [app] _ E _* | 30 |
-| Class | Behavior Implementation Class | ZBP_ [unit] _ [app] _* | - |
-| Class | Message Class | Z [unit] _ [app] _ CM _* | - |
-| Service definition | UI | Z [unit] _ [app] _ UI _* | - |
-| Service definition | API | Z [unit] _ [app] _ API _* | - |
-| Service Binding | OData V2 – UI | Z [unit] _ [app] _ UI _*_O2 | - |
-| Service Binding | OData V2 – Web API | Z [unit] _ [app] _ API _*_O2 | - |
-| Service Binding | OData V4 – UI | Z [unit] _ [app] _ UI _*_O4 | - |
-| Service Binding | OData V4 – Web API | Z [unit] _ [app] _ API _*_O4 | - |
+| Component | Type | Name (30) | Suffix |
+| ---- | ---- | ---- | ---- |
+| Data definition | Basic view | Z [unit] _ [app] _ I _* | _VH - Value Help |
+| Data definition | Basic Interface view | Z [unit] _ [app] _ I _* |  |
+| Data definition | Basic restricted view | Z [unit] _ [app] _ R _* |  |
+| Data definition | Consumption view | Z [unit] _ [app] _ C _* |  |
+| Data definition | Projection view | Z [unit] _ [app] _ C _* |  |
+| Data definition | Private view | Z [unit] _ [app] _ P _* |  |
+| Data definition | Remote API view | Z [unit] _ [app] _ A _* |  |
+| Data definition | View extend | Z [unit] _ [app] _ X _* |  |
+| Data definition | Derivation function | Z [unit] _ [app] _ F _* |  |
+| Data definition | Abstract entity | Z [unit] _ [app] _ D _* |  |
+| Metadata extensions | Extension include view | Z [unit] _ [app] _ E _* |  |
+| Class | Behavior Implementation Class | ZBP_ [unit] _ [app] _* |  |
+| Class | Message Class | Z [unit] _ [app] _ CM _* |  |
+| Service definition | UI | Z [unit] _ [app] _ UI _* |  |
+| Service definition | API | Z [unit] _ [app] _ API _* |  |
+| Service Binding | OData – UI V2 / V4 | Z [unit] _ [app] _ UI _* | _O2 / _O4 |
+| Service Binding | OData – Web API V2 / V4 | Z [unit] _ [app] _ API _* | _O2 / _O4 |
+| Scenario | Read Only | Z [unit] _ [app] _ [object] | _R |
+| Scenario | Managed | Z [unit] _ [app] _ [object] | _M |
+| Scenario | Unmanaged | Z [unit] _ [app] _ [object] | _U |
+| Scenario | Cockpit | Z [unit] _ [app] _ [object] | _C |
 
 ### Related links:
 
