@@ -1,0 +1,65 @@
+//
+@Metadata.layer: #CUSTOMER
+@UI.headerInfo.description.label: 'Variants (Extension)'
+
+@UI: { headerInfo: { typeName: 'Variant', typeNamePlural: 'Variants' } }
+
+annotate view ZNEPT_QZ_C_VARIANT_R with
+{
+  @UI.facet: [
+    {
+      label:    'Variant',
+      purpose:  #STANDARD,
+      type:     #IDENTIFICATION_REFERENCE,
+      id:       'header',
+      targetQualifier: 'variant',
+      position: 10
+    },
+    
+    {
+      id:       'Question',
+      purpose:  #STANDARD,
+      type:     #IDENTIFICATION_REFERENCE,
+      label:    'Question',
+      targetQualifier: 'question', 
+      position: 20
+    }    
+  ]
+
+  @UI: {
+    identification:[ {qualifier: 'question', position: 10, label: 'Question' } ]
+  }
+  Question;
+
+  @UI: {
+    identification:[ {qualifier: 'question', position: 20, label: 'Explanation' } ]
+  }
+  Explanation;
+
+
+  @UI: {
+    lineItem: [ { position: 10, label: 'Variant', cssDefault: { width: '50rem' } } ],
+    identification:[ {qualifier: 'variant', position: 10, label: 'Variant' } ]
+  }
+  Variant;
+
+  @UI: { 
+    lineItem: [ { position: 20, label: 'Is correct answer' } ], 
+    identification:[ {qualifier: 'variant', position: 20, label: 'Is correct answer' } ]
+  }
+  @Consumption.valueHelpDefinition: [{ entity: { name: 'ZNEPT_QZ_I_VARIANT_CORRECT_VH', element: 'Correct' } }]
+  Correct;
+
+  @UI.hidden: true
+  CorrectText;
+
+  @UI.hidden: true
+  TestId;
+
+  @UI.hidden: true
+  QuestionId;
+
+  @UI.hidden: true
+  VariantId;
+
+}

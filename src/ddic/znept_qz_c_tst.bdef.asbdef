@@ -1,0 +1,36 @@
+//
+unmanaged implementation in class zbp_nept_qz_c_tst unique;
+
+define behavior for ZNEPT_QZ_C_TST alias Quiz
+{
+  action Publish;
+  action Unpublish;
+
+  association _Parts;
+}
+
+define behavior for ZNEPT_QZ_C_PRT alias Part
+{
+  field ( readonly ) Test_ID;
+
+  association _Quiz;
+  association _Questions;
+}
+
+define behavior for ZNEPT_QZ_C_QST alias Question
+{
+  field ( readonly ) Test_ID;
+  field ( readonly : update ) Part_ID;
+
+  association _Quiz;
+  association _Parts;
+  association _Variants;
+}
+
+define behavior for ZNEPT_QZ_C_VAR alias Variant
+{
+  field ( readonly ) Test_ID, Question_ID;
+
+  association _Quiz;
+  association _Questions;
+}

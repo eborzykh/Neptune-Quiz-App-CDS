@@ -1,0 +1,56 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<abapGit version="v1.0.0" serializer="LCL_OBJECT_SKTD" serializer_version="v1.0.0">
+ <asx:abap xmlns:asx="http://www.sap.com/abapxml" version="1.0">
+  <asx:values>
+   <SKTD>
+    <METADATA>
+     <DESCRIPTION>Documentation for ZNEPT_QZ_CDS_DDIC</DESCRIPTION>
+     <LANGUAGE>EN</LANGUAGE>
+     <ABAP_LANGU_VERSION>0</ABAP_LANGU_VERSION>
+    </METADATA>
+    <REF_OBJECT>
+     <TYPE>DEVC/K</TYPE>
+     <NAME>ZNEPT_QZ_CDS_DDIC</NAME>
+    </REF_OBJECT>
+    <ELEMENTS>
+     <item>
+      <ID>ZNEPT_QZ_CDS_DDIC</ID>
+      <REF>
+       <URI>/sap/bc/adt/packages/znept_qz_cds_ddic</URI>
+       <TYPE>DEVC/K</TYPE>
+       <NAME>ZNEPT_QZ_CDS_DDIC</NAME>
+       <DESCRIPTION>Neptune Quiz Application (CDS DDIC-Based)</DESCRIPTION>
+      </REF>
+      <TEXT>IyBERElDIGJhc2VkIENEUyAoZnJvbSBBQkFQIDE5MDkgdmVyc2lvbikKCiMjIEFkdmFudGFnZXM6
+CgoqIENvbXBhdGliaWxpdHk6IERESUMtYmFzZWQgQ0RTIHZpZXdzIHByb3ZpZGUgYmFja3dhcmQg
+Y29tcGF0aWJpbGl0eSB3aXRoIGV4aXN0aW5nIGRhdGFiYXNlIHZpZXdzLCBhbGxvd2luZyBmb3Ig
+YSBzbW9vdGggdHJhbnNpdGlvbiBmcm9tIHRyYWRpdGlvbmFsIERESUMgdmlld3MgdG8gQ0RTIHZp
+ZXdzLgoKKiBEYXRhIEludGVncml0eTogVGhleSBpbmhlcml0IHRoZSBkYXRhIGludGVncml0eSBm
+ZWF0dXJlcyBvZiB1bmRlcmx5aW5nIGRhdGFiYXNlIHRhYmxlcywgc3VjaCBhcyBwcmltYXJ5IGtl
+eSBjb25zdHJhaW50cyBhbmQgZm9yZWlnbiBrZXkgcmVsYXRpb25zaGlwcy4KCiogU3RhYmlsaXR5
+OiBTaW5jZSB0aGV5IGFyZSBidWlsdCBvbiBlc3RhYmxpc2hlZCBkYXRhYmFzZSBvYmplY3RzLCBE
+RElDLWJhc2VkIENEUyB2aWV3cyBvZmZlciBzdGFiaWxpdHkgYW5kIHJvYnVzdG5lc3MgaW4gdGhl
+IGRhdGEgbW9kZWwuCgojIyBMaW1pdGF0aW9uczoKCiogRmxleGliaWxpdHk6IERESUMtYmFzZWQg
+Q0RTIHZpZXdzIGxhY2sgc29tZSBvZiB0aGUgbW9yZSBhZHZhbmNlZCBmZWF0dXJlcyBhdmFpbGFi
+bGUgaW4gQ0RTIHZpZXdzIGJhc2VkIG9uIEVudGl0eSwgbWFraW5nIHRoZW0gbGVzcyBmbGV4aWJs
+ZSBpbiBjb21wbGV4IGRhdGEgbW9kZWxpbmcgc2NlbmFyaW9zLgoKKiBQZXJmb3JtYW5jZTogVGhl
+eSBtaWdodCBzdWZmZXIgZnJvbSBwZXJmb3JtYW5jZSBpc3N1ZXMgd2hlbiBkZWFsaW5nIHdpdGgg
+bGFyZ2UgZGF0YXNldHMsIGFzIHRoZXkgbWF5IG5vdCB0YWtlIGZ1bGwgYWR2YW50YWdlIG9mIFNB
+UCBIQU5BJ3Mgb3B0aW1pemF0aW9uIGNhcGFiaWxpdGllcy4KCgo=</TEXT>
+      <CAN_HAVE_DOCUMENTATION>X</CAN_HAVE_DOCUMENTATION>
+      <LINKS>
+       <item>
+        <HREF>/sap/bc/adt/repository/informationsystem/elementinfo?path=znept_qz_cds_ddic&amp;type=devc/k</HREF>
+        <REL>http://www.sap.com/adt/relations/elementinfo</REL>
+        <TYPE>application/vnd.sap.adt.elementinfo+xml</TYPE>
+        <TITLE>Show Element Information</TITLE>
+       </item>
+      </LINKS>
+      <SHORTTEXT_OBLIGATION>forbidden</SHORTTEXT_OBLIGATION>
+      <LONGTEXT_OBLIGATION>optional</LONGTEXT_OBLIGATION>
+     </item>
+    </ELEMENTS>
+   </SKTD>
+  </asx:values>
+ </asx:abap>
+</abapGit>

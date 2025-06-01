@@ -1,0 +1,38 @@
+//
+@Metadata.layer: #CUSTOMER
+@UI.headerInfo.description.label: 'Parts'
+
+@UI: { headerInfo: { typeName: 'Part', typeNamePlural: 'Parts' , title: { type: #STANDARD, value: 'PartId' } } }
+
+annotate view ZNEPT_QZ_C_PART_M with
+{
+  @UI.facet: [
+    {
+      id:       'Parts',
+      purpose:  #STANDARD,
+      type:     #IDENTIFICATION_REFERENCE,
+      label:    'Description',
+      position: 10 }
+
+  ,{
+  id: 'Questions',
+  type: #LINEITEM_REFERENCE,
+  label: 'Questions',
+  position: 20,
+  targetElement: '_Question'
+  }
+  ]
+
+  @UI.hidden: true
+  TestId;
+
+  @UI.hidden: true
+  PartId;
+
+  @UI: {
+    lineItem: [  { position: 20, label: 'Description', cssDefault: { width: '40rem' } } ],
+    identification:[ { position: 20, label: 'Part Description' } ]
+  }
+  Description;
+
+}

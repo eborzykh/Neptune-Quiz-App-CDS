@@ -1,0 +1,48 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<abapGit version="v1.0.0" serializer="LCL_OBJECT_SKTD" serializer_version="v1.0.0">
+ <asx:abap xmlns:asx="http://www.sap.com/abapxml" version="1.0">
+  <asx:values>
+   <SKTD>
+    <METADATA>
+     <DESCRIPTION>Documentation for ZNEPT_QZ_CDS_UNMANAGED</DESCRIPTION>
+     <LANGUAGE>EN</LANGUAGE>
+     <ABAP_LANGU_VERSION>0</ABAP_LANGU_VERSION>
+    </METADATA>
+    <REF_OBJECT>
+     <TYPE>DEVC/K</TYPE>
+     <NAME>ZNEPT_QZ_CDS_UNMANAGED</NAME>
+    </REF_OBJECT>
+    <ELEMENTS>
+     <item>
+      <ID>ZNEPT_QZ_CDS_UNMANAGED</ID>
+      <REF>
+       <URI>/sap/bc/adt/packages/znept_qz_cds_unmanaged</URI>
+       <TYPE>DEVC/K</TYPE>
+       <NAME>ZNEPT_QZ_CDS_UNMANAGED</NAME>
+       <DESCRIPTION>Neptune Quiz Application (CDS Unmanaged)</DESCRIPTION>
+      </REF>
+      <TEXT>IyBDRFMgdW5tYW5hZ2VkIHNjZW5hcmlvIAoKVG8gdHJ5IENEUyB1bm1hbmFnZWQgc2NlbmFyaW8g
+d2hlcmUgdGhlIGRldmVsb3BlciBoYXMgY29tcGxldGUgY29udHJvbCBvdmVyIGRhdGEgcGVyc2lz
+dGVuY2UgYW5kIGJ1c2luZXNzIGxvZ2ljLCBtZWFuaW5nIHRoZXkgbXVzdCBtYW51YWxseSBpbXBs
+ZW1lbnQgYWxsIENSVUQgKENyZWF0ZSwgUmVhZCwgVXBkYXRlLCBEZWxldGUpIG9wZXJhdGlvbnMg
+aW5zdGVhZCBvZiByZWx5aW5nIG9uIGF1dG9tYXRpY2FsbHkgZ2VuZXJhdGVkIGZ1bmN0aW9uYWxp
+dHksIGFsbG93aW5nIGZvciBncmVhdGVyIGZsZXhpYmlsaXR5IHRvIGludGVncmF0ZSB3aXRoIGV4
+aXN0aW5nIGFwcGxpY2F0aW9ucyBhbmQgY3VzdG9tIGxvZ2ljLCBidXQgcmVxdWlyaW5nIG1vcmUg
+ZGV2ZWxvcG1lbnQgZWZmb3J0IGNvbXBhcmVkIHRvIGEgIm1hbmFnZWQiIHNjZW5hcmlvLiA=</TEXT>
+      <CAN_HAVE_DOCUMENTATION>X</CAN_HAVE_DOCUMENTATION>
+      <LINKS>
+       <item>
+        <HREF>/sap/bc/adt/repository/informationsystem/elementinfo?path=znept_qz_cds_unmanaged&amp;type=devc/k</HREF>
+        <REL>http://www.sap.com/adt/relations/elementinfo</REL>
+        <TYPE>application/vnd.sap.adt.elementinfo+xml</TYPE>
+        <TITLE>Show Element Information</TITLE>
+       </item>
+      </LINKS>
+      <SHORTTEXT_OBLIGATION>forbidden</SHORTTEXT_OBLIGATION>
+      <LONGTEXT_OBLIGATION>optional</LONGTEXT_OBLIGATION>
+     </item>
+    </ELEMENTS>
+   </SKTD>
+  </asx:values>
+ </asx:abap>
+</abapGit>

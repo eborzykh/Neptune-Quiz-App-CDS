@@ -1,0 +1,47 @@
+//
+projection;
+strict ( 1 );
+
+define behavior for ZNEPT_QZ_C_QUIZ_U alias quiz
+{
+  use create;
+  use update;
+  use delete;
+
+  use action Publish;
+  use action Unpublish;
+
+  use association _Part { create; }
+  use association _Question { create; }
+}
+
+define behavior for ZNEPT_QZ_C_PART_U alias part
+{
+  use create;
+  use update;
+  use delete;
+
+  use association _Quiz;
+}
+
+define behavior for ZNEPT_QZ_C_QUESTION_U alias question
+{
+  use create;
+  use update;
+  use delete;
+
+  use action assignPart;
+
+  use association _Quiz;
+  use association _Variant { create; }
+}
+
+define behavior for ZNEPT_QZ_C_VARIANT_U alias variant
+{
+  use create;
+  use update;
+  use delete;
+
+  use association _Quiz;
+  use association _Question;
+}

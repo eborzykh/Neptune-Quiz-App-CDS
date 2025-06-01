@@ -1,0 +1,7 @@
+//
+abstract;
+
+define behavior for ZNEPT_QZ_A_QUESTION_ASSIGN alias Question_Assign
+{
+   field ( mandatory ) new_Part_Id;
+}

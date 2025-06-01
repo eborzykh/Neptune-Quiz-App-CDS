@@ -1,0 +1,164 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<abapGit version="v1.0.0" serializer="LCL_OBJECT_MSAG" serializer_version="v1.0.0">
+ <asx:abap xmlns:asx="http://www.sap.com/abapxml" version="1.0">
+  <asx:values>
+   <T100A>
+    <ARBGB>ZNEPT_QZ_CDS</ARBGB>
+    <MASTERLANG>E</MASTERLANG>
+    <STEXT>Neptune Quiz App: Messages</STEXT>
+   </T100A>
+   <T100>
+    <T100>
+     <SPRSL>E</SPRSL>
+     <ARBGB>ZNEPT_QZ_CDS</ARBGB>
+     <MSGNR>000</MSGNR>
+     <TEXT>&amp;1 &amp;2 &amp;3 &amp;4</TEXT>
+    </T100>
+    <T100>
+     <SPRSL>E</SPRSL>
+     <ARBGB>ZNEPT_QZ_CDS</ARBGB>
+     <MSGNR>009</MSGNR>
+     <TEXT>Quiz Key initial</TEXT>
+    </T100>
+    <T100>
+     <SPRSL>E</SPRSL>
+     <ARBGB>ZNEPT_QZ_CDS</ARBGB>
+     <MSGNR>010</MSGNR>
+     <TEXT>Part Key initial</TEXT>
+    </T100>
+    <T100>
+     <SPRSL>E</SPRSL>
+     <ARBGB>ZNEPT_QZ_CDS</ARBGB>
+     <MSGNR>011</MSGNR>
+     <TEXT>Question Key initial</TEXT>
+    </T100>
+    <T100>
+     <SPRSL>E</SPRSL>
+     <ARBGB>ZNEPT_QZ_CDS</ARBGB>
+     <MSGNR>012</MSGNR>
+     <TEXT>Variant Key initial</TEXT>
+    </T100>
+    <T100>
+     <SPRSL>E</SPRSL>
+     <ARBGB>ZNEPT_QZ_CDS</ARBGB>
+     <MSGNR>016</MSGNR>
+     <TEXT>Quiz does not exist</TEXT>
+    </T100>
+    <T100>
+     <SPRSL>E</SPRSL>
+     <ARBGB>ZNEPT_QZ_CDS</ARBGB>
+     <MSGNR>017</MSGNR>
+     <TEXT>Part does not exist</TEXT>
+    </T100>
+    <T100>
+     <SPRSL>E</SPRSL>
+     <ARBGB>ZNEPT_QZ_CDS</ARBGB>
+     <MSGNR>018</MSGNR>
+     <TEXT>Question does not exist</TEXT>
+    </T100>
+    <T100>
+     <SPRSL>E</SPRSL>
+     <ARBGB>ZNEPT_QZ_CDS</ARBGB>
+     <MSGNR>019</MSGNR>
+     <TEXT>Variant does not exist</TEXT>
+    </T100>
+    <T100>
+     <SPRSL>E</SPRSL>
+     <ARBGB>ZNEPT_QZ_CDS</ARBGB>
+     <MSGNR>032</MSGNR>
+     <TEXT>Quiz &amp;1 is locked by &amp;2</TEXT>
+    </T100>
+    <T100>
+     <SPRSL>E</SPRSL>
+     <ARBGB>ZNEPT_QZ_CDS</ARBGB>
+     <MSGNR>046</MSGNR>
+     <TEXT>You are not authorized</TEXT>
+    </T100>
+    <T100>
+     <SPRSL>E</SPRSL>
+     <ARBGB>ZNEPT_QZ_CDS</ARBGB>
+     <MSGNR>100</MSGNR>
+     <TEXT>Error on creating Quiz</TEXT>
+    </T100>
+    <T100>
+     <SPRSL>E</SPRSL>
+     <ARBGB>ZNEPT_QZ_CDS</ARBGB>
+     <MSGNR>101</MSGNR>
+     <TEXT>Error on updating Quiz</TEXT>
+    </T100>
+    <T100>
+     <SPRSL>E</SPRSL>
+     <ARBGB>ZNEPT_QZ_CDS</ARBGB>
+     <MSGNR>102</MSGNR>
+     <TEXT>Error on deleting Quiz</TEXT>
+    </T100>
+    <T100>
+     <SPRSL>E</SPRSL>
+     <ARBGB>ZNEPT_QZ_CDS</ARBGB>
+     <MSGNR>103</MSGNR>
+     <TEXT>Error on publishing Quiz</TEXT>
+    </T100>
+    <T100>
+     <SPRSL>E</SPRSL>
+     <ARBGB>ZNEPT_QZ_CDS</ARBGB>
+     <MSGNR>104</MSGNR>
+     <TEXT>Error on creating Part</TEXT>
+    </T100>
+    <T100>
+     <SPRSL>E</SPRSL>
+     <ARBGB>ZNEPT_QZ_CDS</ARBGB>
+     <MSGNR>105</MSGNR>
+     <TEXT>Error on updating Part</TEXT>
+    </T100>
+    <T100>
+     <SPRSL>E</SPRSL>
+     <ARBGB>ZNEPT_QZ_CDS</ARBGB>
+     <MSGNR>106</MSGNR>
+     <TEXT>Error on deleting Part</TEXT>
+    </T100>
+    <T100>
+     <SPRSL>E</SPRSL>
+     <ARBGB>ZNEPT_QZ_CDS</ARBGB>
+     <MSGNR>107</MSGNR>
+     <TEXT>Error on creating Question</TEXT>
+    </T100>
+    <T100>
+     <SPRSL>E</SPRSL>
+     <ARBGB>ZNEPT_QZ_CDS</ARBGB>
+     <MSGNR>108</MSGNR>
+     <TEXT>Error on updating Question</TEXT>
+    </T100>
+    <T100>
+     <SPRSL>E</SPRSL>
+     <ARBGB>ZNEPT_QZ_CDS</ARBGB>
+     <MSGNR>109</MSGNR>
+     <TEXT>Error on deleting Question</TEXT>
+    </T100>
+    <T100>
+     <SPRSL>E</SPRSL>
+     <ARBGB>ZNEPT_QZ_CDS</ARBGB>
+     <MSGNR>110</MSGNR>
+     <TEXT>Error on creating Variant</TEXT>
+    </T100>
+    <T100>
+     <SPRSL>E</SPRSL>
+     <ARBGB>ZNEPT_QZ_CDS</ARBGB>
+     <MSGNR>111</MSGNR>
+     <TEXT>Error on updating Variant</TEXT>
+    </T100>
+    <T100>
+     <SPRSL>E</SPRSL>
+     <ARBGB>ZNEPT_QZ_CDS</ARBGB>
+     <MSGNR>112</MSGNR>
+     <TEXT>Error on deleting Variant</TEXT>
+    </T100>
+    <T100>
+     <SPRSL>E</SPRSL>
+     <ARBGB>ZNEPT_QZ_CDS</ARBGB>
+     <MSGNR>150</MSGNR>
+     <TEXT>Your changes have been saved.</TEXT>
+    </T100>
+   </T100>
+  </asx:values>
+ </asx:abap>
+</abapGit>

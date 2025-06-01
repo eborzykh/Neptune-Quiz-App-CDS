@@ -1,0 +1,7 @@
+@EndUserText.label: 'Neptune Quiz App (CDS Read only)'
+define service ZNEPT_QZ_UI_QUIZ_R {
+  expose ZNEPT_QZ_C_QUIZ_R as Quiz;
+  expose ZNEPT_QZ_C_PART_R as Part;
+  expose ZNEPT_QZ_C_QUESTION_R as Question;
+  expose ZNEPT_QZ_C_VARIANT_R as Variant;
+}

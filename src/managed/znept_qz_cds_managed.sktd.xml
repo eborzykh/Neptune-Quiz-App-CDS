@@ -1,0 +1,51 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<abapGit version="v1.0.0" serializer="LCL_OBJECT_SKTD" serializer_version="v1.0.0">
+ <asx:abap xmlns:asx="http://www.sap.com/abapxml" version="1.0">
+  <asx:values>
+   <SKTD>
+    <METADATA>
+     <DESCRIPTION>Documentation for ZNEPT_QZ_CDS_MANAGED</DESCRIPTION>
+     <LANGUAGE>EN</LANGUAGE>
+     <ABAP_LANGU_VERSION>0</ABAP_LANGU_VERSION>
+    </METADATA>
+    <REF_OBJECT>
+     <TYPE>DEVC/K</TYPE>
+     <NAME>ZNEPT_QZ_CDS_MANAGED</NAME>
+    </REF_OBJECT>
+    <ELEMENTS>
+     <item>
+      <ID>ZNEPT_QZ_CDS_MANAGED</ID>
+      <REF>
+       <URI>/sap/bc/adt/packages/znept_qz_cds_managed</URI>
+       <TYPE>DEVC/K</TYPE>
+       <NAME>ZNEPT_QZ_CDS_MANAGED</NAME>
+       <DESCRIPTION>Neptune Quiz Application (CDS Managed)</DESCRIPTION>
+      </REF>
+      <TEXT>IyBDRFMgTWFuYWdlZCBzY2VuYXJpbwoKSW4gQUJBUCBkZXZlbG9wbWVudCwgYSAibWFuYWdlZCBz
+Y2VuYXJpbyIgd2l0aGluIENEUyAoQ29yZSBEYXRhIFNlcnZpY2VzKSByZWZlcnMgdG8gYSBkZXZl
+bG9wbWVudCBhcHByb2FjaCB3aGVyZSB0aGUgbWFqb3JpdHkgb2YgdGhlIHRlY2huaWNhbCBpbXBs
+ZW1lbnRhdGlvbiBkZXRhaWxzIGZvciBjcmVhdGluZywgcmVhZGluZywgdXBkYXRpbmcsIGFuZCBk
+ZWxldGluZyAoQ1JVRCkgb3BlcmF0aW9ucyBvbiBhIGJ1c2luZXNzIG9iamVjdCBhcmUgYXV0b21h
+dGljYWxseSBoYW5kbGVkIGJ5IHRoZSBBQkFQIFJFU1RmdWwgQXBwbGljYXRpb24gUHJvZ3JhbW1p
+bmcgTW9kZWwgKFJBUCksIGFsbG93aW5nIGRldmVsb3BlcnMgdG8gZm9jdXMgcHJpbWFyaWx5IG9u
+IGltcGxlbWVudGluZyBzcGVjaWZpYyBidXNpbmVzcyBsb2dpYyBhbmQgdmFsaWRhdGlvbnMsIHJh
+dGhlciB0aGFuIHdyaXRpbmcgbG93LWxldmVsIGRhdGEgYWNjZXNzIGNvZGU7IGVzc2VudGlhbGx5
+LCBpdCBwcm92aWRlcyBhIHByZS1idWlsdCBmcmFtZXdvcmsgZm9yIGRhdGEgbWFuYWdlbWVudCB3
+aXRoIG1pbmltYWwgY3VzdG9tIGNvZGluZyByZXF1aXJlZC4=</TEXT>
+      <CAN_HAVE_DOCUMENTATION>X</CAN_HAVE_DOCUMENTATION>
+      <LINKS>
+       <item>
+        <HREF>/sap/bc/adt/repository/informationsystem/elementinfo?path=znept_qz_cds_managed&amp;type=devc/k</HREF>
+        <REL>http://www.sap.com/adt/relations/elementinfo</REL>
+        <TYPE>application/vnd.sap.adt.elementinfo+xml</TYPE>
+        <TITLE>Show Element Information</TITLE>
+       </item>
+      </LINKS>
+      <SHORTTEXT_OBLIGATION>forbidden</SHORTTEXT_OBLIGATION>
+      <LONGTEXT_OBLIGATION>optional</LONGTEXT_OBLIGATION>
+     </item>
+    </ELEMENTS>
+   </SKTD>
+  </asx:values>
+ </asx:abap>
+</abapGit>

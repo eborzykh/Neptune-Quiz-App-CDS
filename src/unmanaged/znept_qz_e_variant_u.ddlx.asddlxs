@@ -1,0 +1,40 @@
+//
+@Metadata.layer: #CUSTOMER
+@UI.headerInfo.description.label: 'Variants (Extension)'
+
+@UI: { headerInfo: { typeName: 'Variant', 
+                     typeNamePlural: 'Variants' , 
+                     title: { type: #STANDARD, value: 'VariantId' } } }
+
+annotate view ZNEPT_QZ_C_VARIANT_U with
+{
+  @UI.facet: [
+    {
+      id:       'Variant',
+      purpose:  #STANDARD,
+      type:     #IDENTIFICATION_REFERENCE,
+      label:    'Variant details',
+      position: 10 }
+  ]
+
+  @UI.hidden: true
+  TestId;
+
+  @UI.hidden: true
+  QuestionId;
+
+  @UI: {
+    lineItem: [ { position: 10, label: 'Variant', cssDefault: { width: '50rem' } } ],
+    identification:[ { position: 10, label: 'Variant' } ]
+  }
+  Variant;
+
+  @UI: {
+    lineItem: [ { position: 20, label: 'Is correct answer' } ],
+    identification:[ { position: 20, label: 'Is correct answer' } ]
+  }
+  Correct;
+
+  @UI.hidden: true
+  CorrectText;
+}

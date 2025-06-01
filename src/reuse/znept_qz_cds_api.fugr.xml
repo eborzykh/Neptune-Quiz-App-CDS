@@ -1,0 +1,683 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<abapGit version="v1.0.0" serializer="LCL_OBJECT_FUGR" serializer_version="v1.0.0">
+ <asx:abap xmlns:asx="http://www.sap.com/abapxml" version="1.0">
+  <asx:values>
+   <AREAT>Neptune Quiz App (CDS): API</AREAT>
+   <INCLUDES>
+    <SOBJ_NAME>LZNEPT_QZ_CDS_APITOP</SOBJ_NAME>
+    <SOBJ_NAME>SAPLZNEPT_QZ_CDS_API</SOBJ_NAME>
+   </INCLUDES>
+   <FUNCTIONS>
+    <item>
+     <FUNCNAME>ZNEPT_QZ_PART_CREATE</FUNCNAME>
+     <SHORT_TEXT>Neptune Quiz App: Part Create</SHORT_TEXT>
+     <IMPORT>
+      <RSIMP>
+       <PARAMETER>IS_DB_PART</PARAMETER>
+       <REFERENCE>X</REFERENCE>
+       <TYP>ZNEPT_QZ_DB_PARTS_S</TYP>
+      </RSIMP>
+     </IMPORT>
+     <EXPORT>
+      <RSEXP>
+       <PARAMETER>ES_DB_PART</PARAMETER>
+       <REFERENCE>X</REFERENCE>
+       <TYP>ZNEPT_QZ_DB_PARTS_S</TYP>
+      </RSEXP>
+      <RSEXP>
+       <PARAMETER>ET_MESSAGES</PARAMETER>
+       <REFERENCE>X</REFERENCE>
+       <TYP>SYMSG_TAB</TYP>
+      </RSEXP>
+     </EXPORT>
+     <DOCUMENTATION>
+      <RSFDO>
+       <PARAMETER>IS_DB_PART</PARAMETER>
+       <KIND>P</KIND>
+       <STEXT>Neptune Quiz App: DB Parts</STEXT>
+      </RSFDO>
+      <RSFDO>
+       <PARAMETER>ES_DB_PART</PARAMETER>
+       <KIND>P</KIND>
+       <STEXT>Neptune Quiz App: DB Parts</STEXT>
+      </RSFDO>
+      <RSFDO>
+       <PARAMETER>ET_MESSAGES</PARAMETER>
+       <KIND>P</KIND>
+       <STEXT>List of system messages in T100 format</STEXT>
+      </RSFDO>
+     </DOCUMENTATION>
+    </item>
+    <item>
+     <FUNCNAME>ZNEPT_QZ_PART_DELETE</FUNCNAME>
+     <SHORT_TEXT>Neptune Quiz App: Part Delete</SHORT_TEXT>
+     <IMPORT>
+      <RSIMP>
+       <PARAMETER>IS_DB_PART</PARAMETER>
+       <REFERENCE>X</REFERENCE>
+       <TYP>ZNEPT_QZ_DB_PARTS_S</TYP>
+      </RSIMP>
+     </IMPORT>
+     <EXPORT>
+      <RSEXP>
+       <PARAMETER>ET_MESSAGES</PARAMETER>
+       <REFERENCE>X</REFERENCE>
+       <TYP>SYMSG_TAB</TYP>
+      </RSEXP>
+     </EXPORT>
+     <DOCUMENTATION>
+      <RSFDO>
+       <PARAMETER>IS_DB_PART</PARAMETER>
+       <KIND>P</KIND>
+       <STEXT>Neptune Quiz App: DB Parts</STEXT>
+      </RSFDO>
+      <RSFDO>
+       <PARAMETER>ET_MESSAGES</PARAMETER>
+       <KIND>P</KIND>
+       <STEXT>List of system messages in T100 format</STEXT>
+      </RSFDO>
+     </DOCUMENTATION>
+    </item>
+    <item>
+     <FUNCNAME>ZNEPT_QZ_PART_READ</FUNCNAME>
+     <SHORT_TEXT>Neptune Quiz App: Part Read</SHORT_TEXT>
+     <IMPORT>
+      <RSIMP>
+       <PARAMETER>IS_DB_PART</PARAMETER>
+       <REFERENCE>X</REFERENCE>
+       <TYP>ZNEPT_QZ_DB_PARTS_S</TYP>
+      </RSIMP>
+     </IMPORT>
+     <EXPORT>
+      <RSEXP>
+       <PARAMETER>ES_DB_PART</PARAMETER>
+       <REFERENCE>X</REFERENCE>
+       <TYP>ZNEPT_QZ_DB_PARTS_S</TYP>
+      </RSEXP>
+      <RSEXP>
+       <PARAMETER>ET_MESSAGES</PARAMETER>
+       <REFERENCE>X</REFERENCE>
+       <TYP>SYMSG_TAB</TYP>
+      </RSEXP>
+     </EXPORT>
+     <DOCUMENTATION>
+      <RSFDO>
+       <PARAMETER>IS_DB_PART</PARAMETER>
+       <KIND>P</KIND>
+       <STEXT>Neptune Quiz App: DB Parts</STEXT>
+      </RSFDO>
+      <RSFDO>
+       <PARAMETER>ES_DB_PART</PARAMETER>
+       <KIND>P</KIND>
+       <STEXT>Neptune Quiz App: DB Parts</STEXT>
+      </RSFDO>
+      <RSFDO>
+       <PARAMETER>ET_MESSAGES</PARAMETER>
+       <KIND>P</KIND>
+       <STEXT>List of system messages in T100 format</STEXT>
+      </RSFDO>
+     </DOCUMENTATION>
+    </item>
+    <item>
+     <FUNCNAME>ZNEPT_QZ_PART_UPDATE</FUNCNAME>
+     <SHORT_TEXT>Neptune Quiz App: Part Update</SHORT_TEXT>
+     <IMPORT>
+      <RSIMP>
+       <PARAMETER>IS_DB_PART</PARAMETER>
+       <REFERENCE>X</REFERENCE>
+       <TYP>ZNEPT_QZ_DB_PARTS_S</TYP>
+      </RSIMP>
+     </IMPORT>
+     <EXPORT>
+      <RSEXP>
+       <PARAMETER>ET_MESSAGES</PARAMETER>
+       <REFERENCE>X</REFERENCE>
+       <TYP>SYMSG_TAB</TYP>
+      </RSEXP>
+     </EXPORT>
+     <DOCUMENTATION>
+      <RSFDO>
+       <PARAMETER>IS_DB_PART</PARAMETER>
+       <KIND>P</KIND>
+       <STEXT>Neptune Quiz App: DB Parts</STEXT>
+      </RSFDO>
+      <RSFDO>
+       <PARAMETER>ET_MESSAGES</PARAMETER>
+       <KIND>P</KIND>
+       <STEXT>List of system messages in T100 format</STEXT>
+      </RSFDO>
+     </DOCUMENTATION>
+    </item>
+    <item>
+     <FUNCNAME>ZNEPT_QZ_QUESTION_ASSIGN</FUNCNAME>
+     <SHORT_TEXT>Neptune Quiz App: Question Assign</SHORT_TEXT>
+     <IMPORT>
+      <RSIMP>
+       <PARAMETER>IS_DB_QUESTION</PARAMETER>
+       <REFERENCE>X</REFERENCE>
+       <TYP>ZNEPT_QZ_DB_QUESTIONS_S</TYP>
+      </RSIMP>
+      <RSIMP>
+       <PARAMETER>IV_NEW_PART_ID</PARAMETER>
+       <REFERENCE>X</REFERENCE>
+       <TYP>ZNEPT_QZ_PART_ID_DE</TYP>
+      </RSIMP>
+     </IMPORT>
+     <EXPORT>
+      <RSEXP>
+       <PARAMETER>ET_MESSAGES</PARAMETER>
+       <REFERENCE>X</REFERENCE>
+       <TYP>SYMSG_TAB</TYP>
+      </RSEXP>
+     </EXPORT>
+     <DOCUMENTATION>
+      <RSFDO>
+       <PARAMETER>IS_DB_QUESTION</PARAMETER>
+       <KIND>P</KIND>
+       <STEXT>Neptune Quiz App: DB Questions</STEXT>
+      </RSFDO>
+      <RSFDO>
+       <PARAMETER>IV_NEW_PART_ID</PARAMETER>
+       <KIND>P</KIND>
+       <STEXT>Neptune Quiz App: Quiz Part ID</STEXT>
+      </RSFDO>
+      <RSFDO>
+       <PARAMETER>ET_MESSAGES</PARAMETER>
+       <KIND>P</KIND>
+       <STEXT>List of system messages in T100 format</STEXT>
+      </RSFDO>
+     </DOCUMENTATION>
+    </item>
+    <item>
+     <FUNCNAME>ZNEPT_QZ_QUESTION_CREATE</FUNCNAME>
+     <SHORT_TEXT>Neptune Quiz App: Question Create</SHORT_TEXT>
+     <IMPORT>
+      <RSIMP>
+       <PARAMETER>IS_DB_QUESTION</PARAMETER>
+       <REFERENCE>X</REFERENCE>
+       <TYP>ZNEPT_QZ_DB_QUESTIONS_S</TYP>
+      </RSIMP>
+     </IMPORT>
+     <EXPORT>
+      <RSEXP>
+       <PARAMETER>ES_DB_QUESTION</PARAMETER>
+       <REFERENCE>X</REFERENCE>
+       <TYP>ZNEPT_QZ_DB_QUESTIONS_S</TYP>
+      </RSEXP>
+      <RSEXP>
+       <PARAMETER>ET_MESSAGES</PARAMETER>
+       <REFERENCE>X</REFERENCE>
+       <TYP>SYMSG_TAB</TYP>
+      </RSEXP>
+     </EXPORT>
+     <DOCUMENTATION>
+      <RSFDO>
+       <PARAMETER>IS_DB_QUESTION</PARAMETER>
+       <KIND>P</KIND>
+       <STEXT>Neptune Quiz App: DB Questions</STEXT>
+      </RSFDO>
+      <RSFDO>
+       <PARAMETER>ES_DB_QUESTION</PARAMETER>
+       <KIND>P</KIND>
+       <STEXT>Neptune Quiz App: DB Questions</STEXT>
+      </RSFDO>
+      <RSFDO>
+       <PARAMETER>ET_MESSAGES</PARAMETER>
+       <KIND>P</KIND>
+       <STEXT>List of system messages in T100 format</STEXT>
+      </RSFDO>
+     </DOCUMENTATION>
+    </item>
+    <item>
+     <FUNCNAME>ZNEPT_QZ_QUESTION_DELETE</FUNCNAME>
+     <SHORT_TEXT>Neptune Quiz App: Question Delete</SHORT_TEXT>
+     <IMPORT>
+      <RSIMP>
+       <PARAMETER>IS_DB_QUESTION</PARAMETER>
+       <REFERENCE>X</REFERENCE>
+       <TYP>ZNEPT_QZ_DB_QUESTIONS_S</TYP>
+      </RSIMP>
+     </IMPORT>
+     <EXPORT>
+      <RSEXP>
+       <PARAMETER>ET_MESSAGES</PARAMETER>
+       <REFERENCE>X</REFERENCE>
+       <TYP>SYMSG_TAB</TYP>
+      </RSEXP>
+     </EXPORT>
+     <DOCUMENTATION>
+      <RSFDO>
+       <PARAMETER>IS_DB_QUESTION</PARAMETER>
+       <KIND>P</KIND>
+       <STEXT>Neptune Quiz App: DB Questions</STEXT>
+      </RSFDO>
+      <RSFDO>
+       <PARAMETER>ET_MESSAGES</PARAMETER>
+       <KIND>P</KIND>
+       <STEXT>List of system messages in T100 format</STEXT>
+      </RSFDO>
+     </DOCUMENTATION>
+    </item>
+    <item>
+     <FUNCNAME>ZNEPT_QZ_QUESTION_READ</FUNCNAME>
+     <SHORT_TEXT>Neptune Quiz App: Question Read</SHORT_TEXT>
+     <IMPORT>
+      <RSIMP>
+       <PARAMETER>IS_DB_QUESTION</PARAMETER>
+       <REFERENCE>X</REFERENCE>
+       <TYP>ZNEPT_QZ_DB_QUESTIONS_S</TYP>
+      </RSIMP>
+     </IMPORT>
+     <EXPORT>
+      <RSEXP>
+       <PARAMETER>ES_DB_QUESTION</PARAMETER>
+       <REFERENCE>X</REFERENCE>
+       <TYP>ZNEPT_QZ_DB_QUESTIONS_S</TYP>
+      </RSEXP>
+      <RSEXP>
+       <PARAMETER>ET_MESSAGES</PARAMETER>
+       <REFERENCE>X</REFERENCE>
+       <TYP>SYMSG_TAB</TYP>
+      </RSEXP>
+     </EXPORT>
+     <DOCUMENTATION>
+      <RSFDO>
+       <PARAMETER>IS_DB_QUESTION</PARAMETER>
+       <KIND>P</KIND>
+       <STEXT>Neptune Quiz App: DB Questions</STEXT>
+      </RSFDO>
+      <RSFDO>
+       <PARAMETER>ES_DB_QUESTION</PARAMETER>
+       <KIND>P</KIND>
+       <STEXT>Neptune Quiz App: DB Questions</STEXT>
+      </RSFDO>
+      <RSFDO>
+       <PARAMETER>ET_MESSAGES</PARAMETER>
+       <KIND>P</KIND>
+       <STEXT>List of system messages in T100 format</STEXT>
+      </RSFDO>
+     </DOCUMENTATION>
+    </item>
+    <item>
+     <FUNCNAME>ZNEPT_QZ_QUESTION_UPDATE</FUNCNAME>
+     <SHORT_TEXT>Neptune Quiz App: Question Update</SHORT_TEXT>
+     <IMPORT>
+      <RSIMP>
+       <PARAMETER>IS_DB_QUESTION</PARAMETER>
+       <REFERENCE>X</REFERENCE>
+       <TYP>ZNEPT_QZ_DB_QUESTIONS_S</TYP>
+      </RSIMP>
+     </IMPORT>
+     <EXPORT>
+      <RSEXP>
+       <PARAMETER>ET_MESSAGES</PARAMETER>
+       <REFERENCE>X</REFERENCE>
+       <TYP>SYMSG_TAB</TYP>
+      </RSEXP>
+     </EXPORT>
+     <DOCUMENTATION>
+      <RSFDO>
+       <PARAMETER>IS_DB_QUESTION</PARAMETER>
+       <KIND>P</KIND>
+       <STEXT>Neptune Quiz App: DB Questions</STEXT>
+      </RSFDO>
+      <RSFDO>
+       <PARAMETER>ET_MESSAGES</PARAMETER>
+       <KIND>P</KIND>
+       <STEXT>List of system messages in T100 format</STEXT>
+      </RSFDO>
+     </DOCUMENTATION>
+    </item>
+    <item>
+     <FUNCNAME>ZNEPT_QZ_QUIZ_CREATE</FUNCNAME>
+     <SHORT_TEXT>Neptune Quiz App: Quiz Create</SHORT_TEXT>
+     <IMPORT>
+      <RSIMP>
+       <PARAMETER>IS_DB_QUIZ</PARAMETER>
+       <REFERENCE>X</REFERENCE>
+       <TYP>ZNEPT_QZ_DB_TESTS_S</TYP>
+      </RSIMP>
+     </IMPORT>
+     <EXPORT>
+      <RSEXP>
+       <PARAMETER>ES_DB_QUIZ</PARAMETER>
+       <REFERENCE>X</REFERENCE>
+       <TYP>ZNEPT_QZ_DB_TESTS_S</TYP>
+      </RSEXP>
+      <RSEXP>
+       <PARAMETER>ET_MESSAGES</PARAMETER>
+       <REFERENCE>X</REFERENCE>
+       <TYP>SYMSG_TAB</TYP>
+      </RSEXP>
+     </EXPORT>
+     <DOCUMENTATION>
+      <RSFDO>
+       <PARAMETER>IS_DB_QUIZ</PARAMETER>
+       <KIND>P</KIND>
+       <STEXT>Neptune Quiz App: DB Quiz</STEXT>
+      </RSFDO>
+      <RSFDO>
+       <PARAMETER>ES_DB_QUIZ</PARAMETER>
+       <KIND>P</KIND>
+       <STEXT>Neptune Quiz App: DB Quiz</STEXT>
+      </RSFDO>
+      <RSFDO>
+       <PARAMETER>ET_MESSAGES</PARAMETER>
+       <KIND>P</KIND>
+       <STEXT>List of system messages in T100 format</STEXT>
+      </RSFDO>
+     </DOCUMENTATION>
+    </item>
+    <item>
+     <FUNCNAME>ZNEPT_QZ_QUIZ_DELETE</FUNCNAME>
+     <SHORT_TEXT>Neptune Quiz App: Quiz Delete</SHORT_TEXT>
+     <IMPORT>
+      <RSIMP>
+       <PARAMETER>IS_DB_QUIZ</PARAMETER>
+       <REFERENCE>X</REFERENCE>
+       <TYP>ZNEPT_QZ_DB_TESTS_S</TYP>
+      </RSIMP>
+     </IMPORT>
+     <EXPORT>
+      <RSEXP>
+       <PARAMETER>ET_MESSAGES</PARAMETER>
+       <REFERENCE>X</REFERENCE>
+       <TYP>SYMSG_TAB</TYP>
+      </RSEXP>
+     </EXPORT>
+     <DOCUMENTATION>
+      <RSFDO>
+       <PARAMETER>IS_DB_QUIZ</PARAMETER>
+       <KIND>P</KIND>
+       <STEXT>Neptune Quiz App: DB Quiz</STEXT>
+      </RSFDO>
+      <RSFDO>
+       <PARAMETER>ET_MESSAGES</PARAMETER>
+       <KIND>P</KIND>
+       <STEXT>List of system messages in T100 format</STEXT>
+      </RSFDO>
+     </DOCUMENTATION>
+    </item>
+    <item>
+     <FUNCNAME>ZNEPT_QZ_QUIZ_HAS_PARTS</FUNCNAME>
+     <SHORT_TEXT>Neptune Quiz App: Quiz Has Parts</SHORT_TEXT>
+     <IMPORT>
+      <RSIMP>
+       <PARAMETER>IS_DB_QUIZ</PARAMETER>
+       <REFERENCE>X</REFERENCE>
+       <TYP>ZNEPT_QZ_DB_TESTS_S</TYP>
+      </RSIMP>
+     </IMPORT>
+     <EXPORT>
+      <RSEXP>
+       <PARAMETER>EV_HAS_PARTS</PARAMETER>
+       <REFERENCE>X</REFERENCE>
+       <TYP>ABAP_BOOL</TYP>
+      </RSEXP>
+      <RSEXP>
+       <PARAMETER>ET_MESSAGES</PARAMETER>
+       <REFERENCE>X</REFERENCE>
+       <TYP>SYMSG_TAB</TYP>
+      </RSEXP>
+     </EXPORT>
+     <DOCUMENTATION>
+      <RSFDO>
+       <PARAMETER>IS_DB_QUIZ</PARAMETER>
+       <KIND>P</KIND>
+       <STEXT>Neptune Quiz App: DB Quiz</STEXT>
+      </RSFDO>
+      <RSFDO>
+       <PARAMETER>EV_HAS_PARTS</PARAMETER>
+       <KIND>P</KIND>
+      </RSFDO>
+      <RSFDO>
+       <PARAMETER>ET_MESSAGES</PARAMETER>
+       <KIND>P</KIND>
+       <STEXT>List of system messages in T100 format</STEXT>
+      </RSFDO>
+     </DOCUMENTATION>
+    </item>
+    <item>
+     <FUNCNAME>ZNEPT_QZ_QUIZ_PUBLISH</FUNCNAME>
+     <SHORT_TEXT>Neptune Quiz App: Quiz Publish</SHORT_TEXT>
+     <IMPORT>
+      <RSIMP>
+       <PARAMETER>IS_DB_QUIZ</PARAMETER>
+       <REFERENCE>X</REFERENCE>
+       <TYP>ZNEPT_QZ_DB_TESTS_S</TYP>
+      </RSIMP>
+     </IMPORT>
+     <EXPORT>
+      <RSEXP>
+       <PARAMETER>ET_MESSAGES</PARAMETER>
+       <REFERENCE>X</REFERENCE>
+       <TYP>SYMSG_TAB</TYP>
+      </RSEXP>
+     </EXPORT>
+     <DOCUMENTATION>
+      <RSFDO>
+       <PARAMETER>IS_DB_QUIZ</PARAMETER>
+       <KIND>P</KIND>
+       <STEXT>Neptune Quiz App: DB Quiz</STEXT>
+      </RSFDO>
+      <RSFDO>
+       <PARAMETER>ET_MESSAGES</PARAMETER>
+       <KIND>P</KIND>
+       <STEXT>List of system messages in T100 format</STEXT>
+      </RSFDO>
+     </DOCUMENTATION>
+    </item>
+    <item>
+     <FUNCNAME>ZNEPT_QZ_QUIZ_READ</FUNCNAME>
+     <SHORT_TEXT>Neptune Quiz App: Quiz Read</SHORT_TEXT>
+     <IMPORT>
+      <RSIMP>
+       <PARAMETER>IS_DB_QUIZ</PARAMETER>
+       <REFERENCE>X</REFERENCE>
+       <TYP>ZNEPT_QZ_DB_TESTS_S</TYP>
+      </RSIMP>
+     </IMPORT>
+     <EXPORT>
+      <RSEXP>
+       <PARAMETER>ES_DB_QUIZ</PARAMETER>
+       <REFERENCE>X</REFERENCE>
+       <TYP>ZNEPT_QZ_DB_TESTS_S</TYP>
+      </RSEXP>
+      <RSEXP>
+       <PARAMETER>ET_MESSAGES</PARAMETER>
+       <REFERENCE>X</REFERENCE>
+       <TYP>SYMSG_TAB</TYP>
+      </RSEXP>
+     </EXPORT>
+     <DOCUMENTATION>
+      <RSFDO>
+       <PARAMETER>IS_DB_QUIZ</PARAMETER>
+       <KIND>P</KIND>
+       <STEXT>Neptune Quiz App: DB Quiz</STEXT>
+      </RSFDO>
+      <RSFDO>
+       <PARAMETER>ES_DB_QUIZ</PARAMETER>
+       <KIND>P</KIND>
+       <STEXT>Neptune Quiz App: DB Quiz</STEXT>
+      </RSFDO>
+      <RSFDO>
+       <PARAMETER>ET_MESSAGES</PARAMETER>
+       <KIND>P</KIND>
+       <STEXT>List of system messages in T100 format</STEXT>
+      </RSFDO>
+     </DOCUMENTATION>
+    </item>
+    <item>
+     <FUNCNAME>ZNEPT_QZ_QUIZ_UPDATE</FUNCNAME>
+     <SHORT_TEXT>Neptune Quiz App: Quiz Update</SHORT_TEXT>
+     <IMPORT>
+      <RSIMP>
+       <PARAMETER>IS_DB_QUIZ</PARAMETER>
+       <REFERENCE>X</REFERENCE>
+       <TYP>ZNEPT_QZ_DB_TESTS_S</TYP>
+      </RSIMP>
+     </IMPORT>
+     <EXPORT>
+      <RSEXP>
+       <PARAMETER>ET_MESSAGES</PARAMETER>
+       <REFERENCE>X</REFERENCE>
+       <TYP>SYMSG_TAB</TYP>
+      </RSEXP>
+     </EXPORT>
+     <DOCUMENTATION>
+      <RSFDO>
+       <PARAMETER>IS_DB_QUIZ</PARAMETER>
+       <KIND>P</KIND>
+       <STEXT>Neptune Quiz App: DB Quiz</STEXT>
+      </RSFDO>
+      <RSFDO>
+       <PARAMETER>ET_MESSAGES</PARAMETER>
+       <KIND>P</KIND>
+       <STEXT>List of system messages in T100 format</STEXT>
+      </RSFDO>
+     </DOCUMENTATION>
+    </item>
+    <item>
+     <FUNCNAME>ZNEPT_QZ_VARIANT_CREATE</FUNCNAME>
+     <SHORT_TEXT>Neptune Quiz App: Variant Create</SHORT_TEXT>
+     <IMPORT>
+      <RSIMP>
+       <PARAMETER>IS_DB_VARIANT</PARAMETER>
+       <REFERENCE>X</REFERENCE>
+       <TYP>ZNEPT_QZ_DB_VARIANTS_S</TYP>
+      </RSIMP>
+     </IMPORT>
+     <EXPORT>
+      <RSEXP>
+       <PARAMETER>ES_DB_VARIANT</PARAMETER>
+       <REFERENCE>X</REFERENCE>
+       <TYP>ZNEPT_QZ_DB_VARIANTS_S</TYP>
+      </RSEXP>
+      <RSEXP>
+       <PARAMETER>ET_MESSAGES</PARAMETER>
+       <REFERENCE>X</REFERENCE>
+       <TYP>SYMSG_TAB</TYP>
+      </RSEXP>
+     </EXPORT>
+     <DOCUMENTATION>
+      <RSFDO>
+       <PARAMETER>IS_DB_VARIANT</PARAMETER>
+       <KIND>P</KIND>
+       <STEXT>Neptune Quiz App: DB Variants</STEXT>
+      </RSFDO>
+      <RSFDO>
+       <PARAMETER>ES_DB_VARIANT</PARAMETER>
+       <KIND>P</KIND>
+       <STEXT>Neptune Quiz App: DB Variants</STEXT>
+      </RSFDO>
+      <RSFDO>
+       <PARAMETER>ET_MESSAGES</PARAMETER>
+       <KIND>P</KIND>
+       <STEXT>List of system messages in T100 format</STEXT>
+      </RSFDO>
+     </DOCUMENTATION>
+    </item>
+    <item>
+     <FUNCNAME>ZNEPT_QZ_VARIANT_DELETE</FUNCNAME>
+     <SHORT_TEXT>Neptune Quiz App: Variant Delete</SHORT_TEXT>
+     <IMPORT>
+      <RSIMP>
+       <PARAMETER>IS_DB_VARIANT</PARAMETER>
+       <REFERENCE>X</REFERENCE>
+       <TYP>ZNEPT_QZ_DB_VARIANTS_S</TYP>
+      </RSIMP>
+     </IMPORT>
+     <EXPORT>
+      <RSEXP>
+       <PARAMETER>ET_MESSAGES</PARAMETER>
+       <REFERENCE>X</REFERENCE>
+       <TYP>SYMSG_TAB</TYP>
+      </RSEXP>
+     </EXPORT>
+     <DOCUMENTATION>
+      <RSFDO>
+       <PARAMETER>IS_DB_VARIANT</PARAMETER>
+       <KIND>P</KIND>
+       <STEXT>Neptune Quiz App: DB Variants</STEXT>
+      </RSFDO>
+      <RSFDO>
+       <PARAMETER>ET_MESSAGES</PARAMETER>
+       <KIND>P</KIND>
+       <STEXT>List of system messages in T100 format</STEXT>
+      </RSFDO>
+     </DOCUMENTATION>
+    </item>
+    <item>
+     <FUNCNAME>ZNEPT_QZ_VARIANT_READ</FUNCNAME>
+     <SHORT_TEXT>Neptune Quiz App: Variant Read</SHORT_TEXT>
+     <IMPORT>
+      <RSIMP>
+       <PARAMETER>IS_DB_VARIANT</PARAMETER>
+       <REFERENCE>X</REFERENCE>
+       <TYP>ZNEPT_QZ_DB_VARIANTS_S</TYP>
+      </RSIMP>
+     </IMPORT>
+     <EXPORT>
+      <RSEXP>
+       <PARAMETER>ES_DB_VARIANT</PARAMETER>
+       <REFERENCE>X</REFERENCE>
+       <TYP>ZNEPT_QZ_DB_VARIANTS_S</TYP>
+      </RSEXP>
+      <RSEXP>
+       <PARAMETER>ET_MESSAGES</PARAMETER>
+       <REFERENCE>X</REFERENCE>
+       <TYP>SYMSG_TAB</TYP>
+      </RSEXP>
+     </EXPORT>
+     <DOCUMENTATION>
+      <RSFDO>
+       <PARAMETER>IS_DB_VARIANT</PARAMETER>
+       <KIND>P</KIND>
+       <STEXT>Neptune Quiz App: DB Variants</STEXT>
+      </RSFDO>
+      <RSFDO>
+       <PARAMETER>ES_DB_VARIANT</PARAMETER>
+       <KIND>P</KIND>
+       <STEXT>Neptune Quiz App: DB Variants</STEXT>
+      </RSFDO>
+      <RSFDO>
+       <PARAMETER>ET_MESSAGES</PARAMETER>
+       <KIND>P</KIND>
+       <STEXT>List of system messages in T100 format</STEXT>
+      </RSFDO>
+     </DOCUMENTATION>
+    </item>
+    <item>
+     <FUNCNAME>ZNEPT_QZ_VARIANT_UPDATE</FUNCNAME>
+     <SHORT_TEXT>Neptune Quiz App: Variant Update</SHORT_TEXT>
+     <IMPORT>
+      <RSIMP>
+       <PARAMETER>IS_DB_VARIANT</PARAMETER>
+       <REFERENCE>X</REFERENCE>
+       <TYP>ZNEPT_QZ_DB_VARIANTS_S</TYP>
+      </RSIMP>
+     </IMPORT>
+     <EXPORT>
+      <RSEXP>
+       <PARAMETER>ET_MESSAGES</PARAMETER>
+       <REFERENCE>X</REFERENCE>
+       <TYP>SYMSG_TAB</TYP>
+      </RSEXP>
+     </EXPORT>
+     <DOCUMENTATION>
+      <RSFDO>
+       <PARAMETER>IS_DB_VARIANT</PARAMETER>
+       <KIND>P</KIND>
+       <STEXT>Neptune Quiz App: DB Variants</STEXT>
+      </RSFDO>
+      <RSFDO>
+       <PARAMETER>ET_MESSAGES</PARAMETER>
+       <KIND>P</KIND>
+       <STEXT>List of system messages in T100 format</STEXT>
+      </RSFDO>
+     </DOCUMENTATION>
+    </item>
+   </FUNCTIONS>
+  </asx:values>
+ </asx:abap>
+</abapGit>

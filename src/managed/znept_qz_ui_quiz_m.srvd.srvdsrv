@@ -1,0 +1,7 @@
+@EndUserText.label: 'Quiz (CDS Managed)'
+define service ZNEPT_QZ_UI_QUIZ_M {
+  expose ZNEPT_QZ_C_QUIZ_M as Quiz;
+  expose ZNEPT_QZ_C_PART_M as Part;
+  expose ZNEPT_QZ_C_QUESTION_M as Question;
+  expose ZNEPT_QZ_C_VARIANT_M as Variant;
+}

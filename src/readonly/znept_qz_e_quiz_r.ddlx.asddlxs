@@ -1,0 +1,136 @@
+//
+@Metadata.layer: #CUSTOMER
+@UI.headerInfo.description.label: 'Quiz (Extension)'
+
+@UI: { headerInfo: {
+                     typeName: 'Practice Quiz Content',
+                     typeNamePlural: 'Practice Quiz List'
+                    }, 
+       presentationVariant: [ {
+                                sortOrder: [ { by: 'UploadOn', direction: #DESC } ],
+                                visualizations: [ {type: #AS_LINEITEM} ]
+                              } ]
+     }
+
+annotate view ZNEPT_QZ_C_QUIZ_R with
+{
+  @UI.facet: [
+  {
+    label:    'Quiz',
+    id:       'header',
+    purpose:  #STANDARD,
+    type:     #COLLECTION,
+    position: 10
+  },
+    {
+      label: 'General Attributes',
+      id: 'attributes',
+      purpose:  #STANDARD,
+      parentId: 'header',
+      targetQualifier : 'attributes',
+      type : #FIELDGROUP_REFERENCE,
+      position: 10
+    },
+    {
+      label: 'Upload Details',
+      id: 'upload_details',
+      purpose:  #STANDARD,
+      parentId: 'header',
+      targetQualifier : 'upload_details',
+      type : #FIELDGROUP_REFERENCE,
+      position: 20
+    },
+    {
+      label: 'Counts',
+      id: 'count_details',
+      purpose:  #STANDARD,
+      parentId: 'header',
+      targetQualifier : 'count_details',
+      type : #FIELDGROUP_REFERENCE,
+      position: 30
+    },
+  {
+    label: 'Parts',
+    id: 'parts',
+    purpose:  #STANDARD,
+    type: #LINEITEM_REFERENCE,
+    position: 20,
+    targetElement: '_Part',
+    hidden: #( UI_Hide_Part )
+  },
+  {
+    label: 'Questions',
+    id: 'questions',
+    purpose:  #STANDARD,
+    type: #LINEITEM_REFERENCE,
+    position: 30,
+    targetElement: '_Question',
+    hidden: #( UI_Hide_Question )
+  }
+  ]
+
+  @UI: {
+    lineItem: [ { position: 10, label: 'Description', importance: #MEDIUM, cssDefault: { width: '25rem' } } ],
+    fieldGroup: [{ qualifier: 'attributes', position: 10, label: 'Description' } ]
+  }
+  @Search.defaultSearchElement: true
+  Description;
+
+  @UI: {
+  lineItem: [ { position: 20, importance: #MEDIUM, label: 'Uploaded on' } ],
+  fieldGroup: [{ qualifier: 'upload_details', position: 10, label: 'Uploaded on' }]
+  }
+  UploadOn;
+
+  @UI: {
+   lineItem: [ { position: 30, importance: #MEDIUM, label: 'Uploaded at' } ],
+   fieldGroup: [{ qualifier: 'upload_details', position: 20, label: 'Uploaded at' }]
+   }
+  UploadAt;
+
+  @UI: {
+   lineItem: [ { position: 40, importance: #MEDIUM, label: 'Uploaded by' } ],
+   fieldGroup: [{ qualifier: 'upload_details', position: 30, label: 'Uploaded by' }]
+   }
+  Upload_By_Name;
+
+  @EndUserText.label: 'Visibility'
+  @EndUserText.quickInfo: 'Visible for all users'
+  @UI: {
+   lineItem: [ { position: 50, importance: #HIGH, label: 'Visibility ' } ],
+   fieldGroup: [{ qualifier: 'attributes', position: 20 }]
+   }
+  UI_Published;
+
+  @EndUserText.label: 'Parts Count'
+  @EndUserText.quickInfo: 'Number of Parts in this Quiz'
+  @UI: {
+   lineItem: [ { exclude: true, position: 60, importance: #LOW, label: 'Parts' } ],
+  fieldGroup: [{ qualifier: 'count_details', position: 10, label: 'Parts' }]
+  }
+  Part_Count;
+
+  @EndUserText.label: 'Questions Count'
+  @EndUserText.quickInfo: 'Number of Questions in this Quiz'
+  @UI: {
+  lineItem: [ { exclude: true, position: 70, importance: #LOW, label: 'Questions' } ],
+  fieldGroup: [{ qualifier: 'count_details', position: 20, label: 'Questions' }]
+  }
+  Question_Count;
+
+  @UI.hidden: true
+  TestId;
+
+  @UI.hidden: true
+  Published;
+
+  @UI.hidden: true
+  UploadBy;
+
+  @UI.hidden: true
+  UI_Hide_Part;
+
+  @UI.hidden: true
+  UI_Hide_Question;
+
+}

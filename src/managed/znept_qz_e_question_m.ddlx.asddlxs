@@ -1,0 +1,57 @@
+//
+@Metadata.layer: #CUSTOMER
+@UI.headerInfo.description.label: 'Questions'
+
+@UI: { headerInfo: { typeName: 'Question', typeNamePlural: 'Questions' , title: { type: #STANDARD, value: 'QuestionId' } } }
+
+annotate view ZNEPT_QZ_C_QUESTION_M with
+{
+  @UI.facet: [
+    {
+      id:       'Question',
+      purpose:  #STANDARD,
+      type:     #IDENTIFICATION_REFERENCE,
+      label:    'Question details',
+      position: 10 }
+  ,{
+  id: 'Variants',
+  type: #LINEITEM_REFERENCE,
+  label: 'Variants',
+  position: 20,
+  targetElement: '_Variant'
+  }
+  ]
+  
+//  @UI: {
+//    lineItem: [  { position: 1, label: 'Quiz ID' } ],
+//    identification:[ { position: 1, label: 'Quiz ID' } ]
+//  }
+  @UI.hidden: true
+  TestId;
+
+//  @UI: {
+//    lineItem: [  { position: 2, label: 'Part ID' } ],
+//    identification:[ { position: 2, label: 'Part ID' } ]
+//  }
+  @UI.hidden: true
+  PartId;
+
+//  @UI: {
+//    lineItem: [  { position: 4, label: 'Question ID' } ],
+//    identification:[ { position: 4, label: 'Question ID' } ]
+//  }
+  @UI.hidden: true
+  QuestionId;
+
+  @UI: {
+    lineItem: [ { position: 10, label: 'Question', cssDefault: { width: '50rem' } } ],
+    identification:[ { position: 10, label: 'Question' } ]
+  }
+  Question;
+
+  @UI: {
+    lineItem: [ { hidden: true } ],
+    identification:[ { position: 20, label: 'Explanation' } ]
+  }
+  Explanation;
+}

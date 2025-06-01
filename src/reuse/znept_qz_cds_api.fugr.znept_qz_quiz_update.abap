@@ -1,0 +1,24 @@
+FUNCTION znept_qz_quiz_update.
+*"----------------------------------------------------------------------
+*"*"Local Interface:
+*"  IMPORTING
+*"     REFERENCE(IS_DB_QUIZ) TYPE  ZNEPT_QZ_DB_TESTS_S
+*"  EXPORTING
+*"     REFERENCE(ET_MESSAGES) TYPE  SYMSG_TAB
+*"----------------------------------------------------------------------
+
+  DATA: lt_messages TYPE zif_nept_qz_quiz_const=>tt_if_t100_message.
+
+  CALL METHOD zcl_nept_qz_data_cds=>quiz_update
+    EXPORTING
+      is_db_quiz  = is_db_quiz
+    IMPORTING
+      et_messages = lt_messages.
+
+  CALL METHOD zcl_nept_qz_data_cds=>convert_messages
+    EXPORTING
+      it_messages = lt_messages
+    IMPORTING
+      et_messages = et_messages.
+
+ENDFUNCTION.

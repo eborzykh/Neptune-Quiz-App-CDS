@@ -1,0 +1,109 @@
+//
+unmanaged implementation in class zbp_nept_qz_i_quiz_u unique;
+strict ( 1 );
+
+define behavior for ZNEPT_QZ_I_QUIZ_U alias Quiz
+implementation in class zbp_nept_qz_i_quiz_u unique
+lock master
+authorization master ( global )
+late numbering
+{
+  create;
+  update;
+  delete;
+
+  action ( features : instance ) Publish;
+  action ( features : instance ) Unpublish;
+
+  field ( readonly ) TestId, Published, UploadAt, UploadOn, Upload_By_Name, Part_Count, Question_Count;
+  field ( mandatory ) Description;
+
+  association _Part { create; }
+  association _Question { create; }
+
+  mapping for znept_qz_tst
+  {
+    TestId = test_id;
+    Description = description;
+    Published = published;
+
+    UploadAt = upload_at;
+    UploadOn = upload_on;
+    UploadBy = upload_by;
+  }
+}
+
+define behavior for ZNEPT_QZ_I_PART_U alias Part
+lock dependent by _Quiz
+authorization dependent by _Quiz
+late numbering
+{
+  create;
+  update;
+  delete;
+
+  field ( readonly ) TestId, PartId;
+  field ( mandatory ) Description;
+
+  association _Quiz;
+
+  mapping for znept_qz_prt
+  {
+    TestId = test_id;
+    PartId = part_id;
+    Description = description;
+  }
+}
+
+define behavior for ZNEPT_QZ_I_QUESTION_U alias Question
+lock dependent by _Quiz
+authorization dependent by _Quiz
+late numbering
+{
+  create;
+  update;
+  delete;
+
+  action ( features : instance ) assignPart parameter ZNEPT_QZ_A_QUESTION_ASSIGN;
+
+  field ( readonly ) TestId, QuestionId;
+  field ( readonly : update ) PartId;
+  field ( mandatory ) Question;
+
+  association _Quiz;
+  association _Variant { create; }
+
+  mapping for znept_qz_qst
+  {
+    TestId = test_id;
+    PartId = part_id;
+    QuestionId = question_id;
+    Question = question;
+    Explanation = explanation;
+  }
+}
+
+define behavior for ZNEPT_QZ_I_VARIANT_U alias Variant
+lock dependent by _Quiz
+authorization dependent by _Quiz
+late numbering
+{
+  create;
+  update;
+  delete;
+
+  field ( readonly ) TestId, QuestionId, VariantId;
+  field ( mandatory ) Variant;
+
+  association _Quiz abbreviation Quiz;
+  association _Question;
+
+  mapping for znept_qz_var
+  {
+    TestId = test_id;
+    QuestionId = question_id;
+    VariantId = variant_id;
+    Variant = variant;
+    Correct = correct;
+  }
+}
