@@ -10,9 +10,6 @@ define view entity ZNEPT_QZ_I_PART_U
   association [0..*] to ZNEPT_QZ_I_QUESTION_U    as _Question on  $projection.TestId = _Question.TestId
                                                               and $projection.PartId = _Question.PartId
 
-//  association [0..*] to ZNEPT_QZ_I_VARIANT_U     as _Variant  on  $projection.TestId = _Variant.TestId
-//                                                              and $projection.PartId = _Variant.PartId
-
 {
   key test_id     as TestId,
   key part_id     as PartId,
@@ -23,6 +20,4 @@ define view entity ZNEPT_QZ_I_PART_U
 
       _Quiz,
       _Question
-//      _Variant
-
 }

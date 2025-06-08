@@ -12,8 +12,6 @@ define root view entity ZNEPT_QZ_I_QUIZ_U
   composition [0..*] of ZNEPT_QZ_I_QUESTION_U as _Question
 
   association [1..1] to ZNEPT_QZ_I_QUIZ_PUBLISHED_VH as _Published  on  $projection.Published = _Published.Published
-  
-//  association [0..*] to ZNEPT_QZ_I_QUESTION_ASSIGN_VH as _Part_VH on  $projection.TestId = _Part_VH.TestId
 
 {
 
@@ -36,8 +34,6 @@ define root view entity ZNEPT_QZ_I_QUIZ_U
       cast('' as znept_qz_upload_name_de) as Upload_By_Name,
 
       /* Associations */
-
-//_Part_VH,
 
       _Part,
       _Question

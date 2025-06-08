@@ -30,7 +30,6 @@ annotate view ZNEPT_QZ_C_QUESTION_U with
   @UI: {
     lineItem: [ { position: 10, label: 'Part' },
                 { type: #FOR_ACTION, dataAction: 'assignPart', label: 'Assign Part' } ],
-//    identification:[ { hidden: true } ]
     identification:[ { position: 5, label: 'Part' } ]
   }
   PartId;

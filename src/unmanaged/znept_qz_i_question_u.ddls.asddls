@@ -11,10 +11,7 @@ define view entity ZNEPT_QZ_I_QUESTION_U
                                                           and $projection.PartId = _Part.PartId
 
   composition [0..*] of ZNEPT_QZ_I_VARIANT_U     as _Variant
-
-  //  association [0..1] to ZNEPT_QZ_I_QUESTION_ASSIGN_VH as _Part_VH on  $projection.TestId = _Part_VH.TestId
-  //                                                                  and $projection.PartId = _Part_VH.PartId
-
+  
 {
   key test_id     as TestId,
   key question_id as QuestionId,
@@ -24,8 +21,6 @@ define view entity ZNEPT_QZ_I_QUESTION_U
       explanation as Explanation,
 
       /* Associations */
-
-      //      _Part_VH,
 
       _Quiz,
       _Part,

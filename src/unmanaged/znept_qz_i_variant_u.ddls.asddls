@@ -10,9 +10,6 @@ define view entity ZNEPT_QZ_I_VARIANT_U
 
   association [1..1] to ZNEPT_QZ_I_QUIZ_U             as _Quiz     on  $projection.TestId = _Quiz.TestId
 
-  //  association [0..1] to ZNEPT_QZ_I_PART_U             as _Part     on  $projection.TestId = _Part.TestId
-  //                                                                   and $projection.PartId = _Part.PartId
-
   association [1..1] to ZNEPT_QZ_I_VARIANT_CORRECT_VH as _Correct  on  $projection.Correct = _Correct.Correct
 
 {
@@ -27,7 +24,6 @@ define view entity ZNEPT_QZ_I_VARIANT_U
       /* Associations */
 
       _Quiz,
-      //      _Part,
       _Question,
       _Correct
 }
