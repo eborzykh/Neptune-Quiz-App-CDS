@@ -24,7 +24,7 @@ define root view entity ZNEPT_QZ_C_QUIZ_U
       Part_Count,
       Question_Count,
       Upload_By_Name,
-
+      
       /* Associations */
 
       _Part     : redirected to composition child ZNEPT_QZ_C_PART_U,

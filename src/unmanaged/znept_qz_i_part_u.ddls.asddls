@@ -15,6 +15,11 @@ define view entity ZNEPT_QZ_I_PART_U
   key part_id     as PartId,
 
       description as Description,
+      
+      case
+        when sort is initial then part_id
+        else sort
+      end         as Sort,
 
       /* Associations */
 

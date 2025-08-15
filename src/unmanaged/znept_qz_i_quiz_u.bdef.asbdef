@@ -42,6 +42,11 @@ late numbering
   update;
   delete;
 
+  action ( features : instance ) movePartUp;
+  action ( features : instance ) movePartDown;
+  action ( features : instance ) movePartFirst;
+  action ( features : instance ) movePartLast;
+
   field ( readonly ) TestId, PartId;
   field ( mandatory ) Description;
 
@@ -64,7 +69,12 @@ late numbering
   update;
   delete;
 
+  action ( features : instance ) moveQuestionUp;
+  action ( features : instance ) moveQuestionDown;
+  action ( features : instance ) moveQuestionFirst;
+  action ( features : instance ) moveQuestionLast;
   action ( features : instance ) assignPart parameter ZNEPT_QZ_A_QUESTION_ASSIGN;
+  action ( features : instance ) refreshQuestion;
 
   field ( readonly ) TestId, QuestionId;
   field ( readonly : update ) PartId;
@@ -91,6 +101,11 @@ late numbering
   create;
   update;
   delete;
+
+  action ( features : instance ) moveVariantUp;
+  action ( features : instance ) moveVariantDown;
+  action ( features : instance ) moveVariantFirst;
+  action ( features : instance ) moveVariantLast;
 
   field ( readonly ) TestId, QuestionId, VariantId;
   field ( mandatory ) Variant;

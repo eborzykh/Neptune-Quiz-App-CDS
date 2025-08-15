@@ -158,6 +158,12 @@
      <MSGNR>150</MSGNR>
      <TEXT>Your changes have been saved.</TEXT>
     </T100>
+    <T100>
+     <SPRSL>E</SPRSL>
+     <ARBGB>ZNEPT_QZ_CDS</ARBGB>
+     <MSGNR>170</MSGNR>
+     <TEXT>Part is still been used</TEXT>
+    </T100>
    </T100>
   </asx:values>
  </asx:abap>

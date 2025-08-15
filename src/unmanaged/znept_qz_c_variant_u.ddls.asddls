@@ -10,6 +10,8 @@ define view entity ZNEPT_QZ_C_VARIANT_U
   key QuestionId,
   key VariantId,
 
+      SortVariant,
+
       @Consumption.valueHelpDefinition: [{ entity: { name: 'ZNEPT_QZ_I_VARIANT_CORRECT_VH', element: 'Correct' } }]
       @ObjectModel.text.element: ['CorrectText']
       Correct,

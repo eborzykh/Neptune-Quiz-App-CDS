@@ -216,6 +216,15 @@ public section.
         attr3 TYPE scx_attrname VALUE '',
         attr4 TYPE scx_attrname VALUE '',
       END OF variant_delete_error .
+  constants:
+    begin of PART_IS_USED,
+      msgid type symsgid value 'ZNEPT_QZ_CDS',
+      msgno type symsgno value '170',
+      attr1 type scx_attrname value '',
+      attr2 type scx_attrname value '',
+      attr3 type scx_attrname value '',
+      attr4 type scx_attrname value '',
+    end of PART_IS_USED .
   constants GC_MSGID type SYMSGID value 'ZNEPT_QZ_CDS' ##NO_TEXT.
   data MV_UNAME type SYUNAME .
   data MV_QUIZ_ID type ZNEPT_QZ_TEST_ID_DE .

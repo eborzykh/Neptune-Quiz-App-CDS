@@ -9,6 +9,10 @@ define view entity ZNEPT_QZ_C_QUESTION_U
   key TestId,
   key QuestionId,
 
+      SortQuestion,
+      
+      SortPart,
+
       //      @Consumption.valueHelpDefinition: [{ entity : {name: '/DMO/I_Agency_StdVH', element: 'AgencyID'  }, useForValidation: true }]
       @Consumption.valueHelpDefinition: [
         { entity: {name: 'ZNEPT_QZ_I_QUESTION_ASSIGN_VH', element: 'PartId' },

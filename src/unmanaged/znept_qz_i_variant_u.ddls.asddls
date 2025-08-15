@@ -20,6 +20,11 @@ define view entity ZNEPT_QZ_I_VARIANT_U
       correct              as Correct,
       _Correct.CorrectText as CorrectText,
       variant              as Variant,
+      
+      case
+        when sort is initial then variant_id
+        else sort
+      end         as SortVariant,
 
       /* Associations */
 

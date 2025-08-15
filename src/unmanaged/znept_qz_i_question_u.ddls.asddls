@@ -11,7 +11,7 @@ define view entity ZNEPT_QZ_I_QUESTION_U
                                                           and $projection.PartId = _Part.PartId
 
   composition [0..*] of ZNEPT_QZ_I_VARIANT_U     as _Variant
-  
+
 {
   key test_id     as TestId,
   key question_id as QuestionId,
@@ -19,6 +19,13 @@ define view entity ZNEPT_QZ_I_QUESTION_U
       part_id     as PartId,
       question    as Question,
       explanation as Explanation,
+
+      case
+        when sort is initial then question_id
+        else sort
+      end         as SortQuestion,
+
+      _Part.Sort  as SortPart,
 
       /* Associations */
 

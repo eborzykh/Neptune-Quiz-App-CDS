@@ -123,6 +123,8 @@ CLASS lhc_quiz IMPLEMENTATION.
 
       CLEAR ls_db_quiz_in.
       ls_db_quiz_in-test_id     = <fs_quiz_entities>-testid.
+
+      " do not need to check for %control there is only one field to be updated
       ls_db_quiz_in-description = <fs_quiz_entities>-description.
 
       CALL FUNCTION 'ZNEPT_QZ_QUIZ_UPDATE'
@@ -438,6 +440,24 @@ CLASS lhc_part DEFINITION INHERITING FROM cl_abap_behavior_handler.
     METHODS rba_quiz FOR READ
       IMPORTING keys_rba FOR READ part\_quiz FULL result_requested RESULT result LINK association_links.
 
+    METHODS get_instance_features FOR INSTANCE FEATURES
+      IMPORTING keys REQUEST requested_features FOR part RESULT result.
+
+    METHODS get_global_authorizations FOR GLOBAL AUTHORIZATION
+      IMPORTING REQUEST requested_authorizations FOR part RESULT result.
+
+    METHODS movepartdown FOR MODIFY
+      IMPORTING keys FOR ACTION part~movepartdown.
+
+    METHODS movepartfirst FOR MODIFY
+      IMPORTING keys FOR ACTION part~movepartfirst.
+
+    METHODS movepartlast FOR MODIFY
+      IMPORTING keys FOR ACTION part~movepartlast.
+
+    METHODS movepartup FOR MODIFY
+      IMPORTING keys FOR ACTION part~movepartup.
+
     METHODS map_messages
       IMPORTING
         iv_cid          TYPE string         OPTIONAL
@@ -469,6 +489,8 @@ CLASS lhc_part IMPLEMENTATION.
       CLEAR ls_db_part_in.
       ls_db_part_in-test_id = <fs_part_entities>-testid.
       ls_db_part_in-part_id = <fs_part_entities>-partid.
+
+      " do not need to check for %control there is only one field to be updated
       ls_db_part_in-description = <fs_part_entities>-description.
 
       CALL FUNCTION 'ZNEPT_QZ_PART_UPDATE'
@@ -663,6 +685,190 @@ CLASS lhc_part IMPLEMENTATION.
 
   ENDMETHOD.
 
+  METHOD get_instance_features.
+
+    DATA: ls_db_part      TYPE znept_qz_prt,
+          lv_ord_up       TYPE abap_bool,
+          lv_ord_down     TYPE abap_bool,
+          lv_failed_added TYPE abap_bool,
+          lt_messages     TYPE symsg_tab.
+
+    LOOP AT keys ASSIGNING FIELD-SYMBOL(<fs_part>).
+
+      APPEND INITIAL LINE TO result ASSIGNING FIELD-SYMBOL(<fs_result>).
+      IF <fs_result> IS ASSIGNED.
+        <fs_result>-%tky = <fs_part>-%tky.
+
+        CLEAR ls_db_part.
+        ls_db_part-test_id = <fs_part>-testid.
+        ls_db_part-part_id = <fs_part>-partid.
+
+        CALL FUNCTION 'ZNEPT_QZ_PART_ORD_FEAT'
+          EXPORTING
+            is_db_part  = ls_db_part
+          IMPORTING
+            ev_ord_up   = lv_ord_up
+            ev_ord_down = lv_ord_down
+            et_messages = lt_messages.
+
+        map_messages(
+            EXPORTING
+              iv_quiz_id  = <fs_part>-testid
+              iv_part_id  = <fs_part>-partid
+              it_messages = lt_messages
+            IMPORTING
+              ev_failed_added = lv_failed_added
+            CHANGING
+              ct_failed    = failed-part
+              ct_reported  = reported-part ).
+
+        IF lv_failed_added IS INITIAL.
+          <fs_result>-%features-%action-movepartup = COND #( WHEN NOT lv_ord_up IS INITIAL
+                                                             THEN if_abap_behv=>fc-o-enabled
+                                                             ELSE if_abap_behv=>fc-o-disabled ).
+
+          <fs_result>-%features-%action-movepartdown = COND #( WHEN NOT lv_ord_down IS INITIAL
+                                                             THEN if_abap_behv=>fc-o-enabled
+                                                             ELSE if_abap_behv=>fc-o-disabled ).
+
+          <fs_result>-%features-%action-movepartfirst = <fs_result>-%features-%action-movepartup.
+          <fs_result>-%features-%action-movepartlast = <fs_result>-%features-%action-movepartdown.
+        ELSE.
+          EXIT.
+        ENDIF.
+      ENDIF.
+
+    ENDLOOP.
+
+  ENDMETHOD.
+
+  METHOD get_global_authorizations.
+  ENDMETHOD.
+
+  METHOD movepartdown.
+
+    DATA: ls_db_part_in TYPE znept_qz_db_parts_s,
+          lt_messages   TYPE symsg_tab.
+
+    LOOP AT keys ASSIGNING FIELD-SYMBOL(<fs_part_keys>).
+
+      CLEAR ls_db_part_in.
+      ls_db_part_in-test_id = <fs_part_keys>-testid.
+      ls_db_part_in-part_id = <fs_part_keys>-partid.
+
+      CALL FUNCTION 'ZNEPT_QZ_PART_ORD_DOWN'
+        EXPORTING
+          is_db_part  = ls_db_part_in
+        IMPORTING
+          et_messages = lt_messages.
+
+      map_messages(
+          EXPORTING
+            iv_cid       = <fs_part_keys>-%cid_ref
+            iv_quiz_id   = <fs_part_keys>-testid
+            iv_part_id   = <fs_part_keys>-partid
+            it_messages  = lt_messages
+          CHANGING
+            ct_failed    = failed-part
+            ct_reported  = reported-part ).
+
+    ENDLOOP.
+
+  ENDMETHOD.
+
+  METHOD movepartfirst.
+
+    DATA: ls_db_part_in TYPE znept_qz_db_parts_s,
+          lt_messages   TYPE symsg_tab.
+
+    LOOP AT keys ASSIGNING FIELD-SYMBOL(<fs_part_keys>).
+
+      CLEAR ls_db_part_in.
+      ls_db_part_in-test_id = <fs_part_keys>-testid.
+      ls_db_part_in-part_id = <fs_part_keys>-partid.
+
+      CALL FUNCTION 'ZNEPT_QZ_PART_ORD_FIRST'
+        EXPORTING
+          is_db_part  = ls_db_part_in
+        IMPORTING
+          et_messages = lt_messages.
+
+      map_messages(
+          EXPORTING
+            iv_cid       = <fs_part_keys>-%cid_ref
+            iv_quiz_id   = <fs_part_keys>-testid
+            iv_part_id   = <fs_part_keys>-partid
+            it_messages  = lt_messages
+          CHANGING
+            ct_failed    = failed-part
+            ct_reported  = reported-part ).
+
+    ENDLOOP.
+
+  ENDMETHOD.
+
+  METHOD movepartlast.
+
+    DATA: ls_db_part_in TYPE znept_qz_db_parts_s,
+          lt_messages   TYPE symsg_tab.
+
+    LOOP AT keys ASSIGNING FIELD-SYMBOL(<fs_part_keys>).
+
+      CLEAR ls_db_part_in.
+      ls_db_part_in-test_id = <fs_part_keys>-testid.
+      ls_db_part_in-part_id = <fs_part_keys>-partid.
+
+      CALL FUNCTION 'ZNEPT_QZ_PART_ORD_LAST'
+        EXPORTING
+          is_db_part  = ls_db_part_in
+        IMPORTING
+          et_messages = lt_messages.
+
+      map_messages(
+          EXPORTING
+            iv_cid       = <fs_part_keys>-%cid_ref
+            iv_quiz_id   = <fs_part_keys>-testid
+            iv_part_id   = <fs_part_keys>-partid
+            it_messages  = lt_messages
+          CHANGING
+            ct_failed    = failed-part
+            ct_reported  = reported-part ).
+
+    ENDLOOP.
+
+  ENDMETHOD.
+
+  METHOD movepartup.
+
+    DATA: ls_db_part_in TYPE znept_qz_db_parts_s,
+          lt_messages   TYPE symsg_tab.
+
+    LOOP AT keys ASSIGNING FIELD-SYMBOL(<fs_part_keys>).
+
+      CLEAR ls_db_part_in.
+      ls_db_part_in-test_id = <fs_part_keys>-testid.
+      ls_db_part_in-part_id = <fs_part_keys>-partid.
+
+      CALL FUNCTION 'ZNEPT_QZ_PART_ORD_UP'
+        EXPORTING
+          is_db_part  = ls_db_part_in
+        IMPORTING
+          et_messages = lt_messages.
+
+      map_messages(
+          EXPORTING
+            iv_cid       = <fs_part_keys>-%cid_ref
+            iv_quiz_id   = <fs_part_keys>-testid
+            iv_part_id   = <fs_part_keys>-partid
+            it_messages  = lt_messages
+          CHANGING
+            ct_failed    = failed-part
+            ct_reported  = reported-part ).
+
+    ENDLOOP.
+
+  ENDMETHOD.
+
 ENDCLASS.
 
 CLASS lhc_question DEFINITION INHERITING FROM cl_abap_behavior_handler.
@@ -701,11 +907,25 @@ CLASS lhc_question DEFINITION INHERITING FROM cl_abap_behavior_handler.
     METHODS get_instance_features FOR INSTANCE FEATURES
       IMPORTING keys REQUEST requested_features FOR question RESULT result.
 
+    METHODS movequestiondown FOR MODIFY
+      IMPORTING keys FOR ACTION question~movequestiondown.
+
+    METHODS movequestionfirst FOR MODIFY
+      IMPORTING keys FOR ACTION question~movequestionfirst.
+
+    METHODS movequestionlast FOR MODIFY
+      IMPORTING keys FOR ACTION question~movequestionlast.
+
+    METHODS movequestionup FOR MODIFY
+      IMPORTING keys FOR ACTION question~movequestionup.
+
+    METHODS refreshquestion FOR MODIFY
+      IMPORTING keys FOR ACTION question~refreshquestion.
+
     METHODS map_messages
       IMPORTING
         iv_cid          TYPE string         OPTIONAL
         iv_quiz_id      TYPE znept_qz_test_id_de OPTIONAL
-        iv_part_id      TYPE znept_qz_part_id_de OPTIONAL
         iv_question_id  TYPE znept_qz_question_id_de OPTIONAL
         it_messages     TYPE symsg_tab
       EXPORTING
@@ -734,8 +954,8 @@ CLASS lhc_question IMPLEMENTATION.
 
       CLEAR ls_db_question_in.
       ls_db_question_in-test_id     = <fs_question_entities>-testid.
-      ls_db_question_in-part_id     = <fs_question_entities>-partid.
       ls_db_question_in-question_id = <fs_question_entities>-questionid.
+      ls_db_question_in-part_id     = <fs_question_entities>-partid.
       ls_db_question_in-question    = <fs_question_entities>-question.
       ls_db_question_in-explanation = <fs_question_entities>-explanation.
 
@@ -750,7 +970,6 @@ CLASS lhc_question IMPLEMENTATION.
           EXPORTING
             iv_cid         = <fs_question_entities>-%cid
             iv_quiz_id     = <fs_question_entities>-testid
-            iv_part_id     = <fs_question_entities>-partid
             iv_question_id = ls_db_question_out-question_id
             it_messages    = lt_messages
           IMPORTING
@@ -778,34 +997,48 @@ CLASS lhc_question IMPLEMENTATION.
 **********************************************************************
   METHOD update.
 
-    DATA: ls_db_question_in TYPE znept_qz_db_questions_s,
-          lt_messages       TYPE symsg_tab.
+    DATA: ls_db_question     TYPE znept_qz_db_questions_s,
+          ls_db_question_old TYPE znept_qz_db_questions_s,
+          lt_messages        TYPE symsg_tab.
 
     LOOP AT entities ASSIGNING FIELD-SYMBOL(<fs_question_entities>).
 
-      CLEAR ls_db_question_in.
-      ls_db_question_in-test_id     = <fs_question_entities>-testid.
-      ls_db_question_in-part_id     = <fs_question_entities>-partid.
-      ls_db_question_in-question_id = <fs_question_entities>-questionid.
-      ls_db_question_in-question    = <fs_question_entities>-question.
-      ls_db_question_in-explanation = <fs_question_entities>-explanation.
+      CLEAR ls_db_question.
+      ls_db_question-test_id     = <fs_question_entities>-testid.
+      ls_db_question-question_id = <fs_question_entities>-questionid.
 
-      CALL FUNCTION 'ZNEPT_QZ_QUESTION_UPDATE'
+      CALL FUNCTION 'ZNEPT_QZ_QUESTION_READ'
         EXPORTING
-          is_db_question = ls_db_question_in
+          is_db_question = ls_db_question
         IMPORTING
+          es_db_question = ls_db_question_old
           et_messages    = lt_messages.
 
-      map_messages(
+      IF lt_messages[] IS INITIAL.
+
+        ls_db_question-question = COND #( WHEN <fs_question_entities>-%control-question = if_abap_behv=>mk-on
+                                          THEN <fs_question_entities>-question ELSE ls_db_question_old-question ).
+
+        ls_db_question-explanation = COND #( WHEN <fs_question_entities>-%control-explanation = if_abap_behv=>mk-on
+                                             THEN <fs_question_entities>-explanation ELSE ls_db_question_old-explanation ).
+
+        CALL FUNCTION 'ZNEPT_QZ_QUESTION_UPDATE'
           EXPORTING
-            iv_cid         = <fs_question_entities>-%cid_ref
-            iv_quiz_id     = <fs_question_entities>-testid
-            iv_part_id     = <fs_question_entities>-partid
-            iv_question_id = <fs_question_entities>-questionid
-            it_messages    = lt_messages
-          CHANGING
-            ct_failed    = failed-question
-            ct_reported  = reported-question ).
+            is_db_question = ls_db_question
+          IMPORTING
+            et_messages    = lt_messages.
+
+        map_messages(
+            EXPORTING
+              iv_cid         = <fs_question_entities>-%cid_ref
+              iv_quiz_id     = <fs_question_entities>-testid
+              iv_question_id = <fs_question_entities>-questionid
+              it_messages    = lt_messages
+            CHANGING
+              ct_failed    = failed-question
+              ct_reported  = reported-question ).
+
+      ENDIF.
 
     ENDLOOP.
 
@@ -1030,53 +1263,269 @@ CLASS lhc_question IMPLEMENTATION.
   METHOD get_instance_features.
 
     DATA: ls_db_quiz      TYPE znept_qz_tst,
+          ls_db_question  TYPE znept_qz_qst,
           lv_has_parts    TYPE abap_bool,
+          lv_ord_up       TYPE abap_bool,
+          lv_ord_down     TYPE abap_bool,
           lv_failed_added TYPE abap_bool,
           lt_messages     TYPE symsg_tab.
 
     LOOP AT keys ASSIGNING FIELD-SYMBOL(<fs_question>).
 
-      CLEAR ls_db_quiz.
-      ls_db_quiz-test_id = <fs_question>-testid.
+      IF sy-index = 1.
+        CLEAR ls_db_quiz.
+        ls_db_quiz-test_id = <fs_question>-testid.
 
-      CALL FUNCTION 'ZNEPT_QZ_QUIZ_HAS_PARTS'
+        CALL FUNCTION 'ZNEPT_QZ_QUIZ_HAS_PARTS'
+          EXPORTING
+            is_db_quiz   = ls_db_quiz
+          IMPORTING
+            ev_has_parts = lv_has_parts
+            et_messages  = lt_messages.
+
+        map_messages(
+            EXPORTING
+              iv_quiz_id   = <fs_question>-testid
+              iv_question_id = <fs_question>-questionid
+              it_messages  = lt_messages
+            IMPORTING
+              ev_failed_added = lv_failed_added
+            CHANGING
+              ct_failed    = failed-question
+              ct_reported  = reported-question ).
+        IF NOT lv_failed_added IS INITIAL.
+          EXIT.
+        ENDIF.
+      ENDIF.
+
+      APPEND INITIAL LINE TO result ASSIGNING FIELD-SYMBOL(<fs_result>).
+      IF <fs_result> IS ASSIGNED.
+        <fs_result>-%tky = <fs_question>-%tky.
+        <fs_result>-%features-%action-assignpart = COND #( WHEN NOT lv_has_parts IS INITIAL
+                                                           THEN if_abap_behv=>fc-o-enabled
+                                                           ELSE if_abap_behv=>fc-o-disabled ).
+
+        CLEAR ls_db_question.
+        ls_db_question-test_id = <fs_question>-testid.
+        ls_db_question-question_id = <fs_question>-questionid.
+
+        CALL FUNCTION 'ZNEPT_QZ_QUESTION_ORD_FEAT'
+          EXPORTING
+            is_db_question = ls_db_question
+          IMPORTING
+            ev_ord_up      = lv_ord_up
+            ev_ord_down    = lv_ord_down
+            et_messages    = lt_messages.
+
+        map_messages(
+            EXPORTING
+              iv_quiz_id   = <fs_question>-testid
+              iv_question_id = <fs_question>-questionid
+              it_messages  = lt_messages
+            IMPORTING
+              ev_failed_added = lv_failed_added
+            CHANGING
+              ct_failed    = failed-question
+              ct_reported  = reported-question ).
+
+        IF lv_failed_added IS INITIAL.
+          <fs_result>-%features-%action-movequestionup = COND #( WHEN NOT lv_ord_up IS INITIAL
+                                                             THEN if_abap_behv=>fc-o-enabled
+                                                             ELSE if_abap_behv=>fc-o-disabled ).
+
+          <fs_result>-%features-%action-movequestiondown = COND #( WHEN NOT lv_ord_down IS INITIAL
+                                                             THEN if_abap_behv=>fc-o-enabled
+                                                             ELSE if_abap_behv=>fc-o-disabled ).
+
+          <fs_result>-%features-%action-movequestionfirst = <fs_result>-%features-%action-movequestionup.
+          <fs_result>-%features-%action-movequestionlast = <fs_result>-%features-%action-movequestiondown.
+        ELSE.
+          EXIT.
+        ENDIF.
+      ENDIF.
+
+    ENDLOOP.
+
+  ENDMETHOD.
+
+**********************************************************************
+*
+* Question move down in order
+*
+**********************************************************************
+  METHOD movequestiondown.
+
+    DATA: ls_db_question_in TYPE znept_qz_db_questions_s,
+          lt_messages       TYPE symsg_tab.
+
+    LOOP AT keys ASSIGNING FIELD-SYMBOL(<fs_question_keys>).
+
+      CLEAR ls_db_question_in.
+      ls_db_question_in-test_id = <fs_question_keys>-testid.
+      ls_db_question_in-question_id = <fs_question_keys>-questionid.
+
+      CALL FUNCTION 'ZNEPT_QZ_QUESTION_ORD_DOWN'
         EXPORTING
-          is_db_quiz   = ls_db_quiz
+          is_db_question = ls_db_question_in
         IMPORTING
-          ev_has_parts = lv_has_parts
-          et_messages  = lt_messages.
+          et_messages    = lt_messages.
 
       map_messages(
           EXPORTING
-            iv_quiz_id   = <fs_question>-testid
-            iv_question_id = <fs_question>-questionid
-            it_messages  = lt_messages
-          IMPORTING
-            ev_failed_added = lv_failed_added
+            iv_cid         = <fs_question_keys>-%cid_ref
+            iv_quiz_id     = <fs_question_keys>-testid
+            iv_question_id = <fs_question_keys>-questionid
+            it_messages    = lt_messages
           CHANGING
             ct_failed    = failed-question
             ct_reported  = reported-question ).
 
-      EXIT.
     ENDLOOP.
 
-    IF lv_failed_added IS INITIAL.
+  ENDMETHOD.
 
-      READ ENTITIES OF znept_qz_i_quiz_u IN LOCAL MODE
-        ENTITY question
-          ALL FIELDS
-          WITH CORRESPONDING #( keys )
-      RESULT DATA(lt_question_read_result).
+**********************************************************************
+*
+* Question move to the top in order
+*
+**********************************************************************
+  METHOD movequestionfirst.
 
-      result = VALUE #(
-        FOR ls_question_read_result IN lt_question_read_result (
-          %tky                                = ls_question_read_result-%tky
-          %features-%action-assignpart = COND #( WHEN NOT lv_has_parts IS INITIAL
-                                                   THEN if_abap_behv=>fc-o-enabled
-                                                   ELSE if_abap_behv=>fc-o-disabled )
-        ) ).
+    DATA: ls_db_question_in TYPE znept_qz_db_questions_s,
+          lt_messages       TYPE symsg_tab.
 
-    ENDIF.
+    LOOP AT keys ASSIGNING FIELD-SYMBOL(<fs_question_keys>).
+
+      CLEAR ls_db_question_in.
+      ls_db_question_in-test_id = <fs_question_keys>-testid.
+      ls_db_question_in-question_id = <fs_question_keys>-questionid.
+
+      CALL FUNCTION 'ZNEPT_QZ_QUESTION_ORD_FIRST'
+        EXPORTING
+          is_db_question = ls_db_question_in
+        IMPORTING
+          et_messages    = lt_messages.
+
+      map_messages(
+          EXPORTING
+            iv_cid       = <fs_question_keys>-%cid_ref
+            iv_quiz_id   = <fs_question_keys>-testid
+            iv_question_id   = <fs_question_keys>-questionid
+            it_messages  = lt_messages
+          CHANGING
+            ct_failed    = failed-question
+            ct_reported  = reported-question ).
+
+    ENDLOOP.
+
+  ENDMETHOD.
+
+**********************************************************************
+*
+* Question move to the bottom in order
+*
+**********************************************************************
+  METHOD movequestionlast.
+
+    DATA: ls_db_question_in TYPE znept_qz_db_questions_s,
+          lt_messages       TYPE symsg_tab.
+
+    LOOP AT keys ASSIGNING FIELD-SYMBOL(<fs_question_keys>).
+
+      CLEAR ls_db_question_in.
+      ls_db_question_in-test_id = <fs_question_keys>-testid.
+      ls_db_question_in-question_id = <fs_question_keys>-questionid.
+
+      CALL FUNCTION 'ZNEPT_QZ_QUESTION_ORD_LAST'
+        EXPORTING
+          is_db_question = ls_db_question_in
+        IMPORTING
+          et_messages    = lt_messages.
+
+      map_messages(
+          EXPORTING
+            iv_cid       = <fs_question_keys>-%cid_ref
+            iv_quiz_id   = <fs_question_keys>-testid
+            iv_question_id   = <fs_question_keys>-questionid
+            it_messages  = lt_messages
+          CHANGING
+            ct_failed    = failed-question
+            ct_reported  = reported-question ).
+
+    ENDLOOP.
+
+  ENDMETHOD.
+
+**********************************************************************
+*
+* Question move up in order
+*
+**********************************************************************
+  METHOD movequestionup.
+
+    DATA: ls_db_question_in TYPE znept_qz_db_questions_s,
+          lt_messages       TYPE symsg_tab.
+
+    LOOP AT keys ASSIGNING FIELD-SYMBOL(<fs_question_keys>).
+
+      CLEAR ls_db_question_in.
+      ls_db_question_in-test_id = <fs_question_keys>-testid.
+      ls_db_question_in-question_id = <fs_question_keys>-questionid.
+
+      CALL FUNCTION 'ZNEPT_QZ_QUESTION_ORD_UP'
+        EXPORTING
+          is_db_question = ls_db_question_in
+        IMPORTING
+          et_messages    = lt_messages.
+
+      map_messages(
+          EXPORTING
+            iv_cid       = <fs_question_keys>-%cid_ref
+            iv_quiz_id   = <fs_question_keys>-testid
+            iv_question_id   = <fs_question_keys>-questionid
+            it_messages  = lt_messages
+          CHANGING
+            ct_failed    = failed-question
+            ct_reported  = reported-question ).
+
+    ENDLOOP.
+
+  ENDMETHOD.
+
+**********************************************************************
+*
+* Question renew progress
+*
+**********************************************************************
+  METHOD refreshquestion.
+
+    DATA: ls_db_question_in TYPE znept_qz_db_questions_s,
+          lt_messages       TYPE symsg_tab.
+
+    LOOP AT keys ASSIGNING FIELD-SYMBOL(<fs_question_keys>).
+
+      CLEAR ls_db_question_in.
+      ls_db_question_in-test_id = <fs_question_keys>-testid.
+      ls_db_question_in-question_id = <fs_question_keys>-questionid.
+
+      CALL FUNCTION 'ZNEPT_QZ_QUESTION_RENEW'
+        EXPORTING
+          is_db_question = ls_db_question_in
+        IMPORTING
+          et_messages    = lt_messages.
+
+      map_messages(
+          EXPORTING
+            iv_cid         = <fs_question_keys>-%cid_ref
+            iv_quiz_id     = <fs_question_keys>-testid
+            iv_question_id = <fs_question_keys>-questionid
+            it_messages    = lt_messages
+          CHANGING
+            ct_failed    = failed-question
+            ct_reported  = reported-question ).
+
+    ENDLOOP.
+
   ENDMETHOD.
 
 ENDCLASS.
@@ -1104,6 +1553,24 @@ CLASS lhc_variant DEFINITION INHERITING FROM cl_abap_behavior_handler.
 
     METHODS rba_quiz FOR READ
       IMPORTING keys_rba FOR READ variant\_quiz FULL result_requested RESULT result LINK association_links.
+
+    METHODS get_instance_features FOR INSTANCE FEATURES
+      IMPORTING keys REQUEST requested_features FOR variant RESULT result.
+
+    METHODS get_global_authorizations FOR GLOBAL AUTHORIZATION
+      IMPORTING REQUEST requested_authorizations FOR variant RESULT result.
+
+    METHODS movevariantdown FOR MODIFY
+      IMPORTING keys FOR ACTION variant~movevariantdown.
+
+    METHODS movevariantfirst FOR MODIFY
+      IMPORTING keys FOR ACTION variant~movevariantfirst.
+
+    METHODS movevariantlast FOR MODIFY
+      IMPORTING keys FOR ACTION variant~movevariantlast.
+
+    METHODS movevariantup FOR MODIFY
+      IMPORTING keys FOR ACTION variant~movevariantup.
 
     METHODS map_messages
       IMPORTING
@@ -1183,34 +1650,50 @@ CLASS lhc_variant IMPLEMENTATION.
 **********************************************************************
   METHOD update.
 
-    DATA: ls_db_variant_in TYPE znept_qz_db_variants_s,
-          lt_messages      TYPE symsg_tab.
+    DATA: ls_db_variant     TYPE znept_qz_db_variants_s,
+          ls_db_variant_old TYPE znept_qz_db_variants_s,
+          lt_messages       TYPE symsg_tab.
 
     LOOP AT entities ASSIGNING FIELD-SYMBOL(<fs_variant_entities>).
 
-      CLEAR ls_db_variant_in.
-      ls_db_variant_in-test_id     = <fs_variant_entities>-testid.
-      ls_db_variant_in-question_id = <fs_variant_entities>-questionid.
-      ls_db_variant_in-variant_id  = <fs_variant_entities>-variantid.
-      ls_db_variant_in-variant     = <fs_variant_entities>-variant.
-      ls_db_variant_in-correct     = <fs_variant_entities>-correct.
+      CLEAR ls_db_variant.
+      ls_db_variant-test_id     = <fs_variant_entities>-testid.
+      ls_db_variant-question_id = <fs_variant_entities>-questionid.
+      ls_db_variant-variant_id  = <fs_variant_entities>-variantid.
 
-      CALL FUNCTION 'ZNEPT_QZ_VARIANT_UPDATE'
+      CALL FUNCTION 'ZNEPT_QZ_VARIANT_READ'
         EXPORTING
-          is_db_variant = ls_db_variant_in
+          is_db_variant = ls_db_variant
         IMPORTING
+          es_db_variant = ls_db_variant_old
           et_messages   = lt_messages.
 
-      map_messages(
+      IF lt_messages[] IS INITIAL.
+
+        ls_db_variant-variant = COND #( WHEN <fs_variant_entities>-%control-variant = if_abap_behv=>mk-on
+                                          THEN <fs_variant_entities>-variant ELSE ls_db_variant_old-variant ).
+
+        ls_db_variant-correct = COND #( WHEN <fs_variant_entities>-%control-correct = if_abap_behv=>mk-on
+                                             THEN <fs_variant_entities>-correct ELSE ls_db_variant_old-correct ).
+
+        CALL FUNCTION 'ZNEPT_QZ_VARIANT_UPDATE'
           EXPORTING
-            iv_cid         = <fs_variant_entities>-%cid_ref
-            iv_quiz_id     = <fs_variant_entities>-testid
-            iv_question_id = <fs_variant_entities>-questionid
-            iv_variant_id  = <fs_variant_entities>-variantid
-            it_messages    = lt_messages
-          CHANGING
-            ct_failed    = failed-variant
-            ct_reported  = reported-variant ).
+            is_db_variant = ls_db_variant
+          IMPORTING
+            et_messages   = lt_messages.
+
+        map_messages(
+            EXPORTING
+              iv_cid         = <fs_variant_entities>-%cid_ref
+              iv_quiz_id     = <fs_variant_entities>-testid
+              iv_question_id = <fs_variant_entities>-questionid
+              iv_variant_id  = <fs_variant_entities>-variantid
+              it_messages    = lt_messages
+            CHANGING
+              ct_failed    = failed-variant
+              ct_reported  = reported-variant ).
+
+      ENDIF.
 
     ENDLOOP.
 
@@ -1302,6 +1785,200 @@ CLASS lhc_variant IMPLEMENTATION.
                       questionid  = iv_question_id
                       variantid   = iv_variant_id )
              TO ct_reported.
+    ENDLOOP.
+
+  ENDMETHOD.
+
+  METHOD get_instance_features.
+
+    DATA: ls_db_variant   TYPE znept_qz_var,
+          lv_ord_up       TYPE abap_bool,
+          lv_ord_down     TYPE abap_bool,
+          lv_failed_added TYPE abap_bool,
+          lt_messages     TYPE symsg_tab.
+
+    LOOP AT keys ASSIGNING FIELD-SYMBOL(<fs_variant>).
+
+      APPEND INITIAL LINE TO result ASSIGNING FIELD-SYMBOL(<fs_result>).
+      IF <fs_result> IS ASSIGNED.
+        <fs_result>-%tky = <fs_variant>-%tky.
+
+        CLEAR ls_db_variant.
+        ls_db_variant-test_id = <fs_variant>-testid.
+        ls_db_variant-question_id = <fs_variant>-questionid.
+        ls_db_variant-variant_id = <fs_variant>-variantid.
+
+        CALL FUNCTION 'ZNEPT_QZ_VARIANT_ORD_FEAT'
+          EXPORTING
+            is_db_variant = ls_db_variant
+          IMPORTING
+            ev_ord_up     = lv_ord_up
+            ev_ord_down   = lv_ord_down
+            et_messages   = lt_messages.
+
+        map_messages(
+            EXPORTING
+              iv_quiz_id  = <fs_variant>-testid
+              iv_question_id  = <fs_variant>-questionid
+              iv_variant_id   = <fs_variant>-variantid
+              it_messages = lt_messages
+            IMPORTING
+              ev_failed_added = lv_failed_added
+            CHANGING
+              ct_failed    = failed-variant
+              ct_reported  = reported-variant ).
+
+        IF lv_failed_added IS INITIAL.
+          <fs_result>-%features-%action-movevariantup = COND #( WHEN NOT lv_ord_up IS INITIAL
+                                                             THEN if_abap_behv=>fc-o-enabled
+                                                             ELSE if_abap_behv=>fc-o-disabled ).
+
+          <fs_result>-%features-%action-movevariantdown = COND #( WHEN NOT lv_ord_down IS INITIAL
+                                                             THEN if_abap_behv=>fc-o-enabled
+                                                             ELSE if_abap_behv=>fc-o-disabled ).
+
+          <fs_result>-%features-%action-movevariantfirst = <fs_result>-%features-%action-movevariantup.
+          <fs_result>-%features-%action-movevariantlast = <fs_result>-%features-%action-movevariantdown.
+        ELSE.
+          EXIT.
+        ENDIF.
+      ENDIF.
+
+    ENDLOOP.
+
+  ENDMETHOD.
+
+  METHOD get_global_authorizations.
+  ENDMETHOD.
+
+  METHOD movevariantdown.
+
+    DATA: ls_db_variant_in TYPE znept_qz_db_variants_s,
+          lt_messages      TYPE symsg_tab.
+
+    LOOP AT keys ASSIGNING FIELD-SYMBOL(<fs_variant_keys>).
+
+      CLEAR ls_db_variant_in.
+      ls_db_variant_in-test_id = <fs_variant_keys>-testid.
+      ls_db_variant_in-question_id = <fs_variant_keys>-questionid.
+      ls_db_variant_in-variant_id = <fs_variant_keys>-variantid.
+
+      CALL FUNCTION 'ZNEPT_QZ_VARIANT_ORD_DOWN'
+        EXPORTING
+          is_db_variant = ls_db_variant_in
+        IMPORTING
+          et_messages   = lt_messages.
+
+      map_messages(
+          EXPORTING
+            iv_cid       = <fs_variant_keys>-%cid_ref
+            iv_quiz_id   = <fs_variant_keys>-testid
+            iv_question_id   = <fs_variant_keys>-questionid
+            iv_variant_id   = <fs_variant_keys>-variantid
+            it_messages  = lt_messages
+          CHANGING
+            ct_failed    = failed-variant
+            ct_reported  = reported-variant ).
+
+    ENDLOOP.
+
+  ENDMETHOD.
+
+  METHOD movevariantfirst.
+
+    DATA: ls_db_variant_in TYPE znept_qz_db_variants_s,
+          lt_messages      TYPE symsg_tab.
+
+    LOOP AT keys ASSIGNING FIELD-SYMBOL(<fs_variant_keys>).
+
+      CLEAR ls_db_variant_in.
+      ls_db_variant_in-test_id = <fs_variant_keys>-testid.
+      ls_db_variant_in-question_id = <fs_variant_keys>-questionid.
+      ls_db_variant_in-variant_id = <fs_variant_keys>-variantid.
+
+      CALL FUNCTION 'ZNEPT_QZ_VARIANT_ORD_FIRST'
+        EXPORTING
+          is_db_variant = ls_db_variant_in
+        IMPORTING
+          et_messages   = lt_messages.
+
+      map_messages(
+          EXPORTING
+            iv_cid       = <fs_variant_keys>-%cid_ref
+            iv_quiz_id   = <fs_variant_keys>-testid
+            iv_question_id   = <fs_variant_keys>-questionid
+            iv_variant_id   = <fs_variant_keys>-variantid
+            it_messages  = lt_messages
+          CHANGING
+            ct_failed    = failed-variant
+            ct_reported  = reported-variant ).
+
+    ENDLOOP.
+
+  ENDMETHOD.
+
+  METHOD movevariantlast.
+
+    DATA: ls_db_variant_in TYPE znept_qz_db_variants_s,
+          lt_messages      TYPE symsg_tab.
+
+    LOOP AT keys ASSIGNING FIELD-SYMBOL(<fs_variant_keys>).
+
+      CLEAR ls_db_variant_in.
+      ls_db_variant_in-test_id = <fs_variant_keys>-testid.
+      ls_db_variant_in-question_id = <fs_variant_keys>-questionid.
+      ls_db_variant_in-variant_id = <fs_variant_keys>-variantid.
+
+      CALL FUNCTION 'ZNEPT_QZ_VARIANT_ORD_LAST'
+        EXPORTING
+          is_db_variant = ls_db_variant_in
+        IMPORTING
+          et_messages   = lt_messages.
+
+      map_messages(
+          EXPORTING
+            iv_cid       = <fs_variant_keys>-%cid_ref
+            iv_quiz_id   = <fs_variant_keys>-testid
+            iv_question_id   = <fs_variant_keys>-questionid
+            iv_variant_id   = <fs_variant_keys>-variantid
+            it_messages  = lt_messages
+          CHANGING
+            ct_failed    = failed-variant
+            ct_reported  = reported-variant ).
+
+    ENDLOOP.
+
+  ENDMETHOD.
+
+  METHOD movevariantup.
+
+    DATA: ls_db_variant_in TYPE znept_qz_db_variants_s,
+          lt_messages      TYPE symsg_tab.
+
+    LOOP AT keys ASSIGNING FIELD-SYMBOL(<fs_variant_keys>).
+
+      CLEAR ls_db_variant_in.
+      ls_db_variant_in-test_id = <fs_variant_keys>-testid.
+      ls_db_variant_in-question_id = <fs_variant_keys>-questionid.
+      ls_db_variant_in-variant_id = <fs_variant_keys>-variantid.
+
+      CALL FUNCTION 'ZNEPT_QZ_VARIANT_ORD_UP'
+        EXPORTING
+          is_db_variant = ls_db_variant_in
+        IMPORTING
+          et_messages   = lt_messages.
+
+      map_messages(
+          EXPORTING
+            iv_cid       = <fs_variant_keys>-%cid_ref
+            iv_quiz_id   = <fs_variant_keys>-testid
+            iv_question_id   = <fs_variant_keys>-questionid
+            iv_variant_id   = <fs_variant_keys>-variantid
+            it_messages  = lt_messages
+          CHANGING
+            ct_failed    = failed-variant
+            ct_reported  = reported-variant ).
+
     ENDLOOP.
 
   ENDMETHOD.

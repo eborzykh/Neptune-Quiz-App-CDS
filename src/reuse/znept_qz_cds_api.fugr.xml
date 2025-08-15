@@ -79,6 +79,173 @@
      </DOCUMENTATION>
     </item>
     <item>
+     <FUNCNAME>ZNEPT_QZ_PART_ORD_DOWN</FUNCNAME>
+     <SHORT_TEXT>Neptune Quiz App: Part Sort One Down</SHORT_TEXT>
+     <IMPORT>
+      <RSIMP>
+       <PARAMETER>IS_DB_PART</PARAMETER>
+       <REFERENCE>X</REFERENCE>
+       <TYP>ZNEPT_QZ_DB_PARTS_S</TYP>
+      </RSIMP>
+     </IMPORT>
+     <EXPORT>
+      <RSEXP>
+       <PARAMETER>ET_MESSAGES</PARAMETER>
+       <REFERENCE>X</REFERENCE>
+       <TYP>SYMSG_TAB</TYP>
+      </RSEXP>
+     </EXPORT>
+     <DOCUMENTATION>
+      <RSFDO>
+       <PARAMETER>IS_DB_PART</PARAMETER>
+       <KIND>P</KIND>
+       <STEXT>Neptune Quiz App: DB Parts</STEXT>
+      </RSFDO>
+      <RSFDO>
+       <PARAMETER>ET_MESSAGES</PARAMETER>
+       <KIND>P</KIND>
+       <STEXT>List of system messages in T100 format</STEXT>
+      </RSFDO>
+     </DOCUMENTATION>
+    </item>
+    <item>
+     <FUNCNAME>ZNEPT_QZ_PART_ORD_FEAT</FUNCNAME>
+     <SHORT_TEXT>Neptune Quiz App: Part Order Features</SHORT_TEXT>
+     <IMPORT>
+      <RSIMP>
+       <PARAMETER>IS_DB_PART</PARAMETER>
+       <REFERENCE>X</REFERENCE>
+       <TYP>ZNEPT_QZ_DB_PARTS_S</TYP>
+      </RSIMP>
+     </IMPORT>
+     <EXPORT>
+      <RSEXP>
+       <PARAMETER>ET_MESSAGES</PARAMETER>
+       <REFERENCE>X</REFERENCE>
+       <TYP>SYMSG_TAB</TYP>
+      </RSEXP>
+      <RSEXP>
+       <PARAMETER>EV_ORD_UP</PARAMETER>
+       <REFERENCE>X</REFERENCE>
+       <TYP>ABAP_BOOL</TYP>
+      </RSEXP>
+      <RSEXP>
+       <PARAMETER>EV_ORD_DOWN</PARAMETER>
+       <REFERENCE>X</REFERENCE>
+       <TYP>ABAP_BOOL</TYP>
+      </RSEXP>
+     </EXPORT>
+     <DOCUMENTATION>
+      <RSFDO>
+       <PARAMETER>IS_DB_PART</PARAMETER>
+       <KIND>P</KIND>
+      </RSFDO>
+      <RSFDO>
+       <PARAMETER>ET_MESSAGES</PARAMETER>
+       <KIND>P</KIND>
+       <STEXT>List of system messages in T100 format</STEXT>
+      </RSFDO>
+      <RSFDO>
+       <PARAMETER>EV_ORD_UP</PARAMETER>
+       <KIND>P</KIND>
+      </RSFDO>
+      <RSFDO>
+       <PARAMETER>EV_ORD_DOWN</PARAMETER>
+       <KIND>P</KIND>
+      </RSFDO>
+     </DOCUMENTATION>
+    </item>
+    <item>
+     <FUNCNAME>ZNEPT_QZ_PART_ORD_FIRST</FUNCNAME>
+     <SHORT_TEXT>Neptune Quiz App: Part Sort First</SHORT_TEXT>
+     <IMPORT>
+      <RSIMP>
+       <PARAMETER>IS_DB_PART</PARAMETER>
+       <REFERENCE>X</REFERENCE>
+       <TYP>ZNEPT_QZ_DB_PARTS_S</TYP>
+      </RSIMP>
+     </IMPORT>
+     <EXPORT>
+      <RSEXP>
+       <PARAMETER>ET_MESSAGES</PARAMETER>
+       <REFERENCE>X</REFERENCE>
+       <TYP>SYMSG_TAB</TYP>
+      </RSEXP>
+     </EXPORT>
+     <DOCUMENTATION>
+      <RSFDO>
+       <PARAMETER>IS_DB_PART</PARAMETER>
+       <KIND>P</KIND>
+       <STEXT>Neptune Quiz App: DB Parts</STEXT>
+      </RSFDO>
+      <RSFDO>
+       <PARAMETER>ET_MESSAGES</PARAMETER>
+       <KIND>P</KIND>
+       <STEXT>List of system messages in T100 format</STEXT>
+      </RSFDO>
+     </DOCUMENTATION>
+    </item>
+    <item>
+     <FUNCNAME>ZNEPT_QZ_PART_ORD_LAST</FUNCNAME>
+     <SHORT_TEXT>Neptune Quiz App: Part Sort Last</SHORT_TEXT>
+     <IMPORT>
+      <RSIMP>
+       <PARAMETER>IS_DB_PART</PARAMETER>
+       <REFERENCE>X</REFERENCE>
+       <TYP>ZNEPT_QZ_DB_PARTS_S</TYP>
+      </RSIMP>
+     </IMPORT>
+     <EXPORT>
+      <RSEXP>
+       <PARAMETER>ET_MESSAGES</PARAMETER>
+       <REFERENCE>X</REFERENCE>
+       <TYP>SYMSG_TAB</TYP>
+      </RSEXP>
+     </EXPORT>
+     <DOCUMENTATION>
+      <RSFDO>
+       <PARAMETER>IS_DB_PART</PARAMETER>
+       <KIND>P</KIND>
+       <STEXT>Neptune Quiz App: DB Parts</STEXT>
+      </RSFDO>
+      <RSFDO>
+       <PARAMETER>ET_MESSAGES</PARAMETER>
+       <KIND>P</KIND>
+       <STEXT>List of system messages in T100 format</STEXT>
+      </RSFDO>
+     </DOCUMENTATION>
+    </item>
+    <item>
+     <FUNCNAME>ZNEPT_QZ_PART_ORD_UP</FUNCNAME>
+     <SHORT_TEXT>Neptune Quiz App: Part Sort One Up</SHORT_TEXT>
+     <IMPORT>
+      <RSIMP>
+       <PARAMETER>IS_DB_PART</PARAMETER>
+       <REFERENCE>X</REFERENCE>
+       <TYP>ZNEPT_QZ_DB_PARTS_S</TYP>
+      </RSIMP>
+     </IMPORT>
+     <EXPORT>
+      <RSEXP>
+       <PARAMETER>ET_MESSAGES</PARAMETER>
+       <REFERENCE>X</REFERENCE>
+       <TYP>SYMSG_TAB</TYP>
+      </RSEXP>
+     </EXPORT>
+     <DOCUMENTATION>
+      <RSFDO>
+       <PARAMETER>IS_DB_PART</PARAMETER>
+       <KIND>P</KIND>
+       <STEXT>Neptune Quiz App: DB Parts</STEXT>
+      </RSFDO>
+      <RSFDO>
+       <PARAMETER>ET_MESSAGES</PARAMETER>
+       <KIND>P</KIND>
+       <STEXT>List of system messages in T100 format</STEXT>
+      </RSFDO>
+     </DOCUMENTATION>
+    </item>
+    <item>
      <FUNCNAME>ZNEPT_QZ_PART_READ</FUNCNAME>
      <SHORT_TEXT>Neptune Quiz App: Part Read</SHORT_TEXT>
      <IMPORT>
@@ -150,7 +317,7 @@
     </item>
     <item>
      <FUNCNAME>ZNEPT_QZ_QUESTION_ASSIGN</FUNCNAME>
-     <SHORT_TEXT>Neptune Quiz App: Question Assign</SHORT_TEXT>
+     <SHORT_TEXT>Neptune Quiz App: Question Assign Part</SHORT_TEXT>
      <IMPORT>
       <RSIMP>
        <PARAMETER>IS_DB_QUESTION</PARAMETER>
@@ -259,6 +426,173 @@
      </DOCUMENTATION>
     </item>
     <item>
+     <FUNCNAME>ZNEPT_QZ_QUESTION_ORD_DOWN</FUNCNAME>
+     <SHORT_TEXT>Neptune Quiz App: Question Sort One Down</SHORT_TEXT>
+     <IMPORT>
+      <RSIMP>
+       <PARAMETER>IS_DB_QUESTION</PARAMETER>
+       <REFERENCE>X</REFERENCE>
+       <TYP>ZNEPT_QZ_DB_QUESTIONS_S</TYP>
+      </RSIMP>
+     </IMPORT>
+     <EXPORT>
+      <RSEXP>
+       <PARAMETER>ET_MESSAGES</PARAMETER>
+       <REFERENCE>X</REFERENCE>
+       <TYP>SYMSG_TAB</TYP>
+      </RSEXP>
+     </EXPORT>
+     <DOCUMENTATION>
+      <RSFDO>
+       <PARAMETER>IS_DB_QUESTION</PARAMETER>
+       <KIND>P</KIND>
+       <STEXT>Neptune Quiz App: DB Questions</STEXT>
+      </RSFDO>
+      <RSFDO>
+       <PARAMETER>ET_MESSAGES</PARAMETER>
+       <KIND>P</KIND>
+       <STEXT>List of system messages in T100 format</STEXT>
+      </RSFDO>
+     </DOCUMENTATION>
+    </item>
+    <item>
+     <FUNCNAME>ZNEPT_QZ_QUESTION_ORD_FEAT</FUNCNAME>
+     <SHORT_TEXT>Neptune Quiz App: Question Order Features</SHORT_TEXT>
+     <IMPORT>
+      <RSIMP>
+       <PARAMETER>IS_DB_QUESTION</PARAMETER>
+       <REFERENCE>X</REFERENCE>
+       <TYP>ZNEPT_QZ_DB_QUESTIONS_S</TYP>
+      </RSIMP>
+     </IMPORT>
+     <EXPORT>
+      <RSEXP>
+       <PARAMETER>ET_MESSAGES</PARAMETER>
+       <REFERENCE>X</REFERENCE>
+       <TYP>SYMSG_TAB</TYP>
+      </RSEXP>
+      <RSEXP>
+       <PARAMETER>EV_ORD_UP</PARAMETER>
+       <REFERENCE>X</REFERENCE>
+       <TYP>ABAP_BOOL</TYP>
+      </RSEXP>
+      <RSEXP>
+       <PARAMETER>EV_ORD_DOWN</PARAMETER>
+       <REFERENCE>X</REFERENCE>
+       <TYP>ABAP_BOOL</TYP>
+      </RSEXP>
+     </EXPORT>
+     <DOCUMENTATION>
+      <RSFDO>
+       <PARAMETER>IS_DB_QUESTION</PARAMETER>
+       <KIND>P</KIND>
+      </RSFDO>
+      <RSFDO>
+       <PARAMETER>ET_MESSAGES</PARAMETER>
+       <KIND>P</KIND>
+       <STEXT>List of system messages in T100 format</STEXT>
+      </RSFDO>
+      <RSFDO>
+       <PARAMETER>EV_ORD_UP</PARAMETER>
+       <KIND>P</KIND>
+      </RSFDO>
+      <RSFDO>
+       <PARAMETER>EV_ORD_DOWN</PARAMETER>
+       <KIND>P</KIND>
+      </RSFDO>
+     </DOCUMENTATION>
+    </item>
+    <item>
+     <FUNCNAME>ZNEPT_QZ_QUESTION_ORD_FIRST</FUNCNAME>
+     <SHORT_TEXT>Neptune Quiz App: Question Sort First</SHORT_TEXT>
+     <IMPORT>
+      <RSIMP>
+       <PARAMETER>IS_DB_QUESTION</PARAMETER>
+       <REFERENCE>X</REFERENCE>
+       <TYP>ZNEPT_QZ_DB_QUESTIONS_S</TYP>
+      </RSIMP>
+     </IMPORT>
+     <EXPORT>
+      <RSEXP>
+       <PARAMETER>ET_MESSAGES</PARAMETER>
+       <REFERENCE>X</REFERENCE>
+       <TYP>SYMSG_TAB</TYP>
+      </RSEXP>
+     </EXPORT>
+     <DOCUMENTATION>
+      <RSFDO>
+       <PARAMETER>IS_DB_QUESTION</PARAMETER>
+       <KIND>P</KIND>
+       <STEXT>Neptune Quiz App: DB Questions</STEXT>
+      </RSFDO>
+      <RSFDO>
+       <PARAMETER>ET_MESSAGES</PARAMETER>
+       <KIND>P</KIND>
+       <STEXT>List of system messages in T100 format</STEXT>
+      </RSFDO>
+     </DOCUMENTATION>
+    </item>
+    <item>
+     <FUNCNAME>ZNEPT_QZ_QUESTION_ORD_LAST</FUNCNAME>
+     <SHORT_TEXT>Neptune Quiz App: Question Sort Last</SHORT_TEXT>
+     <IMPORT>
+      <RSIMP>
+       <PARAMETER>IS_DB_QUESTION</PARAMETER>
+       <REFERENCE>X</REFERENCE>
+       <TYP>ZNEPT_QZ_DB_QUESTIONS_S</TYP>
+      </RSIMP>
+     </IMPORT>
+     <EXPORT>
+      <RSEXP>
+       <PARAMETER>ET_MESSAGES</PARAMETER>
+       <REFERENCE>X</REFERENCE>
+       <TYP>SYMSG_TAB</TYP>
+      </RSEXP>
+     </EXPORT>
+     <DOCUMENTATION>
+      <RSFDO>
+       <PARAMETER>IS_DB_QUESTION</PARAMETER>
+       <KIND>P</KIND>
+       <STEXT>Neptune Quiz App: DB Questions</STEXT>
+      </RSFDO>
+      <RSFDO>
+       <PARAMETER>ET_MESSAGES</PARAMETER>
+       <KIND>P</KIND>
+       <STEXT>List of system messages in T100 format</STEXT>
+      </RSFDO>
+     </DOCUMENTATION>
+    </item>
+    <item>
+     <FUNCNAME>ZNEPT_QZ_QUESTION_ORD_UP</FUNCNAME>
+     <SHORT_TEXT>Neptune Quiz App: Question Sort One Up</SHORT_TEXT>
+     <IMPORT>
+      <RSIMP>
+       <PARAMETER>IS_DB_QUESTION</PARAMETER>
+       <REFERENCE>X</REFERENCE>
+       <TYP>ZNEPT_QZ_DB_QUESTIONS_S</TYP>
+      </RSIMP>
+     </IMPORT>
+     <EXPORT>
+      <RSEXP>
+       <PARAMETER>ET_MESSAGES</PARAMETER>
+       <REFERENCE>X</REFERENCE>
+       <TYP>SYMSG_TAB</TYP>
+      </RSEXP>
+     </EXPORT>
+     <DOCUMENTATION>
+      <RSFDO>
+       <PARAMETER>IS_DB_QUESTION</PARAMETER>
+       <KIND>P</KIND>
+       <STEXT>Neptune Quiz App: DB Questions</STEXT>
+      </RSFDO>
+      <RSFDO>
+       <PARAMETER>ET_MESSAGES</PARAMETER>
+       <KIND>P</KIND>
+       <STEXT>List of system messages in T100 format</STEXT>
+      </RSFDO>
+     </DOCUMENTATION>
+    </item>
+    <item>
      <FUNCNAME>ZNEPT_QZ_QUESTION_READ</FUNCNAME>
      <SHORT_TEXT>Neptune Quiz App: Question Read</SHORT_TEXT>
      <IMPORT>
@@ -288,6 +622,36 @@
       </RSFDO>
       <RSFDO>
        <PARAMETER>ES_DB_QUESTION</PARAMETER>
+       <KIND>P</KIND>
+       <STEXT>Neptune Quiz App: DB Questions</STEXT>
+      </RSFDO>
+      <RSFDO>
+       <PARAMETER>ET_MESSAGES</PARAMETER>
+       <KIND>P</KIND>
+       <STEXT>List of system messages in T100 format</STEXT>
+      </RSFDO>
+     </DOCUMENTATION>
+    </item>
+    <item>
+     <FUNCNAME>ZNEPT_QZ_QUESTION_RENEW</FUNCNAME>
+     <SHORT_TEXT>Neptune Quiz App: Question Renew</SHORT_TEXT>
+     <IMPORT>
+      <RSIMP>
+       <PARAMETER>IS_DB_QUESTION</PARAMETER>
+       <REFERENCE>X</REFERENCE>
+       <TYP>ZNEPT_QZ_DB_QUESTIONS_S</TYP>
+      </RSIMP>
+     </IMPORT>
+     <EXPORT>
+      <RSEXP>
+       <PARAMETER>ET_MESSAGES</PARAMETER>
+       <REFERENCE>X</REFERENCE>
+       <TYP>SYMSG_TAB</TYP>
+      </RSEXP>
+     </EXPORT>
+     <DOCUMENTATION>
+      <RSFDO>
+       <PARAMETER>IS_DB_QUESTION</PARAMETER>
        <KIND>P</KIND>
        <STEXT>Neptune Quiz App: DB Questions</STEXT>
       </RSFDO>
@@ -580,6 +944,173 @@
     <item>
      <FUNCNAME>ZNEPT_QZ_VARIANT_DELETE</FUNCNAME>
      <SHORT_TEXT>Neptune Quiz App: Variant Delete</SHORT_TEXT>
+     <IMPORT>
+      <RSIMP>
+       <PARAMETER>IS_DB_VARIANT</PARAMETER>
+       <REFERENCE>X</REFERENCE>
+       <TYP>ZNEPT_QZ_DB_VARIANTS_S</TYP>
+      </RSIMP>
+     </IMPORT>
+     <EXPORT>
+      <RSEXP>
+       <PARAMETER>ET_MESSAGES</PARAMETER>
+       <REFERENCE>X</REFERENCE>
+       <TYP>SYMSG_TAB</TYP>
+      </RSEXP>
+     </EXPORT>
+     <DOCUMENTATION>
+      <RSFDO>
+       <PARAMETER>IS_DB_VARIANT</PARAMETER>
+       <KIND>P</KIND>
+       <STEXT>Neptune Quiz App: DB Variants</STEXT>
+      </RSFDO>
+      <RSFDO>
+       <PARAMETER>ET_MESSAGES</PARAMETER>
+       <KIND>P</KIND>
+       <STEXT>List of system messages in T100 format</STEXT>
+      </RSFDO>
+     </DOCUMENTATION>
+    </item>
+    <item>
+     <FUNCNAME>ZNEPT_QZ_VARIANT_ORD_DOWN</FUNCNAME>
+     <SHORT_TEXT>Neptune Quiz App: Variant Sort One Down</SHORT_TEXT>
+     <IMPORT>
+      <RSIMP>
+       <PARAMETER>IS_DB_VARIANT</PARAMETER>
+       <REFERENCE>X</REFERENCE>
+       <TYP>ZNEPT_QZ_DB_VARIANTS_S</TYP>
+      </RSIMP>
+     </IMPORT>
+     <EXPORT>
+      <RSEXP>
+       <PARAMETER>ET_MESSAGES</PARAMETER>
+       <REFERENCE>X</REFERENCE>
+       <TYP>SYMSG_TAB</TYP>
+      </RSEXP>
+     </EXPORT>
+     <DOCUMENTATION>
+      <RSFDO>
+       <PARAMETER>IS_DB_VARIANT</PARAMETER>
+       <KIND>P</KIND>
+       <STEXT>Neptune Quiz App: DB Variants</STEXT>
+      </RSFDO>
+      <RSFDO>
+       <PARAMETER>ET_MESSAGES</PARAMETER>
+       <KIND>P</KIND>
+       <STEXT>List of system messages in T100 format</STEXT>
+      </RSFDO>
+     </DOCUMENTATION>
+    </item>
+    <item>
+     <FUNCNAME>ZNEPT_QZ_VARIANT_ORD_FEAT</FUNCNAME>
+     <SHORT_TEXT>Neptune Quiz App: Variant Order Features</SHORT_TEXT>
+     <IMPORT>
+      <RSIMP>
+       <PARAMETER>IS_DB_VARIANT</PARAMETER>
+       <REFERENCE>X</REFERENCE>
+       <TYP>ZNEPT_QZ_DB_VARIANTS_S</TYP>
+      </RSIMP>
+     </IMPORT>
+     <EXPORT>
+      <RSEXP>
+       <PARAMETER>ET_MESSAGES</PARAMETER>
+       <REFERENCE>X</REFERENCE>
+       <TYP>SYMSG_TAB</TYP>
+      </RSEXP>
+      <RSEXP>
+       <PARAMETER>EV_ORD_UP</PARAMETER>
+       <REFERENCE>X</REFERENCE>
+       <TYP>ABAP_BOOL</TYP>
+      </RSEXP>
+      <RSEXP>
+       <PARAMETER>EV_ORD_DOWN</PARAMETER>
+       <REFERENCE>X</REFERENCE>
+       <TYP>ABAP_BOOL</TYP>
+      </RSEXP>
+     </EXPORT>
+     <DOCUMENTATION>
+      <RSFDO>
+       <PARAMETER>IS_DB_VARIANT</PARAMETER>
+       <KIND>P</KIND>
+      </RSFDO>
+      <RSFDO>
+       <PARAMETER>ET_MESSAGES</PARAMETER>
+       <KIND>P</KIND>
+       <STEXT>List of system messages in T100 format</STEXT>
+      </RSFDO>
+      <RSFDO>
+       <PARAMETER>EV_ORD_UP</PARAMETER>
+       <KIND>P</KIND>
+      </RSFDO>
+      <RSFDO>
+       <PARAMETER>EV_ORD_DOWN</PARAMETER>
+       <KIND>P</KIND>
+      </RSFDO>
+     </DOCUMENTATION>
+    </item>
+    <item>
+     <FUNCNAME>ZNEPT_QZ_VARIANT_ORD_FIRST</FUNCNAME>
+     <SHORT_TEXT>Neptune Quiz App: Variant Sort First</SHORT_TEXT>
+     <IMPORT>
+      <RSIMP>
+       <PARAMETER>IS_DB_VARIANT</PARAMETER>
+       <REFERENCE>X</REFERENCE>
+       <TYP>ZNEPT_QZ_DB_VARIANTS_S</TYP>
+      </RSIMP>
+     </IMPORT>
+     <EXPORT>
+      <RSEXP>
+       <PARAMETER>ET_MESSAGES</PARAMETER>
+       <REFERENCE>X</REFERENCE>
+       <TYP>SYMSG_TAB</TYP>
+      </RSEXP>
+     </EXPORT>
+     <DOCUMENTATION>
+      <RSFDO>
+       <PARAMETER>IS_DB_VARIANT</PARAMETER>
+       <KIND>P</KIND>
+       <STEXT>Neptune Quiz App: DB Variants</STEXT>
+      </RSFDO>
+      <RSFDO>
+       <PARAMETER>ET_MESSAGES</PARAMETER>
+       <KIND>P</KIND>
+       <STEXT>List of system messages in T100 format</STEXT>
+      </RSFDO>
+     </DOCUMENTATION>
+    </item>
+    <item>
+     <FUNCNAME>ZNEPT_QZ_VARIANT_ORD_LAST</FUNCNAME>
+     <SHORT_TEXT>Neptune Quiz App: Variant Sort Last</SHORT_TEXT>
+     <IMPORT>
+      <RSIMP>
+       <PARAMETER>IS_DB_VARIANT</PARAMETER>
+       <REFERENCE>X</REFERENCE>
+       <TYP>ZNEPT_QZ_DB_VARIANTS_S</TYP>
+      </RSIMP>
+     </IMPORT>
+     <EXPORT>
+      <RSEXP>
+       <PARAMETER>ET_MESSAGES</PARAMETER>
+       <REFERENCE>X</REFERENCE>
+       <TYP>SYMSG_TAB</TYP>
+      </RSEXP>
+     </EXPORT>
+     <DOCUMENTATION>
+      <RSFDO>
+       <PARAMETER>IS_DB_VARIANT</PARAMETER>
+       <KIND>P</KIND>
+       <STEXT>Neptune Quiz App: DB Variants</STEXT>
+      </RSFDO>
+      <RSFDO>
+       <PARAMETER>ET_MESSAGES</PARAMETER>
+       <KIND>P</KIND>
+       <STEXT>List of system messages in T100 format</STEXT>
+      </RSFDO>
+     </DOCUMENTATION>
+    </item>
+    <item>
+     <FUNCNAME>ZNEPT_QZ_VARIANT_ORD_UP</FUNCNAME>
+     <SHORT_TEXT>Neptune Quiz App: Variant Sort One Up</SHORT_TEXT>
      <IMPORT>
       <RSIMP>
        <PARAMETER>IS_DB_VARIANT</PARAMETER>
