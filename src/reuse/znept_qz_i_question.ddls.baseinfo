@@ -3,13 +3,10 @@
 {
 "FROM":
 [
-"ZNEPT_QZ_I_QUIZ"
+"ZNEPT_QZ_QST"
 ],
 "ASSOCIATED":
-[
-"ZNEPT_QZ_I_PART_U",
-"ZNEPT_QZ_I_QUESTION_U"
-],
+[],
 "BASE":
 [],
 "ANNO_REF":

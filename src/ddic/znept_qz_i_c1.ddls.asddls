@@ -1,3 +1,4 @@
+//
 @AbapCatalog.sqlViewName: 'ZNEPT_QZ_V_I_C1'
 @AccessControl.authorizationCheck: #NOT_REQUIRED
 

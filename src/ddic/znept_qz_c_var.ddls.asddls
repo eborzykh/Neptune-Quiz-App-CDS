@@ -1,3 +1,4 @@
+//
 @AbapCatalog.sqlViewName: 'ZNEPT_QZ_V_C_VAR'
 @AbapCatalog.compiler.compareFilter: true
 @AbapCatalog.preserveKey: true

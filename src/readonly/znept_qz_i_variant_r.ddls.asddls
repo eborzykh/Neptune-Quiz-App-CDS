@@ -3,7 +3,7 @@
 @AccessControl.authorizationCheck: #NOT_REQUIRED
 
 define view entity ZNEPT_QZ_I_VARIANT_R
-  as select from znept_qz_var as _Variant
+  as select from ZNEPT_QZ_I_VARIANT as _Variant
 
   association        to parent ZNEPT_QZ_I_QUESTION_R  as _Question on  $projection.TestId     = _Question.TestId
                                                                    and $projection.QuestionId = _Question.QuestionId
@@ -13,12 +13,12 @@ define view entity ZNEPT_QZ_I_VARIANT_R
   association [1..1] to ZNEPT_QZ_I_VARIANT_CORRECT_VH as _Correct  on  $projection.Correct = _Correct.Correct
 
 {
-  key _Variant.test_id     as TestId,
-  key _Variant.question_id as QuestionId,
-  key _Variant.variant_id  as VariantId,
+  key _Variant.TestId      as TestId,
+  key _Variant.QuestionId  as QuestionId,
+  key _Variant.VariantId   as VariantId,
 
-      _Variant.variant     as Variant,
-      _Variant.correct     as Correct,
+      _Variant.Variant     as Variant,
+      _Variant.Correct     as Correct,
       _Correct.CorrectText as CorrectText,
 
       /* Associations */
