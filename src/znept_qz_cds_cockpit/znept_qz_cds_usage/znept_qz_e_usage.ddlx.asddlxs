@@ -1,0 +1,234 @@
+@Metadata.layer: #CUSTOMER
+
+@UI.headerInfo: {
+    typeName: 'Quiz Usage Report',
+    typeNamePlural: 'Quiz Usage List',
+    typeImageUrl: 'sap-icon://business-objects-experience',
+    title: {
+      label: 'Title label',
+        value: 'TextTitle',
+        type: #STANDARD
+    },
+    description: {
+        label: 'Quiz Usage',
+        type: #STANDARD,
+        value: 'TextDescription'
+    }
+}
+
+@UI.chart: [
+  {
+    qualifier: 'radialChart',
+    title: 'Percentage',
+    description: 'Percentage of progress made by the user',
+    chartType: #DONUT,
+    measures: ['Progress_Percent'],
+    measureAttributes: [
+      {
+        measure: 'Progress_Percent',
+        role: #AXIS_1,
+        asDataPoint: true
+      }
+    ]
+  }
+]
+
+@UI.lineItem: [{criticality: 'CriticalityCode'}]
+
+annotate entity ZNEPT_QZ_C_USAGE with
+{
+
+  @UI.facet: [
+
+    { // do not group because there will be no spacing
+      purpose: #HEADER,
+      type: #DATAPOINT_REFERENCE,
+      targetQualifier: 'headerDescription',
+      position: 10
+    },
+    { // do not group because there will be no spacing
+      purpose: #HEADER,
+      type: #DATAPOINT_REFERENCE,
+      targetQualifier: 'headerAttended',
+      position: 20
+    },
+    { // do not group because there will be no spacing
+      purpose:  #HEADER,
+      type: #CHART_REFERENCE,
+      targetQualifier: 'radialChart',
+      position: 30
+    },
+    { // do not group because there will be no spacing
+      purpose:  #HEADER,
+      type: #CHART_REFERENCE,
+      targetQualifier: 'columnChart',
+      targetElement: '_Usage_Details',
+      position: 40
+    },
+
+    {
+      label:    'Progress Details',
+      id:       'header',
+      purpose:  #STANDARD,
+      type:     #COLLECTION,
+      position: 50
+    },
+      {
+        label: 'Numbers',
+        id: 'totalGroup',
+        purpose:  #STANDARD,
+        parentId: 'header',
+        targetQualifier : 'totalGroup',
+        type : #FIELDGROUP_REFERENCE,
+        position: 10
+      },
+      {
+        label: 'Dates',
+        id: 'datesGroup',
+        purpose:  #STANDARD,
+        parentId: 'header',
+        targetQualifier : 'datesGroup',
+        type : #FIELDGROUP_REFERENCE,
+        position: 20,
+        isPartOfPreview: false
+      },
+      
+    {
+      label: 'Questions',
+      id: 'details',
+      purpose:  #STANDARD,
+      type: #LINEITEM_REFERENCE,
+      position: 100,
+      targetElement: '_Usage_Details'
+    }
+  ]
+
+  @UI: {
+    lineItem: [ { exclude: true } ],
+    fieldGroup: [ { hidden: true } ]
+  }
+  SyncId;
+
+  @UI: {
+    lineItem: [ { exclude: true } ],
+    fieldGroup: [ { hidden: true } ]
+  }
+  TestId;
+
+  @UI: {
+    lineItem: [ { label: 'Quiz Description', position: 10, cssDefault: { width: '20rem' } } ],
+    dataPoint: {
+      qualifier: 'headerDescription',
+      title: 'Quiz'
+    }
+  }
+  Description;
+
+  @UI: {
+    lineItem: [ { label: 'Attended by', position: 20, cssDefault: { width: '15rem' } } ],
+    dataPoint: {
+      qualifier: 'headerAttended',
+      title: 'Attended by'
+    }
+  }
+  SyncBy;
+
+
+  @UI: {
+        dataPoint: {
+          targetValue: #( Total ),
+          criticality: 'CriticalityCode'
+      },
+      lineItem: [
+        {
+          criticality: 'CriticalityCode',
+          type: #AS_CHART,
+          label: 'Percentage',
+          valueQualifier: 'radialChart',
+          cssDefault: { width: '10rem' },
+          position: 30
+        }
+      ]
+    }
+  Progress_Percent;
+
+  @UI: {
+    dataPoint: {
+      targetValue: #( Total ),
+      visualization: #PROGRESS,
+      criticality: 'CriticalityCode',
+      title: 'Progress (Number)'
+    },
+    lineItem: [
+      {
+        criticality: 'CriticalityCode',
+        type:#AS_DATAPOINT,
+        label: 'Questions answered',
+        cssDefault: { width: '10rem' },
+        position: 40
+      }
+    ]
+  }
+  Progress_Number;
+
+  @UI: {
+  lineItem: [ { exclude: true } ],
+  fieldGroup: [{ qualifier: 'totalGroup', position: 120, label: 'Correct' }]
+  }
+  Correct;
+
+  @UI: {
+  lineItem: [ { exclude: true } ],
+  fieldGroup: [{ qualifier: 'totalGroup', position: 130, label: 'Incorrect' }]
+  }
+  Incorrect;
+
+  @UI: {
+  lineItem: [ { exclude: true } ],
+  fieldGroup: [{ qualifier: 'totalGroup', position: 140, label: 'Improved' }]
+  }
+  Improved;
+
+  @UI: {
+  lineItem: [ { exclude: true } ],
+  fieldGroup: [{ qualifier: 'totalGroup', position: 150, label: 'Unanswered' }]
+  }
+  Unanswered;
+
+  @UI: {
+  lineItem: [ { exclude: true } ],
+  fieldGroup: [{ qualifier: 'totalGroup', position: 160, label: 'Total' }]
+  }
+  Total;
+
+  @UI: {
+  lineItem: [ { exclude: true } ],
+  fieldGroup: [{ qualifier: 'datesGroup', position: 110, label: 'First Use' }]
+  }
+  FirstOn;
+
+  @UI: {
+  lineItem: [ { exclude: true } ],
+  fieldGroup: [{ qualifier: 'datesGroup', position: 120, label: 'Last Use' }]
+  }
+  LastOn;
+
+  @UI: {
+  lineItem: [ { exclude: true } ],
+  fieldGroup: [{ qualifier: 'datesGroup', position: 130, label: 'Days of Use' }]
+  }
+  UseDays;
+
+  @UI: {
+  lineItem: [ { exclude: true } ],
+  fieldGroup: [{ qualifier: 'datesGroup', position: 140, label: 'Days from Last Use' }]
+  }
+  LastOnDays;
+
+  @UI.hidden: true
+  UploadOn;
+
+  @UI.hidden: true
+  UploadAt;
+
+}

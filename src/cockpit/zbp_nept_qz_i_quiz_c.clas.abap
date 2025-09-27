@@ -1,5 +1,0 @@
-CLASS zbp_nept_qz_i_quiz_c DEFINITION PUBLIC ABSTRACT FINAL FOR BEHAVIOR OF znept_qz_i_quiz_c.
-ENDCLASS.
-
-CLASS zbp_nept_qz_i_quiz_c IMPLEMENTATION.
-ENDCLASS.

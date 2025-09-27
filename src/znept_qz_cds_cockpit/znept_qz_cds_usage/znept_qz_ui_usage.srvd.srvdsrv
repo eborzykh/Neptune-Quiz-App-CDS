@@ -1,0 +1,6 @@
+@EndUserText.label: 'Neptune Quiz App (CDS Usage)'
+define service ZNEPT_QZ_UI_USAGE {
+  expose ZNEPT_QZ_C_USAGE as Usage;
+  expose ZNEPT_QZ_C_USAGE_DETAILS as Usage_Details;
+  expose ZNEPT_QZ_C_USAGE_QUESTIONS as Usage_Questions;
+}

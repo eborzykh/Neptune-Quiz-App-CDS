@@ -1,0 +1,32 @@
+//
+@EndUserText.label: 'Quiz (Basic)'
+@AccessControl.authorizationCheck: #NOT_REQUIRED
+
+define root view entity ZNEPT_QZ_I_QUIZ_U
+  as select from ZNEPT_QZ_I_QUIZ as _Quiz
+
+  composition [0..*] of ZNEPT_QZ_I_PART_U     as _Part
+
+  composition [0..*] of ZNEPT_QZ_I_QUESTION_U as _Question
+
+{
+
+  key _Quiz.TestId         as TestId,
+ 
+      _Quiz.UploadOn       as UploadOn,
+      _Quiz.UploadAt       as UploadAt,
+      _Quiz.UploadBy       as UploadBy,
+
+      _Quiz.Description    as Description,
+      _Quiz.Published      as Published,
+
+      _Quiz.PublishedText  as PublishedText,
+      _Quiz.Upload_By_Name as Upload_By_Name,
+      _Quiz.Part_Count     as Part_Count,
+      _Quiz.Question_Count as Question_Count,
+
+      /* Associations */
+
+      _Part,
+      _Question
+}
