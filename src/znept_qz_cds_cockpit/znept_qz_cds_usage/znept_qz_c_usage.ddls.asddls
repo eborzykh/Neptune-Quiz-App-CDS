@@ -23,6 +23,8 @@ define root view entity ZNEPT_QZ_C_USAGE
 
           Progress as Progress_Percent,
           Progress as Progress_Number,
+          ToleranceLowValue,
+          DeviationLowValue,
 
           Correct,
           Improved,
@@ -40,6 +42,6 @@ define root view entity ZNEPT_QZ_C_USAGE
           TextDescription,
 
           /* Associations */
- 
+
           _Usage_Details : redirected to composition child ZNEPT_QZ_C_USAGE_DETAILS
 }

@@ -30,6 +30,20 @@
         asDataPoint: true
       }
     ]
+  },
+  {
+    qualifier: 'bulletChart',
+    title: 'Target',
+    description: 'Target and Progress',
+    chartType: #BULLET,
+    measures: ['Progress_Percent'],
+    measureAttributes: [
+      {
+        measure: 'Progress_Percent',
+        role: #AXIS_1,
+        asDataPoint: true
+      }
+    ]
   }
 ]
 
@@ -65,13 +79,20 @@ annotate entity ZNEPT_QZ_C_USAGE with
       targetElement: '_Usage_Details',
       position: 40
     },
-    
+
+    { // do not group because there will be no spacing
+      purpose:  #HEADER,
+      type: #CHART_REFERENCE,
+      targetQualifier: 'bulletChart',
+      position: 50
+    },
+
     {
       label:    'Progress Details',
       id:       'header',
       purpose:  #STANDARD,
       type:     #COLLECTION,
-      position: 50
+      position: 60
     },
       {
         label: 'Numbers',
@@ -92,7 +113,7 @@ annotate entity ZNEPT_QZ_C_USAGE with
         position: 20,
         isPartOfPreview: false
       },
-      
+
     {
       label: 'Questions',
       id: 'details',
@@ -133,11 +154,13 @@ annotate entity ZNEPT_QZ_C_USAGE with
   }
   SyncBy;
 
-
   @UI: {
         dataPoint: {
           targetValue: #( Total ),
-          criticality: 'CriticalityCode'
+          criticalityCalculation:{
+                      improvementDirection: #MAXIMIZE ,
+                      deviationRangeLowValueElement: 'DeviationLowValue',
+                      toleranceRangeLowValueElement: 'ToleranceLowValue' }
       },
       lineItem: [
         {
@@ -170,6 +193,17 @@ annotate entity ZNEPT_QZ_C_USAGE with
     ]
   }
   Progress_Number;
+
+  @UI: {
+    dataPoint: {
+      criticality: 'CriticalityCode',
+      targetValueElement: 'Total',
+      forecastValue: 'DeviationLowValue',
+      minimumValue: 0
+    },
+    lineItem: [{ exclude: true }]
+  }
+  DeviationLowValue;
 
   @UI: {
   lineItem: [ { exclude: true } ],
@@ -230,5 +264,8 @@ annotate entity ZNEPT_QZ_C_USAGE with
 
   @UI.hidden: true
   UploadAt;
- 
+
+  @UI.hidden: true
+  ToleranceLowValue;
+
 }

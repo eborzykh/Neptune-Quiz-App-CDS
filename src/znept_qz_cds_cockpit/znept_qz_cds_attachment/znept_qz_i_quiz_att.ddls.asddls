@@ -11,6 +11,7 @@ define root view entity ZNEPT_QZ_I_QUIZ_ATT
 
       _Quiz.UploadOn       as UploadOn,
       _Quiz.UploadAt       as UploadAt,
+      _Quiz.UploadTSTMP    as UploadTSTMP,
       _Quiz.UploadBy       as UploadBy,
       
       _Quiz.Upload_By_Name as Upload_By_Name,

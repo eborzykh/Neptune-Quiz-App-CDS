@@ -15,6 +15,7 @@ define root view entity ZNEPT_QZ_C_QUIZ_ATT
 
           UploadOn,
           UploadAt,
+          UploadTSTMP,
           UploadBy,
           
           Upload_By_Name,

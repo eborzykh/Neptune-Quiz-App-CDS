@@ -9,7 +9,7 @@
                      typeNamePlural: 'Practice Quiz List'
                     },
        presentationVariant: [ {
-                                sortOrder: [ { by: 'UploadOn', direction: #DESC } ],
+                                sortOrder: [ { by: 'UploadTSTMP', direction: #DESC } ],
                                 visualizations: [ {type: #AS_LINEITEM} ]
                               } ]
      }
@@ -104,6 +104,9 @@ annotate view ZNEPT_QZ_C_QUIZ_ATT with
 
   @UI.hidden: true
   UploadBy;
+  
+  @UI.hidden: true
+  UploadTSTMP;
 
   @UI: { lineItem: [ { position: 100, importance: #MEDIUM, label: 'Attachment' } ], 
          fieldGroup:     [ { qualifier: 'upload_details', position: 100 } ]

@@ -2,12 +2,12 @@
 @EndUserText.label: 'Usage Data (Basic)'
 @AccessControl.authorizationCheck: #NOT_REQUIRED
 
-define root view entity ZNEPT_QZ_I_USAGE 
-  as select from    ZNEPT_QZ_I_ACTIVITY_SYNC                        as _Activity_Sync
+define root view entity ZNEPT_QZ_I_USAGE
+  as select from    ZNEPT_QZ_I_ACTIVITY_SYNC                           as _Activity_Sync
 
-    left outer join ZNEPT_QZ_R_USAGE                                as _R_Usage               on _Activity_Sync.SyncId = _R_Usage.SyncId
+    left outer join ZNEPT_QZ_R_USAGE                                   as _R_Usage               on _Activity_Sync.SyncId = _R_Usage.SyncId
 
-    left outer join ZNEPT_QZ_R_QUESTION                             as _R_Question            on _Activity_Sync.TestId = _R_Question.Test_ID
+    left outer join ZNEPT_QZ_R_QUESTION                                as _R_Question            on _Activity_Sync.TestId = _R_Question.Test_ID
 
     left outer join ZNEPT_QZ_R_QUESTION_PROGRESS ( p_correct: 'X',
                                                    p_improved: 'X',
@@ -30,13 +30,13 @@ define root view entity ZNEPT_QZ_I_USAGE
                                                    p_incorrect: ' ',
                                                    p_unanswered: 'X' ) as _R_Progress_Unanswered on _Activity_Sync.SyncId = _R_Progress_Unanswered.SyncId
 
-   composition [0..*] of ZNEPT_QZ_I_USAGE_DETAILS as _Usage_Details 
-  
+  composition [0..*] of ZNEPT_QZ_I_USAGE_DETAILS as _Usage_Details
+
 {
 
   key _Activity_Sync.SyncId,
       _Activity_Sync.SyncBy,
-  
+
       _Activity_Sync.UploadOn,
       _Activity_Sync.UploadAt,
       _Activity_Sync.TestId,
@@ -59,6 +59,8 @@ define root view entity ZNEPT_QZ_I_USAGE
       DATS_DAYS_BETWEEN($projection.LastOn, $session.user_date)                 as LastOnDays,
 
       round ( $projection.Progress / $projection.Total * 100, 0 )               as Percentage,
+      round ( $projection.Total / 100 * 80, 0 )                                 as ToleranceLowValue,
+      1                                                                         as DeviationLowValue,
 
       case
         when $projection.Percentage is null or $projection.Percentage = 0 then 1
