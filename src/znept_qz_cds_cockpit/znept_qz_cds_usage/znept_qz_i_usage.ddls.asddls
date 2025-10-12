@@ -10,25 +10,25 @@ define root view entity ZNEPT_QZ_I_USAGE
     left outer join ZNEPT_QZ_R_QUESTION                             as _R_Question            on _Activity_Sync.TestId = _R_Question.Test_ID
 
     left outer join ZNEPT_QZ_R_QUESTION_PROGRESS ( p_correct: 'X',
-                                                p_improved: 'X',
-                                                p_incorrect: ' ',
-                                                p_unanswered: ' ' ) as _R_Progress            on _Activity_Sync.SyncId = _R_Progress.SyncId
+                                                   p_improved: 'X',
+                                                   p_incorrect: ' ',
+                                                   p_unanswered: ' ' ) as _R_Progress            on _Activity_Sync.SyncId = _R_Progress.SyncId
     left outer join ZNEPT_QZ_R_QUESTION_PROGRESS ( p_correct: 'X',
-                                                p_improved: ' ',
-                                                p_incorrect: ' ',
-                                                p_unanswered: ' ' ) as _R_Progress_Correct    on _Activity_Sync.SyncId = _R_Progress_Correct.SyncId
+                                                   p_improved: ' ',
+                                                   p_incorrect: ' ',
+                                                   p_unanswered: ' ' ) as _R_Progress_Correct    on _Activity_Sync.SyncId = _R_Progress_Correct.SyncId
     left outer join ZNEPT_QZ_R_QUESTION_PROGRESS ( p_correct: ' ',
-                                                p_improved: 'X',
-                                                p_incorrect: ' ',
-                                                p_unanswered: ' ' ) as _R_Progress_Improved   on _Activity_Sync.SyncId = _R_Progress_Improved.SyncId
+                                                   p_improved: 'X',
+                                                   p_incorrect: ' ',
+                                                   p_unanswered: ' ' ) as _R_Progress_Improved   on _Activity_Sync.SyncId = _R_Progress_Improved.SyncId
     left outer join ZNEPT_QZ_R_QUESTION_PROGRESS ( p_correct: ' ',
-                                                p_improved: ' ',
-                                                p_incorrect: 'X',
-                                                p_unanswered: ' ' ) as _R_Progress_Incorrect  on _Activity_Sync.SyncId = _R_Progress_Incorrect.SyncId
+                                                   p_improved: ' ',
+                                                   p_incorrect: 'X',
+                                                   p_unanswered: ' ' ) as _R_Progress_Incorrect  on _Activity_Sync.SyncId = _R_Progress_Incorrect.SyncId
     left outer join ZNEPT_QZ_R_QUESTION_PROGRESS ( p_correct: ' ',
-                                                p_improved: ' ',
-                                                p_incorrect: ' ',
-                                                p_unanswered: 'X' ) as _R_Progress_Unanswered on _Activity_Sync.SyncId = _R_Progress_Unanswered.SyncId
+                                                   p_improved: ' ',
+                                                   p_incorrect: ' ',
+                                                   p_unanswered: 'X' ) as _R_Progress_Unanswered on _Activity_Sync.SyncId = _R_Progress_Unanswered.SyncId
 
    composition [0..*] of ZNEPT_QZ_I_USAGE_DETAILS as _Usage_Details 
   
@@ -73,7 +73,6 @@ define root view entity ZNEPT_QZ_I_USAGE
       /* Associations */
 
       _Usage_Details
-
 }
 where
   _Activity_Sync.Quiz_Deleted is initial

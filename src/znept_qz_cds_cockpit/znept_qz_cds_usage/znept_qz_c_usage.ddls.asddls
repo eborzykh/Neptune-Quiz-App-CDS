@@ -42,5 +42,4 @@ define root view entity ZNEPT_QZ_C_USAGE
           /* Associations */
  
           _Usage_Details : redirected to composition child ZNEPT_QZ_C_USAGE_DETAILS
-
 }

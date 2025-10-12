@@ -1,0 +1,4 @@
+@EndUserText.label: 'Neptune Quiz App (CDS Attachment)'
+define service ZNEPT_QZ_UI_ATT {
+  expose ZNEPT_QZ_C_QUIZ_ATT as Attachment;
+}

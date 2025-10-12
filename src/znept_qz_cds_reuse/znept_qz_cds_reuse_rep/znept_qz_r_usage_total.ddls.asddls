@@ -13,10 +13,6 @@ define view entity ZNEPT_QZ_R_USAGE_TOTAL
       count ( * )                 as Progress_Count
 
 }
-
-//where
-//  Quiz_Deleted is initial
-
 group by
   SyncId,
   Progress

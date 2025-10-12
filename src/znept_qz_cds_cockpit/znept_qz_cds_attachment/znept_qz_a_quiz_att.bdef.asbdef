@@ -1,0 +1,11 @@
+//
+abstract;
+
+define behavior for ZNEPT_QZ_A_QUIZ_ATT alias _Att_Action
+{
+
+  field ( mandatory ) StreamFile;
+  field ( mandatory ) Filename;
+  field ( mandatory ) MimeType;
+
+}

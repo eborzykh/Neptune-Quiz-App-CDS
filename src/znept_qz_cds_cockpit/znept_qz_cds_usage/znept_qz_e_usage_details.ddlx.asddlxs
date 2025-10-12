@@ -56,7 +56,7 @@ annotate entity ZNEPT_QZ_C_USAGE_DETAILS with
       criticality: 'CriticalityCode'  }
   }
   Progress_Count;
-
+  
   @UI.hidden: true
   SyncId;
 

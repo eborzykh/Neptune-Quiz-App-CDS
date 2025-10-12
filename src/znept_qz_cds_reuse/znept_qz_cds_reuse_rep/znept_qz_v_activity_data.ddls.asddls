@@ -18,10 +18,8 @@ define view entity ZNEPT_QZ_V_ACTIVITY_DATA
                                $session.client,
                                'NULL' ) as ActiveTSTMP,
 
-
          _Activity_Data.sync_on         as SyncOn,
          _Activity_Data.sync_at         as SyncAt,
 
          _Activity_Data.progress        as Progress
-
 }

@@ -65,7 +65,7 @@ annotate entity ZNEPT_QZ_C_USAGE with
       targetElement: '_Usage_Details',
       position: 40
     },
-
+    
     {
       label:    'Progress Details',
       id:       'header',
@@ -230,5 +230,5 @@ annotate entity ZNEPT_QZ_C_USAGE with
 
   @UI.hidden: true
   UploadAt;
-
+ 
 }

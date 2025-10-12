@@ -18,8 +18,9 @@ define view entity ZNEPT_QZ_I_ACTIVITY_SYNC
 
       _Activity_Sync.SyncId   as SyncId,
 
-
-      // Progress and activity remains for deleted content
+      // -------------------------------------------------- //
+      // Progress and activity remains for deleted content  //
+      // -------------------------------------------------- //
       case
         when _Quiz.TestId is null then 'X'
         else ''
@@ -28,5 +29,4 @@ define view entity ZNEPT_QZ_I_ACTIVITY_SYNC
       /* Associations */
 
       _Quiz
-
 }

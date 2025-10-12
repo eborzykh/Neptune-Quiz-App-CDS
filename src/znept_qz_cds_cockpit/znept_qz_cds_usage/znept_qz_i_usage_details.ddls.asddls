@@ -36,5 +36,4 @@ define view entity ZNEPT_QZ_I_USAGE_DETAILS
 
       _Usage,
       _Usage_Questions
-
 } 
