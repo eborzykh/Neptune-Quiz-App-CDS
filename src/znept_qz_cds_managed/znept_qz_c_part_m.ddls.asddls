@@ -13,6 +13,6 @@ define view entity ZNEPT_QZ_C_PART_M
 
       /* Associations */
 
-      _Question : redirected to composition child ZNEPT_QZ_C_QUESTION_M,
+      _Question : redirected to ZNEPT_QZ_C_QUESTION_M,
       _Quiz     : redirected to parent ZNEPT_QZ_C_QUIZ_M
 }

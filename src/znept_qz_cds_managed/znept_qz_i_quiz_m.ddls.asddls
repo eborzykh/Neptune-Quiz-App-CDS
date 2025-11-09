@@ -7,19 +7,20 @@ define root view entity ZNEPT_QZ_I_QUIZ_M
 
   composition [0..*] of ZNEPT_QZ_I_PART_M     as _Part
 
-  association [0..*] to ZNEPT_QZ_I_QUESTION_M as _Question on $projection.TestId = _Question.TestId
-
-  association [0..*] to ZNEPT_QZ_I_VARIANT_M  as _Variant  on $projection.TestId = _Variant.TestId
+  composition [0..*] of ZNEPT_QZ_I_QUESTION_M as _Question
 
 {
 
   key _Quiz.TestId         as TestId,
+
+      _Quiz.ETag           as ETag,
 
       _Quiz.UploadOn       as UploadOn,
       _Quiz.UploadAt       as UploadAt,
       _Quiz.UploadBy       as UploadBy,
       _Quiz.Published      as Published,
       _Quiz.Description    as Description,
+      _Quiz.Version        as Version,
 
       _Quiz.Part_Count     as Part_Count,
       _Quiz.Question_Count as Question_Count,
@@ -29,6 +30,5 @@ define root view entity ZNEPT_QZ_I_QUIZ_M
       /* Associations */
 
       _Part,
-      _Question,
-      _Variant
+      _Question
 }

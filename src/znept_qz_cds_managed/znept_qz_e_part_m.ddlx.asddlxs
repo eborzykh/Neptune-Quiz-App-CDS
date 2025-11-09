@@ -26,7 +26,10 @@ annotate view ZNEPT_QZ_C_PART_M with
   @UI.hidden: true
   TestId;
 
-  @UI.hidden: true
+  @UI: {
+    lineItem: [  { position: 1, label: 'Part ID' } ],
+    identification:[ { position: 1, label: 'Part ID' } ]
+  }
   PartId;
 
   @UI: {

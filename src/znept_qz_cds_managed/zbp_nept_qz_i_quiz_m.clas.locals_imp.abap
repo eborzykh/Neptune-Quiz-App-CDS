@@ -1,14 +1,174 @@
-CLASS lhc_Quiz DEFINITION INHERITING FROM cl_abap_behavior_handler.
+*
+CLASS lhc_quiz DEFINITION INHERITING FROM cl_abap_behavior_handler.
   PRIVATE SECTION.
 
     METHODS get_instance_authorizations FOR INSTANCE AUTHORIZATION
-      IMPORTING keys REQUEST requested_authorizations FOR Quiz RESULT result.
+      IMPORTING keys REQUEST requested_authorizations FOR quiz RESULT result.
+
+    METHODS settestetag FOR DETERMINE ON MODIFY
+      IMPORTING keys FOR quiz~settestetag.
 
 ENDCLASS.
 
-CLASS lhc_Quiz IMPLEMENTATION.
+CLASS lhc_quiz IMPLEMENTATION.
 
   METHOD get_instance_authorizations.
+  ENDMETHOD.
+
+  METHOD settestetag.
+
+    READ ENTITIES OF ZNEPT_QZ_I_QUIZ_M IN LOCAL MODE
+     ENTITY Quiz
+       FIELDS ( UploadBy UploadOn UploadAt )
+       WITH CORRESPONDING #( keys )
+     RESULT DATA(quizzes).
+
+    DELETE quizzes WHERE UploadBy IS NOT INITIAL OR UploadOn IS NOT INITIAL OR UploadAt IS NOT INITIAL.
+    CHECK quizzes IS NOT INITIAL.
+
+    MODIFY ENTITIES OF ZNEPT_QZ_I_QUIZ_M IN LOCAL MODE
+      ENTITY Quiz
+        UPDATE FIELDS ( UploadBy UploadOn UploadAt )
+        WITH VALUE #( FOR quiz IN quizzes ( %tky     = quiz-%tky
+                                            UploadBy = sy-uname
+                                            UploadOn = sy-datum
+                                            UploadAt = sy-timlo ) ).
+  ENDMETHOD.
+
+ENDCLASS.
+
+CLASS lsc_znept_qz_i_quiz_m DEFINITION INHERITING FROM cl_abap_behavior_saver.
+  PROTECTED SECTION.
+
+    METHODS adjust_numbers REDEFINITION.
+
+    METHODS save_modified REDEFINITION.
+
+    METHODS cleanup_finalize REDEFINITION.
+
+ENDCLASS.
+
+CLASS lsc_znept_qz_i_quiz_m IMPLEMENTATION.
+
+**********************************************************************
+* point of no return
+**********************************************************************
+  METHOD adjust_numbers.
+
+    " Quiz
+
+    DATA(lt_create_quiz) = mapped-quiz.
+    DELETE lt_create_quiz WHERE testid IS NOT INITIAL.
+
+    IF lt_create_quiz IS NOT INITIAL.
+      LOOP AT lt_create_quiz ASSIGNING FIELD-SYMBOL(<fs_create_quiz>).
+        AT FIRST.
+          SELECT MAX( test_id ) FROM znept_qz_tst INTO @DATA(lv_test_id).
+          IF sy-subrc <> 0.
+            CLEAR lv_test_id.
+          ENDIF.
+        ENDAT.
+
+        READ TABLE mapped-quiz WITH KEY %pid = <fs_create_quiz>-%pid ASSIGNING FIELD-SYMBOL(<fs_mapped_quiz>) BINARY SEARCH.
+        IF sy-subrc = 0 AND <fs_mapped_quiz> IS ASSIGNED.
+          lv_test_id += 1.
+          <fs_mapped_quiz>-testid = lv_test_id.
+          UNASSIGN <fs_mapped_quiz>.
+        ENDIF.
+      ENDLOOP.
+    ENDIF.
+
+    " Part
+
+    DATA(lt_create_part) = mapped-part.
+    DELETE lt_create_part WHERE partid IS NOT INITIAL.
+
+    IF lt_create_part IS NOT INITIAL.
+      SORT lt_create_part BY %tmp-testid.
+
+      LOOP AT lt_create_part ASSIGNING FIELD-SYMBOL(<fs_part>).
+        AT NEW %tmp-testid.
+          SELECT MAX( part_id ) FROM znept_qz_prt INTO @DATA(lv_part_id)
+            WHERE test_id = @<fs_part>-%tmp-testid.
+          IF sy-subrc <> 0.
+            CLEAR lv_part_id.
+          ENDIF.
+        ENDAT.
+
+        READ TABLE mapped-part WITH KEY %pid = <fs_part>-%pid ASSIGNING FIELD-SYMBOL(<fs_mapped_part>) BINARY SEARCH.
+        IF sy-subrc = 0 AND <fs_mapped_part> IS ASSIGNED.
+          <fs_mapped_part>-testid = <fs_mapped_part>-%tmp-testid.
+          lv_part_id += 1.
+          <fs_mapped_part>-partid = lv_part_id.
+          UNASSIGN <fs_mapped_part>.
+        ENDIF.
+      ENDLOOP.
+    ENDIF.
+
+    " Question
+
+    DATA(lt_create_question) = mapped-question.
+    DELETE lt_create_question WHERE questionid IS NOT INITIAL.
+
+    IF lt_create_question IS NOT INITIAL.
+      SORT lt_create_question BY %tmp-testid.
+
+      LOOP AT lt_create_question ASSIGNING FIELD-SYMBOL(<fs_create_question>).
+        AT NEW %tmp-testid.
+          SELECT MAX( question_id ) FROM znept_qz_qst INTO @DATA(lv_question_id)
+            WHERE test_id = @<fs_create_question>-%tmp-testid.
+          IF sy-subrc <> 0.
+            CLEAR lv_question_id.
+          ENDIF.
+        ENDAT.
+
+        READ TABLE mapped-question WITH KEY %pid = <fs_create_question>-%pid ASSIGNING FIELD-SYMBOL(<fs_mapped_question>) BINARY SEARCH.
+        IF sy-subrc = 0 AND <fs_mapped_question> IS ASSIGNED.
+          <fs_mapped_question>-testid = <fs_mapped_question>-%tmp-testid.
+          lv_question_id += 1.
+          <fs_mapped_question>-questionid = lv_question_id.
+          UNASSIGN <fs_mapped_question>.
+        ENDIF.
+      ENDLOOP.
+    ENDIF.
+
+    " Variant
+
+    DATA(lt_create_variant) = mapped-variant.
+    DELETE lt_create_variant WHERE variantid IS NOT INITIAL.
+
+    IF lt_create_variant IS NOT INITIAL.
+      SORT lt_create_variant BY %tmp-testid %tmp-questionid.
+
+      LOOP AT lt_create_variant ASSIGNING FIELD-SYMBOL(<fs_create_variant>).
+        AT NEW %tmp-questionid.
+          SELECT MAX( variant_id ) FROM znept_qz_var INTO @DATA(lv_variant_id)
+            WHERE test_id = @<fs_create_variant>-%tmp-testid
+              AND question_id = @<fs_create_variant>-%tmp-questionid.
+          IF sy-subrc <> 0.
+            CLEAR lv_variant_id.
+          ENDIF.
+        ENDAT.
+
+        READ TABLE mapped-variant WITH KEY %pid = <fs_create_variant>-%pid ASSIGNING FIELD-SYMBOL(<fs_mapped_variant>) BINARY SEARCH.
+        IF sy-subrc = 0 AND <fs_mapped_variant> IS ASSIGNED.
+          <fs_mapped_variant>-testid = <fs_mapped_variant>-%tmp-testid.
+          <fs_mapped_variant>-questionid = <fs_mapped_variant>-%tmp-questionid.
+          lv_variant_id += 1.
+          <fs_mapped_variant>-variantid = lv_variant_id.
+          UNASSIGN <fs_mapped_variant>.
+        ENDIF.
+      ENDLOOP.
+    ENDIF.
+
+  ENDMETHOD.
+
+  METHOD save_modified.
+
+
+  ENDMETHOD.
+
+  METHOD cleanup_finalize.
   ENDMETHOD.
 
 ENDCLASS.

@@ -21,9 +21,12 @@ annotate view ZNEPT_QZ_C_VARIANT_M with
 
   @UI.hidden: true
   QuestionId;
-  
-  @UI.hidden: true
-  VariantId;  
+
+  @UI: {
+    lineItem: [  { position: 1, label: 'Variant ID' } ],
+    identification:[ { position: 1, label: 'Variant ID' } ]
+  }
+  VariantId;
 
   @UI: {
     lineItem: [ { position: 10, label: 'Variant', cssDefault: { width: '50rem' } } ],

@@ -79,7 +79,6 @@ annotate entity ZNEPT_QZ_C_USAGE with
       targetElement: '_Usage_Details',
       position: 40
     },
-
     { // do not group because there will be no spacing
       purpose:  #HEADER,
       type: #CHART_REFERENCE,

@@ -17,8 +17,7 @@ define view entity ZNEPT_QZ_C_QUESTION_M
 
       /* Associations */
 
-      _Part    : redirected to parent ZNEPT_QZ_C_PART_M,
-      _Quiz    : redirected to ZNEPT_QZ_C_QUIZ_M,
+      _Part    : redirected to ZNEPT_QZ_C_PART_M,
+      _Quiz    : redirected to parent ZNEPT_QZ_C_QUIZ_M,
       _Variant : redirected to composition child ZNEPT_QZ_C_VARIANT_M
-
 }

@@ -1,0 +1,46 @@
+//
+projection;
+strict(1);
+use draft;
+
+define behavior for ZNEPT_QZ_C_QUIZ_D alias Quiz
+{
+  use create;
+  use update;
+  use delete;
+
+  use action Edit;
+  use action Activate;
+  use action Discard;
+  use action Resume;
+  use action Prepare;
+
+  use association _Part { create; with draft; }
+  use association _Question { create; with draft; }
+}
+
+define behavior for ZNEPT_QZ_C_PART_D alias Part
+{
+  use update;
+  use delete;
+
+  use association _Quiz { with draft; }
+}
+
+define behavior for ZNEPT_QZ_C_QUESTION_D alias Question
+{
+  use update;
+  use delete;
+
+  use association _Quiz { with draft; }
+  use association _Variant { create; with draft; }
+}
+
+define behavior for ZNEPT_QZ_C_VARIANT_D alias Variant
+{
+  use update;
+  use delete;
+
+  use association _Quiz { with draft; }
+  use association _Question { with draft; }
+}

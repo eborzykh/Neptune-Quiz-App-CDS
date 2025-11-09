@@ -12,28 +12,29 @@ define view entity ZNEPT_QZ_I_QUIZ
 
 {
 
-  key _Quiz.test_id                       as TestId,
+  key _Quiz.test_id                                                     as TestId,
 
-      _Quiz.upload_on                     as UploadOn,
-      _Quiz.upload_at                     as UploadAt,
+      _Quiz.upload_on                                                   as UploadOn,
+      _Quiz.upload_at                                                   as UploadAt,
+      _Quiz.upload_by                                                   as UploadBy,
 
-      DATS_TIMS_TO_TSTMP ( _Quiz.upload_on, _Quiz.upload_at, 
+      DATS_TIMS_TO_TSTMP ( _Quiz.upload_on, _Quiz.upload_at,
                            $session.user_timezone, $session.client,
-                           'NULL' )       as UploadTSTMP,
+                           'NULL' )                                     as UploadTSTMP,
 
-      _Quiz.upload_by                     as UploadBy,
+      CONCAT(_Quiz.upload_by, CONCAT(_Quiz.upload_on, _Quiz.upload_at)) as ETag, // ETag calculation
 
       //      @ObjectModel.readOnly: true
       //      for non read-only scenario apply: field ( readonly ) .. Upload_By_Name ..
       @ObjectModel.virtualElement: true
       @ObjectModel.virtualElementCalculatedBy: 'ABAP:ZCL_NEPT_QZ_EXIT_CALC_QUIZ'
-      cast('' as znept_qz_upload_name_de) as Upload_By_Name,
+      cast('' as znept_qz_upload_name_de)                               as Upload_By_Name,
 
-      _Quiz.description                   as Description,
+      _Quiz.version                                                     as Version, // to be replaced with hash-key
+      _Quiz.description                                                 as Description,
+      _Quiz.published                                                   as Published,
+      _Published.PublishedText                                          as PublishedText,
 
-      _Quiz.published                     as Published,
-      _Published.PublishedText            as PublishedText,
-
-      _R_Part.Part_Count                  as Part_Count,
-      _R_Question.Question_Count          as Question_Count
+      _R_Part.Part_Count                                                as Part_Count,
+      _R_Question.Question_Count                                        as Question_Count
 }

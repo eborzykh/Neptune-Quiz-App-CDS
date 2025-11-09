@@ -60,7 +60,10 @@ annotate view ZNEPT_QZ_C_QUIZ_M with
   }
   ]
 
-  @UI.hidden: true
+  @UI: {
+  lineItem: [ { position: 1, label: 'Quiz ID' } ],
+  fieldGroup: [{ qualifier: 'attributes', position: 1, label: 'Quiz ID' }]
+  }
   TestId;
 
   @UI: {

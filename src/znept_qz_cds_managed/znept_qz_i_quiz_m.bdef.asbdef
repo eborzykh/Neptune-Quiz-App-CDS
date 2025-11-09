@@ -3,87 +3,111 @@ managed implementation in class zbp_nept_qz_i_quiz_m unique;
 strict ( 1 );
 
 define behavior for ZNEPT_QZ_I_QUIZ_M alias Quiz
+implementation in class zbp_nept_qz_i_quiz_m unique
 persistent table znept_qz_tst
+with additional save
+etag master ETag
 lock master
+late numbering
 authorization master ( instance )
 {
   create;
   update;
   delete;
 
-  field ( readonly ) TestId, UploadAt, UploadOn, Upload_By_Name, Part_Count, Question_Count, UI_Published;
+  field ( readonly ) TestId, UploadAt, UploadOn, UploadBy, Upload_By_Name, Part_Count, Question_Count, UI_Published;
   field ( mandatory ) Description;
 
+  determination setTestETag on modify { create; }
+
   association _Part { create; }
+  association _Question { create; }
 
   mapping for znept_qz_tst
   {
     TestId = test_id;
-    Description = description;
-    Published = published;
 
     UploadAt = upload_at;
     UploadOn = upload_on;
     UploadBy = upload_by;
+    Description = description;
+    Published = published;
+
+    Version = version;
   }
 }
 
 define behavior for ZNEPT_QZ_I_PART_M alias Part
+implementation in class zbp_nept_qz_i_part_m unique
 persistent table znept_qz_prt
 lock dependent by _Quiz
 authorization dependent by _Quiz
-{
-  update;
-  delete;
-
-  field ( readonly ) TestId;
-  field ( mandatory ) Description;
-
-  association _Quiz;
-  association _Question { create; }
-
-  mapping for ZNEPT_QZ_PRT
-  {
-    TestId = test_id;
-    PartId = part_id;
-    Description = description;
-  }
-}
-
-define behavior for ZNEPT_QZ_I_QUESTION_M alias Question
-persistent table znept_qz_qst
-lock dependent by _Quiz
-authorization dependent by _Quiz
+late numbering
 {
   update;
   delete;
 
   field ( readonly ) TestId, PartId;
+  field ( mandatory ) Description;
+
+  association _Quiz;
+
+  mapping for ZNEPT_QZ_PRT
+  {
+    TestId = test_id;
+    PartId = part_id;
+
+    Sort = sort;
+
+    Description = description;
+
+    Version = version;
+  }
+}
+
+define behavior for ZNEPT_QZ_I_QUESTION_M alias Question
+implementation in class zbp_nept_qz_i_question_m unique
+with additional save
+persistent table znept_qz_qst
+lock dependent by _Quiz
+authorization dependent by _Quiz
+late numbering
+{
+  update;
+  delete;
+
+  field ( readonly ) TestId, PartId, QuestionId;
   field ( mandatory ) Question;
 
   association _Quiz;
-  association _Part;
   association _Variant { create; }
 
   mapping for ZNEPT_QZ_QST
   {
     TestId = test_id;
-    PartId = part_id;
     QuestionId = question_id;
+
+    Sort = sort;
+
+    PartId = part_id;
     Question = question;
     Explanation = explanation;
+
+    Version = version;
   }
 }
 
 define behavior for ZNEPT_QZ_I_VARIANT_M alias Variant
+implementation in class zbp_nept_qz_i_variant_m unique
 persistent table znept_qz_var
 lock dependent by _Quiz
 authorization dependent by _Quiz
+late numbering
 {
   update;
   delete;
 
-  field ( readonly ) TestId, QuestionId;
+  field ( readonly ) TestId, QuestionId, VariantId;
   field ( mandatory ) Variant;
 
   association _Quiz;
@@ -94,7 +118,12 @@ authorization dependent by _Quiz
     TestId = test_id;
     QuestionId = question_id;
     VariantId = variant_id;
+
+    Sort = sort;
+
     Variant = variant;
     Correct = correct;
+
+    Version = version;
   }
 }

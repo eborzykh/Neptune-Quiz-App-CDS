@@ -1,0 +1,126 @@
+//
+managed implementation in class zbp_nept_qz_i_quiz_d unique;
+strict (1);
+with draft;
+
+define behavior for ZNEPT_QZ_I_QUIZ_D alias Quiz
+persistent table znept_qz_tst
+draft table znept_qz_tst_d
+lock master
+total etag ETag
+authorization master ( instance )
+late numbering
+{
+  create;
+  update;
+  delete;
+
+  draft action Edit;
+  draft action Activate;
+  draft action Discard;
+  draft action Resume;
+
+  draft determine action Prepare;
+
+  field ( readonly ) TestId, UploadAt, UploadOn, UploadBy, Upload_By_Name, Part_Count, Question_Count, UI_Published;
+  field ( mandatory ) Description;
+
+  determination setTestId on modify { create; field TestId; }
+
+  association _Part { create; with draft; }
+  association _Question { create; with draft; }
+
+  mapping for znept_qz_tst
+  {
+    TestId = test_id;
+
+    UploadAt = upload_at;
+    UploadOn = upload_on;
+    UploadBy = upload_by;
+    Description = description;
+    Published = published;
+    Version = version;
+  }
+}
+
+define behavior for ZNEPT_QZ_I_PART_D alias Part
+implementation in class zbp_nept_qz_i_part_d unique
+persistent table znept_qz_prt
+draft table znept_qz_prt_d
+lock dependent by _Quiz
+authorization dependent by _Quiz
+late numbering
+{
+  update;
+  delete;
+  field ( readonly ) TestId;
+
+  association _Quiz { with draft; }
+
+  mapping for znept_qz_prt
+  {
+    TestId = test_id;
+    PartId = part_id;
+
+    Description = description;
+    Sort = sort;
+    Version = version;
+  }
+}
+
+define behavior for ZNEPT_QZ_I_QUESTION_D alias Question
+implementation in class zbp_nept_qz_i_question_d unique
+persistent table znept_qz_qst
+draft table znept_qz_qst_d
+lock dependent by _Quiz
+authorization dependent by _Quiz
+late numbering
+{
+  update;
+  delete;
+  field ( readonly ) TestId;
+
+  association _Quiz { with draft; }
+
+  association _Variant { create; with draft; }
+
+  mapping for znept_qz_qst
+  {
+    TestId = test_id;
+    QuestionId = question_id;
+
+    PartId = part_id;
+    Question = question;
+    Explanation = explanation;
+    Sort = sort;
+    Version = version;
+  }
+}
+
+define behavior for ZNEPT_QZ_I_VARIANT_D alias Variant
+implementation in class zbp_nept_qz_i_variant_d unique
+persistent table znept_qz_var
+draft table znept_qz_var_d
+lock dependent by _Quiz
+authorization dependent by _Quiz
+late numbering
+{
+  update;
+  delete;
+  field ( readonly ) TestId, QuestionId;
+
+  association _Quiz { with draft; }
+  association _Question { with draft; }
+
+  mapping for znept_qz_var
+  {
+    TestId = test_id;
+    QuestionId = question_id;
+    VariantId = variant_id;
+
+    Variant = variant;
+    Correct = correct;
+    Sort = sort;
+    Version = version;
+  }
+}

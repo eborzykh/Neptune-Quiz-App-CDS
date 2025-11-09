@@ -28,7 +28,5 @@ define root view entity ZNEPT_QZ_C_QUIZ_M
       /* Associations */
 
       _Part     : redirected to composition child ZNEPT_QZ_C_PART_M,
-      _Question : redirected to ZNEPT_QZ_C_QUESTION_M,
-      _Variant  : redirected to ZNEPT_QZ_C_VARIANT_M
-
+      _Question : redirected to composition child ZNEPT_QZ_C_QUESTION_M
 }

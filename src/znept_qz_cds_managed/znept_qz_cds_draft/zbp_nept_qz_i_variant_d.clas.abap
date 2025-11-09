@@ -1,0 +1,5 @@
+CLASS zbp_nept_qz_i_variant_d DEFINITION PUBLIC ABSTRACT FINAL FOR BEHAVIOR OF znept_qz_i_quiz_d.
+ENDCLASS.
+
+CLASS zbp_nept_qz_i_variant_d IMPLEMENTATION.
+ENDCLASS.

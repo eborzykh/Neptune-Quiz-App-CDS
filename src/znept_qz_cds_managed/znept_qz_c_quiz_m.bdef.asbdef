@@ -9,6 +9,7 @@ define behavior for ZNEPT_QZ_C_QUIZ_M alias Quiz
   use delete;
 
   use association _Part { create; }
+  use association _Question { create; }
 }
 
 define behavior for ZNEPT_QZ_C_PART_M alias Part
@@ -17,7 +18,6 @@ define behavior for ZNEPT_QZ_C_PART_M alias Part
   use delete;
 
   use association _Quiz;
-  use association _Question { create; }
 }
 
 define behavior for ZNEPT_QZ_C_QUESTION_M alias Question
@@ -26,7 +26,6 @@ define behavior for ZNEPT_QZ_C_QUESTION_M alias Question
   use delete;
 
   use association _Quiz;
-  use association _Part;
   use association _Variant { create; }
 }
 

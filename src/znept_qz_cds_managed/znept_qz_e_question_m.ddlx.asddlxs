@@ -21,26 +21,17 @@ annotate view ZNEPT_QZ_C_QUESTION_M with
   targetElement: '_Variant'
   }
   ]
-  
-//  @UI: {
-//    lineItem: [  { position: 1, label: 'Quiz ID' } ],
-//    identification:[ { position: 1, label: 'Quiz ID' } ]
-//  }
+
   @UI.hidden: true
   TestId;
 
-//  @UI: {
-//    lineItem: [  { position: 2, label: 'Part ID' } ],
-//    identification:[ { position: 2, label: 'Part ID' } ]
-//  }
   @UI.hidden: true
   PartId;
 
-//  @UI: {
-//    lineItem: [  { position: 4, label: 'Question ID' } ],
-//    identification:[ { position: 4, label: 'Question ID' } ]
-//  }
-  @UI.hidden: true
+  @UI: {
+    lineItem: [  { position: 1, label: 'Question ID' } ],
+    identification:[ { position: 1, label: 'Question ID' } ]
+  }
   QuestionId;
 
   @UI: {

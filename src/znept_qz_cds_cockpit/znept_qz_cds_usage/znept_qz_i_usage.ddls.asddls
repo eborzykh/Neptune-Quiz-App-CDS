@@ -41,36 +41,37 @@ define root view entity ZNEPT_QZ_I_USAGE
       _Activity_Sync.UploadAt,
       _Activity_Sync.TestId,
 
-      _Activity_Sync._Quiz.Description                                          as Description,
+      _Activity_Sync._Quiz.Description                                                        as Description,
 
-      _R_Question.Question_Count                                                as Total,
+      _R_Question.Question_Count                                                              as Total,
 
-      _R_Progress.Progress                                                      as Progress,
+      _R_Progress.Progress                                                                    as Progress,
 
-      _R_Progress_Correct.Progress                                              as Correct,
-      _R_Progress_Incorrect.Progress                                            as Incorrect,
-      _R_Progress_Improved.Progress                                             as Improved,
-      _R_Progress_Unanswered.Progress                                           as Unanswered,
+      _R_Progress_Correct.Progress                                                            as Correct,
+      _R_Progress_Incorrect.Progress                                                          as Incorrect,
+      _R_Progress_Improved.Progress                                                           as Improved,
+      _R_Progress_Unanswered.Progress                                                         as Unanswered,
 
-      _R_Usage.FirstOn                                                          as FirstOn,
-      _R_Usage.LastOn                                                           as LastOn,
+      _R_Usage.FirstOn                                                                        as FirstOn,
+      _R_Usage.LastOn                                                                         as LastOn,
 
-      DATS_DAYS_BETWEEN($projection.FirstOn, $projection.LastOn)                as UseDays,
-      DATS_DAYS_BETWEEN($projection.LastOn, $session.user_date)                 as LastOnDays,
+      DATS_DAYS_BETWEEN($projection.FirstOn, $projection.LastOn)                              as UseDays,
+      DATS_DAYS_BETWEEN($projection.LastOn, $session.user_date)                               as LastOnDays,
 
-      round ( $projection.Progress / $projection.Total * 100, 0 )               as Percentage,
-      round ( $projection.Total / 100 * 80, 0 )                                 as ToleranceLowValue,
-      1                                                                         as DeviationLowValue,
+
+      cast( round ( $projection.Progress / $projection.Total * 100, 0 ) as abap.dec( 5, 2 ) ) as Percentage,
+      cast( round ( $projection.Total / 100 * 80, 0 ) as abap.dec( 5, 2 ) )                   as ToleranceLowValue,
+      1                                                                                       as DeviationLowValue,
 
       case
         when $projection.Percentage is null or $projection.Percentage = 0 then 1
         when $projection.Percentage between 1 and 79 then 2
         when $projection.Percentage between 80 and 100 then 3
         else 0
-      end                                                                       as CriticalityCode,
+      end                                                                                     as CriticalityCode,
 
-      concat((concat_with_space('Sync entity', _Activity_Sync.SyncId, 1)), '.') as TextTitle,
-      concat((concat_with_space('Quiz entity', _Activity_Sync.TestId, 1)), '.') as TextDescription,
+      concat((concat_with_space('Sync entity', _Activity_Sync.SyncId, 1)), '.')               as TextTitle,
+      concat((concat_with_space('Quiz entity', _Activity_Sync.TestId, 1)), '.')               as TextDescription,
 
       /* Associations */
 
