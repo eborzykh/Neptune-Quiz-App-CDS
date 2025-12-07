@@ -8,6 +8,9 @@ CLASS lhc_quiz DEFINITION INHERITING FROM cl_abap_behavior_handler.
     METHODS settestetag FOR DETERMINE ON MODIFY
       IMPORTING keys FOR quiz~settestetag.
 
+    METHODS setversion FOR DETERMINE ON SAVE
+      IMPORTING keys FOR quiz~setversion.
+
 ENDCLASS.
 
 CLASS lhc_quiz IMPLEMENTATION.
@@ -17,22 +20,42 @@ CLASS lhc_quiz IMPLEMENTATION.
 
   METHOD settestetag.
 
-    READ ENTITIES OF ZNEPT_QZ_I_QUIZ_M IN LOCAL MODE
-     ENTITY Quiz
-       FIELDS ( UploadBy UploadOn UploadAt )
+    READ ENTITIES OF znept_qz_i_quiz_m IN LOCAL MODE
+     ENTITY quiz
+       FIELDS ( uploadby uploadon uploadat )
        WITH CORRESPONDING #( keys )
      RESULT DATA(quizzes).
 
-    DELETE quizzes WHERE UploadBy IS NOT INITIAL OR UploadOn IS NOT INITIAL OR UploadAt IS NOT INITIAL.
+    DELETE quizzes WHERE uploadby IS NOT INITIAL OR uploadon IS NOT INITIAL OR uploadat IS NOT INITIAL.
     CHECK quizzes IS NOT INITIAL.
 
-    MODIFY ENTITIES OF ZNEPT_QZ_I_QUIZ_M IN LOCAL MODE
-      ENTITY Quiz
-        UPDATE FIELDS ( UploadBy UploadOn UploadAt )
+    MODIFY ENTITIES OF znept_qz_i_quiz_m IN LOCAL MODE
+      ENTITY quiz
+        UPDATE FIELDS ( uploadby uploadon uploadat )
         WITH VALUE #( FOR quiz IN quizzes ( %tky     = quiz-%tky
-                                            UploadBy = sy-uname
-                                            UploadOn = sy-datum
-                                            UploadAt = sy-timlo ) ).
+                                            uploadby = sy-uname
+                                            uploadon = sy-datum
+                                            uploadat = sy-timlo ) ).
+  ENDMETHOD.
+
+  METHOD setversion.
+
+    READ ENTITIES OF znept_qz_i_quiz_m IN LOCAL MODE
+     ENTITY quiz
+       FIELDS ( version )
+       WITH CORRESPONDING #( keys )
+     RESULT DATA(lt_quiz).
+
+    LOOP AT lt_quiz INTO DATA(ls_quiz).
+      DATA(lv_version) = ls_quiz-version + 1.
+
+      MODIFY ENTITIES OF znept_qz_i_quiz_m IN LOCAL MODE
+      ENTITY quiz
+      UPDATE FIELDS ( version )
+      WITH VALUE #( (  %tky = ls_quiz-%tky version = lv_version ) ).
+
+    ENDLOOP.
+
   ENDMETHOD.
 
 ENDCLASS.
@@ -51,7 +74,11 @@ ENDCLASS.
 CLASS lsc_znept_qz_i_quiz_m IMPLEMENTATION.
 
 **********************************************************************
-* point of no return
+* POINT OF NO RETURN
+**********************************************************************
+
+**********************************************************************
+* calculate IDs
 **********************************************************************
   METHOD adjust_numbers.
 
@@ -163,9 +190,10 @@ CLASS lsc_znept_qz_i_quiz_m IMPLEMENTATION.
 
   ENDMETHOD.
 
+**********************************************************************
+* save external data
+**********************************************************************
   METHOD save_modified.
-
-
   ENDMETHOD.
 
   METHOD cleanup_finalize.

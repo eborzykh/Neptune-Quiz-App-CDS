@@ -27,8 +27,8 @@ annotate view ZNEPT_QZ_C_PART_M with
   TestId;
 
   @UI: {
-    lineItem: [  { position: 1, label: 'Part ID' } ],
-    identification:[ { position: 1, label: 'Part ID' } ]
+    lineItem: [  { position: 10, label: 'Part ID' } ],
+    identification:[ { position: 10, label: 'Part ID' } ]
   }
   PartId;
 
@@ -37,5 +37,13 @@ annotate view ZNEPT_QZ_C_PART_M with
     identification:[ { position: 20, label: 'Part Description' } ]
   }
   Description;
+
+  @EndUserText.label: 'Version'
+  @EndUserText.quickInfo: 'Version (sync mobile)'
+  @UI: {
+    lineItem: [ { position: 30, importance: #LOW, label: 'Version'  } ],
+    identification:[ { position: 30, label: 'Version' } ]
+  }
+  Version;
 
 }

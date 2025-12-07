@@ -115,6 +115,14 @@ annotate view ZNEPT_QZ_C_QUIZ_M with
   }
   Question_Count;
 
+  @EndUserText.label: 'Version'
+  @EndUserText.quickInfo: 'Version (sync mobile)'
+  @UI: {
+  lineItem: [ { position: 80, importance: #LOW, label: 'Version'  } ],
+  fieldGroup: [{ qualifier: 'count_details', position: 30, label: 'Version' }]
+  }
+  Version;
+
   @UI.hidden: true
   Published;
 

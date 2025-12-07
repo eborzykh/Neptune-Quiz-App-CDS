@@ -14,6 +14,8 @@ define view entity ZNEPT_QZ_C_QUESTION_M
       PartId,
       Question,
       Explanation,
+      
+      Version,
 
       /* Associations */
 

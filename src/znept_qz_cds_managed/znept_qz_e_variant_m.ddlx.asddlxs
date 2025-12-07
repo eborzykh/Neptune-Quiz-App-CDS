@@ -23,21 +23,29 @@ annotate view ZNEPT_QZ_C_VARIANT_M with
   QuestionId;
 
   @UI: {
-    lineItem: [  { position: 1, label: 'Variant ID' } ],
-    identification:[ { position: 1, label: 'Variant ID' } ]
+    lineItem: [  { position: 10, label: 'Variant ID' } ],
+    identification:[ { position: 10, label: 'Variant ID' } ]
   }
   VariantId;
 
   @UI: {
-    lineItem: [ { position: 10, label: 'Variant', cssDefault: { width: '50rem' } } ],
-    identification:[ { position: 10, label: 'Variant' } ]
+    lineItem: [ { position: 20, label: 'Variant', cssDefault: { width: '50rem' } } ],
+    identification:[ { position: 20, label: 'Variant' } ]
   }
   Variant;
 
   @UI: {
-    lineItem: [ { position: 20, label: 'Is correct answer' } ],
-    identification:[ { position: 20, label: 'Is correct answer' } ]
+    lineItem: [ { position: 30, label: 'Is correct answer' } ],
+    identification:[ { position: 30, label: 'Is correct answer' } ]
   }
   @Consumption.valueHelpDefinition: [{ entity: { name: 'ZNEPT_QZ_I_VARIANT_CORRECT_VH', element: 'Correct' } }]
   Correct;
+  
+  @EndUserText.label: 'Version'
+  @EndUserText.quickInfo: 'Version (sync mobile)'
+  @UI: {
+    lineItem: [ { position: 40, importance: #LOW, label: 'Version'  } ],
+    identification:[ { position: 40, label: 'Version' } ]
+  }
+  Version;
 }

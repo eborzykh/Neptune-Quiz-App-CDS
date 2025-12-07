@@ -17,11 +17,12 @@ define view entity ZNEPT_QZ_I_VARIANT_M
   key _Variant.QuestionId  as QuestionId,
   key _Variant.VariantId   as VariantId,
 
+      _Variant.Vesrion     as Version,
+
       _Variant.Sort        as Sort,
       _Variant.Correct     as Correct,
       _Correct.CorrectText as CorrectText,
       _Variant.Variant     as Variant,
-      _Variant.Vesrion     as Version,
 
       /* Associations */
 

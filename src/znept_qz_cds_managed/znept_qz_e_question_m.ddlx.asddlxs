@@ -29,20 +29,29 @@ annotate view ZNEPT_QZ_C_QUESTION_M with
   PartId;
 
   @UI: {
-    lineItem: [  { position: 1, label: 'Question ID' } ],
-    identification:[ { position: 1, label: 'Question ID' } ]
+    lineItem: [  { position: 10, label: 'Question ID' } ],
+    identification:[ { position: 10, label: 'Question ID' } ]
   }
   QuestionId;
 
   @UI: {
-    lineItem: [ { position: 10, label: 'Question', cssDefault: { width: '50rem' } } ],
-    identification:[ { position: 10, label: 'Question' } ]
+    lineItem: [ { position: 20, label: 'Question', cssDefault: { width: '50rem' } } ],
+    identification:[ { position: 20, label: 'Question' } ]
   }
   Question;
 
   @UI: {
     lineItem: [ { hidden: true } ],
-    identification:[ { position: 20, label: 'Explanation' } ]
+    identification:[ { position: 30, label: 'Explanation' } ]
   }
   Explanation;
+
+  @EndUserText.label: 'Version'
+  @EndUserText.quickInfo: 'Version (sync mobile)'
+  @UI: {
+    lineItem: [ { position: 30, importance: #LOW, label: 'Version'  } ],
+    identification:[ { position: 30, label: 'Version' } ]
+  }
+  Version;
+
 }

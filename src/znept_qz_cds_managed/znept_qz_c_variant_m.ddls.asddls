@@ -11,11 +11,12 @@ define view entity ZNEPT_QZ_C_VARIANT_M
   key QuestionId,
   key VariantId,
 
+      Version,
+
+      Variant,
       @ObjectModel.text.element: ['CorrectText']
       Correct,
       _Correct.CorrectText,
-
-      Variant,
 
       /* Associations */
 

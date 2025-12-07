@@ -15,10 +15,13 @@ authorization master ( instance )
   update;
   delete;
 
-  field ( readonly ) TestId, UploadAt, UploadOn, UploadBy, Upload_By_Name, Part_Count, Question_Count, UI_Published;
+  field ( readonly ) TestId, UploadAt, UploadOn, UploadBy, Upload_By_Name, Part_Count, Question_Count, UI_Published, Version;
   field ( mandatory ) Description;
 
   determination setTestETag on modify { create; }
+
+// it will be calling the method on listed fields create/update and specified operation
+  determination setVersion on save { field Description; }
 
   association _Part { create; }
   association _Question { create; }
@@ -39,6 +42,7 @@ authorization master ( instance )
 
 define behavior for ZNEPT_QZ_I_PART_M alias Part
 implementation in class zbp_nept_qz_i_part_m unique
+with additional save
 persistent table znept_qz_prt
 lock dependent by _Quiz
 authorization dependent by _Quiz
@@ -47,8 +51,11 @@ late numbering
   update;
   delete;
 
-  field ( readonly ) TestId, PartId;
+  field ( readonly ) TestId, PartId, Version;
   field ( mandatory ) Description;
+
+// it will be calling the method on listed fields create/update and specified operation
+  determination setVersion on save { delete; field Description; }
 
   association _Quiz;
 
@@ -76,8 +83,11 @@ late numbering
   update;
   delete;
 
-  field ( readonly ) TestId, PartId, QuestionId;
+  field ( readonly ) TestId, PartId, QuestionId, Version;
   field ( mandatory ) Question;
+
+// it will be calling the method on listed fields create/update and specified operation
+  determination setVersion on save { delete; field Question, Explanation; }
 
   association _Quiz;
   association _Variant { create; }
@@ -99,6 +109,7 @@ late numbering
 
 define behavior for ZNEPT_QZ_I_VARIANT_M alias Variant
 implementation in class zbp_nept_qz_i_variant_m unique
+with additional save
 persistent table znept_qz_var
 lock dependent by _Quiz
 authorization dependent by _Quiz
@@ -107,8 +118,11 @@ late numbering
   update;
   delete;
 
-  field ( readonly ) TestId, QuestionId, VariantId;
+  field ( readonly ) TestId, QuestionId, VariantId, Version;
   field ( mandatory ) Variant;
+
+// it will be calling the method on listed fields create/update and specified operation
+  determination setVersion on save { delete; field Variant, Correct; }
 
   association _Quiz;
   association _Question;
