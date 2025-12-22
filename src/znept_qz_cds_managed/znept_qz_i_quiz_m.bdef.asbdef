@@ -9,11 +9,14 @@ with additional save
 etag master ETag
 lock master
 late numbering
-authorization master ( instance )
+authorization master ( global )
 {
   create;
   update;
   delete;
+
+  action ( features : instance ) Publish;
+  action ( features : instance ) Unpublish;
 
   field ( readonly ) TestId, UploadAt, UploadOn, UploadBy, Upload_By_Name, Part_Count, Question_Count, UI_Published, Version;
   field ( mandatory ) Description;
@@ -51,11 +54,16 @@ late numbering
   update;
   delete;
 
+  action ( features : instance ) movePartUp;
+  action ( features : instance ) movePartDown;
+  action ( features : instance ) movePartFirst;
+  action ( features : instance ) movePartLast;
+
   field ( readonly ) TestId, PartId, Version;
   field ( mandatory ) Description;
 
 // it will be calling the method on listed fields create/update and specified operation
-  determination setVersion on save { delete; field Description; }
+  determination setVersion on save { delete; field Description, Sort; }
 
   association _Quiz;
 
@@ -65,7 +73,6 @@ late numbering
     PartId = part_id;
 
     Sort = sort;
-
     Description = description;
 
     Version = version;
@@ -83,11 +90,16 @@ late numbering
   update;
   delete;
 
+  action ( features : instance ) moveQuestionUp;
+  action ( features : instance ) moveQuestionDown;
+  action ( features : instance ) moveQuestionFirst;
+  action ( features : instance ) moveQuestionLast;
+
   field ( readonly ) TestId, PartId, QuestionId, Version;
   field ( mandatory ) Question;
 
 // it will be calling the method on listed fields create/update and specified operation
-  determination setVersion on save { delete; field Question, Explanation; }
+  determination setVersion on save { delete; field Question, Explanation, Sort; }
 
   association _Quiz;
   association _Variant { create; }
@@ -98,7 +110,6 @@ late numbering
     QuestionId = question_id;
 
     Sort = sort;
-
     PartId = part_id;
     Question = question;
     Explanation = explanation;
@@ -118,11 +129,16 @@ late numbering
   update;
   delete;
 
+  action ( features : instance ) moveVariantUp;
+  action ( features : instance ) moveVariantDown;
+  action ( features : instance ) moveVariantFirst;
+  action ( features : instance ) moveVariantLast;
+
   field ( readonly ) TestId, QuestionId, VariantId, Version;
   field ( mandatory ) Variant;
 
 // it will be calling the method on listed fields create/update and specified operation
-  determination setVersion on save { delete; field Variant, Correct; }
+  determination setVersion on save { delete; field Variant, Correct, Sort; }
 
   association _Quiz;
   association _Question;
@@ -134,7 +150,6 @@ late numbering
     VariantId = variant_id;
 
     Sort = sort;
-
     Variant = variant;
     Correct = correct;
 

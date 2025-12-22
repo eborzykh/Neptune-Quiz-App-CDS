@@ -74,14 +74,14 @@ annotate view ZNEPT_QZ_C_QUIZ_M with
   Description;
 
   @UI: {
-  lineItem: [ { position: 20, importance: #MEDIUM, label: 'Uploaded on' } ],
-  fieldGroup: [{ qualifier: 'upload_details', position: 10, label: 'Uploaded on' }]
+    lineItem: [ { position: 20, importance: #MEDIUM, label: 'Uploaded on' } ],
+    fieldGroup: [{ qualifier: 'upload_details', position: 10, label: 'Uploaded on' }]
   }
   UploadOn;
 
   @UI: {
-   lineItem: [ { position: 30, importance: #MEDIUM, label: 'Uploaded at' } ],
-   fieldGroup: [{ qualifier: 'upload_details', position: 20, label: 'Uploaded at' }]
+     lineItem: [ { position: 30, importance: #MEDIUM, label: 'Uploaded at' } ],
+     fieldGroup: [{ qualifier: 'upload_details', position: 20, label: 'Uploaded at' }]
    }
   UploadAt;
 
@@ -94,7 +94,9 @@ annotate view ZNEPT_QZ_C_QUIZ_M with
   @EndUserText.label: 'Visibility'
   @EndUserText.quickInfo: 'Visible for all users'
   @UI: {
-   lineItem: [ { position: 50, importance: #HIGH, label: 'Visibility ' } ],
+   lineItem: [ { position: 50, importance: #HIGH, label: 'Visibility ' },
+               { type: #FOR_ACTION, dataAction: 'Publish', label: 'Publish' },
+               { type: #FOR_ACTION, dataAction: 'Unpublish', label: 'Unpublish' } ],
    fieldGroup: [{ qualifier: 'attributes', position: 20 }]
    }
   UI_Published;

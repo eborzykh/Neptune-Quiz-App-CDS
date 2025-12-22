@@ -20,7 +20,11 @@ define view entity ZNEPT_QZ_I_QUESTION_M
       _Question.PartId      as PartId,
       _Question.Question    as Question,
       _Question.Explanation as Explanation,
+      
       _Question.Version     as Version,
+      
+      _Question.Sort        as SortQuestion,       
+      _Part.Sort            as SortPart,
 
       /* Associations */
 

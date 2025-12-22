@@ -8,10 +8,11 @@ define view entity ZNEPT_QZ_C_PART_M
 {
   key TestId,
   key PartId,
-  
-      Version,
 
+      Sort,
       Description,
+      
+      Version,
 
       /* Associations */
 

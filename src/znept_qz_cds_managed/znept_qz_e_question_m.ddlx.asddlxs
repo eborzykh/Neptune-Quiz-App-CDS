@@ -4,7 +4,9 @@
 
 @UI: { headerInfo: { typeName: 'Question', typeNamePlural: 'Questions' , title: { type: #STANDARD, value: 'QuestionId' } } }
 
-annotate view ZNEPT_QZ_C_QUESTION_M with
+@UI.presentationVariant: [{ sortOrder: [{ by: 'SortPart', direction: #ASC }, { by: 'SortQuestion', direction: #ASC }] }]
+
+annotate view ZNEPT_QZ_C_QUESTION_M with 
 {
   @UI.facet: [
     {
@@ -29,7 +31,11 @@ annotate view ZNEPT_QZ_C_QUESTION_M with
   PartId;
 
   @UI: {
-    lineItem: [  { position: 10, label: 'Question ID' } ],
+    lineItem: [  { position: 10, label: 'Question ID' },
+                 { type: #FOR_ACTION, dataAction: 'moveQuestionLast', label: 'Last' },
+                 { type: #FOR_ACTION, dataAction: 'moveQuestionFirst', label: 'First' },
+                 { type: #FOR_ACTION, dataAction: 'moveQuestionDown', label: 'Down' },
+                 { type: #FOR_ACTION, dataAction: 'moveQuestionUp', label: 'Up' } ],
     identification:[ { position: 10, label: 'Question ID' } ]
   }
   QuestionId;

@@ -11,11 +11,15 @@ define view entity ZNEPT_QZ_C_QUESTION_M
   key TestId,
   key QuestionId,
 
+      Sort,
       PartId,
       Question,
       Explanation,
-      
+
       Version,
+      
+      SortQuestion,       
+      SortPart,
 
       /* Associations */
 
