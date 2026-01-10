@@ -70,6 +70,15 @@ CLASS lhc_variant IMPLEMENTATION.
 
   METHOD get_instance_features.
 
+    TYPES: BEGIN OF tt_variant_sort,
+             testid      TYPE znept_qz_test_id_de,
+             questionid  TYPE znept_qz_question_id_de,
+             sort_top    TYPE znept_qz_variant_ord_de,
+             sort_bottom TYPE znept_qz_variant_ord_de,
+           END OF tt_variant_sort.
+
+    DATA lt_variant_sort TYPE TABLE OF tt_variant_sort.
+
     READ ENTITIES OF znept_qz_i_quiz_m IN LOCAL MODE
       ENTITY variant
         FIELDS ( sort )
@@ -78,28 +87,37 @@ CLASS lhc_variant IMPLEMENTATION.
 
     LOOP AT lt_variant ASSIGNING FIELD-SYMBOL(<fs_variant>).
 
-      AT FIRST.
-        SELECT MIN( sort ) AS sort_top, MAX( sort ) AS sort_bottom
-          INTO @DATA(ls_sort) FROM znept_qz_i_variant_m
-          WHERE testid     = @<fs_variant>-testid
-            AND questionid = @<fs_variant>-questionid.
-      ENDAT.
+      READ TABLE lt_variant_sort WITH KEY testid = <fs_variant>-testid questionid = <fs_variant>-questionid
+        ASSIGNING FIELD-SYMBOL(<fs_variant_sort>).
+      IF sy-subrc <> 0 OR <fs_variant_sort> IS NOT ASSIGNED.
+        APPEND INITIAL LINE TO lt_variant_sort ASSIGNING <fs_variant_sort>.
+        IF <fs_variant_sort> IS ASSIGNED.
+          MOVE-CORRESPONDING <fs_variant> TO <fs_variant_sort>.
+          SELECT MIN( sort ) AS sort_top, MAX( sort ) AS sort_bottom
+            INTO ( @<fs_variant_sort>-sort_top, @<fs_variant_sort>-sort_bottom )
+            FROM znept_qz_i_variant_m
+            WHERE testid     = @<fs_variant>-testid
+              AND questionid = @<fs_variant>-questionid.
+        ENDIF.
+      ENDIF.
 
       APPEND INITIAL LINE TO result ASSIGNING FIELD-SYMBOL(<fs_result>).
       IF <fs_result> IS ASSIGNED.
         <fs_result>-%tky = <fs_variant>-%tky.
 
-        <fs_result>-%features-%action-movevariantup = COND #( WHEN <fs_variant>-sort = ls_sort-sort_top
+        <fs_result>-%features-%action-movevariantup = COND #( WHEN <fs_variant>-sort = <fs_variant_sort>-sort_top
                                                               THEN if_abap_behv=>fc-o-disabled
                                                               ELSE if_abap_behv=>fc-o-enabled ).
 
-        <fs_result>-%features-%action-movevariantdown = COND #( WHEN <fs_variant>-sort = ls_sort-sort_bottom
+        <fs_result>-%features-%action-movevariantdown = COND #( WHEN <fs_variant>-sort = <fs_variant_sort>-sort_bottom
                                                                 THEN if_abap_behv=>fc-o-disabled
                                                                 ELSE if_abap_behv=>fc-o-enabled ).
 
         <fs_result>-%features-%action-movevariantfirst = <fs_result>-%features-%action-movevariantup.
         <fs_result>-%features-%action-movevariantlast = <fs_result>-%features-%action-movevariantdown.
       ENDIF.
+
+      UNASSIGN: <fs_variant_sort>, <fs_result>.
     ENDLOOP.
 
   ENDMETHOD.

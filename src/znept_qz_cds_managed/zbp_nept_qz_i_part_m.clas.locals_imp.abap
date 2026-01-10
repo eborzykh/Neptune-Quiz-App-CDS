@@ -72,6 +72,14 @@ CLASS lhc_part IMPLEMENTATION.
 
   METHOD get_instance_features.
 
+    TYPES: BEGIN OF tt_part_sort,
+             testid      TYPE znept_qz_test_id_de,
+             sort_top    TYPE znept_qz_variant_ord_de,
+             sort_bottom TYPE znept_qz_variant_ord_de,
+           END OF tt_part_sort.
+
+    DATA lt_part_sort TYPE TABLE OF tt_part_sort.
+
     READ ENTITIES OF znept_qz_i_quiz_m IN LOCAL MODE
       ENTITY part
         FIELDS ( sort )
@@ -79,28 +87,37 @@ CLASS lhc_part IMPLEMENTATION.
         RESULT DATA(lt_part).
 
     LOOP AT lt_part ASSIGNING FIELD-SYMBOL(<fs_part>).
-      AT FIRST.
-        SELECT MIN( sort ) AS sort_top, MAX( sort ) AS sort_bottom
-          INTO @DATA(ls_sort) FROM znept_qz_i_part_m
-          WHERE testid = @<fs_part>-testid.
-      ENDAT.
+
+      READ TABLE lt_part_sort WITH KEY testid = <fs_part>-testid
+        ASSIGNING FIELD-SYMBOL(<fs_part_sort>).
+      IF sy-subrc <> 0 OR <fs_part_sort> IS NOT ASSIGNED.
+        APPEND INITIAL LINE TO lt_part_sort ASSIGNING <fs_part_sort>.
+        IF <fs_part_sort> IS ASSIGNED.
+          MOVE-CORRESPONDING <fs_part> TO <fs_part_sort>.
+          SELECT MIN( sort ) AS sort_top, MAX( sort ) AS sort_bottom
+            INTO ( @<fs_part_sort>-sort_top, @<fs_part_sort>-sort_bottom )
+            FROM znept_qz_i_part_m
+            WHERE testid = @<fs_part>-testid.
+        ENDIF.
+      ENDIF.
 
       APPEND INITIAL LINE TO result ASSIGNING FIELD-SYMBOL(<fs_result>).
       IF <fs_result> IS ASSIGNED.
         <fs_result>-%tky = <fs_part>-%tky.
 
-        <fs_result>-%features-%action-movepartup = COND #( WHEN <fs_part>-sort = ls_sort-sort_top
+        <fs_result>-%features-%action-movepartup = COND #( WHEN <fs_part>-sort = <fs_part_sort>-sort_top
                                                            THEN if_abap_behv=>fc-o-disabled
                                                            ELSE if_abap_behv=>fc-o-enabled ).
 
-        <fs_result>-%features-%action-movepartdown = COND #( WHEN <fs_part>-sort = ls_sort-sort_bottom
+        <fs_result>-%features-%action-movepartdown = COND #( WHEN <fs_part>-sort = <fs_part_sort>-sort_bottom
                                                              THEN if_abap_behv=>fc-o-disabled
                                                              ELSE if_abap_behv=>fc-o-enabled ).
 
         <fs_result>-%features-%action-movepartfirst = <fs_result>-%features-%action-movepartup.
         <fs_result>-%features-%action-movepartlast = <fs_result>-%features-%action-movepartdown.
-
       ENDIF.
+
+      UNASSIGN: <fs_part_sort>, <fs_result>.
     ENDLOOP.
 
   ENDMETHOD.

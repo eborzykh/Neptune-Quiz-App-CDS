@@ -77,6 +77,15 @@ CLASS lhc_question IMPLEMENTATION.
 
   METHOD get_instance_features.
 
+    TYPES: BEGIN OF tt_question_sort,
+             testid      TYPE znept_qz_test_id_de,
+             partid      TYPE znept_qz_part_id_de,
+             sort_top    TYPE znept_qz_question_ord_de,
+             sort_bottom TYPE znept_qz_question_ord_de,
+           END OF tt_question_sort.
+
+    DATA lt_question_sort TYPE TABLE OF tt_question_sort.
+
     READ ENTITIES OF znept_qz_i_quiz_m IN LOCAL MODE
       ENTITY question
         FIELDS ( partid sort )
@@ -85,28 +94,37 @@ CLASS lhc_question IMPLEMENTATION.
 
     LOOP AT lt_question ASSIGNING FIELD-SYMBOL(<fs_question>).
 
-      AT NEW partid.
-        SELECT MIN( sort ) AS sort_top, MAX( sort ) AS sort_bottom
-          INTO @DATA(ls_sort) FROM znept_qz_i_question_m
-          WHERE testid = @<fs_question>-testid
-            AND partid = @<fs_question>-partid.
-      ENDAT.
+      READ TABLE lt_question_sort WITH KEY testid = <fs_question>-testid partid = <fs_question>-partid
+        ASSIGNING FIELD-SYMBOL(<fs_question_sort>).
+      IF sy-subrc <> 0 OR <fs_question_sort> IS NOT ASSIGNED.
+        APPEND INITIAL LINE TO lt_question_sort ASSIGNING <fs_question_sort>.
+        IF <fs_question_sort> IS ASSIGNED.
+          MOVE-CORRESPONDING <fs_question> TO <fs_question_sort>.
+          SELECT MIN( sort ) AS sort_top, MAX( sort ) AS sort_bottom
+            INTO ( @<fs_question_sort>-sort_top, @<fs_question_sort>-sort_bottom )
+            FROM znept_qz_i_question_m
+            WHERE testid = @<fs_question>-testid
+              AND partid = @<fs_question>-partid.
+        ENDIF.
+      ENDIF.
 
       APPEND INITIAL LINE TO result ASSIGNING FIELD-SYMBOL(<fs_result>).
       IF <fs_result> IS ASSIGNED.
         <fs_result>-%tky = <fs_question>-%tky.
 
-        <fs_result>-%features-%action-movequestionup = COND #( WHEN <fs_question>-sort = ls_sort-sort_top
+        <fs_result>-%features-%action-movequestionup = COND #( WHEN <fs_question>-sort = <fs_question_sort>-sort_top
                                                                THEN if_abap_behv=>fc-o-disabled
                                                                ELSE if_abap_behv=>fc-o-enabled ).
 
-        <fs_result>-%features-%action-movequestiondown = COND #( WHEN <fs_question>-sort = ls_sort-sort_bottom
+        <fs_result>-%features-%action-movequestiondown = COND #( WHEN <fs_question>-sort = <fs_question_sort>-sort_bottom
                                                                  THEN if_abap_behv=>fc-o-disabled
                                                                  ELSE if_abap_behv=>fc-o-enabled ).
 
         <fs_result>-%features-%action-movequestionfirst = <fs_result>-%features-%action-movequestionup.
         <fs_result>-%features-%action-movequestionlast = <fs_result>-%features-%action-movequestiondown.
       ENDIF.
+
+      UNASSIGN: <fs_question_sort>, <fs_result>.
     ENDLOOP.
 
   ENDMETHOD.
@@ -283,10 +301,7 @@ CLASS lhc_question IMPLEMENTATION.
           FROM lt_variant_create
       ENTITY question
         DELETE FROM
-          VALUE #( FOR question IN lt_question_copy ( %tky = question-%tky ) )
-      ENTITY variant
-        DELETE FROM
-          VALUE #( FOR variant IN lt_variant_copy ( %tky = variant-%tky ) ).
+          VALUE #( FOR question IN lt_question_copy ( %tky = question-%tky ) ).
 
   ENDMETHOD.
 
