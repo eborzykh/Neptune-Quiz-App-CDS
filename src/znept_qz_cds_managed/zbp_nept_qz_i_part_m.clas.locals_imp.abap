@@ -88,8 +88,7 @@ CLASS lhc_part IMPLEMENTATION.
 
     LOOP AT lt_part ASSIGNING FIELD-SYMBOL(<fs_part>).
 
-      READ TABLE lt_part_sort WITH KEY testid = <fs_part>-testid
-        ASSIGNING FIELD-SYMBOL(<fs_part_sort>).
+      READ TABLE lt_part_sort WITH KEY testid = <fs_part>-testid ASSIGNING FIELD-SYMBOL(<fs_part_sort>).
       IF sy-subrc <> 0 OR <fs_part_sort> IS NOT ASSIGNED.
         APPEND INITIAL LINE TO lt_part_sort ASSIGNING <fs_part_sort>.
         IF <fs_part_sort> IS ASSIGNED.
@@ -158,7 +157,8 @@ CLASS lhc_part IMPLEMENTATION.
         WHERE testid = @ls_keys-testid.
 
       IF sy-subrc = 0.
-        READ TABLE lt_part_all WITH KEY partid = ls_keys-partid INTO DATA(ls_part_a).
+        READ TABLE lt_part_all WITH KEY testid = ls_keys-testid
+                                        partid = ls_keys-partid INTO DATA(ls_part_a).
         IF sy-subrc = 0.
 
           IF iv_down = abap_true.

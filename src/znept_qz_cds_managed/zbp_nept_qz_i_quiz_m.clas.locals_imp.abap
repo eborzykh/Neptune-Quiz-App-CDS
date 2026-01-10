@@ -173,8 +173,7 @@ CLASS lsc_znept_qz_i_quiz_m IMPLEMENTATION.
         READ TABLE mapped-part WITH KEY %pid = <fs_create_part>-%pid ASSIGNING FIELD-SYMBOL(<fs_mapped_part>) BINARY SEARCH.
         IF sy-subrc = 0 AND <fs_mapped_part> IS ASSIGNED.
 
-          READ TABLE lt_part_id WITH KEY testid = <fs_create_part>-%tmp-testid
-            ASSIGNING FIELD-SYMBOL(<fs_part_id>).
+          READ TABLE lt_part_id WITH KEY testid = <fs_create_part>-%tmp-testid ASSIGNING FIELD-SYMBOL(<fs_part_id>).
           IF sy-subrc <> 0 OR <fs_part_id> IS NOT ASSIGNED.
             APPEND INITIAL LINE TO lt_part_id ASSIGNING <fs_part_id>.
             IF <fs_part_id> IS ASSIGNED.
@@ -213,8 +212,7 @@ CLASS lsc_znept_qz_i_quiz_m IMPLEMENTATION.
         READ TABLE mapped-question WITH KEY %pid = <fs_create_question>-%pid ASSIGNING FIELD-SYMBOL(<fs_mapped_question>) BINARY SEARCH.
         IF sy-subrc = 0 AND <fs_mapped_question> IS ASSIGNED.
 
-          READ TABLE lt_question_id WITH KEY testid = <fs_mapped_question>-%tmp-testid
-            ASSIGNING FIELD-SYMBOL(<fs_question_id>).
+          READ TABLE lt_question_id WITH KEY testid = <fs_mapped_question>-%tmp-testid ASSIGNING FIELD-SYMBOL(<fs_question_id>).
           IF sy-subrc <> 0 OR <fs_question_id> IS NOT ASSIGNED.
             APPEND INITIAL LINE TO lt_question_id ASSIGNING <fs_question_id>.
             IF <fs_question_id> IS ASSIGNED.
@@ -254,8 +252,8 @@ CLASS lsc_znept_qz_i_quiz_m IMPLEMENTATION.
         READ TABLE mapped-variant WITH KEY %pid = <fs_create_variant>-%pid ASSIGNING FIELD-SYMBOL(<fs_mapped_variant>) BINARY SEARCH.
         IF sy-subrc = 0 AND <fs_mapped_variant> IS ASSIGNED.
 
-          READ TABLE lt_variant_id WITH KEY testid = <fs_create_variant>-%tmp-testid questionid = <fs_create_variant>-%tmp-questionid
-            ASSIGNING FIELD-SYMBOL(<fs_variant_id>).
+          READ TABLE lt_variant_id WITH KEY testid     = <fs_create_variant>-%tmp-testid
+                                            questionid = <fs_create_variant>-%tmp-questionid ASSIGNING FIELD-SYMBOL(<fs_variant_id>).
           IF sy-subrc <> 0 OR <fs_variant_id> IS NOT ASSIGNED.
             APPEND INITIAL LINE TO lt_variant_id ASSIGNING <fs_variant_id>.
             IF <fs_variant_id> IS ASSIGNED.

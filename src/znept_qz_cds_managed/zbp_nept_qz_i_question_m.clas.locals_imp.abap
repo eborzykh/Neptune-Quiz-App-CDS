@@ -94,8 +94,8 @@ CLASS lhc_question IMPLEMENTATION.
 
     LOOP AT lt_question ASSIGNING FIELD-SYMBOL(<fs_question>).
 
-      READ TABLE lt_question_sort WITH KEY testid = <fs_question>-testid partid = <fs_question>-partid
-        ASSIGNING FIELD-SYMBOL(<fs_question_sort>).
+      READ TABLE lt_question_sort WITH KEY testid = <fs_question>-testid
+                                           partid = <fs_question>-partid ASSIGNING FIELD-SYMBOL(<fs_question_sort>).
       IF sy-subrc <> 0 OR <fs_question_sort> IS NOT ASSIGNED.
         APPEND INITIAL LINE TO lt_question_sort ASSIGNING <fs_question_sort>.
         IF <fs_question_sort> IS ASSIGNED.
@@ -165,7 +165,8 @@ CLASS lhc_question IMPLEMENTATION.
         WHERE testid = @ls_keys-testid.
 
       IF sy-subrc = 0.
-        READ TABLE lt_question_all WITH KEY questionid = ls_keys-questionid INTO DATA(ls_question_a).
+        READ TABLE lt_question_all WITH KEY testid     = ls_keys-testid
+                                            questionid = ls_keys-questionid INTO DATA(ls_question_a).
         IF sy-subrc = 0.
 
           DELETE lt_question_all WHERE partid <> ls_question_a-partid.
@@ -242,8 +243,7 @@ CLASS lhc_question IMPLEMENTATION.
     SORT lt_question_copy BY %key-testid.
     LOOP AT lt_question_copy INTO DATA(ls_question_copy).
 
-      READ TABLE lt_question_id WITH KEY testid = ls_question_copy-%key-testid
-        ASSIGNING FIELD-SYMBOL(<fs_question_id>).
+      READ TABLE lt_question_id WITH KEY testid = ls_question_copy-%key-testid ASSIGNING FIELD-SYMBOL(<fs_question_id>).
       IF sy-subrc <> 0 OR <fs_question_id> IS NOT ASSIGNED.
         APPEND INITIAL LINE TO lt_question_id ASSIGNING <fs_question_id>.
         IF <fs_question_id> IS ASSIGNED.

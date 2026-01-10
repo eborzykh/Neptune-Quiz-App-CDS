@@ -25,7 +25,7 @@ annotate view ZNEPT_QZ_C_VARIANT_U with
               { type: #FOR_ACTION, dataAction: 'moveVariantDown', label: 'Down' },
               { type: #FOR_ACTION, dataAction: 'moveVariantUp', label: 'Up' }
               ]
-}
+  }
   TestId;
 
   @UI.hidden: true

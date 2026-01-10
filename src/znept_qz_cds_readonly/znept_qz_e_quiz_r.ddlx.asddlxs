@@ -77,44 +77,44 @@ annotate view ZNEPT_QZ_C_QUIZ_R with
   Description;
 
   @UI: {
-  lineItem: [ { position: 20, importance: #MEDIUM, label: 'Uploaded on' } ],
-  fieldGroup: [{ qualifier: 'upload_details', position: 10, label: 'Uploaded on' }]
+    lineItem: [ { position: 20, importance: #MEDIUM, label: 'Uploaded on' } ],
+    fieldGroup: [{ qualifier: 'upload_details', position: 10, label: 'Uploaded on' }]
   }
   UploadOn;
 
   @UI: {
-   lineItem: [ { position: 30, importance: #MEDIUM, label: 'Uploaded at' } ],
-   fieldGroup: [{ qualifier: 'upload_details', position: 20, label: 'Uploaded at' }]
-   }
+    lineItem: [ { position: 30, importance: #MEDIUM, label: 'Uploaded at' } ],
+    fieldGroup: [{ qualifier: 'upload_details', position: 20, label: 'Uploaded at' }]
+  }
   UploadAt;
 
   @UI: {
-   lineItem: [ { position: 40, importance: #MEDIUM, label: 'Uploaded by' } ],
-   fieldGroup: [{ qualifier: 'upload_details', position: 30, label: 'Uploaded by' }]
-   }
+    lineItem: [ { position: 40, importance: #MEDIUM, label: 'Uploaded by' } ],
+    fieldGroup: [{ qualifier: 'upload_details', position: 30, label: 'Uploaded by' }]
+  }
   Upload_By_Name;
 
   @EndUserText.label: 'Visibility'
   @EndUserText.quickInfo: 'Visible for all users'
   @UI: {
-   lineItem: [ { position: 50, importance: #HIGH, label: 'Visibility ' } ],
-   fieldGroup: [{ qualifier: 'attributes', position: 20 }]
-   }
+    lineItem: [ { position: 50, importance: #HIGH, label: 'Visibility ' } ],
+    fieldGroup: [{ qualifier: 'attributes', position: 20 }]
+  }
   UI_Published;
 
   @EndUserText.label: 'Parts Count'
   @EndUserText.quickInfo: 'Number of Parts in this Quiz'
   @UI: {
-   lineItem: [ { exclude: true, position: 60, importance: #LOW, label: 'Parts' } ],
-  fieldGroup: [{ qualifier: 'count_details', position: 10, label: 'Parts' }]
+    lineItem: [ { exclude: true, position: 60, importance: #LOW, label: 'Parts' } ],
+    fieldGroup: [{ qualifier: 'count_details', position: 10, label: 'Parts' }]
   }
   Part_Count;
 
   @EndUserText.label: 'Questions Count'
   @EndUserText.quickInfo: 'Number of Questions in this Quiz'
   @UI: {
-  lineItem: [ { exclude: true, position: 70, importance: #LOW, label: 'Questions' } ],
-  fieldGroup: [{ qualifier: 'count_details', position: 20, label: 'Questions' }]
+    lineItem: [ { exclude: true, position: 70, importance: #LOW, label: 'Questions' } ],
+    fieldGroup: [{ qualifier: 'count_details', position: 20, label: 'Questions' }]
   }
   Question_Count;
 

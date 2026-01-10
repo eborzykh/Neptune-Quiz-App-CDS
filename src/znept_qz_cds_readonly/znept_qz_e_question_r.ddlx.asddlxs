@@ -6,21 +6,16 @@
 
 annotate view ZNEPT_QZ_C_QUESTION_R with
 {
-  @UI.facet: [
-    {
-      label:    'Question',
-      purpose:  #STANDARD,
-      type:     #IDENTIFICATION_REFERENCE,
-      id:       'header',
-      position: 10 }
-  ,{
-  id: 'Variants',
-  type: #LINEITEM_REFERENCE,
-  label: 'Variants',
-  position: 20,
-  targetElement: '_Variant'
-  }
-  ]
+  @UI.facet: [ { label:    'Question',
+                 purpose:  #STANDARD,
+                 type:     #IDENTIFICATION_REFERENCE,
+                 id:       'header',
+                 position: 10 },
+               { id: 'Variants',
+                 type: #LINEITEM_REFERENCE,
+                 label: 'Variants',
+                 position: 20,
+                 targetElement: '_Variant' } ]
 
   @UI: {
     lineItem: [ { position: 10, label: 'Question', cssDefault: { width: '50rem' } } ],

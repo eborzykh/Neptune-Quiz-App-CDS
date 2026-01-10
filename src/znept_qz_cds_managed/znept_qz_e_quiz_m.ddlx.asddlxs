@@ -39,7 +39,7 @@ annotate view ZNEPT_QZ_C_QUIZ_M with
       purpose:  #STANDARD,
       parentId: 'header',
       targetQualifier : 'count_details',
-      type : #FIELDGROUP_REFERENCE, 
+      type : #FIELDGROUP_REFERENCE,
       position: 30
     },
   {
@@ -61,8 +61,8 @@ annotate view ZNEPT_QZ_C_QUIZ_M with
   ]
 
   @UI: {
-  lineItem: [ { position: 1, label: 'Quiz ID' } ],
-  fieldGroup: [{ qualifier: 'attributes', position: 1, label: 'Quiz ID' }]
+    lineItem: [ { position: 1, label: 'Quiz ID' } ],
+    fieldGroup: [{ qualifier: 'attributes', position: 1, label: 'Quiz ID' }]
   }
   TestId;
 
@@ -80,50 +80,47 @@ annotate view ZNEPT_QZ_C_QUIZ_M with
   UploadOn;
 
   @UI: {
-     lineItem: [ { position: 30, importance: #MEDIUM, label: 'Uploaded at' } ],
-     fieldGroup: [{ qualifier: 'upload_details', position: 20, label: 'Uploaded at' }]
-   }
+    lineItem: [ { position: 30, importance: #MEDIUM, label: 'Uploaded at' } ],
+    fieldGroup: [{ qualifier: 'upload_details', position: 20, label: 'Uploaded at' }]
+  }
   UploadAt;
 
   @UI: {
-   lineItem: [ { position: 40, importance: #MEDIUM, label: 'Uploaded by' } ],
-   fieldGroup: [{ qualifier: 'upload_details', position: 30, label: 'Uploaded by' }]
-   }
+    lineItem: [ { position: 40, importance: #MEDIUM, label: 'Uploaded by' } ],
+    fieldGroup: [{ qualifier: 'upload_details', position: 30, label: 'Uploaded by' }]
+  }
   Upload_By_Name;
 
   @EndUserText.label: 'Visibility'
   @EndUserText.quickInfo: 'Visible for all users'
   @UI: {
-   lineItem: [ { position: 50, importance: #HIGH, label: 'Visibility ' },
-               { type: #FOR_ACTION, dataAction: 'Publish', label: 'Publish' },
-               { type: #FOR_ACTION, dataAction: 'Unpublish', label: 'Unpublish' } ],
-   fieldGroup: [{ qualifier: 'attributes', position: 20 }]
-   }
+    lineItem: [ { position: 50, importance: #HIGH, label: 'Visibility ', cssDefault: { width: '10rem' } },
+                { type: #FOR_ACTION, dataAction: 'Publish', label: 'Publish' },
+                { type: #FOR_ACTION, dataAction: 'Unpublish', label: 'Unpublish' } ],
+    fieldGroup: [{ qualifier: 'attributes', position: 20 }]
+  }
   UI_Published;
+
+  @EndUserText.label: 'Version'
+  @EndUserText.quickInfo: 'Version (mobile sync)'
+  @UI: { 
+    fieldGroup: [{ qualifier: 'count_details', position: 30, label: 'Version' }] 
+  }
+  Version;
 
   @EndUserText.label: 'Parts Count'
   @EndUserText.quickInfo: 'Number of Parts in this Quiz'
   @UI: {
-   lineItem: [ { exclude: true, position: 60, importance: #LOW, label: 'Parts' }  ],
-  fieldGroup: [{ qualifier: 'count_details', position: 10, label: 'Parts' }]
+    fieldGroup: [{ qualifier: 'count_details', position: 10, label: 'Parts' }]
   }
   Part_Count;
 
   @EndUserText.label: 'Questions Count'
   @EndUserText.quickInfo: 'Number of Questions in this Quiz'
   @UI: {
-  lineItem: [ { exclude: true, position: 70, importance: #LOW, label: 'Questions'  } ],
-  fieldGroup: [{ qualifier: 'count_details', position: 20, label: 'Questions' }]
+    fieldGroup: [{ qualifier: 'count_details', position: 20, label: 'Questions' }]
   }
   Question_Count;
-
-  @EndUserText.label: 'Version'
-  @EndUserText.quickInfo: 'Version (sync mobile)'
-  @UI: {
-  lineItem: [ { position: 80, importance: #LOW, label: 'Version'  } ],
-  fieldGroup: [{ qualifier: 'count_details', position: 30, label: 'Version' }]
-  }
-  Version;
 
   @UI.hidden: true
   Published;

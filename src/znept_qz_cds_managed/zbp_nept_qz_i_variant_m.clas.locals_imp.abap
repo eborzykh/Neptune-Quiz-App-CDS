@@ -87,8 +87,8 @@ CLASS lhc_variant IMPLEMENTATION.
 
     LOOP AT lt_variant ASSIGNING FIELD-SYMBOL(<fs_variant>).
 
-      READ TABLE lt_variant_sort WITH KEY testid = <fs_variant>-testid questionid = <fs_variant>-questionid
-        ASSIGNING FIELD-SYMBOL(<fs_variant_sort>).
+      READ TABLE lt_variant_sort WITH KEY testid     = <fs_variant>-testid
+                                          questionid = <fs_variant>-questionid ASSIGNING FIELD-SYMBOL(<fs_variant_sort>).
       IF sy-subrc <> 0 OR <fs_variant_sort> IS NOT ASSIGNED.
         APPEND INITIAL LINE TO lt_variant_sort ASSIGNING <fs_variant_sort>.
         IF <fs_variant_sort> IS ASSIGNED.
@@ -159,7 +159,9 @@ CLASS lhc_variant IMPLEMENTATION.
           AND questionid = @ls_keys-questionid.
 
       IF sy-subrc = 0.
-        READ TABLE lt_variant_all WITH KEY variant = ls_keys-variantid INTO DATA(ls_variant_a).
+        READ TABLE lt_variant_all WITH KEY testid     = ls_keys-testid
+                                           questionid = ls_keys-questionid
+                                           variantid  = ls_keys-variantid INTO DATA(ls_variant_a).
         IF sy-subrc = 0.
 
           IF iv_down = abap_true.

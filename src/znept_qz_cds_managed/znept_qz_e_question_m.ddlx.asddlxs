@@ -6,7 +6,7 @@
 
 @UI.presentationVariant: [{ sortOrder: [{ by: 'SortPart', direction: #ASC }, { by: 'SortQuestion', direction: #ASC }] }]
 
-annotate view ZNEPT_QZ_C_QUESTION_M with 
+annotate view ZNEPT_QZ_C_QUESTION_M with
 {
   @UI.facet: [
     {
@@ -26,24 +26,29 @@ annotate view ZNEPT_QZ_C_QUESTION_M with
 
   @UI.hidden: true
   TestId;
-
-  @UI.hidden: true
-  PartId;
-
+  
   @UI: {
-    lineItem: [ { position: 10, label: 'Question ID' },
-                { type: #FOR_ACTION, dataAction: 'moveQuestionLast', label: 'Last', position: 40 },
-                { type: #FOR_ACTION, dataAction: 'moveQuestionFirst', label: 'First', position: 30 },
-                { type: #FOR_ACTION, dataAction: 'moveQuestionDown', label: 'Down', position: 20 },
-                { type: #FOR_ACTION, dataAction: 'moveQuestionUp', label: 'Up', position: 10 }, 
-                { type: #FOR_ACTION, dataAction: 'refreshQuestion', label: 'Renew', position: 200 },
-                { type: #FOR_ACTION, dataAction: 'assignPart', label: 'Assign Part', position: 100 } ],
+    lineItem: [ { position: 10, label: 'Question ID' } ],
     identification:[ { position: 10, label: 'Question ID' } ]
   }
   QuestionId;
 
   @UI: {
-    lineItem: [ { position: 20, label: 'Question', cssDefault: { width: '50rem' } } ],
+    lineItem: [ { position: 20, label: 'Part' } ],
+    identification:[ { position: 5, label: 'Part' } ]
+  }
+  PartId;
+
+  @UI: {
+    lineItem: [ { position: 30, label: 'Question', cssDefault: { width: '50rem' } },
+
+                { type: #FOR_ACTION, dataAction: 'moveQuestionLast', label: 'Last', position: 40 },
+                { type: #FOR_ACTION, dataAction: 'moveQuestionFirst', label: 'First', position: 30 },
+                { type: #FOR_ACTION, dataAction: 'moveQuestionDown', label: 'Down', position: 20 },
+                { type: #FOR_ACTION, dataAction: 'moveQuestionUp', label: 'Up', position: 10 },
+                { type: #FOR_ACTION, dataAction: 'refreshQuestion', label: 'Renew', position: 200 },
+                { type: #FOR_ACTION, dataAction: 'assignPart', label: 'Assign Part', position: 100 } ],
+
     identification:[ { position: 20, label: 'Question' } ]
   }
   Question;
@@ -55,13 +60,16 @@ annotate view ZNEPT_QZ_C_QUESTION_M with
   Explanation;
 
   @EndUserText.label: 'Version'
-  @EndUserText.quickInfo: 'Version (sync mobile)'
-  @UI: {
-    lineItem: [ { position: 30, importance: #LOW, label: 'Version'  } ],
-    identification:[ { position: 30, label: 'Version' } ]
-  }
+  @EndUserText.quickInfo: 'Version (mobile sync)'
+  @UI: { identification:[ { position: 30, label: 'Version' } ] }
   Version;
 
   @UI.hidden: true
-  partdescription;
+  PartDescription;
+  
+  @UI.hidden: true
+  SortQuestion;
+
+  @UI.hidden: true             
+  SortPart;
 }

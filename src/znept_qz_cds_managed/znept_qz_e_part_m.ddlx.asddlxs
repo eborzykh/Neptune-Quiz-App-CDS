@@ -45,11 +45,8 @@ annotate view ZNEPT_QZ_C_PART_M with
   Description;
 
   @EndUserText.label: 'Version'
-  @EndUserText.quickInfo: 'Version (sync mobile)'
-  @UI: {
-    lineItem: [ { position: 30, importance: #LOW, label: 'Version'  } ],
-    identification:[ { position: 30, label: 'Version' } ]
-  }
+  @EndUserText.quickInfo: 'Version (mobile sync)'
+  @UI: { identification:[ { position: 30, label: 'Version' } ] }
   Version;
 
 }
