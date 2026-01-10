@@ -12,7 +12,14 @@ define view entity ZNEPT_QZ_C_QUESTION_M
   key QuestionId,
 
       Sort,
+
+      @Consumption.valueHelpDefinition: [ { entity: {name: 'ZNEPT_QZ_I_QUESTION_ASSIGN_VH', element: 'PartId' },
+                                            additionalBinding: [ { localElement: 'TestId', element: 'TestId', usage: #FILTER} ],
+                                            useForValidation: true } ]
+      @ObjectModel.text.element: ['PartDescription']
       PartId,
+      _Part.Description as PartDescription,      
+      
       Question,
       Explanation,
 
@@ -23,7 +30,7 @@ define view entity ZNEPT_QZ_C_QUESTION_M
 
       /* Associations */
 
-      _Part    : redirected to ZNEPT_QZ_C_PART_M,
       _Quiz    : redirected to parent ZNEPT_QZ_C_QUIZ_M,
+      _Part    : redirected to ZNEPT_QZ_C_PART_M,
       _Variant : redirected to composition child ZNEPT_QZ_C_VARIANT_M
 }

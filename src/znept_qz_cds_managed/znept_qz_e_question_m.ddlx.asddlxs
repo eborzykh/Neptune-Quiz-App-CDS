@@ -31,11 +31,13 @@ annotate view ZNEPT_QZ_C_QUESTION_M with
   PartId;
 
   @UI: {
-    lineItem: [  { position: 10, label: 'Question ID' },
-                 { type: #FOR_ACTION, dataAction: 'moveQuestionLast', label: 'Last' },
-                 { type: #FOR_ACTION, dataAction: 'moveQuestionFirst', label: 'First' },
-                 { type: #FOR_ACTION, dataAction: 'moveQuestionDown', label: 'Down' },
-                 { type: #FOR_ACTION, dataAction: 'moveQuestionUp', label: 'Up' } ],
+    lineItem: [ { position: 10, label: 'Question ID' },
+                { type: #FOR_ACTION, dataAction: 'moveQuestionLast', label: 'Last', position: 40 },
+                { type: #FOR_ACTION, dataAction: 'moveQuestionFirst', label: 'First', position: 30 },
+                { type: #FOR_ACTION, dataAction: 'moveQuestionDown', label: 'Down', position: 20 },
+                { type: #FOR_ACTION, dataAction: 'moveQuestionUp', label: 'Up', position: 10 }, 
+                { type: #FOR_ACTION, dataAction: 'refreshQuestion', label: 'Renew', position: 200 },
+                { type: #FOR_ACTION, dataAction: 'assignPart', label: 'Assign Part', position: 100 } ],
     identification:[ { position: 10, label: 'Question ID' } ]
   }
   QuestionId;
@@ -60,4 +62,6 @@ annotate view ZNEPT_QZ_C_QUESTION_M with
   }
   Version;
 
+  @UI.hidden: true
+  partdescription;
 }

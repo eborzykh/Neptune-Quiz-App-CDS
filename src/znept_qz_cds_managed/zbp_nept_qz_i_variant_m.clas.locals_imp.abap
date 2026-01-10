@@ -24,6 +24,8 @@ CLASS lhc_variant DEFINITION INHERITING FROM cl_abap_behavior_handler.
 
     METHODS get_global_authorizations FOR GLOBAL AUTHORIZATION
       IMPORTING REQUEST requested_authorizations FOR variant RESULT result.
+    METHODS setsort FOR DETERMINE ON SAVE
+      IMPORTING keys FOR variant~setsort.
 
     METHODS movevariant
       IMPORTING
@@ -41,44 +43,28 @@ CLASS lhc_variant IMPLEMENTATION.
       ENTITY variant
         FIELDS ( version )
           WITH CORRESPONDING #( keys )
-     RESULT DATA(lt_variant).
-
-    DATA(lt_keys) = keys.
-    LOOP AT lt_keys ASSIGNING FIELD-SYMBOL(<fs_keys>).
-      CLEAR <fs_keys>-%pid.
-    ENDLOOP.
+        RESULT DATA(lt_variant).
 
     READ ENTITIES OF znept_qz_i_quiz_m IN LOCAL MODE
       ENTITY quiz
         FIELDS ( version )
-          WITH CORRESPONDING #( lt_keys )
-        RESULT DATA(lt_quiz)
-      ENTITY question
-        FIELDS ( version )
-          WITH CORRESPONDING #( lt_keys )
-        RESULT DATA(lt_question).
+          WITH VALUE #( FOR variant IN lt_variant ( %key = variant-%key-testid ) )
+        RESULT DATA(lt_quiz).
 
-    LOOP AT lt_quiz INTO DATA(ls_quis).
-      DATA(lv_version) = ls_quis-version + 1.
-
-      LOOP AT lt_question INTO DATA(ls_question) WHERE %tky-testid = ls_quis-%tky-testid.
-        LOOP AT lt_variant INTO DATA(ls_variant) WHERE %tky-testid     = ls_question-%tky-testid
-                                                   AND %tky-questionid = ls_question-%tky-questionid.
-
-          MODIFY ENTITIES OF znept_qz_i_quiz_m IN LOCAL MODE
-            ENTITY variant
-              UPDATE FIELDS ( version )
-                WITH VALUE #( ( %tky = ls_variant-%tky version = lv_version ) ).
-
-        ENDLOOP.
+    LOOP AT lt_quiz ASSIGNING FIELD-SYMBOL(<fs_quiz>).
+      <fs_quiz>-version += 1.
+      LOOP AT lt_variant ASSIGNING FIELD-SYMBOL(<fs_variant>) WHERE %key-testid = <fs_quiz>-%key-testid.
+        <fs_variant>-version = <fs_quiz>-version.
       ENDLOOP.
-
-      MODIFY ENTITIES OF znept_qz_i_quiz_m IN LOCAL MODE
-        ENTITY quiz
-          UPDATE FIELDS ( version )
-            WITH VALUE #( ( %tky = ls_quis-%tky version = lv_version ) ).
-
     ENDLOOP.
+
+    MODIFY ENTITIES OF znept_qz_i_quiz_m IN LOCAL MODE
+      ENTITY quiz
+        UPDATE FIELDS ( version )
+          WITH VALUE #( FOR quiz IN lt_quiz ( %tky = quiz-%tky version = quiz-version ) )
+      ENTITY variant
+        UPDATE FIELDS ( version )
+          WITH VALUE #( FOR variant IN lt_variant ( %tky = variant-%tky version = variant-version ) ).
 
   ENDMETHOD.
 
@@ -119,34 +105,34 @@ CLASS lhc_variant IMPLEMENTATION.
   ENDMETHOD.
 
   METHOD movevariantdown.
+
     movevariant( EXPORTING it_keys   = CORRESPONDING tt_variant_keys( keys )
                            iv_down   = abap_true
                            iv_bottom = abap_false ).
   ENDMETHOD.
 
   METHOD movevariantfirst.
+
     movevariant( EXPORTING it_keys   = CORRESPONDING tt_variant_keys( keys )
                            iv_down   = abap_false
                            iv_bottom = abap_true ).
   ENDMETHOD.
 
   METHOD movevariantlast.
+
     movevariant( EXPORTING it_keys   = CORRESPONDING tt_variant_keys( keys )
                            iv_down   = abap_true
                            iv_bottom = abap_true ).
   ENDMETHOD.
 
   METHOD movevariantup.
+
     movevariant( EXPORTING it_keys   = CORRESPONDING tt_variant_keys( keys )
                            iv_down   = abap_false
                            iv_bottom = abap_false ).
   ENDMETHOD.
 
-  METHOD get_global_authorizations.
-  ENDMETHOD.
-
   METHOD movevariant.
-    DATA lt_variant_update TYPE TABLE FOR UPDATE znept_qz_i_quiz_m\\variant.
 
     LOOP AT it_keys INTO DATA(ls_keys).
 
@@ -178,27 +164,17 @@ CLASS lhc_variant IMPLEMENTATION.
             READ TABLE lt_variant_all INDEX 1 INTO DATA(ls_variant_b).
             IF sy-subrc = 0 AND ls_variant_b-variantid <> ls_variant_a-variantid.
 
-              CLEAR lt_variant_update.
-
-              DATA(lv_sort_a) = ls_variant_a-sort.
-              DATA(lv_sort_b) = ls_variant_b-sort.
-
-              IF lv_sort_a = ls_variant_b-variantid.
-                CLEAR lv_sort_a.
-              ENDIF.
-
-              IF lv_sort_b = ls_variant_a-variantid.
-                CLEAR lv_sort_b.
-              ENDIF.
-
-              APPEND VALUE #( testid = ls_variant_a-testid variantid = ls_variant_a-variantid sort = lv_sort_b ) TO lt_variant_update.
-              APPEND VALUE #( testid = ls_variant_b-testid variantid = ls_variant_b-variantid sort = lv_sort_a ) TO lt_variant_update.
-
               MODIFY ENTITIES OF znept_qz_i_quiz_m IN LOCAL MODE
                 ENTITY variant
                   UPDATE FIELDS ( sort )
-                  WITH lt_variant_update.
-
+                    WITH VALUE #( ( testid     = ls_variant_a-testid
+                                    questionid = ls_variant_a-questionid
+                                    variantid  = ls_variant_a-variantid
+                                    sort       = ls_variant_b-sort )
+                                  ( testid     = ls_variant_b-testid
+                                    questionid = ls_variant_b-questionid
+                                    variantid  = ls_variant_b-variantid
+                                    sort       = ls_variant_a-sort ) ).
             ENDIF.
           ENDIF.
         ENDIF.
@@ -206,6 +182,28 @@ CLASS lhc_variant IMPLEMENTATION.
 
     ENDLOOP.
 
+  ENDMETHOD.
+
+  METHOD setsort.
+
+    READ ENTITIES OF znept_qz_i_quiz_m IN LOCAL MODE
+      ENTITY variant
+        FIELDS ( sort )
+          WITH CORRESPONDING #( keys )
+        RESULT DATA(lt_variant).
+
+    LOOP AT lt_variant INTO DATA(ls_variant) WHERE sort IS NOT INITIAL.
+      IF ls_variant-sort = ls_variant-variantid.
+        MODIFY ENTITIES OF znept_qz_i_quiz_m IN LOCAL MODE
+          ENTITY variant
+            UPDATE FIELDS ( sort )
+              WITH VALUE #( ( %key = ls_variant-%key ) ).
+      ENDIF.
+    ENDLOOP.
+
+  ENDMETHOD.
+
+  METHOD get_global_authorizations.
   ENDMETHOD.
 
 ENDCLASS.

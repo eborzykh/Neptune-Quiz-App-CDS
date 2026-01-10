@@ -23,6 +23,9 @@ CLASS lhc_part DEFINITION INHERITING FROM cl_abap_behavior_handler.
     METHODS movepartup FOR MODIFY
       IMPORTING keys FOR ACTION part~movepartup.
 
+    METHODS setsort FOR DETERMINE ON SAVE
+      IMPORTING keys FOR part~setsort.
+
     METHODS get_global_authorizations FOR GLOBAL AUTHORIZATION
       IMPORTING REQUEST requested_authorizations FOR part RESULT result.
 
@@ -42,37 +45,28 @@ CLASS lhc_part IMPLEMENTATION.
       ENTITY part
         FIELDS ( version )
           WITH CORRESPONDING #( keys )
-     RESULT DATA(lt_part).
-
-    DATA(lt_keys) = keys.
-    LOOP AT lt_keys ASSIGNING FIELD-SYMBOL(<fs_keys>).
-      CLEAR <fs_keys>-%pid.
-    ENDLOOP.
+        RESULT DATA(lt_part).
 
     READ ENTITIES OF znept_qz_i_quiz_m IN LOCAL MODE
       ENTITY quiz
         FIELDS ( version )
-          WITH CORRESPONDING #( lt_keys )
+          WITH VALUE #( FOR part IN lt_part ( %key = part-%key-testid ) )
         RESULT DATA(lt_quiz).
 
-    LOOP AT lt_quiz INTO DATA(ls_quis).
-      DATA(lv_version) = ls_quis-version + 1.
-
-      LOOP AT lt_part INTO DATA(ls_part) WHERE %tky-testid = ls_quis-%tky-testid.
-
-        MODIFY ENTITIES OF znept_qz_i_quiz_m IN LOCAL MODE
-          ENTITY part
-            UPDATE FIELDS ( version )
-              WITH VALUE #( ( %tky = ls_part-%tky version = lv_version ) ).
-
+    LOOP AT lt_quiz ASSIGNING FIELD-SYMBOL(<fs_quiz>).
+      <fs_quiz>-version += 1.
+      LOOP AT lt_part ASSIGNING FIELD-SYMBOL(<fs_part>) WHERE %key-testid = <fs_quiz>-%key-testid.
+        <fs_part>-version = <fs_quiz>-version.
       ENDLOOP.
-
-      MODIFY ENTITIES OF znept_qz_i_quiz_m IN LOCAL MODE
-        ENTITY quiz
-          UPDATE FIELDS ( version )
-            WITH VALUE #( ( %tky = ls_quis-%tky version = lv_version ) ).
-
     ENDLOOP.
+
+    MODIFY ENTITIES OF znept_qz_i_quiz_m IN LOCAL MODE
+      ENTITY quiz
+        UPDATE FIELDS ( version )
+          WITH VALUE #( FOR quiz IN lt_quiz ( %tky = quiz-%tky version = quiz-version ) )
+      ENTITY part
+        UPDATE FIELDS ( version )
+          WITH VALUE #( FOR part IN lt_part ( %tky = part-%tky version = part-version ) ).
 
   ENDMETHOD.
 
@@ -112,31 +106,34 @@ CLASS lhc_part IMPLEMENTATION.
   ENDMETHOD.
 
   METHOD movepartdown.
+
     movepart( EXPORTING it_keys   = CORRESPONDING tt_part_keys( keys )
                         iv_down   = abap_true
                         iv_bottom = abap_false ).
   ENDMETHOD.
 
   METHOD movepartfirst.
+
     movepart( EXPORTING it_keys   = CORRESPONDING tt_part_keys( keys )
                         iv_down   = abap_false
                         iv_bottom = abap_true ).
   ENDMETHOD.
 
   METHOD movepartlast.
+
     movepart( EXPORTING it_keys   = CORRESPONDING tt_part_keys( keys )
                         iv_down   = abap_true
                         iv_bottom = abap_true ).
   ENDMETHOD.
 
   METHOD movepartup.
+
     movepart( EXPORTING it_keys   = CORRESPONDING tt_part_keys( keys )
                         iv_down   = abap_false
                         iv_bottom = abap_false ).
   ENDMETHOD.
 
   METHOD movepart.
-    DATA lt_part_update TYPE TABLE FOR UPDATE znept_qz_i_quiz_m\\part.
 
     LOOP AT it_keys INTO DATA(ls_keys).
 
@@ -167,32 +164,39 @@ CLASS lhc_part IMPLEMENTATION.
             READ TABLE lt_part_all INDEX 1 INTO DATA(ls_part_b).
             IF sy-subrc = 0 AND ls_part_b-partid <> ls_part_a-partid.
 
-              CLEAR lt_part_update.
-
-              DATA(lv_sort_a) = ls_part_a-sort.
-              DATA(lv_sort_b) = ls_part_b-sort.
-
-              IF lv_sort_a = ls_part_b-partid.
-                CLEAR lv_sort_a.
-              ENDIF.
-
-              IF lv_sort_b = ls_part_a-partid.
-                CLEAR lv_sort_b.
-              ENDIF.
-
-              APPEND VALUE #( testid = ls_part_a-testid partid = ls_part_a-partid sort = lv_sort_b ) TO lt_part_update.
-              APPEND VALUE #( testid = ls_part_b-testid partid = ls_part_b-partid sort = lv_sort_a ) TO lt_part_update.
-
               MODIFY ENTITIES OF znept_qz_i_quiz_m IN LOCAL MODE
                 ENTITY part
                   UPDATE FIELDS ( sort )
-                  WITH lt_part_update.
-
+                    WITH VALUE #( ( testid = ls_part_a-testid
+                                    partid = ls_part_a-partid
+                                    sort   = ls_part_b-sort )
+                                  ( testid = ls_part_b-testid
+                                    partid = ls_part_b-partid
+                                    sort   = ls_part_a-sort ) ).
             ENDIF.
           ENDIF.
         ENDIF.
       ENDIF.
 
+    ENDLOOP.
+
+  ENDMETHOD.
+
+  METHOD setsort.
+
+    READ ENTITIES OF znept_qz_i_quiz_m IN LOCAL MODE
+      ENTITY part
+        FIELDS ( sort )
+          WITH CORRESPONDING #( keys )
+        RESULT DATA(lt_part).
+
+    LOOP AT lt_part INTO DATA(ls_part) WHERE sort IS NOT INITIAL.
+      IF ls_part-sort = ls_part-partid.
+        MODIFY ENTITIES OF znept_qz_i_quiz_m IN LOCAL MODE
+          ENTITY part
+            UPDATE FIELDS ( sort )
+              WITH VALUE #( ( %key = ls_part-%key ) ).
+      ENDIF.
     ENDLOOP.
 
   ENDMETHOD.

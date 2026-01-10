@@ -23,7 +23,7 @@ authorization master ( global )
 
   determination setTestETag on modify { create; }
 
-// it will be calling the method on listed fields create/update and specified operation
+  // it will be calling the method on listed fields create/update and specified operation
   determination setVersion on save { field Description; }
 
   association _Part { create; }
@@ -38,7 +38,6 @@ authorization master ( global )
     UploadBy = upload_by;
     Description = description;
     Published = published;
-
     Version = version;
   }
 }
@@ -62,8 +61,9 @@ late numbering
   field ( readonly ) TestId, PartId, Version;
   field ( mandatory ) Description;
 
-// it will be calling the method on listed fields create/update and specified operation
+  // it will be calling the method on listed fields create/update and specified operation
   determination setVersion on save { delete; field Description, Sort; }
+  determination setSort on save { field Sort; }
 
   association _Quiz;
 
@@ -74,7 +74,6 @@ late numbering
 
     Sort = sort;
     Description = description;
-
     Version = version;
   }
 }
@@ -95,11 +94,15 @@ late numbering
   action ( features : instance ) moveQuestionFirst;
   action ( features : instance ) moveQuestionLast;
 
+  action ( features : instance ) assignPart parameter ZNEPT_QZ_A_QUESTION_ASSIGN;
+  action ( features : instance ) refreshQuestion;
+
   field ( readonly ) TestId, PartId, QuestionId, Version;
   field ( mandatory ) Question;
 
-// it will be calling the method on listed fields create/update and specified operation
-  determination setVersion on save { delete; field Question, Explanation, Sort; }
+  // it will be calling the method on listed fields create/update and specified operation
+  determination setVersion on save { delete; field Question, Explanation, Sort, PartId; }
+  determination setSort on save { field Sort; }
 
   association _Quiz;
   association _Variant { create; }
@@ -113,7 +116,6 @@ late numbering
     PartId = part_id;
     Question = question;
     Explanation = explanation;
-
     Version = version;
   }
 }
@@ -137,8 +139,9 @@ late numbering
   field ( readonly ) TestId, QuestionId, VariantId, Version;
   field ( mandatory ) Variant;
 
-// it will be calling the method on listed fields create/update and specified operation
+  // it will be calling the method on listed fields create/update and specified operation
   determination setVersion on save { delete; field Variant, Correct, Sort; }
+  determination setSort on save { field Sort; }
 
   association _Quiz;
   association _Question;
@@ -152,7 +155,6 @@ late numbering
     Sort = sort;
     Variant = variant;
     Correct = correct;
-
     Version = version;
   }
 }

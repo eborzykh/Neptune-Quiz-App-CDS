@@ -1,6 +1,7 @@
 //
+//projection implementation in class zbp_nept_qz_c_quiz_m unique;
 projection;
-strict ( 1 );
+strict( 1 );
 
 define behavior for ZNEPT_QZ_C_QUIZ_M alias Quiz
 {
@@ -37,6 +38,9 @@ define behavior for ZNEPT_QZ_C_QUESTION_M alias Question
   use action moveQuestionDown;
   use action moveQuestionFirst;
   use action moveQuestionLast;
+
+  use action assignPart;
+  use action refreshQuestion;
 
   use association _Quiz;
   use association _Variant { create; }
