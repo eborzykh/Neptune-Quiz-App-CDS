@@ -6,7 +6,6 @@
 define view entity ZNEPT_QZ_C_VARIANT_M
   as projection on ZNEPT_QZ_I_VARIANT_M
 {
-
   key TestId,
   key QuestionId,
   key VariantId,

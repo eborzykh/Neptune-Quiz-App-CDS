@@ -7,7 +7,6 @@ define view entity ZNEPT_QZ_C_QUESTION_M
   as projection on ZNEPT_QZ_I_QUESTION_M
 
 {
-
   key TestId,
   key QuestionId,
 

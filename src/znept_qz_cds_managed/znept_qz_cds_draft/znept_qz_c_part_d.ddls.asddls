@@ -9,7 +9,10 @@ define view entity ZNEPT_QZ_C_PART_D
   key TestId,
   key PartId,
 
+      Sort,
       Description,
+
+      Version,
 
       /* Associations */
 

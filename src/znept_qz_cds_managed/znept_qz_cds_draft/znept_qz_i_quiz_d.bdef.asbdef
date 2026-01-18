@@ -22,10 +22,14 @@ late numbering
 
   draft determine action Prepare;
 
-  field ( readonly ) TestId, UploadAt, UploadOn, UploadBy, Upload_By_Name, Part_Count, Question_Count, UI_Published;
+  action ( features : instance ) Publish;
+  action ( features : instance ) Unpublish;
+
+  field ( readonly ) TestId, UploadAt, UploadOn, UploadBy, Upload_By_Name, Part_Count, Question_Count, UI_Published, Version;
   field ( mandatory ) Description;
 
-  determination setTestId on modify { create; field TestId; }
+  // it will be calling the method on listed fields create/update and specified operation
+  determination setVersion on save { field Description; }
 
   association _Part { create; with draft; }
   association _Question { create; with draft; }
@@ -53,7 +57,18 @@ late numbering
 {
   update;
   delete;
-  field ( readonly ) TestId;
+
+  action ( features : instance ) movePartUp;
+  action ( features : instance ) movePartDown;
+  action ( features : instance ) movePartFirst;
+  action ( features : instance ) movePartLast;
+
+  field ( readonly ) TestId, PartId, Version;
+  field ( mandatory ) Description;
+
+  // it will be calling the method on listed fields create/update and specified operation
+  determination setVersion on save { delete; field Description, Sort; }
+  determination setSort on save { field Sort; }
 
   association _Quiz { with draft; }
 
@@ -78,10 +93,23 @@ late numbering
 {
   update;
   delete;
-  field ( readonly ) TestId;
+
+  action ( features : instance ) moveQuestionUp;
+  action ( features : instance ) moveQuestionDown;
+  action ( features : instance ) moveQuestionFirst;
+  action ( features : instance ) moveQuestionLast;
+
+  action ( features : instance ) assignPart parameter ZNEPT_QZ_A_QUESTION_ASSIGN;
+  action ( features : instance ) refreshQuestion;
+
+  field ( readonly ) TestId, PartId, QuestionId, Version;
+  field ( mandatory ) Question;
+
+  // it will be calling the method on listed fields create/update and specified operation
+  determination setVersion on save { delete; field Question, Explanation, Sort, PartId; }
+  determination setSort on save { field Sort; }
 
   association _Quiz { with draft; }
-
   association _Variant { create; with draft; }
 
   mapping for znept_qz_qst
@@ -107,7 +135,18 @@ late numbering
 {
   update;
   delete;
-  field ( readonly ) TestId, QuestionId;
+
+  action ( features : instance ) moveVariantUp;
+  action ( features : instance ) moveVariantDown;
+  action ( features : instance ) moveVariantFirst;
+  action ( features : instance ) moveVariantLast;
+
+  field ( readonly ) TestId, QuestionId, VariantId, Version;
+  field ( mandatory ) Variant;
+
+  // it will be calling the method on listed fields create/update and specified operation
+  determination setVersion on save { delete; field Variant, Correct, Sort; }
+  determination setSort on save { field Sort; }
 
   association _Quiz { with draft; }
   association _Question { with draft; }

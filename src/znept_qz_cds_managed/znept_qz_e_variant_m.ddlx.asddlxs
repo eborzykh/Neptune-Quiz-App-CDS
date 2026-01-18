@@ -10,11 +10,10 @@
 
 annotate view ZNEPT_QZ_C_VARIANT_M with
 {
-
-  @UI.facet: [ { id:       'Variant',
-                 purpose:  #STANDARD,
-                 type:     #IDENTIFICATION_REFERENCE,
-                 label:    'Variant details',
+  @UI.facet: [ { id: 'Variant',
+                 purpose: #STANDARD,
+                 type: #IDENTIFICATION_REFERENCE,
+                 label: 'Variant details',
                  position: 10 } ]
 
   @UI.hidden: true

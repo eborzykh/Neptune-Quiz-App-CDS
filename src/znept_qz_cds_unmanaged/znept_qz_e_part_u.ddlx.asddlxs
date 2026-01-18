@@ -5,19 +5,16 @@
 @UI: { headerInfo: { typeName: 'Part',
                      typeNamePlural: 'Parts' ,
                      title: { type: #STANDARD, value: 'PartId' } } }
-                     
+
 @UI.presentationVariant: [{ sortOrder: [{ by: 'Sort', direction: #ASC }] }]
 
 annotate view ZNEPT_QZ_C_PART_U with
 {
-  @UI.facet: [
-    {
-      id:       'Parts',
-      purpose:  #STANDARD,
-      type:     #IDENTIFICATION_REFERENCE,
-      label:    'Description',
-      position: 10 }
-  ]
+  @UI.facet: [ { id: 'Parts',
+                 purpose: #STANDARD,
+                 type: #IDENTIFICATION_REFERENCE,
+                 label: 'Description',
+                 position: 10 } ]
 
   @UI: { hidden: true,
     lineItem: [ { type: #FOR_ACTION, dataAction: 'movePartLast', label: 'Last' },

@@ -19,6 +19,8 @@ define root view entity ZNEPT_QZ_C_QUIZ_D
       Published,
       Description,
 
+      Version,
+
       Part_Count,
       Question_Count,
       Upload_By_Name,

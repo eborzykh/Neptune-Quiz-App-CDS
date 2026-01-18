@@ -3,6 +3,7 @@
 {
 "FROM":
 [
+"ZNEPT_QZ_I_PART_D",
 "ZNEPT_QZ_I_QUESTION_D"
 ],
 "ASSOCIATED":

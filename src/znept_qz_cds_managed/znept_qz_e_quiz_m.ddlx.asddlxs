@@ -2,63 +2,54 @@
 @Metadata.layer: #CUSTOMER
 @UI.headerInfo.description.label: 'Quiz (Extension)'
 
-@UI: { headerInfo: { typeName: 'Practice test (managed scenario)',
+@UI: { headerInfo: { typeName: 'Managed scenario (no draft)',
                      typeNamePlural: 'Practice tests' , title: { type: #STANDARD, value: 'TestId' } } }
 
 annotate view ZNEPT_QZ_C_QUIZ_M with
 {
-  @UI.facet: [
-  {
-    label:    'Header',
-    id:       'header',
-    purpose:  #STANDARD,
-    type:     #COLLECTION,
-    position: 10
-  },
-    {
-      label: 'General Attributes',
-      id: 'attributes',
-      purpose:  #STANDARD,
-      parentId: 'header',
-      targetQualifier : 'attributes',
-      type : #FIELDGROUP_REFERENCE,
-      position: 10
-    },
-    {
-      label: 'Upload Details',
-      id: 'upload_details',
-      purpose:  #STANDARD,
-      parentId: 'header',
-      targetQualifier : 'upload_details',
-      type : #FIELDGROUP_REFERENCE,
-      position: 20
-    },
-    {
-      label: 'Counts',
-      id: 'count_details',
-      purpose:  #STANDARD,
-      parentId: 'header',
-      targetQualifier : 'count_details',
-      type : #FIELDGROUP_REFERENCE,
-      position: 30
-    },
-  {
-    label: 'Parts',
-    id: 'parts',
-    purpose:  #STANDARD,
-    type: #LINEITEM_REFERENCE,
-    position: 20,
-    targetElement: '_Part'
-  },
-  {
-    label: 'Questions',
-    id: 'questions',
-    purpose:  #STANDARD,
-    type: #LINEITEM_REFERENCE,
-    position: 30,
-    targetElement: '_Question'
-  }
-  ]
+  @UI.facet: [ { label: 'Header',
+                 id: 'header',
+                 purpose: #STANDARD,
+                 type: #COLLECTION,
+                 position: 10 },
+                 
+               { label: 'General Attributes',
+                 id: 'attributes',
+                 purpose: #STANDARD,
+                 parentId: 'header',
+                 targetQualifier : 'attributes',
+                 type : #FIELDGROUP_REFERENCE,
+                 position: 10 },
+                 
+               { label: 'Upload Details',
+                 id: 'upload_details',
+                 purpose: #STANDARD,
+                 parentId: 'header',
+                 targetQualifier : 'upload_details',
+                 type: #FIELDGROUP_REFERENCE,
+                 position: 20 },
+    
+               { label: 'Counts',
+                 id: 'count_details',
+                 purpose: #STANDARD,
+                 parentId: 'header',
+                 targetQualifier : 'count_details',
+                 type: #FIELDGROUP_REFERENCE,
+                 position: 30 },
+                 
+               { label: 'Parts',
+                 id: 'parts',
+                 purpose:  #STANDARD,
+                 type: #LINEITEM_REFERENCE,
+                 position: 20,
+                 targetElement: '_Part' },
+                 
+               { label: 'Questions',
+                 id: 'questions',
+                 purpose: #STANDARD,
+                 type: #LINEITEM_REFERENCE,
+                 position: 30,
+                 targetElement: '_Question' } ]
 
   @UI: {
     lineItem: [ { position: 1, label: 'Quiz ID' } ],
