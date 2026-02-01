@@ -4,7 +4,7 @@
 @Metadata.allowExtensions: true
 
 define view entity ZNEPT_QZ_C_QUESTION_D
-  as projection on ZNEPT_QZ_I_QUESTION_D
+  as projection on ZNEPT_QZ_I_QUESTION_D 
 {
   key TestId,
   key QuestionId,

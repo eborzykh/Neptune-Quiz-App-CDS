@@ -9,6 +9,7 @@ define view entity ZNEPT_QZ_I_QUESTION_D
 
   association [0..1] to ZNEPT_QZ_I_PART_D        as _Part on  $projection.TestId = _Part.TestId
                                                           and $projection.PartId = _Part.PartId
+                                                          and $projection.PartId is not initial // do not autoassign #draft Parts  
 
   composition [0..*] of ZNEPT_QZ_I_VARIANT_D     as _Variant
 
@@ -20,9 +21,9 @@ define view entity ZNEPT_QZ_I_QUESTION_D
       _Question.PartId      as PartId,
       _Question.Question    as Question,
       _Question.Explanation as Explanation,
-      
+
       _Question.Version     as Version,
-      
+
       /* Associations */
 
       _Quiz,

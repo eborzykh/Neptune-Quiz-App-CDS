@@ -1,6 +1,6 @@
 //
 projection;
-strict ( 1 );
+strict;
 use draft;
 
 define behavior for ZNEPT_QZ_C_QUIZ_D alias Quiz

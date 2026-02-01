@@ -15,6 +15,8 @@ CLASS lhc_quiz DEFINITION INHERITING FROM cl_abap_behavior_handler.
 
     METHODS unpublish FOR MODIFY
       IMPORTING keys FOR ACTION quiz~unpublish.
+    METHODS settestetag FOR DETERMINE ON MODIFY
+      IMPORTING keys FOR quiz~settestetag.
 
 ENDCLASS.
 
@@ -43,12 +45,63 @@ CLASS lhc_quiz IMPLEMENTATION.
   ENDMETHOD.
 
   METHOD get_instance_features.
+
+    READ ENTITIES OF znept_qz_i_quiz_d IN LOCAL MODE
+      ENTITY quiz
+        FIELDS ( published )
+          WITH CORRESPONDING #( keys )
+        RESULT DATA(lt_quiz).
+
+    result = VALUE #(
+      FOR ls_quiz IN lt_quiz ( %tky = ls_quiz-%tky
+                               %features-%action-publish = COND #( WHEN ls_quiz-published = 'X'
+                                                                   THEN if_abap_behv=>fc-o-disabled
+                                                                   ELSE if_abap_behv=>fc-o-enabled )
+                               %features-%action-unpublish = COND #( WHEN ls_quiz-published = ''
+                                                                     THEN if_abap_behv=>fc-o-disabled
+                                                                     ELSE if_abap_behv=>fc-o-enabled ) ) ).
   ENDMETHOD.
 
-  METHOD Publish.
+  METHOD publish.
+
+    LOOP AT keys INTO DATA(ls_keys).
+      MODIFY ENTITIES OF znept_qz_i_quiz_d IN LOCAL MODE
+        ENTITY quiz
+          UPDATE FIELDS ( published )
+            WITH VALUE #( ( %tky = ls_keys-%tky published = 'X' ) ).
+    ENDLOOP.
+
   ENDMETHOD.
 
-  METHOD Unpublish.
+  METHOD unpublish.
+
+    LOOP AT keys INTO DATA(ls_keys).
+      MODIFY ENTITIES OF znept_qz_i_quiz_d IN LOCAL MODE
+        ENTITY quiz
+          UPDATE FIELDS ( published )
+            WITH VALUE #( ( %tky = ls_keys-%tky published = '' ) ).
+    ENDLOOP.
+
+  ENDMETHOD.
+
+  METHOD settestetag.
+
+    READ ENTITIES OF znept_qz_i_quiz_d IN LOCAL MODE
+     ENTITY quiz
+       FIELDS ( uploadby uploadon uploadat )
+         WITH CORRESPONDING #( keys )
+       RESULT DATA(lt_quizzes).
+
+    DELETE lt_quizzes WHERE uploadby IS NOT INITIAL OR uploadon IS NOT INITIAL OR uploadat IS NOT INITIAL.
+    CHECK lt_quizzes IS NOT INITIAL.
+
+    MODIFY ENTITIES OF znept_qz_i_quiz_d IN LOCAL MODE
+      ENTITY quiz
+        UPDATE FIELDS ( uploadby uploadon uploadat )
+          WITH VALUE #( FOR quiz IN lt_quizzes ( %tky     = quiz-%tky
+                                                 uploadby = sy-uname
+                                                 uploadon = sy-datum
+                                                 uploadat = sy-timlo ) ).
   ENDMETHOD.
 
 ENDCLASS.

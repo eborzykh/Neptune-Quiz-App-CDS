@@ -9,6 +9,7 @@ define view entity ZNEPT_QZ_I_PART_D
 
   association [0..*] to ZNEPT_QZ_I_QUESTION_D    as _Question on  $projection.TestId = _Question.TestId
                                                               and $projection.PartId = _Question.PartId
+                                                              and $projection.PartId is not initial // do not autoassign #draft Questions
 
 {
   key _Part.TestId      as TestId,
@@ -17,7 +18,7 @@ define view entity ZNEPT_QZ_I_PART_D
       _Part.Sort        as Sort,
       _Part.Description as Description,
       _Part.Version     as Version,
-
+      
       /* Associations */
 
       _Quiz,

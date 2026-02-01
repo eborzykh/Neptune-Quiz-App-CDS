@@ -30,6 +30,7 @@ CLASS lhc_question DEFINITION INHERITING FROM cl_abap_behavior_handler.
 
     METHODS setversion FOR DETERMINE ON SAVE
       IMPORTING keys FOR question~setversion.
+
     METHODS refreshquestion FOR MODIFY
       IMPORTING keys FOR ACTION question~refreshquestion.
 
@@ -105,11 +106,10 @@ CLASS lhc_question IMPLEMENTATION.
     MODIFY ENTITIES OF znept_qz_i_quiz_d IN LOCAL MODE
       ENTITY question
         UPDATE FIELDS ( partid )
-          WITH VALUE #( FOR ls_keys IN keys ( %key     = ls_keys-%key
-                                              partid   = ls_keys-%param-new_part_id ) ).
+          WITH VALUE #( FOR ls_keys IN keys ( %tky   = ls_keys-%tky " use %tky instead of %key to find #draft records by nested %pid
+                                              partid = ls_keys-%param-new_part_id ) ).
 
   ENDMETHOD.
-
 
   METHOD movequestiondown.
 

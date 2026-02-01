@@ -10,6 +10,7 @@ ABAP CDS views created in this repository will be used in [Neptune-Quiz-App-Fior
 | Data definition | Basic Interface view | Z [unit] _ [app] _ I _* |  |
 | Data definition | Basic restricted view | Z [unit] _ [app] _ R _* |  |
 | Data definition | Abstract entity view | Z [unit] _ [app] _ A _* |  |
+| Data definition | Draft Query View | Z [unit] _ [app] _ D _* |  |
 | Data definition | Consumption view | Z [unit] _ [app] _ C _* |  |
 | Data definition | Projection view | Z [unit] _ [app] _ C _* |  |
 | Data definition | Private view | Z [unit] _ [app] _ P _* |  |

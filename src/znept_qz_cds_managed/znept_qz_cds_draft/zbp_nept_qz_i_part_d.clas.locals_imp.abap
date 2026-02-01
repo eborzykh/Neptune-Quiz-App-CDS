@@ -125,7 +125,7 @@ CLASS lhc_part IMPLEMENTATION.
 
     LOOP AT it_keys INTO DATA(ls_keys).
 
-      SELECT * FROM znept_qz_i_part_m INTO TABLE @DATA(lt_part_all)
+      SELECT * FROM znept_qz_i_part_d INTO TABLE @DATA(lt_part_all)
         WHERE testid = @ls_keys-testid.
 
       IF sy-subrc = 0.
