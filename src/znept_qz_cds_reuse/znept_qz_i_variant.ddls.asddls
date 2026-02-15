@@ -13,6 +13,8 @@ define view entity ZNEPT_QZ_I_VARIANT
       _Variant.variant     as Variant,
       _Variant.version     as Vesrion, // to be replaced with hash-key
 
+      @EndUserText.label: 'Sort'
+      @EndUserText.quickInfo:'Sort order for Variants'
       case
         when _Variant.sort is initial then _Variant.variant_id
         else _Variant.sort

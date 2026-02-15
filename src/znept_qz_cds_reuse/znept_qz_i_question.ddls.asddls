@@ -15,6 +15,8 @@ define view entity ZNEPT_QZ_I_QUESTION
       _Question.explanation as Explanation,
       _Question.version     as Version, // to be replaced with hash-key
 
+      @EndUserText.label: 'Sort'
+      @EndUserText.quickInfo:'Sort order for Questions'
       case
         when _Question.sort is initial then _Question.question_id
         else _Question.sort

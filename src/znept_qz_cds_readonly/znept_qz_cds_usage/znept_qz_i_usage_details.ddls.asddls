@@ -12,7 +12,6 @@ define view entity ZNEPT_QZ_I_USAGE_DETAILS
   association [1] to ZNEPT_QZ_I_ACTIV_PROGRESS_VH as _Progress on $projection.Progress = _Progress.Progress
 
 { 
-
   key _Usage_Total.SyncId         as SyncId, 
   key _Usage_Total.Progress       as Progress,
 

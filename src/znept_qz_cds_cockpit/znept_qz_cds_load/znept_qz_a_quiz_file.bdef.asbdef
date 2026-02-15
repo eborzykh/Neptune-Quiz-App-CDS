@@ -1,0 +1,11 @@
+//
+abstract;
+
+define behavior for ZNEPT_QZ_A_QUIZ_FILE alias _File
+{
+
+  field ( mandatory ) StreamFile;
+  field ( mandatory ) Filename;
+  field ( mandatory ) MimeType;
+
+}

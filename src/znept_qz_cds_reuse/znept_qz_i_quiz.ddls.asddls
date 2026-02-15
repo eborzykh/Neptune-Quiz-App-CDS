@@ -11,7 +11,6 @@ define view entity ZNEPT_QZ_I_QUIZ
   association [1] to ZNEPT_QZ_I_QUIZ_PUBLISHED_VH as _Published on $projection.Published = _Published.Published
 
 {
-
   key _Quiz.test_id                                                     as TestId,
 
       _Quiz.upload_on                                                   as UploadOn,
@@ -22,10 +21,13 @@ define view entity ZNEPT_QZ_I_QUIZ
                            $session.user_timezone, $session.client,
                            'NULL' )                                     as UploadTSTMP,
 
-      CONCAT(_Quiz.upload_by, CONCAT(_Quiz.upload_on, _Quiz.upload_at)) as ETag, // ETag calculation
+      // ETag calculation
+      CONCAT(_Quiz.upload_by, CONCAT(_Quiz.upload_on, _Quiz.upload_at)) as ETag,
 
-      //      @ObjectModel.readOnly: true
-      //      for non read-only scenario apply: field ( readonly ) .. Upload_By_Name ..
+      // @ObjectModel.readOnly: true
+      // for non read-only scenario apply: field ( readonly ) .. Upload_By_Name ..
+      @EndUserText.label: 'Uploaded By'
+      @EndUserText.quickInfo:'Quiz Uploaded By User'
       @ObjectModel.virtualElement: true
       @ObjectModel.virtualElementCalculatedBy: 'ABAP:ZCL_NEPT_QZ_EXIT_CALC_QUIZ'
       cast('' as znept_qz_upload_name_de)                               as Upload_By_Name,
@@ -35,6 +37,11 @@ define view entity ZNEPT_QZ_I_QUIZ
       _Quiz.published                                                   as Published,
       _Published.PublishedText                                          as PublishedText,
 
+      @EndUserText.label: 'Parts Count'
+      @EndUserText.quickInfo: 'Number of Parts in this Quiz'
       _R_Part.Part_Count                                                as Part_Count,
+
+      @EndUserText.label: 'Questions Count'
+      @EndUserText.quickInfo: 'Number of Questions in this Quiz'
       _R_Question.Question_Count                                        as Question_Count
 }

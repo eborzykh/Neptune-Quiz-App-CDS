@@ -1,0 +1,28 @@
+@Metadata.layer: #CUSTOMER
+
+@UI.headerInfo.description.label: 'Parts'
+
+annotate view ZNEPT_QZ_C_PRT with
+{
+  @UI.facet: [ { id: 'Parts',
+                 purpose: #STANDARD,
+                 type: #IDENTIFICATION_REFERENCE,
+                 label: 'Description',
+                 position: 10 },
+
+               { id: 'Questions',
+                 type: #LINEITEM_REFERENCE,
+                 label: 'Questions',
+                 position: 20,
+                 targetElement: '_Questions' } ]
+
+  @UI: { lineItem: [  { position: 20, label: 'Description' } ],
+         identification: [ { position: 20, label: 'Part Description' } ] }
+  Description;
+
+  @UI.hidden: true
+  Test_ID;
+
+  @UI.hidden: true
+  Part_ID;
+}

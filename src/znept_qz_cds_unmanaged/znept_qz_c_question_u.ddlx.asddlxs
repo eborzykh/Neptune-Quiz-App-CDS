@@ -1,0 +1,51 @@
+//
+@Metadata.layer: #CUSTOMER
+@UI.headerInfo.description.label: 'Questions (Extension)'
+
+@UI: { headerInfo: { typeName: 'Question',
+                     typeNamePlural: 'Questions' ,
+                     title: { type: #STANDARD, value: 'QuestionId' } } }
+
+@UI.presentationVariant: [ { sortOrder: [ { by: 'SortPart', direction: #ASC },
+                                          { by: 'SortQuestion', direction: #ASC } ] } ]
+
+annotate view ZNEPT_QZ_C_QUESTION_U with
+{
+  @UI.facet: [ { id: 'Question',
+                 purpose: #STANDARD,
+                 type: #IDENTIFICATION_REFERENCE,
+                 label: 'Question details',
+                 position: 10 },
+
+               { id: 'Variants',
+                 type: #LINEITEM_REFERENCE,
+                 label: 'Variants',
+                 position: 20,
+                 targetElement: '_Variant' } ]
+
+  @UI.hidden: true
+  TestId;
+
+  @UI: { lineItem: [ { position: 10, label: 'Part' },
+                     { type: #FOR_ACTION, dataAction: 'refreshQuestion', label: 'Renew' },
+                     { type: #FOR_ACTION, dataAction: 'assignPart', label: 'Assign Part' },
+                     { type: #FOR_ACTION, dataAction: 'moveQuestionLast', label: 'Last' },
+                     { type: #FOR_ACTION, dataAction: 'moveQuestionFirst', label: 'First' },
+                     { type: #FOR_ACTION, dataAction: 'moveQuestionDown', label: 'Down' },
+                     { type: #FOR_ACTION, dataAction: 'moveQuestionUp', label: 'Up' } ],
+         identification:[ { position: 5, label: 'Part' } ] }
+  PartId;
+
+  @UI: { multiLineText: true,
+         lineItem: [ { position: 20, label: 'Question', cssDefault: { width: '50rem' } } ],
+         identification:[ { position: 10, label: 'Question' } ] }
+  Question;
+
+  @UI: { multiLineText: true,
+         lineItem: [ { hidden: true } ],
+         identification:[ { position: 20, label: 'Explanation' } ] }
+  Explanation;
+
+  @UI.hidden: true
+  PartDescription;
+}

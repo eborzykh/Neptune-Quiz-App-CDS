@@ -1,6 +1,7 @@
 //
 managed implementation in class zbp_nept_qz_i_quiz_m unique;
 strict ( 1 );
+extensible;
 
 define behavior for ZNEPT_QZ_I_QUIZ_M alias Quiz
 implementation in class zbp_nept_qz_i_quiz_m unique
@@ -10,6 +11,7 @@ etag master ETag
 lock master
 late numbering
 authorization master ( global )
+extensible
 {
   create;
   update;

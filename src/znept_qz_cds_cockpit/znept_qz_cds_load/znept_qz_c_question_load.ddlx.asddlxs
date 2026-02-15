@@ -1,0 +1,45 @@
+//
+@Metadata.layer: #CUSTOMER
+@UI.headerInfo.description.label: 'Questions'
+
+@UI: { headerInfo: { typeName: 'Question', 
+                     typeNamePlural: 'Questions' , 
+                     title: { type: #STANDARD, value: 'QuestionId' } } }
+
+annotate view ZNEPT_QZ_C_QUESTION_LOAD with
+{
+  @UI.facet: [ { id: 'Question',
+                 purpose: #STANDARD,
+                 type: #IDENTIFICATION_REFERENCE,
+                 label: 'Question details',
+                 position: 10 },
+      
+               { id: 'Variants',
+                 type: #LINEITEM_REFERENCE,
+                 label: 'Variants',
+                 position: 20,
+                 targetElement: '_Variant' } ]
+
+  @UI.hidden: true
+  TestId;
+  
+  @UI: { lineItem: [ { position: 10, label: 'Question ID' } ],
+         identification:[ { position: 10, label: 'Question ID' } ] }
+  QuestionId;
+
+  @UI: { lineItem: [ { position: 20, label: 'Part' } ],
+         identification:[ { position: 5, label: 'Part' } ] }
+  PartId;
+
+  @UI: { lineItem: [ { position: 30, label: 'Question', cssDefault: { width: '50rem' } } ],
+         identification:[ { position: 20, label: 'Question' } ] }
+  Question;
+
+  @UI: { lineItem: [ { hidden: true } ],
+         identification:[ { position: 30, label: 'Explanation' } ] }
+  Explanation;
+
+  @UI.hidden: true
+  PartDescription;
+  
+}

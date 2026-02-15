@@ -4,6 +4,7 @@
 
 @ObjectModel.resultSet.sizeCategory: #XS
 
+/*+[hideWarning] { "IDS" : [ "KEY_CHECK" ]  } */
 define view entity ZNEPT_QZ_I_QUIZ_PUBLISHED_VH
   as select from ZNEPT_QZ_I_DOMAIN ( p_domain_name: 'ZNEPT_QZ_PUBLISHED_DM' )
 {

@@ -1,0 +1,113 @@
+//
+@Metadata.layer: #CUSTOMER
+@UI.headerInfo.description.label: 'Quiz (Extension)'
+
+@UI: { headerInfo: { typeName: 'Managed scenario (Load)',
+                     typeNamePlural: 'Practice tests' , 
+                     title: { type: #STANDARD, value: 'TestId' } },
+                     
+       presentationVariant: [ { sortOrder: [ { by: 'UploadTSTMP', direction: #DESC } ],
+                                visualizations: [ {type: #AS_LINEITEM} ] } ] }
+
+annotate view ZNEPT_QZ_C_QUIZ_LOAD with
+{
+  @UI.facet: [ { label: 'Header',
+                 id: 'header',
+                 purpose: #STANDARD,
+                 type: #COLLECTION,
+                 position: 10 },
+
+               { label: 'General Attributes',
+                 id: 'attributes',
+                 purpose: #STANDARD,
+                 parentId: 'header',
+                 targetQualifier : 'attributes',
+                 type : #FIELDGROUP_REFERENCE,
+                 position: 10 },
+
+               { label: 'Upload Details',
+                 id: 'upload_details',
+                 purpose: #STANDARD,
+                 parentId: 'header',
+                 targetQualifier : 'upload_details',
+                 type: #FIELDGROUP_REFERENCE,
+                 position: 20 },
+
+               { label: 'Counts',
+                 id: 'count_details',
+                 purpose: #STANDARD,
+                 parentId: 'header',
+                 targetQualifier : 'count_details',
+                 type: #FIELDGROUP_REFERENCE,
+                 position: 30 },
+
+               { label: 'Parts',
+                 id: 'parts',
+                 purpose:  #STANDARD,
+                 type: #LINEITEM_REFERENCE,
+                 position: 20,
+                 targetElement: '_Part' },
+
+               { label: 'Questions',
+                 id: 'questions',
+                 purpose: #STANDARD,
+                 type: #LINEITEM_REFERENCE,
+                 position: 30,
+                 targetElement: '_Question' } ]
+
+  @UI: { lineItem: [ { position: 1, label: 'Quiz ID' },
+                     { type: #FOR_ACTION, dataAction: 'upload', label: 'Upload' } ],
+         fieldGroup: [ { qualifier: 'attributes', position: 1, label: 'Quiz ID' } ],
+         identification: [ { type: #FOR_ACTION, dataAction: 'paste', label: 'Paste' } ] }
+  TestId;
+
+  @Search.defaultSearchElement: true
+  @UI: { lineItem: [ { position: 10, label: 'Name', importance: #MEDIUM, cssDefault: { width: '25rem' } } ],
+         fieldGroup: [ { qualifier: 'attributes', position: 10, label: 'Name' } ] }
+  Description;
+
+  @UI: { lineItem: [ { position: 20, importance: #MEDIUM, label: 'Uploaded on' } ],
+         fieldGroup: [ { qualifier: 'upload_details', position: 10, label: 'Uploaded on' } ] }
+  UploadOn;
+
+  @UI: { lineItem: [ { position: 30, importance: #MEDIUM, label: 'Uploaded at' } ],
+         fieldGroup: [ { qualifier: 'upload_details', position: 20, label: 'Uploaded at' } ] }
+  UploadAt;
+
+  @UI: { lineItem: [ { position: 40, importance: #MEDIUM, label: 'Uploaded by' } ],
+         fieldGroup: [ { qualifier: 'upload_details', position: 30, label: 'Uploaded by' } ] }
+  Upload_By_Name;
+
+  @EndUserText.label: 'Visibility'
+  @EndUserText.quickInfo: 'Visible for all users'
+  @UI: { lineItem: [ { position: 50, importance: #HIGH, label: 'Visibility ', cssDefault: { width: '10rem' } } ],
+         fieldGroup: [ { qualifier: 'attributes', position: 20 } ] }
+  UI_Published;
+
+  @UI: { lineItem: [ { position: 60 } ], 
+         fieldGroup: [ { qualifier: 'count_details', position: 10 } ] }
+  Part_Count;
+
+  @UI: { lineItem: [ { position: 70 } ],
+         fieldGroup: [ { qualifier: 'count_details', position: 20 } ] }
+  Question_Count;
+
+  @UI.hidden: true
+  Published;
+
+  @UI.hidden: true
+  UploadBy;
+
+  @UI: { lineItem: [ { position: 100, importance: #MEDIUM, label: 'Attachment' } ],
+         fieldGroup: [ { qualifier: 'upload_details', position: 100 } ] }
+  StreamFile;
+
+  @UI.hidden: true
+  StreamFileName;
+
+  @UI.hidden: true
+  StreamMimeType;
+  
+  @UI.hidden: true
+  UploadTSTMP;
+}

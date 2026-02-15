@@ -47,17 +47,37 @@ define root view entity ZNEPT_QZ_I_USAGE
 
       _R_Progress.Progress                                                                    as Progress,
 
+      @EndUserText.label: 'Correct'
+      @EndUserText.quickInfo: 'Number of questions answered correctly'
       _R_Progress_Correct.Progress                                                            as Correct,
+      
+      @EndUserText.label: 'Incorrect'
+      @EndUserText.quickInfo: 'number of questions answered incorrectly'
       _R_Progress_Incorrect.Progress                                                          as Incorrect,
+      
+      @EndUserText.label: 'Improved'
+      @EndUserText.quickInfo: 'Number of questions with improved result'
       _R_Progress_Improved.Progress                                                           as Improved,
+      
+      @EndUserText.label: 'Unanswered'
+      @EndUserText.quickInfo: 'Number of unanswered questions'
       _R_Progress_Unanswered.Progress                                                         as Unanswered,
 
+      @EndUserText.label: 'First Use'
+      @EndUserText.quickInfo: 'The date of first use'
       _R_Usage.FirstOn                                                                        as FirstOn,
+
+      @EndUserText.label: 'Last Use'
+      @EndUserText.quickInfo: 'The date of last use'
       _R_Usage.LastOn                                                                         as LastOn,
 
+      @EndUserText.label: 'Days of Use'
+      @EndUserText.quickInfo: 'Number of days between first and last used date'
       DATS_DAYS_BETWEEN($projection.FirstOn, $projection.LastOn)                              as UseDays,
-      DATS_DAYS_BETWEEN($projection.LastOn, $session.user_date)                               as LastOnDays,
 
+      @EndUserText.label: 'Days from Last Use'
+      @EndUserText.quickInfo:'Days from Last Use'
+      DATS_DAYS_BETWEEN($projection.LastOn, $session.user_date)                               as LastOnDays,
 
       cast( round ( $projection.Progress / $projection.Total * 100, 0 ) as abap.dec( 5, 2 ) ) as Percentage,
       cast( round ( $projection.Total / 100 * 80, 0 ) as abap.dec( 5, 2 ) )                   as ToleranceLowValue,
@@ -70,7 +90,10 @@ define root view entity ZNEPT_QZ_I_USAGE
         else 0
       end                                                                                     as CriticalityCode,
 
+      @EndUserText.label: 'Sync ID'
       concat((concat_with_space('Sync entity', _Activity_Sync.SyncId, 1)), '.')               as TextTitle,
+
+      @EndUserText.label: 'Quiz ID'
       concat((concat_with_space('Quiz entity', _Activity_Sync.TestId, 1)), '.')               as TextDescription,
 
       /* Associations */

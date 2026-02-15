@@ -1,0 +1,36 @@
+//
+projection;
+strict ( 1 );
+
+define behavior for ZNEPT_QZ_C_QUIZ_LOAD alias Quiz
+{
+  use create;
+  use update;
+  use delete;
+
+  use action paste;
+  use action upload;
+
+  use association _Part;
+  use association _Question;
+}
+
+define behavior for ZNEPT_QZ_C_PART_LOAD alias Part
+{
+
+  use association _Quiz;
+}
+
+define behavior for ZNEPT_QZ_C_QUESTION_LOAD alias Question
+{
+
+  use association _Quiz;
+  use association _Variant;
+}
+
+define behavior for ZNEPT_QZ_C_VARIANT_LOAD alias Variant
+{
+
+  use association _Quiz;
+  use association _Question;
+}

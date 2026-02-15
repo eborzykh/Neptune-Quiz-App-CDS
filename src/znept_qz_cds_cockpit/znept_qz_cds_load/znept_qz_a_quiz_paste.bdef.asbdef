@@ -1,0 +1,7 @@
+//
+abstract;
+
+define behavior for ZNEPT_QZ_A_QUIZ_PASTE alias _Paste
+{
+  field ( mandatory ) StreamText;
+}

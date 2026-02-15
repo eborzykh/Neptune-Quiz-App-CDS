@@ -1,0 +1,186 @@
+//
+@Metadata.layer: #CUSTOMER
+
+@UI.headerInfo: { typeName: 'Quiz Usage Report',
+                  typeNamePlural: 'Quiz Usage List',
+                  typeImageUrl: 'sap-icon://business-objects-experience',
+
+                  title: { label: 'Title label',
+                           value: 'TextTitle',
+                           type: #STANDARD },
+
+                  description: { label: 'Quiz Usage',
+                                 type: #STANDARD,
+                                 value: 'TextDescription' } }
+
+@UI.chart: [ { qualifier: 'radialChart',
+               title: 'Percentage',
+               description: 'Percentage of progress made by the user',
+               chartType: #DONUT,
+               measures: ['Progress_Percent'],
+               measureAttributes: [ { measure: 'Progress_Percent',
+                                      role: #AXIS_1,
+                                      asDataPoint: true } ] },
+
+             { qualifier: 'bulletChart',
+               title: 'Target',
+               description: 'Target and Progress',
+               chartType: #BULLET,
+               measures: ['Progress_Percent'],
+               measureAttributes: [ { measure: 'Progress_Percent',
+                                      role: #AXIS_1,
+                                      asDataPoint: true } ] } ]
+
+@UI.lineItem: [{criticality: 'CriticalityCode'}]
+
+annotate entity ZNEPT_QZ_C_USAGE with
+{
+
+  @UI.facet: [ { purpose: #HEADER, // do not group because there will be no spacing
+                 type: #DATAPOINT_REFERENCE,
+                 targetQualifier: 'headerDescription',
+                 position: 10 },
+
+               { purpose: #HEADER, // do not group because there will be no spacing
+                 type: #DATAPOINT_REFERENCE,
+                 targetQualifier: 'headerAttended',
+                 position: 20 },
+
+               { purpose: #HEADER, // do not group because there will be no spacing
+                 type: #CHART_REFERENCE,
+                 targetQualifier: 'radialChart',
+                 position: 30 },
+
+               { purpose: #HEADER, // do not group because there will be no spacing
+                 type: #CHART_REFERENCE,
+                 targetQualifier: 'columnChart',
+                 targetElement: '_Usage_Details',
+                 position: 40 },
+
+               { purpose: #HEADER, // do not group because there will be no spacing
+                 type: #CHART_REFERENCE,
+                 targetQualifier: 'bulletChart',
+                 position: 50 },
+
+               { label: 'Progress Details',
+                 id: 'header',
+                 purpose: #STANDARD,
+                 type: #COLLECTION,
+                 position: 60 },
+
+               { label: 'Numbers',
+                 id: 'totalGroup',
+                 purpose: #STANDARD,
+                 parentId: 'header',
+                 targetQualifier: 'totalGroup',
+                 type: #FIELDGROUP_REFERENCE,
+                 position: 10 },
+
+               { label: 'Dates',
+                 id: 'datesGroup',
+                 purpose: #STANDARD,
+                 parentId: 'header',
+                 targetQualifier: 'datesGroup',
+                 type: #FIELDGROUP_REFERENCE,
+                 isPartOfPreview: false,
+                 position: 20 },
+
+               { label: 'Questions',
+                 id: 'details',
+                 purpose: #STANDARD,
+                 type: #LINEITEM_REFERENCE,
+                 position: 100,
+                 targetElement: '_Usage_Details' } ]
+
+  @UI: { lineItem: [ { exclude: true } ],
+         fieldGroup: [ { hidden: true } ] }
+  SyncId;
+
+  @UI: { lineItem: [ { exclude: true } ],
+         fieldGroup: [ { hidden: true } ] }
+  TestId;
+
+  @UI: { lineItem: [ { label: 'Quiz Description', position: 10, cssDefault: { width: '20rem' } } ],
+         dataPoint: { qualifier: 'headerDescription', title: 'Quiz' } }
+  Description;
+
+  @UI: { lineItem: [ { label: 'Attended by', position: 20, cssDefault: { width: '15rem' } } ],
+         dataPoint: { qualifier: 'headerAttended', title: 'Attended by' } }
+  SyncBy;
+
+  @UI: { dataPoint: { targetValue: #( Total ),
+                      criticalityCalculation:{
+                      improvementDirection: #MAXIMIZE ,
+                      deviationRangeLowValueElement: 'DeviationLowValue',
+                      toleranceRangeLowValueElement: 'ToleranceLowValue' } },
+         lineItem: [ { criticality: 'CriticalityCode',
+                       type: #AS_CHART,
+                       label: 'Percentage',
+                       valueQualifier: 'radialChart',
+                       cssDefault: { width: '10rem' },
+                       position: 30 } ] }
+  Progress_Percent;
+
+  @UI: { dataPoint: { targetValue: #( Total ),
+                      visualization: #PROGRESS,
+                      criticality: 'CriticalityCode',
+                      title: 'Progress (Number)' },
+         lineItem: [ { criticality: 'CriticalityCode',
+                       type: #AS_DATAPOINT,
+                       label: 'Questions answered',
+                       cssDefault: { width: '10rem' },
+                       position: 40 } ] }
+  Progress_Number;
+
+  @UI: { dataPoint: { criticality: 'CriticalityCode',
+                      targetValueElement: 'Total',
+                      forecastValue: 'DeviationLowValue',
+                      minimumValue: 0 },
+         lineItem: [ { exclude: true } ] }
+  DeviationLowValue;
+
+  @UI: { lineItem: [ { exclude: true } ],
+         fieldGroup: [ { qualifier: 'totalGroup', position: 120 } ] }
+  Correct;
+
+  @UI: { lineItem: [ { exclude: true } ],
+         fieldGroup: [ { qualifier: 'totalGroup', position: 130 } ] }
+  Incorrect;
+
+  @UI: { lineItem: [ { exclude: true } ],
+         fieldGroup: [ { qualifier: 'totalGroup', position: 140 } ] }
+  Improved;
+
+  @UI: { lineItem: [ { exclude: true } ],
+         fieldGroup: [ { qualifier: 'totalGroup', position: 150 } ] }
+  Unanswered;
+
+  @UI: { lineItem: [ { exclude: true } ],
+         fieldGroup: [ { qualifier: 'totalGroup', position: 160 } ] }
+  Total;
+
+  @UI: { lineItem: [ { exclude: true } ],
+         fieldGroup: [ { qualifier: 'datesGroup', position: 110 } ] }
+  FirstOn;
+
+  @UI: { lineItem: [ { exclude: true } ],
+         fieldGroup: [ { qualifier: 'datesGroup', position: 120 } ] }
+  LastOn;
+
+  @UI: { lineItem: [ { exclude: true } ],
+         fieldGroup: [ { qualifier: 'datesGroup', position: 130 } ] }
+  UseDays;
+
+  @UI: { lineItem: [ { exclude: true } ],
+         fieldGroup: [ { qualifier: 'datesGroup', position: 140 } ] }
+  LastOnDays;
+
+  @UI.hidden: true
+  UploadOn;
+
+  @UI.hidden: true
+  UploadAt;
+
+  @UI.hidden: true
+  ToleranceLowValue;
+}

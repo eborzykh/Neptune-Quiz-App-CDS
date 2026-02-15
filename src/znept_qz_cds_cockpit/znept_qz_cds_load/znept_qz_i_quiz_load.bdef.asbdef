@@ -1,0 +1,101 @@
+//
+managed implementation in class zbp_nept_qz_i_quiz_load unique;
+strict ( 1 );
+
+define behavior for ZNEPT_QZ_I_QUIZ_LOAD alias Quiz
+persistent table znept_qz_tst
+lock master
+etag master ETag
+late numbering
+authorization master ( instance )
+{
+  create;
+  update;
+  delete;
+
+  action ( features : instance ) paste parameter ZNEPT_QZ_A_QUIZ_PASTE;
+  action upload parameter ZNEPT_QZ_A_QUIZ_FILE;
+
+  field ( readonly ) TestId, UploadAt, UploadOn, UploadBy, Upload_By_Name, Part_Count, Question_Count, UI_Published, Version;
+  field ( mandatory ) Description;
+
+  determination setTestETag on modify { create; }
+
+  association _Part;
+  association _Question;
+
+  mapping for znept_qz_tst
+  {
+    TestId = test_id;
+
+    UploadAt = upload_at;
+    UploadOn = upload_on;
+    UploadBy = upload_by;
+    Description = description;
+    Published = published;
+  }
+}
+
+define behavior for ZNEPT_QZ_I_PART_LOAD alias Part
+persistent table znept_qz_prt
+lock dependent by _Quiz
+late numbering
+authorization dependent by _Quiz
+{
+  field ( readonly ) TestId;
+
+  association _Quiz;
+
+  mapping for ZNEPT_QZ_PRT
+  {
+    TestId = test_id;
+    PartId = part_id;
+
+    Description = description;
+  }
+}
+
+define behavior for ZNEPT_QZ_I_QUESTION_LOAD alias Question
+persistent table znept_qz_qst
+lock dependent by _Quiz
+late numbering
+authorization dependent by _Quiz
+{
+  field ( readonly ) TestId;
+
+  association _Quiz;
+  association _Variant;
+
+  mapping for ZNEPT_QZ_QST
+  {
+    TestId = test_id;
+    QuestionId = question_id;
+
+    PartId = part_id;
+    Question = question;
+    Explanation = explanation;
+  }
+}
+
+define behavior for ZNEPT_QZ_I_VARIANT_LOAD alias Variant
+persistent table znept_qz_var
+lock dependent by _Quiz
+late numbering
+authorization dependent by _Quiz
+{
+
+  field ( readonly ) TestId, QuestionId;
+
+  association _Quiz;
+  association _Question;
+
+  mapping for znept_qz_var
+  {
+    TestId = test_id;
+    QuestionId = question_id;
+    VariantId = variant_id;
+
+    Variant = variant;
+    Correct = correct;
+  }
+}

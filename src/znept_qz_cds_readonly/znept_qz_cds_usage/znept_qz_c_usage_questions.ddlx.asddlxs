@@ -1,0 +1,33 @@
+//
+@Metadata.layer: #CUSTOMER
+@UI.headerInfo.description.label: 'Questions (Extension)'
+
+@UI.presentationVariant: [ { sortOrder: [ { by: 'Sort', direction: #ASC } ] } ]
+
+@UI.lineItem: [ {criticality: 'CriticalityCode'} ]
+
+annotate entity ZNEPT_QZ_C_USAGE_QUESTIONS with
+{
+  @UI.facet: [ { id: 'Question',
+                 purpose: #STANDARD,
+                 type: #IDENTIFICATION_REFERENCE,
+                 label: 'Question details',
+                 position: 10 } ]
+
+  @UI: { multiLineText: true,
+         lineItem: [ { position: 10, label: 'Question', cssDefault: { width: '40rem' } } ],
+         identification:[ { position: 10, label: 'Question' } ] }
+  Question;
+
+  @UI: { hidden: true }
+  SyncId;
+
+  @UI: { hidden: true }
+  QuestionId;
+
+  @UI: { hidden: true }
+  TestId;
+
+  @UI: { hidden: true }
+  PartId;
+}

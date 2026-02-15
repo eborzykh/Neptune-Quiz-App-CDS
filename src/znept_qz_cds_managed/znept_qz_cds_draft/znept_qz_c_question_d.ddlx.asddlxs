@@ -1,0 +1,62 @@
+//
+@Metadata.layer: #CUSTOMER
+@UI.headerInfo.description.label: 'Questions'
+
+@UI: { headerInfo: { typeName: 'Question',
+                     typeNamePlural: 'Questions' ,
+                     title: { type: #STANDARD, value: 'QuestionId' } } }
+
+@UI.presentationVariant: [ { sortOrder: [ { by: 'SortPart', direction: #ASC },
+                                          { by: 'Sort', direction: #ASC } ] } ]
+
+annotate view ZNEPT_QZ_C_QUESTION_D with
+{
+  @UI.facet: [ { id: 'Question',
+                 purpose: #STANDARD,
+                 type: #IDENTIFICATION_REFERENCE,
+                 label: 'Question details',
+                 position: 10 },
+
+               { id: 'Variants',
+                 type: #LINEITEM_REFERENCE,
+                 label: 'Variants',
+                 position: 20,
+                 targetElement: '_Variant' } ]
+
+  @UI.hidden: true
+  TestId;
+
+  @UI: { lineItem: [ { position: 10, label: 'Question ID' } ],
+         identification: [ { position: 10, label: 'Question ID' } ] }
+  QuestionId;
+
+  @UI: { lineItem: [ { position: 20, label: 'Part' } ],
+         identification: [ { position: 5, label: 'Part' } ] }
+  PartId;
+
+  @EndUserText.label: 'Question'         
+  @UI: { lineItem: [ { position: 30, cssDefault: { width: '50rem' } }, 
+                     { type: #FOR_ACTION, dataAction: 'moveQuestionLast', label: 'Last', position: 40 },
+                     { type: #FOR_ACTION, dataAction: 'moveQuestionFirst', label: 'First', position: 30 },
+                     { type: #FOR_ACTION, dataAction: 'moveQuestionDown', label: 'Down', position: 20 },
+                     { type: #FOR_ACTION, dataAction: 'moveQuestionUp', label: 'Up', position: 10 },
+                     { type: #FOR_ACTION, dataAction: 'refreshQuestion', label: 'Renew', position: 200 },
+                     { type: #FOR_ACTION, dataAction: 'assignPart', label: 'Assign Part', position: 100 } ],
+         identification:[ { position: 20, label: 'Question' } ] }
+  Question;
+
+  @UI: { lineItem: [ { hidden: true } ],
+         identification: [ { position: 30, label: 'Explanation' } ] }
+  Explanation;
+
+  @EndUserText.label: 'Version'
+  @EndUserText.quickInfo: 'Version (mobile sync)'
+  @UI: { identification: [ { position: 30, label: 'Version' } ] }
+  Version;
+
+  @UI.hidden: true
+  PartDescription;
+
+  @UI.hidden: true
+  SortPart;
+}
