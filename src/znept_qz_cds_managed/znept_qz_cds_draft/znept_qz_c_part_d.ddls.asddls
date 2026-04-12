@@ -1,6 +1,7 @@
 //
 @EndUserText.label: 'Parts (Consumption)'
 @AccessControl.authorizationCheck: #NOT_REQUIRED
+@VDM.viewType: #CONSUMPTION
 @Metadata.allowExtensions: true
 
 define view entity ZNEPT_QZ_C_PART_D

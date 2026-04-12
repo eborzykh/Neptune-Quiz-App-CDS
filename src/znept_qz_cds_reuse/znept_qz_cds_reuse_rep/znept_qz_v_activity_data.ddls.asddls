@@ -1,12 +1,11 @@
 //
 @EndUserText.label: 'Activity Data (Basic)'
 @AccessControl.authorizationCheck: #NOT_REQUIRED
+@VDM.viewType: #BASIC
 
 define view entity ZNEPT_QZ_V_ACTIVITY_DATA
   as select from znept_qz_mtd as _Activity_Data
-
 {
-
   key    _Activity_Data.sync_id         as SyncId,
   key    _Activity_Data.question_id     as QuestionId,
   key    _Activity_Data.active_on       as ActiveOn,

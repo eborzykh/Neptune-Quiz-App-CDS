@@ -1,8 +1,8 @@
 //
 @EndUserText.label: 'Quiz (Consumption)'
-
 @AccessControl.authorizationCheck: #NOT_REQUIRED
 @Metadata.allowExtensions: true
+@VDM.viewType: #CONSUMPTION
 @Search.searchable: true
 @ObjectModel.semanticKey: ['TestId']
 

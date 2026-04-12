@@ -98,6 +98,7 @@ annotate entity ZNEPT_QZ_C_USAGE with
 
   @UI: { lineItem: [ { exclude: true } ],
          fieldGroup: [ { hidden: true } ] }
+  @Consumption.valueHelpDefinition: [{entity: {name: 'ZNEPT_QZ_I_QUIZ_VH', element: 'TestId' }, useForValidation: true}]
   TestId;
 
   @UI: { lineItem: [ { label: 'Quiz Description', position: 10, cssDefault: { width: '20rem' } } ],

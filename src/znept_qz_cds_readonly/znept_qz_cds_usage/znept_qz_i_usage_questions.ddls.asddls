@@ -1,9 +1,10 @@
 //
 @EndUserText.label: 'Usage Questions (Basic)'
 @AccessControl.authorizationCheck: #NOT_REQUIRED
+@VDM.viewType: #COMPOSITE
 
 define view entity ZNEPT_QZ_I_USAGE_QUESTIONS
-  as select from ZNEPT_QZ_I_QUESTION_PROGRESS as _Activity_Progress
+  as select from ZNEPT_QZ_I_PROGRESS_QUESTION as _Activity_Progress
 
   association     to parent ZNEPT_QZ_I_USAGE_DETAILS as _Usage_Details on  $projection.SyncId   = _Usage_Details.SyncId
                                                                        and $projection.Progress = _Usage_Details.Progress

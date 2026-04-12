@@ -1,6 +1,7 @@
 //
 @EndUserText.label: 'Usage Details (Basic)'
 @AccessControl.authorizationCheck: #NOT_REQUIRED
+@VDM.viewType: #COMPOSITE
 
 define view entity ZNEPT_QZ_I_USAGE_DETAILS
   as select from ZNEPT_QZ_R_USAGE_TOTAL as _Usage_Total

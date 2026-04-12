@@ -1,6 +1,7 @@
 //
 @EndUserText.label: 'Parts (Basic)'
 @AccessControl.authorizationCheck: #NOT_REQUIRED
+@VDM.viewType: #COMPOSITE
 
 define view entity ZNEPT_QZ_I_PART_U
   as select from ZNEPT_QZ_I_PART as _Part

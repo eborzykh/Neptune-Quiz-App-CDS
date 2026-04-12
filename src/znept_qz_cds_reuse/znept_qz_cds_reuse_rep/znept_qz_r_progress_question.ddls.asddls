@@ -1,8 +1,9 @@
 //
 @EndUserText.label: 'Usage Calculation (Calculate View)'
 @AccessControl.authorizationCheck: #NOT_REQUIRED
+@VDM.viewType: #BASIC
 
-define view entity ZNEPT_QZ_R_QUESTION_PROGRESS
+define view entity ZNEPT_QZ_R_PROGRESS_QUESTION
   with parameters
     @Consumption.defaultValue: ''
     p_correct    : boolean,
@@ -13,7 +14,7 @@ define view entity ZNEPT_QZ_R_QUESTION_PROGRESS
     @Consumption.defaultValue: ''
     p_unanswered : boolean
 
-  as select from ZNEPT_QZ_I_QUESTION_PROGRESS as _Question_Progress
+  as select from ZNEPT_QZ_I_PROGRESS_QUESTION as _Question_Progress
 {
 
   key _Question_Progress.SyncId as SyncId,

@@ -1,6 +1,7 @@
 //
 @EndUserText.label: 'Variants (Basic)'
 @AccessControl.authorizationCheck: #NOT_REQUIRED
+@VDM.viewType: #COMPOSITE
 
 define view entity ZNEPT_QZ_I_VARIANT_D
   as select from ZNEPT_QZ_I_VARIANT as _Variant

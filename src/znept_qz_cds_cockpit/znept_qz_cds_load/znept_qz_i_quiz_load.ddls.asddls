@@ -1,6 +1,7 @@
 //
 @EndUserText.label: 'Quiz (Basic)'
 @AccessControl.authorizationCheck: #NOT_REQUIRED
+@VDM.viewType: #COMPOSITE
 
 define root view entity ZNEPT_QZ_I_QUIZ_LOAD
   as select from ZNEPT_QZ_I_QUIZ as _Quiz
@@ -10,7 +11,6 @@ define root view entity ZNEPT_QZ_I_QUIZ_LOAD
   composition [0..*] of ZNEPT_QZ_I_QUESTION_LOAD as _Question
 
 {
-
   key _Quiz.TestId         as TestId,
 
       _Quiz.ETag           as ETag,
@@ -32,5 +32,4 @@ define root view entity ZNEPT_QZ_I_QUIZ_LOAD
 
       _Part,
       _Question
-
 }

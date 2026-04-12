@@ -1,0 +1,6 @@
+@EndUserText.label: 'Neptune Quiz App (CDS API)'
+define service ZNEPT_QZ_API_PQUIZ {
+  expose ZNEPT_QZ_A_PQUIZ as Quiz;
+  expose ZNEPT_QZ_A_PQUESTION as Question;
+  expose ZNEPT_QZ_A_PVARIANT as Variant;
+}

@@ -2,6 +2,7 @@
 @EndUserText.label: 'Variants (Consumption)'
 @AccessControl.authorizationCheck: #NOT_REQUIRED
 @Metadata.allowExtensions: true
+@VDM.viewType: #CONSUMPTION
 
 define view entity ZNEPT_QZ_C_VARIANT_R
   as projection on ZNEPT_QZ_I_VARIANT_R

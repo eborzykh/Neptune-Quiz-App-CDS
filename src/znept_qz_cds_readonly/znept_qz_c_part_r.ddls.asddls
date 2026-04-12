@@ -2,6 +2,7 @@
 @EndUserText.label: 'Parts (Consumption)'
 @AccessControl.authorizationCheck: #NOT_REQUIRED
 @Metadata.allowExtensions: true
+@VDM.viewType: #CONSUMPTION
 
 define view entity ZNEPT_QZ_C_PART_R
   as projection on ZNEPT_QZ_I_PART_R

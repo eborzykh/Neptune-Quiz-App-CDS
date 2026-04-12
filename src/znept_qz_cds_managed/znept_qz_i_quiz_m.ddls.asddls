@@ -1,6 +1,7 @@
 //
 @EndUserText.label: 'Quiz (Basic)'
 @AccessControl.authorizationCheck: #NOT_REQUIRED
+@VDM.viewType: #COMPOSITE
 
 define root view entity ZNEPT_QZ_I_QUIZ_M
   as select from ZNEPT_QZ_I_QUIZ as _Quiz

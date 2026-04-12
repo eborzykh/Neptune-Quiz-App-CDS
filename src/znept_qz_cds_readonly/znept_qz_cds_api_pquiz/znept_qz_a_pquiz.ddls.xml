@@ -3,10 +3,10 @@
  <asx:abap xmlns:asx="http://www.sap.com/abapxml" version="1.0">
   <asx:values>
    <DDLS>
-    <DDLNAME>ZNEPT_QZ_R_QUESTION_PROGRESS</DDLNAME>
+    <DDLNAME>ZNEPT_QZ_A_PQUIZ</DDLNAME>
     <DDLANGUAGE>E</DDLANGUAGE>
-    <DDTEXT>Neptune Quiz App (CDS): Usage Calculation (Calculate View)</DDTEXT>
-    <SOURCE_TYPE>W</SOURCE_TYPE>
+    <DDTEXT>Neptune Quiz App (CDS): Personalised List (Consumption)</DDTEXT>
+    <SOURCE_TYPE>P</SOURCE_TYPE>
    </DDLS>
   </asx:values>
  </asx:abap>

@@ -1,6 +1,7 @@
 //
 @EndUserText.label: 'Variants (Basic Reuse)'
 @AccessControl.authorizationCheck: #NOT_REQUIRED
+@VDM.viewType: #BASIC
 
 define view entity ZNEPT_QZ_I_VARIANT
   as select from znept_qz_var as _Variant
@@ -11,6 +12,7 @@ define view entity ZNEPT_QZ_I_VARIANT
 
       _Variant.correct     as Correct,
       _Variant.variant     as Variant,
+      
       _Variant.version     as Vesrion, // to be replaced with hash-key
 
       @EndUserText.label: 'Sort'

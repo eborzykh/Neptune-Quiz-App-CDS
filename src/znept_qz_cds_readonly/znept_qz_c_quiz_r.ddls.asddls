@@ -5,6 +5,7 @@
 @Metadata.allowExtensions: true
 @Search.searchable: true
 @ObjectModel.semanticKey: ['TestId']
+@VDM.viewType: #CONSUMPTION
 
 define root view entity ZNEPT_QZ_C_QUIZ_R
   provider contract transactional_query

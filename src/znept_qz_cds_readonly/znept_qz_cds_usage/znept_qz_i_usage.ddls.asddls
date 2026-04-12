@@ -1,6 +1,7 @@
 //
 @EndUserText.label: 'Usage Data (Basic)'
 @AccessControl.authorizationCheck: #NOT_REQUIRED
+@VDM.viewType: #COMPOSITE
 
 define root view entity ZNEPT_QZ_I_USAGE
   as select from    ZNEPT_QZ_I_ACTIVITY_SYNC                           as _Activity_Sync
@@ -9,23 +10,23 @@ define root view entity ZNEPT_QZ_I_USAGE
 
     left outer join ZNEPT_QZ_R_QUESTION                                as _R_Question            on _Activity_Sync.TestId = _R_Question.Test_ID
 
-    left outer join ZNEPT_QZ_R_QUESTION_PROGRESS ( p_correct: 'X',
+    left outer join ZNEPT_QZ_R_PROGRESS_QUESTION ( p_correct: 'X',
                                                    p_improved: 'X',
                                                    p_incorrect: ' ',
                                                    p_unanswered: ' ' ) as _R_Progress            on _Activity_Sync.SyncId = _R_Progress.SyncId
-    left outer join ZNEPT_QZ_R_QUESTION_PROGRESS ( p_correct: 'X',
+    left outer join ZNEPT_QZ_R_PROGRESS_QUESTION ( p_correct: 'X',
                                                    p_improved: ' ',
                                                    p_incorrect: ' ',
                                                    p_unanswered: ' ' ) as _R_Progress_Correct    on _Activity_Sync.SyncId = _R_Progress_Correct.SyncId
-    left outer join ZNEPT_QZ_R_QUESTION_PROGRESS ( p_correct: ' ',
+    left outer join ZNEPT_QZ_R_PROGRESS_QUESTION ( p_correct: ' ',
                                                    p_improved: 'X',
                                                    p_incorrect: ' ',
                                                    p_unanswered: ' ' ) as _R_Progress_Improved   on _Activity_Sync.SyncId = _R_Progress_Improved.SyncId
-    left outer join ZNEPT_QZ_R_QUESTION_PROGRESS ( p_correct: ' ',
+    left outer join ZNEPT_QZ_R_PROGRESS_QUESTION ( p_correct: ' ',
                                                    p_improved: ' ',
                                                    p_incorrect: 'X',
                                                    p_unanswered: ' ' ) as _R_Progress_Incorrect  on _Activity_Sync.SyncId = _R_Progress_Incorrect.SyncId
-    left outer join ZNEPT_QZ_R_QUESTION_PROGRESS ( p_correct: ' ',
+    left outer join ZNEPT_QZ_R_PROGRESS_QUESTION ( p_correct: ' ',
                                                    p_improved: ' ',
                                                    p_incorrect: ' ',
                                                    p_unanswered: 'X' ) as _R_Progress_Unanswered on _Activity_Sync.SyncId = _R_Progress_Unanswered.SyncId
@@ -50,15 +51,15 @@ define root view entity ZNEPT_QZ_I_USAGE
       @EndUserText.label: 'Correct'
       @EndUserText.quickInfo: 'Number of questions answered correctly'
       _R_Progress_Correct.Progress                                                            as Correct,
-      
+
       @EndUserText.label: 'Incorrect'
       @EndUserText.quickInfo: 'number of questions answered incorrectly'
       _R_Progress_Incorrect.Progress                                                          as Incorrect,
-      
+
       @EndUserText.label: 'Improved'
       @EndUserText.quickInfo: 'Number of questions with improved result'
       _R_Progress_Improved.Progress                                                           as Improved,
-      
+
       @EndUserText.label: 'Unanswered'
       @EndUserText.quickInfo: 'Number of unanswered questions'
       _R_Progress_Unanswered.Progress                                                         as Unanswered,

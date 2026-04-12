@@ -1,6 +1,7 @@
 //
 @EndUserText.label: 'Quiz (Consumption)'
 @AccessControl.authorizationCheck: #NOT_REQUIRED
+@VDM.viewType: #CONSUMPTION
 @Metadata.allowExtensions: true
 
 @Search.searchable: true

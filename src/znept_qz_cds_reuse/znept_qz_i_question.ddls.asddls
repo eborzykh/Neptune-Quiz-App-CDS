@@ -1,6 +1,7 @@
 //
 @EndUserText.label: 'Questions (Basic Reuse)'
 @AccessControl.authorizationCheck: #NOT_REQUIRED
+@VDM.viewType: #BASIC
 
 define view entity ZNEPT_QZ_I_QUESTION
   as select from znept_qz_qst as _Question
@@ -13,6 +14,7 @@ define view entity ZNEPT_QZ_I_QUESTION
       _Question.part_id     as PartId,
       _Question.question    as Question,
       _Question.explanation as Explanation,
+      
       _Question.version     as Version, // to be replaced with hash-key
 
       @EndUserText.label: 'Sort'

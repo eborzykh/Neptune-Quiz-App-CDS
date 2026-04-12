@@ -1,6 +1,7 @@
 //
 @EndUserText.label: 'Parts (Basic Reuse)'
 @AccessControl.authorizationCheck: #NOT_REQUIRED
+@VDM.viewType: #BASIC
 
 define view entity ZNEPT_QZ_I_PART 
   as select from znept_qz_prt as _Part
@@ -9,6 +10,7 @@ define view entity ZNEPT_QZ_I_PART
   key _Part.part_id     as PartId,
 
       _Part.description as Description,
+      
       _Part.version     as Version, // to be replaced with hash-key
 
       @EndUserText.label: 'Sort'

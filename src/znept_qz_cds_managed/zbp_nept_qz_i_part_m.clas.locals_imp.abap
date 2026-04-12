@@ -94,9 +94,9 @@ CLASS lhc_part IMPLEMENTATION.
         IF <fs_part_sort> IS ASSIGNED.
           MOVE-CORRESPONDING <fs_part> TO <fs_part_sort>.
           SELECT MIN( sort ) AS sort_top, MAX( sort ) AS sort_bottom
-            INTO ( @<fs_part_sort>-sort_top, @<fs_part_sort>-sort_bottom )
             FROM znept_qz_i_part_m
-            WHERE testid = @<fs_part>-testid.
+            WHERE testid = @<fs_part>-testid
+            INTO ( @<fs_part_sort>-sort_top, @<fs_part_sort>-sort_bottom ).
         ENDIF.
       ENDIF.
 
@@ -153,8 +153,9 @@ CLASS lhc_part IMPLEMENTATION.
 
     LOOP AT it_keys INTO DATA(ls_keys).
 
-      SELECT * FROM znept_qz_i_part_m INTO TABLE @DATA(lt_part_all)
-        WHERE testid = @ls_keys-testid.
+      SELECT * FROM znept_qz_i_part_m
+        WHERE testid = @ls_keys-testid
+        INTO TABLE @DATA(lt_part_all).
 
       IF sy-subrc = 0.
         READ TABLE lt_part_all WITH KEY testid = ls_keys-testid

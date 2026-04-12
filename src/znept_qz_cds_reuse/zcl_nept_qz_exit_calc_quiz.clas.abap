@@ -18,6 +18,11 @@ CLASS ZCL_NEPT_QZ_EXIT_CALC_QUIZ IMPLEMENTATION.
 
   METHOD if_sadl_exit_calc_element_read~calculate.
 
+* ----------------------------------------------------------------
+* ABAP SQL SELECT on cds views return initial values for the virtual element,
+* eml read on bo entities is not possible AS eml does not know virtual elements.
+* ----------------------------------------------------------------
+
     TYPES:
       BEGIN OF ty_select,
         uploadon       TYPE znept_qz_upload_date_de,

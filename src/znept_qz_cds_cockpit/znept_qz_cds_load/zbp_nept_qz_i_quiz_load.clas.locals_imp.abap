@@ -22,7 +22,7 @@ CLASS lsc_znept_qz_i_quiz_load IMPLEMENTATION.
         READ TABLE mapped-quiz WITH KEY %pid = <fs_create_quiz>-%pid ASSIGNING FIELD-SYMBOL(<fs_mapped_quiz>) BINARY SEARCH.
         IF sy-subrc = 0 AND <fs_mapped_quiz> IS ASSIGNED.
           IF lv_quiz_id IS INITIAL.
-            SELECT MAX( test_id ) FROM znept_qz_tst INTO @DATA(lv_test_id).
+            SELECT MAX( test_id ) FROM znept_qz_tst INTO @DATA(lv_test_id). "#EC CI_NOWHERE
             IF sy-subrc <> 0.
               CLEAR lv_test_id.
             ENDIF.
@@ -168,7 +168,7 @@ CLASS lhc_quiz IMPLEMENTATION.
         ev_do_commit    = DATA(lv_do_commit).
 
     IF NOT lv_db_error IS INITIAL.
-
+* display error message
     ENDIF.
 
   ENDMETHOD.

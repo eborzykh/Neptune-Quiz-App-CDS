@@ -1,6 +1,7 @@
 //
 @EndUserText.label: 'Quiz (Basic Reuse)'
 @AccessControl.authorizationCheck: #NOT_REQUIRED
+@VDM.viewType: #BASIC
 
 define view entity ZNEPT_QZ_I_QUIZ
   as select from    znept_qz_tst        as _Quiz
@@ -24,6 +25,10 @@ define view entity ZNEPT_QZ_I_QUIZ
       // ETag calculation
       CONCAT(_Quiz.upload_by, CONCAT(_Quiz.upload_on, _Quiz.upload_at)) as ETag,
 
+      // ----------------------------------------------------------------
+      // ABAP SQL SELECT on CDS views return initial values for the virtual element,
+      // EML READ on BO entities is not possible as EML does not know virtual elements.
+      // ----------------------------------------------------------------
       // @ObjectModel.readOnly: true
       // for non read-only scenario apply: field ( readonly ) .. Upload_By_Name ..
       @EndUserText.label: 'Uploaded By'
@@ -33,15 +38,24 @@ define view entity ZNEPT_QZ_I_QUIZ
       cast('' as znept_qz_upload_name_de)                               as Upload_By_Name,
 
       _Quiz.version                                                     as Version, // to be replaced with hash-key
+
       _Quiz.description                                                 as Description,
       _Quiz.published                                                   as Published,
       _Published.PublishedText                                          as PublishedText,
 
-      @EndUserText.label: 'Parts Count'
+      @EndUserText.label: 'Parts'
       @EndUserText.quickInfo: 'Number of Parts in this Quiz'
       _R_Part.Part_Count                                                as Part_Count,
 
-      @EndUserText.label: 'Questions Count'
+      @EndUserText.label: 'Questions'
       @EndUserText.quickInfo: 'Number of Questions in this Quiz'
-      _R_Question.Question_Count                                        as Question_Count
+      _R_Question.Question_Count                                        as Question_Count,
+
+      @EndUserText.label: 'Session User'
+      $session.user                                                     as SessionUser,
+      @EndUserText.label: 'Owner of Quiz'
+      case
+        when $projection.UploadBy = $projection.SessionUser then 'X'
+        else ''
+      end                                                               as As_Owner
 }

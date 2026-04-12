@@ -1,5 +1,6 @@
 @AccessControl.authorizationCheck: #NOT_REQUIRED
 @EndUserText.label: 'Neptune Quiz App (CDS): Variants (Draft)'
+@VDM.viewType: #TRANSACTIONAL
 
 define view entity ZNEPT_QZ_D_VARIANT_D
   as select from znept_qz_var_d as Variant

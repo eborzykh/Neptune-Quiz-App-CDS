@@ -1,6 +1,7 @@
 //
 @EndUserText.label: 'Activity and Progress (Basic Reuse)'
 @AccessControl.authorizationCheck: #NOT_REQUIRED
+@VDM.viewType: #COMPOSITE
 
 define view entity ZNEPT_QZ_I_ACTIVITY_PROGRESS
   as select from ZNEPT_QZ_R_ACTIVITY_DATE as _Activity_Date

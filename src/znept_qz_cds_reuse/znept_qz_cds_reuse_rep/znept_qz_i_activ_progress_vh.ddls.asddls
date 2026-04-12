@@ -1,6 +1,7 @@
 //
 @EndUserText.label: 'Activity Progress (Visual Help)'
 @AccessControl.authorizationCheck: #NOT_REQUIRED
+@VDM.viewType: #BASIC
 
 @ObjectModel.resultSet.sizeCategory: #XS
 

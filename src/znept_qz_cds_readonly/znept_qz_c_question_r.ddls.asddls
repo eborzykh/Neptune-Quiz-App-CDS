@@ -2,6 +2,7 @@
 @EndUserText.label: 'Questions (Consumption)'
 @AccessControl.authorizationCheck: #NOT_REQUIRED
 @Metadata.allowExtensions: true
+@VDM.viewType: #CONSUMPTION
 
 define view entity ZNEPT_QZ_C_QUESTION_R
   as projection on ZNEPT_QZ_I_QUESTION_R

@@ -1,8 +1,9 @@
 //
 @EndUserText.label: 'Activity and Progress (Basic Reuse)'
 @AccessControl.authorizationCheck: #NOT_REQUIRED
+@VDM.viewType: #COMPOSITE
 
-define view entity ZNEPT_QZ_I_QUESTION_PROGRESS
+define view entity ZNEPT_QZ_I_PROGRESS_QUESTION
   as select from    ZNEPT_QZ_I_ACTIVITY_SYNC as _Activity_Sync
 
     left outer join ZNEPT_QZ_I_QUESTION      as _Question on _Question.TestId = _Activity_Sync.TestId

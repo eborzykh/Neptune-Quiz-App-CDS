@@ -1,6 +1,7 @@
 //
 @EndUserText.label: 'Questions (Consumption)'
 @AccessControl.authorizationCheck: #NOT_REQUIRED
+@VDM.viewType: #CONSUMPTION
 @Metadata.allowExtensions: true
 
 define view entity ZNEPT_QZ_C_QUESTION_M

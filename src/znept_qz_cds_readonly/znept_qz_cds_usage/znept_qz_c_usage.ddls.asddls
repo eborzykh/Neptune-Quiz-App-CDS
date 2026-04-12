@@ -1,7 +1,7 @@
 //
 @EndUserText.label: 'Usage Data (Consumption)'
 @AccessControl.authorizationCheck: #NOT_REQUIRED
-
+@VDM.viewType: #CONSUMPTION
 @Metadata.allowExtensions: true
 
 define root view entity ZNEPT_QZ_C_USAGE
