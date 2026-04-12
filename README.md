@@ -10,14 +10,15 @@ ABAP CDS views created in this repository will be used in [Neptune-Quiz-App-Fior
 | Data definition | Basic Interface view | Z [unit] _ [app] _ I _* |  |
 | Data definition | Basic restricted view | Z [unit] _ [app] _ R _* |  |
 | Data definition | Abstract entity view | Z [unit] _ [app] _ A _* |  |
+| Data definition | Abstract entity view (by SAP) | Z [unit] _ [app] _ D _* |  |
 | Data definition | Draft Query View | Z [unit] _ [app] _ D _* |  |
 | Data definition | Consumption view | Z [unit] _ [app] _ C _* |  |
 | Data definition | Projection view | Z [unit] _ [app] _ C _* |  |
+| Data definition | Composite restricted view (by SAP) | Z [unit] _ [app] _ R _* |  |
 | Data definition | Private view | Z [unit] _ [app] _ P _* |  |
 | Data definition | Remote API view | Z [unit] _ [app] _ A _* |  |
 | Data definition | View extend | Z [unit] _ [app] _ X _* |  |
 | Data definition | Derivation function | Z [unit] _ [app] _ F _* |  |
-| Data definition | Abstract entity | Z [unit] _ [app] _ D _* |  |
 | Metadata extensions | Extension include view | Z [unit] _ [app] _ E _* |  |
 | Class | Behavior Implementation Class | ZBP_ [unit] _ [app] _* |  |
 | Class | Message Class | Z [unit] _ [app] _ CM _* |  |
@@ -27,8 +28,12 @@ ABAP CDS views created in this repository will be used in [Neptune-Quiz-App-Fior
 | Service Binding | OData – Web API V2 / V4 | Z [unit] _ [app] _ API _* | _O2 / _O4 |
 | Scenario | Read Only | Z [unit] _ [app] _ [object] | _R |
 | Scenario | Managed | Z [unit] _ [app] _ [object] | _M |
+| Scenario | Draft | Z [unit] _ [app] _ [object] | _D |
 | Scenario | Unmanaged | Z [unit] _ [app] _ [object] | _U |
-| Scenario | Cockpit | Z [unit] _ [app] _ [object] | _C |
+
+> [!NOTE]
+> It is good to align naming convention for each project to have the most native object names. 
+> For example, if we do not have API views but will be creating abstracts then use `A_` for abstract views instead of `D_` (which might be used for Draft views instead).
 
 ### Related links:
 
