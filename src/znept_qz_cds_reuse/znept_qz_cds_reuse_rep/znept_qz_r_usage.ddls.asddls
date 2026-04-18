@@ -4,7 +4,7 @@
 @VDM.viewType: #BASIC
 
 define view entity ZNEPT_QZ_R_USAGE
-  as select from ZNEPT_QZ_V_ACTIVITY_DATA
+  as select from ZNEPT_QZ_I_ACTIVITY_DATA
 {
   key SyncId            as SyncId,
 

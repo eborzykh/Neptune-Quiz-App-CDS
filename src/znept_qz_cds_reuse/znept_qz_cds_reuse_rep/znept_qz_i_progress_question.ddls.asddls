@@ -11,9 +11,7 @@ define view entity ZNEPT_QZ_I_PROGRESS_QUESTION
   association [1] to ZNEPT_QZ_I_ACTIVITY_PROGRESS as _Activity_Progress on  _Activity_Progress.SyncId     = $projection.SyncId
                                                                         and _Activity_Progress.TestId     = $projection.TestId
                                                                         and _Activity_Progress.QuestionId = $projection.QuestionId
-
 {
-
   key _Activity_Sync.SyncId as SyncId,
   key _Question.QuestionId  as QuestionId,
 
@@ -28,5 +26,4 @@ define view entity ZNEPT_QZ_I_PROGRESS_QUESTION
         when _Activity_Progress.Progress is null then '0'
         else _Activity_Progress.Progress
       end                   as Progress
-
 }
