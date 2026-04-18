@@ -1,8 +1,12 @@
 # Neptune-Quiz-App-CDS
-This is an optional part and data visualisation layer created for [Neptune-Quiz-App]( https://github.com/eborzykh/Neptune-Quiz-App) to test some of ABAP CDS View features (like dynamic layout, custom actions, calculated fields).
-ABAP CDS views created in this repository will be used in [Neptune-Quiz-App-Fiori]( https://github.com/eborzykh/Neptune-Quiz-App-Fiori) to automatically generate UI application with SAP Fiori Elements.
 
-### Naming convention used for ABAP CDS View
+This is a data visualisation and maintenance layer for [Neptune-Quiz-App]( https://github.com/eborzykh/Neptune-Quiz-App) (which is not mandatory for this repository) created to test and demo ABAP CDS implementations. 
+
+## Dependencies 
+
+Dictionary Objects and Data Provider methods required from [Neptune-Quiz-App-DB](https://github.com/eborzykh/Neptune-Quiz-App-DB)
+
+### Naming convention used in this ABAP CDS implementations
 
 | Component | Type | Name (30) | Suffix |
 | ---- | ---- | ---- | ---- |
@@ -35,8 +39,3 @@ ABAP CDS views created in this repository will be used in [Neptune-Quiz-App-Fior
 > It is good to align naming convention for each project to have the most native object names. 
 > For example, if we do not have API views but will be creating abstracts then use `A_` for abstract views instead of `D_` (which might be used for Draft views instead).
 
-### Related links:
-
-* Part 1. [Neptune-Quiz-App](https://github.com/eborzykh/Neptune-Quiz-App)
-* Part 2. Neptune-Quiz-App-CDS
-* Part 3. [Neptune-Quiz-App-Fiori](https://github.com/eborzykh/Neptune-Quiz-App-Fiori)
