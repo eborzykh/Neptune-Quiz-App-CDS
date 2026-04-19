@@ -1,5 +1,5 @@
 //
-@EndUserText.label: 'Personalised List (Basic)'
+@EndUserText.label: 'Personalised List (Consumption)'
 @AccessControl.authorizationCheck: #NOT_REQUIRED
 @VDM.lifecycle.contract.type: #PUBLIC_REMOTE_API
 @VDM.viewType: #CONSUMPTION

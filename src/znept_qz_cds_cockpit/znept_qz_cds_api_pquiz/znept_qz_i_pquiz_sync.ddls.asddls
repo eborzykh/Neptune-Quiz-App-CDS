@@ -39,6 +39,9 @@ define view entity ZNEPT_QZ_I_PQUIZ_SYNC
         else ''
       end                   as No_Sync_Data
 }
-where
-     _Quiz.UploadBy      = _Quiz.SessionUser
-  or not _Quiz.Published is initial
+// ----------------------------------------------------------- //
+// Below moved to Access Controls objects
+// ----------------------------------------------------------- //
+//where
+//     _Quiz.UploadBy      = _Quiz.SessionUser
+//  or not _Quiz.Published is initial

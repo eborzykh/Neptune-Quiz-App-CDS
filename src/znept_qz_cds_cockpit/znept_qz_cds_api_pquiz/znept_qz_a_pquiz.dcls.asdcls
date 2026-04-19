@@ -1,0 +1,9 @@
+@EndUserText.label: 'Personalised List (Consumption)'
+@MappingRole: true
+define role ZNEPT_QZ_A_PQUIZ {
+  grant
+    select
+      on
+        ZNEPT_QZ_A_PQUIZ
+          where inheriting conditions from entity ZNEPT_QZ_I_PQUIZ;
+}

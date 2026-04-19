@@ -1,0 +1,11 @@
+@EndUserText.label: 'Personalised List (Composite)'
+@MappingRole: true
+define role ZNEPT_QZ_I_PQUIZ {
+    grant
+        select
+            on
+                ZNEPT_QZ_I_PQUIZ
+                    where
+                      UploadBy = aspect user
+                          or Published = 'X';
+}
