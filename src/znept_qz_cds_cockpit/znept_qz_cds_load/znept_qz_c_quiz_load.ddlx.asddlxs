@@ -56,9 +56,11 @@ annotate view ZNEPT_QZ_C_QUIZ_LOAD with
                  targetElement: '_Question' } ]
 
   @UI: { lineItem: [ { position: 1, label: 'Quiz ID' },
-                     { type: #FOR_ACTION, dataAction: 'upload', label: 'Upload' } ],
+                     { type: #FOR_ACTION, dataAction: 'upload', label: 'Upload' },
+                     { type: #FOR_ACTION, dataAction: 'trivia', label: 'Trivia' } ],
          fieldGroup: [ { qualifier: 'attributes', position: 1, label: 'Quiz ID' } ],
-         identification: [ { type: #FOR_ACTION, dataAction: 'paste', label: 'Paste' } ] }
+         identification: [ { type: #FOR_ACTION, dataAction: 'paste', label: 'Paste' },
+                           { type: #FOR_ACTION, dataAction: 'trivia', label: 'Trivia' } ] }
   TestId;
 
   @Search.defaultSearchElement: true

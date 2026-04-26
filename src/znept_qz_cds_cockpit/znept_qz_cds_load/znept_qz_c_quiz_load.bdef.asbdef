@@ -9,6 +9,7 @@ define behavior for ZNEPT_QZ_C_QUIZ_LOAD alias Quiz
   use delete;
 
   use action paste;
+  use action trivia;
   use action upload;
 
   use association _Part;

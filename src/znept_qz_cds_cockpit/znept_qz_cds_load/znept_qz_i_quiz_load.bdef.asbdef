@@ -14,6 +14,7 @@ authorization master ( instance )
   delete;
 
   action ( features : instance ) paste parameter ZNEPT_QZ_A_QUIZ_PASTE;
+  action ( features : instance ) trivia parameter ZNEPT_QZ_A_QUIZ_TRIVIA;
   action upload parameter ZNEPT_QZ_A_QUIZ_FILE;
 
   field ( readonly ) TestId, UploadAt, UploadOn, UploadBy, Upload_By_Name, Part_Count, Question_Count, UI_Published, Version;

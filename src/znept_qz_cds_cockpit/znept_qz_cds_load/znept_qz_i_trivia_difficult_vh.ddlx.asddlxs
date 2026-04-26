@@ -1,0 +1,8 @@
+//
+@Metadata.layer: #CUSTOMER
+
+annotate entity ZNEPT_QZ_I_TRIVIA_DIFFICULT_VH with
+{
+  @UI.hidden: true
+  Difficulty;
+}

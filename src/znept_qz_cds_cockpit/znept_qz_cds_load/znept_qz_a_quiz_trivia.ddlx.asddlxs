@@ -1,0 +1,14 @@
+@Metadata.layer: #CUSTOMER
+
+annotate entity ZNEPT_QZ_A_QUIZ_TRIVIA with
+{
+  @EndUserText.label: 'Select Category'
+  p_Category;
+
+  @EndUserText.label: 'Select Difficulty'
+  p_Difficulty;
+
+  @EndUserText.label: 'Number of Questions'
+  p_Count;
+ 
+}
