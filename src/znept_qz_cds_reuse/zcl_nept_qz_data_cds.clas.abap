@@ -1,208 +1,216 @@
-class ZCL_NEPT_QZ_DATA_CDS definition
-  public
-  final
-  create public .
+CLASS zcl_nept_qz_data_cds DEFINITION
+  PUBLIC
+  FINAL
+  CREATE PUBLIC .
 
-public section.
+  PUBLIC SECTION.
 
-  class-methods PART_READ
-    importing
-      !IS_DB_PART type ZNEPT_QZ_DB_PARTS_S
-    exporting
-      !ES_DB_PART type ZNEPT_QZ_DB_PARTS_S
-      !ET_MESSAGES type ZIF_NEPT_QZ_QUIZ_CONST=>TT_IF_T100_MESSAGE .
-  class-methods QUESTION_READ
-    importing
-      !IS_DB_QUESTION type ZNEPT_QZ_DB_QUESTIONS_S
-    exporting
-      !ET_DB_VARIANT type ZNEPT_QZ_DB_VARIANTS_T
-      !ES_DB_QUESTION type ZNEPT_QZ_DB_QUESTIONS_S
-      !ET_MESSAGES type ZIF_NEPT_QZ_QUIZ_CONST=>TT_IF_T100_MESSAGE .
-  class-methods QUIZ_CREATE
-    importing
-      !IS_DB_QUIZ type ZNEPT_QZ_DB_TESTS_S
-    exporting
-      !ES_DB_QUIZ type ZNEPT_QZ_DB_TESTS_S
-      !ET_MESSAGES type ZIF_NEPT_QZ_QUIZ_CONST=>TT_IF_T100_MESSAGE .
-  class-methods QUIZ_HAS_PARTS
-    importing
-      !IS_DB_QUIZ type ZNEPT_QZ_DB_TESTS_S
-    exporting
-      !EV_HAS_PARTS type ABAP_BOOL
-      !ET_MESSAGES type ZIF_NEPT_QZ_QUIZ_CONST=>TT_IF_T100_MESSAGE .
-  class-methods QUIZ_READ
-    importing
-      !IS_DB_QUIZ type ZNEPT_QZ_DB_TESTS_S
-    exporting
-      !ES_DB_QUIZ type ZNEPT_QZ_DB_TESTS_S
-      !ET_MESSAGES type ZIF_NEPT_QZ_QUIZ_CONST=>TT_IF_T100_MESSAGE .
-  class-methods VARIANT_READ
-    importing
-      !IS_DB_VARIANT type ZNEPT_QZ_DB_VARIANTS_S
-    exporting
-      !ES_DB_VARIANT type ZNEPT_QZ_DB_VARIANTS_S
-      !ET_MESSAGES type ZIF_NEPT_QZ_QUIZ_CONST=>TT_IF_T100_MESSAGE .
-  class-methods QUIZ_UPDATE
-    importing
-      !IS_DB_QUIZ type ZNEPT_QZ_DB_TESTS_S
-    exporting
-      !ET_MESSAGES type ZIF_NEPT_QZ_QUIZ_CONST=>TT_IF_T100_MESSAGE .
-  class-methods QUIZ_DELETE
-    importing
-      !IS_DB_QUIZ type ZNEPT_QZ_DB_TESTS_S
-    exporting
-      !ET_MESSAGES type ZIF_NEPT_QZ_QUIZ_CONST=>TT_IF_T100_MESSAGE .
-  class-methods QUIZ_PUBLISH
-    importing
-      !IS_DB_QUIZ type ZNEPT_QZ_DB_TESTS_S
-    exporting
-      !ET_MESSAGES type ZIF_NEPT_QZ_QUIZ_CONST=>TT_IF_T100_MESSAGE .
-  class-methods PART_CREATE
-    importing
-      !IS_DB_PART type ZNEPT_QZ_DB_PARTS_S
-    exporting
-      !ES_DB_PART type ZNEPT_QZ_DB_PARTS_S
-      !ET_MESSAGES type ZIF_NEPT_QZ_QUIZ_CONST=>TT_IF_T100_MESSAGE .
-  class-methods PART_UPDATE
-    importing
-      !IS_DB_PART type ZNEPT_QZ_DB_PARTS_S
-    exporting
-      !ET_MESSAGES type ZIF_NEPT_QZ_QUIZ_CONST=>TT_IF_T100_MESSAGE .
-  class-methods PART_DELETE
-    importing
-      !IS_DB_PART type ZNEPT_QZ_DB_PARTS_S
-    exporting
-      !ET_MESSAGES type ZIF_NEPT_QZ_QUIZ_CONST=>TT_IF_T100_MESSAGE .
-  class-methods QUESTION_CREATE
-    importing
-      !IS_DB_QUESTION type ZNEPT_QZ_DB_QUESTIONS_S
-      !IT_DB_VARIANT type ZNEPT_QZ_DB_VARIANTS_T optional
-    exporting
-      !ES_DB_QUESTION type ZNEPT_QZ_DB_QUESTIONS_S
-      !ET_DB_VARIANT type ZNEPT_QZ_DB_VARIANTS_T
-      !ET_MESSAGES type ZIF_NEPT_QZ_QUIZ_CONST=>TT_IF_T100_MESSAGE .
-  class-methods QUESTION_ASSIGN
-    importing
-      !IS_DB_QUESTION type ZNEPT_QZ_DB_QUESTIONS_S
-      !IV_NEW_PART_ID type ZNEPT_QZ_PART_ID_DE
-    exporting
-      !ET_MESSAGES type ZIF_NEPT_QZ_QUIZ_CONST=>TT_IF_T100_MESSAGE .
-  class-methods QUESTION_RENEW
-    importing
-      !IS_DB_QUESTION type ZNEPT_QZ_DB_QUESTIONS_S
-    exporting
-      !ET_MESSAGES type ZIF_NEPT_QZ_QUIZ_CONST=>TT_IF_T100_MESSAGE .
-  class-methods QUESTION_UPDATE
-    importing
-      !IS_DB_QUESTION type ZNEPT_QZ_DB_QUESTIONS_S
-    exporting
-      !ET_MESSAGES type ZIF_NEPT_QZ_QUIZ_CONST=>TT_IF_T100_MESSAGE .
-  class-methods QUESTION_DELETE
-    importing
-      !IS_DB_QUESTION type ZNEPT_QZ_DB_QUESTIONS_S
-    exporting
-      !ET_MESSAGES type ZIF_NEPT_QZ_QUIZ_CONST=>TT_IF_T100_MESSAGE .
-  class-methods QUESTION_ORD_FEATURES
-    importing
-      !IS_DB_QUESTION type ZNEPT_QZ_DB_QUESTIONS_S
-    exporting
-      !EV_ORD_UP type ABAP_BOOL
-      !EV_ORD_DOWN type ABAP_BOOL
-      !ET_MESSAGES type ZIF_NEPT_QZ_QUIZ_CONST=>TT_IF_T100_MESSAGE .
-  class-methods PART_ORD_FEATURES
-    importing
-      !IS_DB_PART type ZNEPT_QZ_DB_PARTS_S
-    exporting
-      !EV_ORD_UP type ABAP_BOOL
-      !EV_ORD_DOWN type ABAP_BOOL
-      !ET_MESSAGES type ZIF_NEPT_QZ_QUIZ_CONST=>TT_IF_T100_MESSAGE .
-  class-methods VARIANT_ORD_FEATURES
-    importing
-      !IS_DB_VARIANT type ZNEPT_QZ_DB_VARIANTS_S
-    exporting
-      !EV_ORD_UP type ABAP_BOOL
-      !EV_ORD_DOWN type ABAP_BOOL
-      !ET_MESSAGES type ZIF_NEPT_QZ_QUIZ_CONST=>TT_IF_T100_MESSAGE .
-  class-methods VARIANT_CREATE
-    importing
-      !IS_DB_VARIANT type ZNEPT_QZ_DB_VARIANTS_S
-    exporting
-      !ES_DB_VARIANT type ZNEPT_QZ_DB_VARIANTS_S
-      !ET_MESSAGES type ZIF_NEPT_QZ_QUIZ_CONST=>TT_IF_T100_MESSAGE .
-  class-methods VARIANT_UPDATE
-    importing
-      !IS_DB_VARIANT type ZNEPT_QZ_DB_VARIANTS_S
-    exporting
-      !ET_MESSAGES type ZIF_NEPT_QZ_QUIZ_CONST=>TT_IF_T100_MESSAGE .
-  class-methods VARIANT_DELETE
-    importing
-      !IS_DB_VARIANT type ZNEPT_QZ_DB_VARIANTS_S
-    exporting
-      !ET_MESSAGES type ZIF_NEPT_QZ_QUIZ_CONST=>TT_IF_T100_MESSAGE .
-  class-methods QUESTION_ORD_UPDATE
-    importing
-      !IS_DB_QUESTION type ZNEPT_QZ_DB_QUESTIONS_S
-      !IV_DOWN type ABAP_BOOL
-      !IV_BOTTOM type ABAP_BOOL
-    exporting
-      !ET_MESSAGES type ZIF_NEPT_QZ_QUIZ_CONST=>TT_IF_T100_MESSAGE .
-  class-methods PART_ORD_UPDATE
-    importing
-      !IS_DB_PART type ZNEPT_QZ_DB_PARTS_S
-      !IV_DOWN type ABAP_BOOL
-      !IV_BOTTOM type ABAP_BOOL
-    exporting
-      !ET_MESSAGES type ZIF_NEPT_QZ_QUIZ_CONST=>TT_IF_T100_MESSAGE .
-  class-methods VARIANT_ORD_UPDATE
-    importing
-      !IS_DB_VARIANT type ZNEPT_QZ_DB_VARIANTS_S
-      !IV_DOWN type ABAP_BOOL
-      !IV_BOTTOM type ABAP_BOOL
-    exporting
-      !ET_MESSAGES type ZIF_NEPT_QZ_QUIZ_CONST=>TT_IF_T100_MESSAGE .
-  class-methods CONVERT_MESSAGES
-    importing
-      !IT_MESSAGES type ZIF_NEPT_QZ_QUIZ_CONST=>TT_IF_T100_MESSAGE
-    exporting
-      !ET_MESSAGES type SYMSG_TAB .
+    CLASS-METHODS part_read
+      IMPORTING
+        !is_db_part  TYPE znept_qz_db_parts_s
+      EXPORTING
+        !es_db_part  TYPE znept_qz_db_parts_s
+        !et_messages TYPE zif_nept_qz_quiz_const=>tt_if_t100_message .
+    CLASS-METHODS question_read
+      IMPORTING
+        !is_db_question TYPE znept_qz_db_questions_s
+      EXPORTING
+        !et_db_variant  TYPE znept_qz_db_variants_t
+        !es_db_question TYPE znept_qz_db_questions_s
+        !et_messages    TYPE zif_nept_qz_quiz_const=>tt_if_t100_message .
+    CLASS-METHODS quiz_create
+      IMPORTING
+        !is_db_quiz  TYPE znept_qz_db_tests_s
+      EXPORTING
+        !es_db_quiz  TYPE znept_qz_db_tests_s
+        !et_messages TYPE zif_nept_qz_quiz_const=>tt_if_t100_message .
+    CLASS-METHODS quiz_has_parts
+      IMPORTING
+        !is_db_quiz   TYPE znept_qz_db_tests_s
+      EXPORTING
+        !ev_has_parts TYPE abap_bool
+        !et_messages  TYPE zif_nept_qz_quiz_const=>tt_if_t100_message .
+    CLASS-METHODS quiz_read
+      IMPORTING
+        !is_db_quiz  TYPE znept_qz_db_tests_s
+      EXPORTING
+        !es_db_quiz  TYPE znept_qz_db_tests_s
+        !et_messages TYPE zif_nept_qz_quiz_const=>tt_if_t100_message .
+    CLASS-METHODS variant_read
+      IMPORTING
+        !is_db_variant TYPE znept_qz_db_variants_s
+      EXPORTING
+        !es_db_variant TYPE znept_qz_db_variants_s
+        !et_messages   TYPE zif_nept_qz_quiz_const=>tt_if_t100_message .
+    CLASS-METHODS quiz_update
+      IMPORTING
+        !is_db_quiz  TYPE znept_qz_db_tests_s
+      EXPORTING
+        !et_messages TYPE zif_nept_qz_quiz_const=>tt_if_t100_message .
+    CLASS-METHODS quiz_delete
+      IMPORTING
+        !is_db_quiz  TYPE znept_qz_db_tests_s
+      EXPORTING
+        !et_messages TYPE zif_nept_qz_quiz_const=>tt_if_t100_message .
+    CLASS-METHODS quiz_publish
+      IMPORTING
+        !is_db_quiz  TYPE znept_qz_db_tests_s
+      EXPORTING
+        !et_messages TYPE zif_nept_qz_quiz_const=>tt_if_t100_message .
+    CLASS-METHODS part_create
+      IMPORTING
+        !is_db_part  TYPE znept_qz_db_parts_s
+      EXPORTING
+        !es_db_part  TYPE znept_qz_db_parts_s
+        !et_messages TYPE zif_nept_qz_quiz_const=>tt_if_t100_message .
+    CLASS-METHODS part_update
+      IMPORTING
+        !is_db_part  TYPE znept_qz_db_parts_s
+      EXPORTING
+        !et_messages TYPE zif_nept_qz_quiz_const=>tt_if_t100_message .
+    CLASS-METHODS part_delete
+      IMPORTING
+        !is_db_part  TYPE znept_qz_db_parts_s
+      EXPORTING
+        !et_messages TYPE zif_nept_qz_quiz_const=>tt_if_t100_message .
+    CLASS-METHODS question_create
+      IMPORTING
+        !is_db_question TYPE znept_qz_db_questions_s
+        !it_db_variant  TYPE znept_qz_db_variants_t OPTIONAL
+      EXPORTING
+        !es_db_question TYPE znept_qz_db_questions_s
+        !et_db_variant  TYPE znept_qz_db_variants_t
+        !et_messages    TYPE zif_nept_qz_quiz_const=>tt_if_t100_message .
+    CLASS-METHODS question_assign
+      IMPORTING
+        !is_db_question TYPE znept_qz_db_questions_s
+        !iv_new_part_id TYPE znept_qz_part_id_de
+      EXPORTING
+        !et_messages    TYPE zif_nept_qz_quiz_const=>tt_if_t100_message .
+    CLASS-METHODS question_renew
+      IMPORTING
+        !is_db_question TYPE znept_qz_db_questions_s
+      EXPORTING
+        !et_messages    TYPE zif_nept_qz_quiz_const=>tt_if_t100_message .
+    CLASS-METHODS question_update
+      IMPORTING
+        !is_db_question TYPE znept_qz_db_questions_s
+      EXPORTING
+        !et_messages    TYPE zif_nept_qz_quiz_const=>tt_if_t100_message .
+    CLASS-METHODS question_delete
+      IMPORTING
+        !is_db_question TYPE znept_qz_db_questions_s
+      EXPORTING
+        !et_messages    TYPE zif_nept_qz_quiz_const=>tt_if_t100_message .
+    CLASS-METHODS question_ord_features
+      IMPORTING
+        !is_db_question TYPE znept_qz_db_questions_s
+      EXPORTING
+        !ev_ord_up      TYPE abap_bool
+        !ev_ord_down    TYPE abap_bool
+        !et_messages    TYPE zif_nept_qz_quiz_const=>tt_if_t100_message .
+    CLASS-METHODS part_ord_features
+      IMPORTING
+        !is_db_part  TYPE znept_qz_db_parts_s
+      EXPORTING
+        !ev_ord_up   TYPE abap_bool
+        !ev_ord_down TYPE abap_bool
+        !et_messages TYPE zif_nept_qz_quiz_const=>tt_if_t100_message .
+    CLASS-METHODS variant_ord_features
+      IMPORTING
+        !is_db_variant TYPE znept_qz_db_variants_s
+      EXPORTING
+        !ev_ord_up     TYPE abap_bool
+        !ev_ord_down   TYPE abap_bool
+        !et_messages   TYPE zif_nept_qz_quiz_const=>tt_if_t100_message .
+    CLASS-METHODS variant_create
+      IMPORTING
+        !is_db_variant TYPE znept_qz_db_variants_s
+      EXPORTING
+        !es_db_variant TYPE znept_qz_db_variants_s
+        !et_messages   TYPE zif_nept_qz_quiz_const=>tt_if_t100_message .
+    CLASS-METHODS variant_update
+      IMPORTING
+        !is_db_variant TYPE znept_qz_db_variants_s
+      EXPORTING
+        !et_messages   TYPE zif_nept_qz_quiz_const=>tt_if_t100_message .
+    CLASS-METHODS variant_delete
+      IMPORTING
+        !is_db_variant TYPE znept_qz_db_variants_s
+      EXPORTING
+        !et_messages   TYPE zif_nept_qz_quiz_const=>tt_if_t100_message .
+    CLASS-METHODS question_ord_update
+      IMPORTING
+        !is_db_question TYPE znept_qz_db_questions_s
+        !iv_down        TYPE abap_bool
+        !iv_bottom      TYPE abap_bool
+      EXPORTING
+        !et_messages    TYPE zif_nept_qz_quiz_const=>tt_if_t100_message .
+    CLASS-METHODS part_ord_update
+      IMPORTING
+        !is_db_part  TYPE znept_qz_db_parts_s
+        !iv_down     TYPE abap_bool
+        !iv_bottom   TYPE abap_bool
+      EXPORTING
+        !et_messages TYPE zif_nept_qz_quiz_const=>tt_if_t100_message .
+    CLASS-METHODS variant_ord_update
+      IMPORTING
+        !is_db_variant TYPE znept_qz_db_variants_s
+        !iv_down       TYPE abap_bool
+        !iv_bottom     TYPE abap_bool
+      EXPORTING
+        !et_messages   TYPE zif_nept_qz_quiz_const=>tt_if_t100_message .
+    CLASS-METHODS convert_messages
+      IMPORTING
+        it_messages TYPE zif_nept_qz_quiz_const=>tt_if_t100_message
+      EXPORTING
+        et_messages TYPE symsg_tab .
+    CLASS-METHODS quiz_trivia
+      IMPORTING
+        is_db_quiz    TYPE znept_qz_db_tests_s
+        iv_category   TYPE znept_qz_trivia_category_id_de
+        iv_difficulty TYPE znept_qz_trivia_diffparam_de
+        iv_count      TYPE int2
+      EXPORTING
+        et_messages   TYPE zif_nept_qz_quiz_const=>tt_if_t100_message.
   PROTECTED SECTION.
-private section.
+  PRIVATE SECTION.
 
-  class-methods VARIANT_SET_CHANGE
-    importing
-      !IS_DB_VARIANT type ZNEPT_QZ_DB_VARIANTS_S
-      !IV_DELETED type ABAP_BOOL optional
-    exporting
-      !ET_MESSAGES type ZIF_NEPT_QZ_QUIZ_CONST=>TT_IF_T100_MESSAGE .
-  class-methods PART_SET_CHANGE
-    importing
-      !IS_DB_PART type ZNEPT_QZ_DB_PARTS_S
-      !IV_DELETED type ABAP_BOOL optional
-    exporting
-      !ET_MESSAGES type ZIF_NEPT_QZ_QUIZ_CONST=>TT_IF_T100_MESSAGE .
-  class-methods QUESTION_SET_CHANGE
-    importing
-      !IS_DB_QUESTION type ZNEPT_QZ_DB_QUESTIONS_S
-      !IV_DELETED type ABAP_BOOL optional
-    exporting
-      !ET_MESSAGES type ZIF_NEPT_QZ_QUIZ_CONST=>TT_IF_T100_MESSAGE .
-  class-methods QUIZ_SET_CHANGE
-    importing
-      !IS_DB_QUIZ_KEY type ZNEPT_QZ_DB_TESTS_KEY_S
-    exporting
-      !EV_VERSION type ZNEPT_QZ_COUNT_VERSION_DE
-      !ET_MESSAGES type ZIF_NEPT_QZ_QUIZ_CONST=>TT_IF_T100_MESSAGE .
-  class-methods _RESOLVE_ATTRIBUTE
-    importing
-      !IV_ATTRNAME type SCX_ATTRNAME
-      !IX type ref to ZCX_NEPT_QZ_CDS
-    returning
-      value(RV_SYMSGV) type SYMSGV .
+    CLASS-METHODS variant_set_change
+      IMPORTING
+        !is_db_variant TYPE znept_qz_db_variants_s
+        !iv_deleted    TYPE abap_bool OPTIONAL
+      EXPORTING
+        !et_messages   TYPE zif_nept_qz_quiz_const=>tt_if_t100_message .
+    CLASS-METHODS part_set_change
+      IMPORTING
+        !is_db_part  TYPE znept_qz_db_parts_s
+        !iv_deleted  TYPE abap_bool OPTIONAL
+      EXPORTING
+        !et_messages TYPE zif_nept_qz_quiz_const=>tt_if_t100_message .
+    CLASS-METHODS question_set_change
+      IMPORTING
+        !is_db_question TYPE znept_qz_db_questions_s
+        !iv_deleted     TYPE abap_bool OPTIONAL
+      EXPORTING
+        !et_messages    TYPE zif_nept_qz_quiz_const=>tt_if_t100_message .
+    CLASS-METHODS quiz_set_change
+      IMPORTING
+        !is_db_quiz_key TYPE znept_qz_db_tests_key_s
+      EXPORTING
+        !ev_version     TYPE znept_qz_count_version_de
+        !et_messages    TYPE zif_nept_qz_quiz_const=>tt_if_t100_message .
+    CLASS-METHODS _resolve_attribute
+      IMPORTING
+        !iv_attrname     TYPE scx_attrname
+        !ix              TYPE REF TO zcx_nept_qz_cds
+      RETURNING
+        VALUE(rv_symsgv) TYPE symsgv .
 ENDCLASS.
 
 
 
-CLASS ZCL_NEPT_QZ_DATA_CDS IMPLEMENTATION.
+CLASS zcl_nept_qz_data_cds IMPLEMENTATION.
 
 
   METHOD part_create.
@@ -2041,4 +2049,52 @@ CLASS ZCL_NEPT_QZ_DATA_CDS IMPLEMENTATION.
     ENDIF.
 
   ENDMETHOD.
+
+  METHOD quiz_trivia.
+
+    DATA: ls_db_tests_key TYPE znept_qz_db_tests_key_s,
+          lv_db_error     TYPE abap_bool,
+          lv_do_commit    TYPE abap_bool.
+
+    REFRESH et_messages.
+
+    IF is_db_quiz-test_id IS INITIAL.
+      APPEND NEW zcx_nept_qz_cds( textid = zcx_nept_qz_cds=>quiz_key_initial ) TO et_messages.
+    ENDIF.
+
+    IF NOT et_messages[] IS INITIAL.
+      RETURN.
+    ENDIF.
+
+    CLEAR ls_db_tests_key.
+    ls_db_tests_key-test_id = is_db_quiz-test_id.
+
+    zcl_nept_qz_src_trivia=>get_quiz( EXPORTING iv_category = iv_category
+                                                iv_difficulty = iv_difficulty
+                                                iv_count = iv_count
+                                      IMPORTING et_db_parts = DATA(lt_db_parts)
+                                                et_db_questions = DATA(lt_db_questions)
+                                                et_db_variants = DATA(lt_db_variants) ).
+
+    IF NOT lt_db_questions[] IS INITIAL.
+
+      CALL METHOD zcl_nept_qz_data_provider=>add
+        EXPORTING
+          iv_test_id      = is_db_quiz-test_id
+          iv_published    = abap_false
+          it_db_parts     = lt_db_parts
+          it_db_questions = lt_db_questions
+          it_db_variants  = lt_db_variants
+        IMPORTING
+          ev_db_error     = lv_db_error
+          ev_do_commit    = lv_do_commit.
+
+    ENDIF.
+
+    IF lv_db_error = abap_true OR lv_do_commit = abap_false.
+      APPEND NEW zcx_nept_qz_cds( textid = zcx_nept_qz_cds=>quiz_create_error ) TO et_messages.
+    ENDIF.
+
+  ENDMETHOD.
+
 ENDCLASS.

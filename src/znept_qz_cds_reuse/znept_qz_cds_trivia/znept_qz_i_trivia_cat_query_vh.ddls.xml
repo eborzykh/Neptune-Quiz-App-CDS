@@ -3,10 +3,10 @@
  <asx:abap xmlns:asx="http://www.sap.com/abapxml" version="1.0">
   <asx:values>
    <DDLS>
-    <DDLNAME>ZNEPT_QZ_I_TRIVIA_CATEGORY_VH</DDLNAME>
+    <DDLNAME>ZNEPT_QZ_I_TRIVIA_CAT_QUERY_VH</DDLNAME>
     <DDLANGUAGE>E</DDLANGUAGE>
     <DDTEXT>Neptune Quiz App (CDS): Trivia Category (Visual Help)</DDTEXT>
-    <SOURCE_TYPE>W</SOURCE_TYPE>
+    <SOURCE_TYPE>Q</SOURCE_TYPE>
    </DDLS>
   </asx:values>
  </asx:abap>

@@ -3,7 +3,5 @@ abstract;
 
 define behavior for ZNEPT_QZ_A_QUIZ_TRIVIA alias _Trivia
 {
-
-  field ( mandatory ) p_Category, p_Difficulty, p_Count;
-
+  field ( mandatory ) p_Count;
 }

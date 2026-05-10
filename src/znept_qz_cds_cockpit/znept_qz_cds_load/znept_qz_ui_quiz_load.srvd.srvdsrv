@@ -4,6 +4,7 @@ define service ZNEPT_QZ_UI_QUIZ_LOAD {
   expose ZNEPT_QZ_C_PART_LOAD as Part;
   expose ZNEPT_QZ_C_QUESTION_LOAD as Question;
   expose ZNEPT_QZ_C_VARIANT_LOAD as Variant;
-  expose ZNEPT_QZ_I_TRIVIA_CATEGORY_VH;
+  expose ZNEPT_QZ_I_TRIVIA_CAT_DM_VH;
+  expose ZNEPT_QZ_I_TRIVIA_CAT_QUERY_VH;
   expose ZNEPT_QZ_I_TRIVIA_DIFFICULT_VH;
 }

@@ -22,8 +22,9 @@ CLASS lhc_variant DEFINITION INHERITING FROM cl_abap_behavior_handler.
     METHODS movevariantup FOR MODIFY
       IMPORTING keys FOR ACTION variant~movevariantup.
 
-    METHODS get_global_authorizations FOR GLOBAL AUTHORIZATION
-      IMPORTING REQUEST requested_authorizations FOR variant RESULT result.
+    METHODS get_instance_authorizations FOR INSTANCE AUTHORIZATION
+      importing REQUEST requested_authorizations FOR variant RESULT result.
+
     METHODS setsort FOR DETERMINE ON SAVE
       IMPORTING keys FOR variant~setsort.
 
@@ -223,7 +224,7 @@ CLASS lhc_variant IMPLEMENTATION.
 
   ENDMETHOD.
 
-  METHOD get_global_authorizations.
+  METHOD get_instance_authorizations.
   ENDMETHOD.
 
 ENDCLASS.

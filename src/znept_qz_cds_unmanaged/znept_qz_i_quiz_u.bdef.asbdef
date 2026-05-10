@@ -5,7 +5,7 @@ strict ( 1 );
 define behavior for ZNEPT_QZ_I_QUIZ_U alias Quiz
 implementation in class zbp_nept_qz_i_quiz_u unique
 lock master
-authorization master ( global )
+authorization master ( instance )
 late numbering
 {
   create;
@@ -14,6 +14,7 @@ late numbering
 
   action ( features : instance ) Publish;
   action ( features : instance ) Unpublish;
+  action ( features : instance ) Trivia parameter ZNEPT_QZ_A_QUIZ_TRIVIA;
 
   field ( readonly ) TestId, Published, UploadAt, UploadOn, Upload_By_Name, Part_Count, Question_Count;
   field ( mandatory ) Description;

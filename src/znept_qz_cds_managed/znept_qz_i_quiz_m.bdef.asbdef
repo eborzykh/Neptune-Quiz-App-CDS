@@ -10,7 +10,7 @@ with additional save
 etag master ETag
 lock master
 late numbering
-authorization master ( global )
+authorization master ( instance )
 extensible
 {
   create;
@@ -19,6 +19,7 @@ extensible
 
   action ( features : instance ) Publish;
   action ( features : instance ) Unpublish;
+  action ( features : instance ) Trivia parameter ZNEPT_QZ_A_QUIZ_TRIVIA;
 
   field ( readonly ) TestId, UploadAt, UploadOn, UploadBy, Upload_By_Name, Part_Count, Question_Count, UI_Published, Version;
   field ( mandatory ) Description;

@@ -7,8 +7,8 @@ CLASS lhc_quiz DEFINITION INHERITING FROM cl_abap_behavior_handler.
     TYPES tt_part_failed    TYPE TABLE FOR FAILED   znept_qz_i_part_u.
     TYPES tt_part_reported  TYPE TABLE FOR REPORTED znept_qz_i_part_u.
 
-    METHODS get_global_authorizations FOR GLOBAL AUTHORIZATION
-      IMPORTING REQUEST requested_authorizations FOR quiz RESULT result.
+    METHODS get_instance_authorizations FOR INSTANCE AUTHORIZATION
+      importing REQUEST requested_authorizations FOR quiz RESULT result.
 
     METHODS create FOR MODIFY
       IMPORTING entities FOR CREATE quiz.
@@ -46,6 +46,9 @@ CLASS lhc_quiz DEFINITION INHERITING FROM cl_abap_behavior_handler.
     METHODS get_instance_features FOR INSTANCE FEATURES
       IMPORTING keys REQUEST requested_features FOR quiz RESULT result.
 
+    METHODS trivia FOR MODIFY
+      IMPORTING keys FOR ACTION quiz~trivia.
+
     METHODS map_messages
       IMPORTING
         iv_cid          TYPE string         OPTIONAL
@@ -61,7 +64,7 @@ ENDCLASS.
 
 CLASS lhc_quiz IMPLEMENTATION.
 
-  METHOD get_global_authorizations.
+  METHOD get_instance_authorizations.
   ENDMETHOD.
 
 **********************************************************************
@@ -402,9 +405,19 @@ CLASS lhc_quiz IMPLEMENTATION.
 
     READ ENTITIES OF znept_qz_i_quiz_u IN LOCAL MODE
       ENTITY quiz
-        FIELDS ( published )
+        FIELDS ( published description part_count question_count )
         WITH CORRESPONDING #( keys )
     RESULT DATA(lt_quiz_read_result).
+
+    IF requested_features-%action-trivia = if_abap_behv=>mk-on.
+      LOOP AT lt_quiz_read_result ASSIGNING FIELD-SYMBOL(<fs_quiz>).
+        IF <fs_quiz>-description CS 'TRIVIA' AND <fs_quiz>-question_count = 0 AND <fs_quiz>-part_count = 0.
+* we don`t want to call API more than we need
+          zcl_nept_qz_src_trivia=>get_count_overall( IMPORTING ev_questions = DATA(lv_trivia_total) ).
+          EXIT.
+        ENDIF.
+      ENDLOOP.
+    ENDIF.
 
     result = VALUE #(
       FOR ls_quiz_read_result IN lt_quiz_read_result (
@@ -413,7 +426,47 @@ CLASS lhc_quiz IMPLEMENTATION.
                                                       THEN if_abap_behv=>fc-o-disabled ELSE if_abap_behv=>fc-o-enabled )
         %features-%action-unpublish = COND #( WHEN ls_quiz_read_result-published = ''
                                                       THEN if_abap_behv=>fc-o-disabled ELSE if_abap_behv=>fc-o-enabled )
+        %features-%action-trivia = COND #( WHEN ( lv_trivia_total > 0 AND ls_quiz_read_result-description CS 'TRIVIA'
+                                                                      AND ls_quiz_read_result-question_count = 0
+                                                                      AND ls_quiz_read_result-part_count = 0 )
+                                                      THEN if_abap_behv=>fc-o-enabled ELSE if_abap_behv=>fc-o-disabled )
       ) ).
+
+  ENDMETHOD.
+
+**********************************************************************
+*
+* Trivia quiz
+*
+**********************************************************************
+
+  METHOD trivia.
+
+    DATA: lt_messages     TYPE symsg_tab.
+
+    READ TABLE keys INDEX 1 INTO DATA(ls_keys).
+    IF sy-subrc = 0.
+      DATA(ls_db_quiz_in) = VALUE znept_qz_db_tests_s( test_id = ls_keys-testid ).
+
+      CALL FUNCTION 'ZNEPT_QZ_QUIZ_TRIVIA'
+        EXPORTING
+          is_db_quiz    = ls_db_quiz_in
+          iv_category   = ls_keys-%param-p_category
+          iv_difficulty = ls_keys-%param-p_difficulty
+          iv_count      = ls_keys-%param-p_count
+        IMPORTING
+          et_messages   = lt_messages.
+
+      map_messages(
+          EXPORTING
+            iv_cid       = ls_keys-%cid_ref
+            iv_quiz_id   = ls_keys-testid
+            it_messages  = lt_messages
+          CHANGING
+            ct_failed    = failed-quiz
+            ct_reported  = reported-quiz ).
+
+    ENDIF.
 
   ENDMETHOD.
 
@@ -443,8 +496,8 @@ CLASS lhc_part DEFINITION INHERITING FROM cl_abap_behavior_handler.
     METHODS get_instance_features FOR INSTANCE FEATURES
       IMPORTING keys REQUEST requested_features FOR part RESULT result.
 
-    METHODS get_global_authorizations FOR GLOBAL AUTHORIZATION
-      IMPORTING REQUEST requested_authorizations FOR part RESULT result.
+    METHODS get_instance_authorizations FOR INSTANCE AUTHORIZATION
+      importing REQUEST requested_authorizations FOR part RESULT result.
 
     METHODS movepartdown FOR MODIFY
       IMPORTING keys FOR ACTION part~movepartdown.
@@ -742,7 +795,7 @@ CLASS lhc_part IMPLEMENTATION.
 
   ENDMETHOD.
 
-  METHOD get_global_authorizations.
+  METHOD get_instance_authorizations.
   ENDMETHOD.
 
   METHOD movepartdown.
@@ -898,8 +951,8 @@ CLASS lhc_question DEFINITION INHERITING FROM cl_abap_behavior_handler.
     METHODS cba_variant FOR MODIFY
       IMPORTING entities_cba FOR CREATE question\_variant.
 
-    METHODS get_global_authorizations FOR GLOBAL AUTHORIZATION
-      IMPORTING REQUEST requested_authorizations FOR question RESULT result.
+    METHODS get_instance_authorizations FOR INSTANCE AUTHORIZATION
+      importing REQUEST requested_authorizations FOR question RESULT result.
 
     METHODS assignpart FOR MODIFY
       IMPORTING keys FOR ACTION question~assignpart.
@@ -1201,7 +1254,7 @@ CLASS lhc_question IMPLEMENTATION.
 
   ENDMETHOD.
 
-  METHOD get_global_authorizations.
+  METHOD get_instance_authorizations.
 
   ENDMETHOD.
 
@@ -1557,8 +1610,8 @@ CLASS lhc_variant DEFINITION INHERITING FROM cl_abap_behavior_handler.
     METHODS get_instance_features FOR INSTANCE FEATURES
       IMPORTING keys REQUEST requested_features FOR variant RESULT result.
 
-    METHODS get_global_authorizations FOR GLOBAL AUTHORIZATION
-      IMPORTING REQUEST requested_authorizations FOR variant RESULT result.
+    METHODS get_instance_authorizations FOR INSTANCE AUTHORIZATION
+      importing REQUEST requested_authorizations FOR variant RESULT result.
 
     METHODS movevariantdown FOR MODIFY
       IMPORTING keys FOR ACTION variant~movevariantdown.
@@ -1848,7 +1901,7 @@ CLASS lhc_variant IMPLEMENTATION.
 
   ENDMETHOD.
 
-  METHOD get_global_authorizations.
+  METHOD get_instance_authorizations.
   ENDMETHOD.
 
   METHOD movevariantdown.

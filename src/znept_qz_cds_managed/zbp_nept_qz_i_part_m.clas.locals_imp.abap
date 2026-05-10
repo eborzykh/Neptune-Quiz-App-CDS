@@ -26,8 +26,8 @@ CLASS lhc_part DEFINITION INHERITING FROM cl_abap_behavior_handler.
     METHODS setsort FOR DETERMINE ON SAVE
       IMPORTING keys FOR part~setsort.
 
-    METHODS get_global_authorizations FOR GLOBAL AUTHORIZATION
-      IMPORTING REQUEST requested_authorizations FOR part RESULT result.
+    METHODS get_instance_authorizations FOR INSTANCE AUTHORIZATION
+      importing REQUEST requested_authorizations FOR part RESULT result.
 
     METHODS movepart
       IMPORTING
@@ -219,7 +219,7 @@ CLASS lhc_part IMPLEMENTATION.
 
   ENDMETHOD.
 
-  METHOD get_global_authorizations.
+  METHOD get_instance_authorizations.
   ENDMETHOD.
 
 ENDCLASS.

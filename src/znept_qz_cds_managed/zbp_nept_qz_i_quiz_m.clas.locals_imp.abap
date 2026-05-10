@@ -17,8 +17,11 @@ CLASS lhc_quiz DEFINITION INHERITING FROM cl_abap_behavior_handler.
     METHODS unpublish FOR MODIFY
       IMPORTING keys FOR ACTION quiz~unpublish.
 
-    METHODS get_global_authorizations FOR GLOBAL AUTHORIZATION
-      IMPORTING REQUEST requested_authorizations FOR quiz RESULT result.
+    METHODS get_instance_authorizations FOR INSTANCE AUTHORIZATION
+      importing REQUEST requested_authorizations FOR quiz RESULT result.
+
+    METHODS trivia FOR MODIFY
+      IMPORTING keys FOR ACTION quiz~trivia.
 
 ENDCLASS.
 
@@ -67,9 +70,19 @@ CLASS lhc_quiz IMPLEMENTATION.
 
     READ ENTITIES OF znept_qz_i_quiz_m IN LOCAL MODE
       ENTITY quiz
-        FIELDS ( published )
+        FIELDS ( published description part_count question_count )
           WITH CORRESPONDING #( keys )
         RESULT DATA(lt_quiz).
+
+    IF requested_features-%action-trivia = if_abap_behv=>mk-on.
+      LOOP AT lt_quiz ASSIGNING FIELD-SYMBOL(<fs_quiz>).
+        IF <fs_quiz>-description CS 'TRIVIA' AND <fs_quiz>-question_count = 0 AND <fs_quiz>-part_count = 0.
+* we don`t want to call API more than we need
+          zcl_nept_qz_src_trivia=>get_count_overall( IMPORTING ev_questions = DATA(lv_trivia_total) ).
+          EXIT.
+        ENDIF.
+      ENDLOOP.
+    ENDIF.
 
     result = VALUE #(
       FOR ls_quiz IN lt_quiz ( %tky = ls_quiz-%tky
@@ -78,7 +91,13 @@ CLASS lhc_quiz IMPLEMENTATION.
                                                                    ELSE if_abap_behv=>fc-o-enabled )
                                %features-%action-unpublish = COND #( WHEN ls_quiz-published = ''
                                                                      THEN if_abap_behv=>fc-o-disabled
-                                                                     ELSE if_abap_behv=>fc-o-enabled ) ) ).
+                                                                     ELSE if_abap_behv=>fc-o-enabled )
+                               %features-%action-trivia = COND #( WHEN ( lv_trivia_total > 0 AND ls_quiz-description CS 'TRIVIA'
+                                                                                             AND ls_quiz-question_count = 0
+                                                                                             AND ls_quiz-part_count = 0 )
+                                                                     THEN if_abap_behv=>fc-o-enabled
+                                                                     ELSE if_abap_behv=>fc-o-disabled ) ) ).
+
   ENDMETHOD.
 
   METHOD publish.
@@ -103,7 +122,107 @@ CLASS lhc_quiz IMPLEMENTATION.
 
   ENDMETHOD.
 
-  METHOD get_global_authorizations.
+  METHOD trivia.
+*
+*    DATA lt_part_create TYPE TABLE FOR CREATE znept_qz_i_quiz_m\_part.
+*    DATA lt_question_create TYPE TABLE FOR CREATE znept_qz_i_quiz_m\_question.
+*    DATA lt_variant_create TYPE TABLE FOR CREATE znept_qz_i_quiz_m\\question\_variant.
+*
+*    LOOP AT keys INTO DATA(ls_keys).
+*      DATA(lv_category) = ls_keys-%param-p_category.
+*      DATA(lv_difficulty) = ls_keys-%param-p_difficulty.
+*      DATA(lv_count) = ls_keys-%param-p_count.
+*      DATA(lv_test_id) = ls_keys-testid.
+*      EXIT.
+*    ENDLOOP.
+*
+*    zcl_nept_qz_src_trivia=>get_quiz( EXPORTING iv_category = lv_category
+*                                                iv_difficulty = lv_difficulty
+*                                                iv_count = lv_count
+*                                      IMPORTING et_db_parts = DATA(lt_db_parts)
+*                                                et_db_questions = DATA(lt_db_questions)
+*                                                et_db_variants = DATA(lt_db_variants) ).
+*
+*    IF lt_db_questions[] IS INITIAL.
+*      RETURN.
+*    ENDIF.
+*
+** Parts
+*
+*    APPEND INITIAL LINE TO lt_part_create ASSIGNING FIELD-SYMBOL(<fs_part_create>).
+*    <fs_part_create>-%key-testid = lv_test_id.
+*
+*    LOOP AT lt_db_parts INTO DATA(ls_db_parts).
+*      APPEND INITIAL LINE TO <fs_part_create>-%target ASSIGNING FIELD-SYMBOL(<fs_part_target>).
+*      <fs_part_target>-%cid = 'P_' && ls_db_parts-part_id.
+*
+*      <fs_part_target>-%data-partid = ls_db_parts-part_id.
+*      <fs_part_target>-%data-description = ls_db_parts-description.
+*
+*      <fs_part_target>-%control-partid  = if_abap_behv=>mk-on.
+*      <fs_part_target>-%control-description = if_abap_behv=>mk-on.
+*    ENDLOOP.
+*
+*    MODIFY ENTITIES OF znept_qz_i_quiz_m IN LOCAL MODE
+*      ENTITY quiz
+*        CREATE BY \_part
+*          FROM lt_part_create.
+*
+** Questions
+*
+*    APPEND INITIAL LINE TO lt_question_create ASSIGNING FIELD-SYMBOL(<fs_question_create>).
+*    <fs_question_create>-%key-testid = lv_test_id.
+*
+*    LOOP AT lt_db_questions INTO DATA(ls_db_questions).
+*
+*      APPEND INITIAL LINE TO <fs_question_create>-%target ASSIGNING FIELD-SYMBOL(<fs_question_target>).
+*      <fs_question_target>-%cid = 'Q_' && ls_db_questions-question_id.
+*
+*      <fs_question_target>-%data-questionid = ls_db_questions-question_id.
+*      <fs_question_target>-%data-partid = ls_db_questions-part_id.
+*      <fs_question_target>-%data-question = ls_db_questions-question.
+*      <fs_question_target>-%data-explanation = ls_db_questions-explanation.
+*
+*      <fs_question_target>-%control-questionid  = if_abap_behv=>mk-on.
+*      <fs_question_target>-%control-partid      = if_abap_behv=>mk-on.
+*      <fs_question_target>-%control-question    = if_abap_behv=>mk-on.
+*      <fs_question_target>-%control-explanation = if_abap_behv=>mk-on.
+*
+*      APPEND INITIAL LINE TO lt_variant_create ASSIGNING FIELD-SYMBOL(<fs_variant_create>).
+*      <fs_variant_create>-%key-testid     = lv_test_id.
+*      <fs_variant_create>-%key-questionid = ls_db_questions-question_id.
+**      <fs_variant_create>-%cid_ref        = <fs_question_target>-%cid.
+*
+*      LOOP AT lt_db_variants INTO DATA(ls_db_variants) WHERE question_id = ls_db_questions-question_id.
+*
+*        APPEND INITIAL LINE TO <fs_variant_create>-%target ASSIGNING FIELD-SYMBOL(<fs_variant_target>).
+*        <fs_variant_target>-%cid = 'V_' && ls_db_questions-question_id && ls_db_variants-variant_id.
+*
+**        <fs_variant_target>-%data-questionid = ls_db_variants-question_id.
+*        <fs_variant_target>-%data-variantid = ls_db_variants-variant_id.
+*        <fs_variant_target>-%data-variant = ls_db_variants-variant.
+*        <fs_variant_target>-%data-correct = ls_db_variants-correct.
+*
+**        <fs_variant_target>-%control-questionid = if_abap_behv=>mk-on.
+*        <fs_variant_target>-%control-variantid = if_abap_behv=>mk-on.
+*        <fs_variant_target>-%control-correct = if_abap_behv=>mk-on.
+*        <fs_variant_target>-%control-variant = if_abap_behv=>mk-on.
+*      ENDLOOP.
+*    ENDLOOP.
+*
+*    MODIFY ENTITIES OF znept_qz_i_quiz_m IN LOCAL MODE
+*      ENTITY quiz
+*        CREATE BY \_question
+*          FROM lt_question_create.
+*
+*    MODIFY ENTITIES OF znept_qz_i_quiz_m IN LOCAL MODE
+*      ENTITY Question
+*        CREATE BY \_Variant
+*          FROM lt_variant_create.
+
+  ENDMETHOD.
+
+  METHOD get_instance_authorizations.
   ENDMETHOD.
 
 ENDCLASS.

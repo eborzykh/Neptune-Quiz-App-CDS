@@ -872,6 +872,61 @@
      </DOCUMENTATION>
     </item>
     <item>
+     <FUNCNAME>ZNEPT_QZ_QUIZ_TRIVIA</FUNCNAME>
+     <SHORT_TEXT>Neptune Quiz App: Quiz Trivia Source</SHORT_TEXT>
+     <IMPORT>
+      <RSIMP>
+       <PARAMETER>IS_DB_QUIZ</PARAMETER>
+       <REFERENCE>X</REFERENCE>
+       <TYP>ZNEPT_QZ_DB_TESTS_S</TYP>
+      </RSIMP>
+      <RSIMP>
+       <PARAMETER>IV_CATEGORY</PARAMETER>
+       <REFERENCE>X</REFERENCE>
+       <TYP>ZNEPT_QZ_TRIVIA_CATEGORY_ID_DE</TYP>
+      </RSIMP>
+      <RSIMP>
+       <PARAMETER>IV_DIFFICULTY</PARAMETER>
+       <REFERENCE>X</REFERENCE>
+       <TYP>ZNEPT_QZ_TRIVIA_DIFFPARAM_DE</TYP>
+      </RSIMP>
+      <RSIMP>
+       <PARAMETER>IV_COUNT</PARAMETER>
+       <REFERENCE>X</REFERENCE>
+       <TYP>INT2</TYP>
+      </RSIMP>
+     </IMPORT>
+     <EXPORT>
+      <RSEXP>
+       <PARAMETER>ET_MESSAGES</PARAMETER>
+       <REFERENCE>X</REFERENCE>
+       <TYP>SYMSG_TAB</TYP>
+      </RSEXP>
+     </EXPORT>
+     <DOCUMENTATION>
+      <RSFDO>
+       <PARAMETER>IS_DB_QUIZ</PARAMETER>
+       <KIND>P</KIND>
+      </RSFDO>
+      <RSFDO>
+       <PARAMETER>IV_CATEGORY</PARAMETER>
+       <KIND>P</KIND>
+      </RSFDO>
+      <RSFDO>
+       <PARAMETER>IV_DIFFICULTY</PARAMETER>
+       <KIND>P</KIND>
+      </RSFDO>
+      <RSFDO>
+       <PARAMETER>IV_COUNT</PARAMETER>
+       <KIND>P</KIND>
+      </RSFDO>
+      <RSFDO>
+       <PARAMETER>ET_MESSAGES</PARAMETER>
+       <KIND>P</KIND>
+      </RSFDO>
+     </DOCUMENTATION>
+    </item>
+    <item>
      <FUNCNAME>ZNEPT_QZ_QUIZ_UPDATE</FUNCNAME>
      <SHORT_TEXT>Neptune Quiz App: Quiz Update</SHORT_TEXT>
      <IMPORT>

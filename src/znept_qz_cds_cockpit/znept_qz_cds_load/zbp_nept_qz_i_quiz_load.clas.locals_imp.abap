@@ -437,6 +437,8 @@ CLASS lhc_quiz IMPLEMENTATION.
     REPLACE ALL OCCURRENCES OF '&amp;' IN rv_str WITH '&'.
     REPLACE ALL OCCURRENCES OF '&lt;' IN rv_str WITH '<'.
     REPLACE ALL OCCURRENCES OF '&gt;' IN rv_str WITH '>'.
+    REPLACE ALL OCCURRENCES OF '&ldquo;' IN rv_str WITH '”'.
+    REPLACE ALL OCCURRENCES OF '&rdquo;' IN rv_str WITH '“'.
 
   ENDMETHOD.
 

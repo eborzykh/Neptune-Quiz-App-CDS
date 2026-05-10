@@ -31,8 +31,8 @@ CLASS lhc_question DEFINITION INHERITING FROM cl_abap_behavior_handler.
     METHODS setsort FOR DETERMINE ON SAVE
       IMPORTING keys FOR question~setsort.
 
-    METHODS get_global_authorizations FOR GLOBAL AUTHORIZATION
-      IMPORTING REQUEST requested_authorizations FOR question RESULT result.
+    METHODS get_instance_authorizations FOR INSTANCE AUTHORIZATION
+      importing REQUEST requested_authorizations FOR question RESULT result.
 
     METHODS movequestion
       IMPORTING
@@ -324,7 +324,7 @@ CLASS lhc_question IMPLEMENTATION.
 
   ENDMETHOD.
 
-  METHOD get_global_authorizations.
+  METHOD get_instance_authorizations.
   ENDMETHOD.
 
 ENDCLASS.
