@@ -1,10 +1,11 @@
 # Neptune-Quiz-App-CDS
 
-This is a data visualisation and maintenance layer for [Neptune-Quiz-App]( https://github.com/eborzykh/Neptune-Quiz-App) (which is not mandatory for this repository) created to test and demo ABAP CDS implementations. 
+This is a data visualisation and maintenance layer for [Neptune-Quiz-App]( https://github.com/eborzykh/Neptune-Quiz-App) created to test and demo ABAP CDS implementations. 
 
 ## Dependencies 
 
-Dictionary Objects and Data Provider methods required from [Neptune-Quiz-App-DB](https://github.com/eborzykh/Neptune-Quiz-App-DB)
+Dictionary Objects and Data Provider methods required from [Neptune-Quiz-App-DB](https://github.com/eborzykh/Neptune-Quiz-App-DB) <br> 
+and Quiz sources [Neptune-Quiz-App-SRC](https://github.com/eborzykh/Neptune-Quiz-App-SRC)
 
 ### Naming convention used in this ABAP CDS implementations
 
