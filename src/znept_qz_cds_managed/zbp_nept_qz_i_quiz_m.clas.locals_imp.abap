@@ -12,10 +12,10 @@ CLASS lhc_quiz DEFINITION INHERITING FROM cl_abap_behavior_handler.
       IMPORTING keys REQUEST requested_features FOR quiz RESULT result.
 
     METHODS publish FOR MODIFY
-      IMPORTING keys FOR ACTION quiz~publish.
+      IMPORTING keys FOR ACTION quiz~publish RESULT result.
 
     METHODS unpublish FOR MODIFY
-      IMPORTING keys FOR ACTION quiz~unpublish.
+      IMPORTING keys FOR ACTION quiz~unpublish RESULT result.
 
     METHODS get_instance_authorizations FOR INSTANCE AUTHORIZATION
       importing REQUEST requested_authorizations FOR quiz RESULT result.
@@ -74,10 +74,10 @@ CLASS lhc_quiz IMPLEMENTATION.
           WITH CORRESPONDING #( keys )
         RESULT DATA(lt_quiz).
 
+* don`t call API more often than we need
     IF requested_features-%action-trivia = if_abap_behv=>mk-on.
       LOOP AT lt_quiz ASSIGNING FIELD-SYMBOL(<fs_quiz>).
         IF <fs_quiz>-description CS 'TRIVIA' AND <fs_quiz>-question_count = 0 AND <fs_quiz>-part_count = 0.
-* we don`t want to call API more than we need
           zcl_nept_qz_src_trivia=>get_count_overall( IMPORTING ev_questions = DATA(lv_trivia_total) ).
           EXIT.
         ENDIF.
@@ -86,10 +86,10 @@ CLASS lhc_quiz IMPLEMENTATION.
 
     result = VALUE #(
       FOR ls_quiz IN lt_quiz ( %tky = ls_quiz-%tky
-                               %features-%action-publish = COND #( WHEN ls_quiz-published = 'X'
+                               %features-%action-publish = COND #( WHEN ls_quiz-published = zcl_nept_qz_data_provider=>gc_quiz_published
                                                                    THEN if_abap_behv=>fc-o-disabled
                                                                    ELSE if_abap_behv=>fc-o-enabled )
-                               %features-%action-unpublish = COND #( WHEN ls_quiz-published = ''
+                               %features-%action-unpublish = COND #( WHEN ls_quiz-published = zcl_nept_qz_data_provider=>gc_quiz_private
                                                                      THEN if_abap_behv=>fc-o-disabled
                                                                      ELSE if_abap_behv=>fc-o-enabled )
                                %features-%action-trivia = COND #( WHEN ( lv_trivia_total > 0 AND ls_quiz-description CS 'TRIVIA'
@@ -102,23 +102,57 @@ CLASS lhc_quiz IMPLEMENTATION.
 
   METHOD publish.
 
-    LOOP AT keys INTO DATA(ls_keys).
-      MODIFY ENTITIES OF znept_qz_i_quiz_m IN LOCAL MODE
-        ENTITY quiz
-          UPDATE FIELDS ( published )
-            WITH VALUE #( ( %tky = ls_keys-%tky published = 'X' ) ).
-    ENDLOOP.
+    MODIFY ENTITIES OF znept_qz_i_quiz_m IN LOCAL MODE
+      ENTITY quiz
+        UPDATE FIELDS ( published )
+        WITH VALUE #( FOR key IN keys ( %tky      = key-%tky
+                                        published = zcl_nept_qz_data_provider=>gc_quiz_published ) ).
+
+* read changed data for action result (does not work without it in _O4)
+
+    READ ENTITIES OF znept_qz_i_quiz_m IN LOCAL MODE
+      ENTITY quiz
+        ALL FIELDS WITH
+        CORRESPONDING #( keys )
+      RESULT DATA(lt_quiz).
+
+    result = VALUE #( FOR ls_quiz IN lt_quiz ( %tky = ls_quiz-%tky %param = ls_quiz ) ).
+
+* display toast like message
+
+    reported-quiz = VALUE #( FOR ls_quiz IN lt_quiz ( %tky = ls_quiz-%tky
+                                                      %msg = new_message_with_text( severity = if_abap_behv_message=>severity-success
+                                                                                    text = 'Published' )
+                                                      %element-published = if_abap_behv=>mk-on
+                                                      %op-%action-publish = if_abap_behv=>mk-on ) ).
 
   ENDMETHOD.
 
   METHOD unpublish.
 
-    LOOP AT keys INTO DATA(ls_keys).
-      MODIFY ENTITIES OF znept_qz_i_quiz_m IN LOCAL MODE
-        ENTITY quiz
-          UPDATE FIELDS ( published )
-            WITH VALUE #( ( %tky = ls_keys-%tky published = '' ) ).
-    ENDLOOP.
+    MODIFY ENTITIES OF znept_qz_i_quiz_m IN LOCAL MODE
+      ENTITY quiz
+        UPDATE FIELDS ( published )
+        WITH VALUE #( FOR key IN keys ( %tky      = key-%tky
+                                        published = zcl_nept_qz_data_provider=>gc_quiz_private ) ).
+
+* read changed data for action result (does not work without it in _O4)
+
+    READ ENTITIES OF znept_qz_i_quiz_m IN LOCAL MODE
+      ENTITY quiz
+        ALL FIELDS WITH
+        CORRESPONDING #( keys )
+      RESULT DATA(lt_quiz).
+
+    result = VALUE #( FOR ls_quiz IN lt_quiz ( %tky = ls_quiz-%tky %param = ls_quiz ) ).
+
+* display toast like message
+
+    reported-quiz = VALUE #( FOR ls_quiz IN lt_quiz ( %tky = ls_quiz-%tky
+                                                      %msg = new_message_with_text( severity = if_abap_behv_message=>severity-success
+                                                                                    text = 'Unpublished' )
+                                                      %element-published = if_abap_behv=>mk-on
+                                                      %op-%action-unpublish = if_abap_behv=>mk-on ) ).
 
   ENDMETHOD.
 

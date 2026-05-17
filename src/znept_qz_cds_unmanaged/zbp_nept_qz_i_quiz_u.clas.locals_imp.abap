@@ -409,10 +409,10 @@ CLASS lhc_quiz IMPLEMENTATION.
         WITH CORRESPONDING #( keys )
     RESULT DATA(lt_quiz_read_result).
 
+* we don`t want to call API more than we need
     IF requested_features-%action-trivia = if_abap_behv=>mk-on.
       LOOP AT lt_quiz_read_result ASSIGNING FIELD-SYMBOL(<fs_quiz>).
         IF <fs_quiz>-description CS 'TRIVIA' AND <fs_quiz>-question_count = 0 AND <fs_quiz>-part_count = 0.
-* we don`t want to call API more than we need
           zcl_nept_qz_src_trivia=>get_count_overall( IMPORTING ev_questions = DATA(lv_trivia_total) ).
           EXIT.
         ENDIF.
@@ -422,9 +422,9 @@ CLASS lhc_quiz IMPLEMENTATION.
     result = VALUE #(
       FOR ls_quiz_read_result IN lt_quiz_read_result (
         %tky                                = ls_quiz_read_result-%tky
-        %features-%action-publish = COND #( WHEN ls_quiz_read_result-published = 'X'
+        %features-%action-publish = COND #( WHEN ls_quiz_read_result-published = zcl_nept_qz_data_provider=>gc_quiz_published
                                                       THEN if_abap_behv=>fc-o-disabled ELSE if_abap_behv=>fc-o-enabled )
-        %features-%action-unpublish = COND #( WHEN ls_quiz_read_result-published = ''
+        %features-%action-unpublish = COND #( WHEN ls_quiz_read_result-published = zcl_nept_qz_data_provider=>gc_quiz_private
                                                       THEN if_abap_behv=>fc-o-disabled ELSE if_abap_behv=>fc-o-enabled )
         %features-%action-trivia = COND #( WHEN ( lv_trivia_total > 0 AND ls_quiz_read_result-description CS 'TRIVIA'
                                                                       AND ls_quiz_read_result-question_count = 0

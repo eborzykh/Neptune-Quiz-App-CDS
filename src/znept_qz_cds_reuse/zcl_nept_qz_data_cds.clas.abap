@@ -2060,9 +2060,6 @@ CLASS zcl_nept_qz_data_cds IMPLEMENTATION.
 
     IF is_db_quiz-test_id IS INITIAL.
       APPEND NEW zcx_nept_qz_cds( textid = zcx_nept_qz_cds=>quiz_key_initial ) TO et_messages.
-    ENDIF.
-
-    IF NOT et_messages[] IS INITIAL.
       RETURN.
     ENDIF.
 

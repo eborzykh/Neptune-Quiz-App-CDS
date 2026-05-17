@@ -21,8 +21,8 @@ late numbering
   draft action Discard;
   draft action Resume;
 
-  action ( features : instance ) Publish;
-  action ( features : instance ) Unpublish;
+  action ( features : instance ) Publish result [1] $self;
+  action ( features : instance ) Unpublish result [1] $self;
 
   // readonly is still updated in IN LOCAL MODE
   field ( readonly ) TestId, UploadAt, UploadOn, UploadBy, Upload_By_Name, Part_Count, Question_Count, UI_Published, Version;
