@@ -19,7 +19,7 @@ extensible
 
   action ( features : instance ) Publish result [1] $self;
   action ( features : instance ) Unpublish result [1] $self;
-  action ( features : instance ) Trivia parameter ZNEPT_QZ_A_QUIZ_TRIVIA;
+  action ( features : instance ) Trivia parameter ZNEPT_QZ_A_QUIZ_TRIVIA result [1] $self;
 
   field ( readonly ) TestId, UploadAt, UploadOn, UploadBy, Upload_By_Name, Part_Count, Question_Count, UI_Published, Version;
   field ( mandatory ) Description;
@@ -56,6 +56,8 @@ late numbering
   update;
   delete;
 
+  // O2 gives error on loading /UI log/ (O4 does not refresh UI without it): Part for operation xxxx not supported.
+  // action ( features : instance ) movePart____ result [1..*] $self;
   action ( features : instance ) movePartUp;
   action ( features : instance ) movePartDown;
   action ( features : instance ) movePartFirst;

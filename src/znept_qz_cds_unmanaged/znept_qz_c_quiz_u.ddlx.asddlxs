@@ -3,7 +3,7 @@
 @UI.headerInfo.description.label: 'Quiz (Extension)'
 
 @UI: { headerInfo: { typeName: 'Unmanaged scenario',
-                     typeNamePlural: 'Practice tests' ,
+                     typeNamePlural: 'Practice tests (unmanaged)' ,
                      title: { type: #STANDARD, value: 'TestId' } } }
 
 annotate view ZNEPT_QZ_C_QUIZ_U with

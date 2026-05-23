@@ -34,6 +34,8 @@ CLASS lhc_part DEFINITION INHERITING FROM cl_abap_behavior_handler.
         it_keys   TYPE tt_part_keys
         iv_down   TYPE abap_bool
         iv_bottom TYPE abap_bool.
+*      EXPORTING
+*        et_report TYPE tt_part_keys.
 
 ENDCLASS.
 
@@ -123,9 +125,23 @@ CLASS lhc_part IMPLEMENTATION.
 
   METHOD movepartdown.
 
+*    DATA lt_report TYPE tt_part_keys.
+
     movepart( EXPORTING it_keys   = CORRESPONDING tt_part_keys( keys )
                         iv_down   = abap_true
                         iv_bottom = abap_false ).
+*              IMPORTING et_report = lt_report ).
+
+** read changed data for action result (does not work without it in _O4)
+*
+*    READ ENTITIES OF znept_qz_i_quiz_m IN LOCAL MODE
+*      ENTITY part
+*        ALL FIELDS
+*          WITH VALUE #( FOR ls_report IN lt_report ( %key-testid = ls_report-testid %key-partid = ls_report-partid ) )
+*        RESULT DATA(lt_part).
+*
+*    result = VALUE #( FOR ls_part IN lt_part ( %tky = ls_part-%tky %param = ls_part ) ).
+
   ENDMETHOD.
 
   METHOD movepartfirst.
@@ -133,6 +149,7 @@ CLASS lhc_part IMPLEMENTATION.
     movepart( EXPORTING it_keys   = CORRESPONDING tt_part_keys( keys )
                         iv_down   = abap_false
                         iv_bottom = abap_true ).
+
   ENDMETHOD.
 
   METHOD movepartlast.
@@ -140,6 +157,7 @@ CLASS lhc_part IMPLEMENTATION.
     movepart( EXPORTING it_keys   = CORRESPONDING tt_part_keys( keys )
                         iv_down   = abap_true
                         iv_bottom = abap_true ).
+
   ENDMETHOD.
 
   METHOD movepartup.
@@ -147,9 +165,12 @@ CLASS lhc_part IMPLEMENTATION.
     movepart( EXPORTING it_keys   = CORRESPONDING tt_part_keys( keys )
                         iv_down   = abap_false
                         iv_bottom = abap_false ).
+
   ENDMETHOD.
 
   METHOD movepart.
+
+*    CLEAR et_report.
 
     LOOP AT it_keys INTO DATA(ls_keys).
 
@@ -191,6 +212,10 @@ CLASS lhc_part IMPLEMENTATION.
                                   ( testid = ls_part_b-testid
                                     partid = ls_part_b-partid
                                     sort   = ls_part_a-sort ) ).
+
+*              et_report = VALUE #( ( testid = ls_part_a-testid partid = ls_part_a-partid )
+*                                   ( testid = ls_part_b-testid partid = ls_part_b-partid ) ).
+
             ENDIF.
           ENDIF.
         ENDIF.

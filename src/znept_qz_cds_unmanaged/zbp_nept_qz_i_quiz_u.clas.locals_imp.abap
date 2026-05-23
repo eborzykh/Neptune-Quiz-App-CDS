@@ -22,6 +22,15 @@ CLASS lhc_quiz DEFINITION INHERITING FROM cl_abap_behavior_handler.
     METHODS read FOR READ
       IMPORTING keys FOR READ quiz RESULT result.
 
+    METHODS publish FOR MODIFY
+      IMPORTING keys FOR ACTION quiz~publish.
+
+    METHODS unpublish FOR MODIFY
+      IMPORTING keys FOR ACTION quiz~unpublish.
+
+    METHODS trivia FOR MODIFY
+      IMPORTING keys FOR ACTION quiz~trivia.
+
     METHODS lock FOR LOCK
       IMPORTING keys FOR LOCK quiz.
 
@@ -34,20 +43,11 @@ CLASS lhc_quiz DEFINITION INHERITING FROM cl_abap_behavior_handler.
     METHODS cba_question FOR MODIFY
       IMPORTING entities_cba FOR CREATE quiz\_question.
 
-    METHODS publish FOR MODIFY
-      IMPORTING keys FOR ACTION quiz~publish.
-
-    METHODS unpublish FOR MODIFY
-      IMPORTING keys FOR ACTION quiz~unpublish.
-
     METHODS cba_part FOR MODIFY
       IMPORTING entities_cba FOR CREATE quiz\_part.
 
     METHODS get_instance_features FOR INSTANCE FEATURES
       IMPORTING keys REQUEST requested_features FOR quiz RESULT result.
-
-    METHODS trivia FOR MODIFY
-      IMPORTING keys FOR ACTION quiz~trivia.
 
     METHODS map_messages
       IMPORTING
@@ -295,6 +295,14 @@ CLASS lhc_quiz IMPLEMENTATION.
           CHANGING
             ct_failed    = failed-quiz
             ct_reported  = reported-quiz ).
+
+* display toast like message
+
+      reported-quiz = VALUE #( FOR ls_quiz IN keys ( %tky = ls_quiz-%tky
+                                                     %msg = new_message_with_text( severity = if_abap_behv_message=>severity-success
+                                                                                   text = 'Published' )
+                                                     %element-published = if_abap_behv=>mk-on
+                                                     %op-%action-publish = if_abap_behv=>mk-on ) ).
     ENDIF.
 
   ENDMETHOD.
@@ -328,6 +336,13 @@ CLASS lhc_quiz IMPLEMENTATION.
             ct_failed    = failed-quiz
             ct_reported  = reported-quiz ).
 
+* display toast like message
+
+      reported-quiz = VALUE #( FOR ls_quiz IN keys ( %tky = ls_quiz-%tky
+                                                     %msg = new_message_with_text( severity = if_abap_behv_message=>severity-success
+                                                                                   text = 'Unpublished' )
+                                                     %element-published = if_abap_behv=>mk-on
+                                                     %op-%action-unpublish = if_abap_behv=>mk-on ) ).
     ENDIF.
 
   ENDMETHOD.
@@ -407,12 +422,30 @@ CLASS lhc_quiz IMPLEMENTATION.
       ENTITY quiz
         FIELDS ( published description part_count question_count )
         WITH CORRESPONDING #( keys )
-    RESULT DATA(lt_quiz_read_result).
+    RESULT DATA(lt_quiz).
+
+* (2022) it returns initial part_count question_count
+    DATA: ls_db_quiz         TYPE znept_qz_tst,
+          lv_total_questions TYPE int2,
+          lv_total_parts     TYPE int2.
+    LOOP AT lt_quiz ASSIGNING FIELD-SYMBOL(<fs_quiz_add_info>).
+      CLEAR ls_db_quiz.
+      ls_db_quiz-test_id = <fs_quiz_add_info>-%key-testid.
+      CALL FUNCTION 'ZNEPT_QZ_QUIZ_GET_INFO'
+        EXPORTING
+          is_db_quiz         = ls_db_quiz
+        IMPORTING
+          ev_total_questions = lv_total_questions
+          ev_total_parts     = lv_total_parts.
+
+      <fs_quiz_add_info>-question_count = lv_total_questions.
+      <fs_quiz_add_info>-part_count = lv_total_parts.
+    ENDLOOP.
 
 * we don`t want to call API more than we need
     IF requested_features-%action-trivia = if_abap_behv=>mk-on.
-      LOOP AT lt_quiz_read_result ASSIGNING FIELD-SYMBOL(<fs_quiz>).
-        IF <fs_quiz>-description CS 'TRIVIA' AND <fs_quiz>-question_count = 0 AND <fs_quiz>-part_count = 0.
+      LOOP AT lt_quiz ASSIGNING FIELD-SYMBOL(<fs_quiz>).
+        IF <fs_quiz>-description CS zcl_nept_qz_src_trivia=>gc_src_name AND <fs_quiz>-question_count = 0 AND <fs_quiz>-part_count = 0.
           zcl_nept_qz_src_trivia=>get_count_overall( IMPORTING ev_questions = DATA(lv_trivia_total) ).
           EXIT.
         ENDIF.
@@ -420,18 +453,18 @@ CLASS lhc_quiz IMPLEMENTATION.
     ENDIF.
 
     result = VALUE #(
-      FOR ls_quiz_read_result IN lt_quiz_read_result (
-        %tky                                = ls_quiz_read_result-%tky
+      FOR ls_quiz_read_result IN lt_quiz ( %tky = ls_quiz_read_result-%tky
+
         %features-%action-publish = COND #( WHEN ls_quiz_read_result-published = zcl_nept_qz_data_provider=>gc_quiz_published
                                                       THEN if_abap_behv=>fc-o-disabled ELSE if_abap_behv=>fc-o-enabled )
+
         %features-%action-unpublish = COND #( WHEN ls_quiz_read_result-published = zcl_nept_qz_data_provider=>gc_quiz_private
                                                       THEN if_abap_behv=>fc-o-disabled ELSE if_abap_behv=>fc-o-enabled )
-        %features-%action-trivia = COND #( WHEN ( lv_trivia_total > 0 AND ls_quiz_read_result-description CS 'TRIVIA'
+
+        %features-%action-trivia = COND #( WHEN ( lv_trivia_total > 0 AND ls_quiz_read_result-description CS zcl_nept_qz_src_trivia=>gc_src_name
                                                                       AND ls_quiz_read_result-question_count = 0
                                                                       AND ls_quiz_read_result-part_count = 0 )
-                                                      THEN if_abap_behv=>fc-o-enabled ELSE if_abap_behv=>fc-o-disabled )
-      ) ).
-
+                                                      THEN if_abap_behv=>fc-o-enabled ELSE if_abap_behv=>fc-o-disabled ) ) ).
   ENDMETHOD.
 
 **********************************************************************
@@ -465,6 +498,12 @@ CLASS lhc_quiz IMPLEMENTATION.
           CHANGING
             ct_failed    = failed-quiz
             ct_reported  = reported-quiz ).
+
+* display toast like message
+
+      reported-quiz = VALUE #( FOR ls_quiz IN keys ( %tky = ls_quiz-%tky
+                                                     %msg = new_message_with_text( severity = if_abap_behv_message=>severity-success
+                                                                                   text = 'Created with Trivia' ) ) ).
 
     ENDIF.
 
@@ -1329,7 +1368,7 @@ CLASS lhc_question IMPLEMENTATION.
         CLEAR ls_db_quiz.
         ls_db_quiz-test_id = <fs_question>-testid.
 
-        CALL FUNCTION 'ZNEPT_QZ_QUIZ_HAS_PARTS'
+        CALL FUNCTION 'ZNEPT_QZ_QUIZ_GET_INFO'
           EXPORTING
             is_db_quiz   = ls_db_quiz
           IMPORTING

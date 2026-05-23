@@ -17,11 +17,11 @@ CLASS lhc_quiz DEFINITION INHERITING FROM cl_abap_behavior_handler.
     METHODS unpublish FOR MODIFY
       IMPORTING keys FOR ACTION quiz~unpublish RESULT result.
 
+    METHODS trivia FOR MODIFY
+      IMPORTING keys FOR ACTION quiz~trivia RESULT result..
+
     METHODS get_instance_authorizations FOR INSTANCE AUTHORIZATION
       importing REQUEST requested_authorizations FOR quiz RESULT result.
-
-    METHODS trivia FOR MODIFY
-      IMPORTING keys FOR ACTION quiz~trivia.
 
 ENDCLASS.
 
@@ -77,7 +77,7 @@ CLASS lhc_quiz IMPLEMENTATION.
 * don`t call API more often than we need
     IF requested_features-%action-trivia = if_abap_behv=>mk-on.
       LOOP AT lt_quiz ASSIGNING FIELD-SYMBOL(<fs_quiz>).
-        IF <fs_quiz>-description CS 'TRIVIA' AND <fs_quiz>-question_count = 0 AND <fs_quiz>-part_count = 0.
+        IF <fs_quiz>-description CS zcl_nept_qz_src_trivia=>gc_src_name AND <fs_quiz>-question_count = 0 AND <fs_quiz>-part_count = 0.
           zcl_nept_qz_src_trivia=>get_count_overall( IMPORTING ev_questions = DATA(lv_trivia_total) ).
           EXIT.
         ENDIF.
@@ -86,13 +86,16 @@ CLASS lhc_quiz IMPLEMENTATION.
 
     result = VALUE #(
       FOR ls_quiz IN lt_quiz ( %tky = ls_quiz-%tky
+
                                %features-%action-publish = COND #( WHEN ls_quiz-published = zcl_nept_qz_data_provider=>gc_quiz_published
                                                                    THEN if_abap_behv=>fc-o-disabled
                                                                    ELSE if_abap_behv=>fc-o-enabled )
+
                                %features-%action-unpublish = COND #( WHEN ls_quiz-published = zcl_nept_qz_data_provider=>gc_quiz_private
                                                                      THEN if_abap_behv=>fc-o-disabled
                                                                      ELSE if_abap_behv=>fc-o-enabled )
-                               %features-%action-trivia = COND #( WHEN ( lv_trivia_total > 0 AND ls_quiz-description CS 'TRIVIA'
+
+                               %features-%action-trivia = COND #( WHEN ( lv_trivia_total > 0 AND ls_quiz-description CS zcl_nept_qz_src_trivia=>gc_src_name
                                                                                              AND ls_quiz-question_count = 0
                                                                                              AND ls_quiz-part_count = 0 )
                                                                      THEN if_abap_behv=>fc-o-enabled

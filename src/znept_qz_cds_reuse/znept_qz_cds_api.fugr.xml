@@ -763,8 +763,8 @@
      </DOCUMENTATION>
     </item>
     <item>
-     <FUNCNAME>ZNEPT_QZ_QUIZ_HAS_PARTS</FUNCNAME>
-     <SHORT_TEXT>Neptune Quiz App: Quiz Has Parts</SHORT_TEXT>
+     <FUNCNAME>ZNEPT_QZ_QUIZ_GET_INFO</FUNCNAME>
+     <SHORT_TEXT>Neptune Quiz App: Quiz Get Info</SHORT_TEXT>
      <IMPORT>
       <RSIMP>
        <PARAMETER>IS_DB_QUIZ</PARAMETER>
@@ -779,6 +779,21 @@
        <TYP>ABAP_BOOL</TYP>
       </RSEXP>
       <RSEXP>
+       <PARAMETER>EV_HAS_QUESTIONS</PARAMETER>
+       <REFERENCE>X</REFERENCE>
+       <TYP>ABAP_BOOL</TYP>
+      </RSEXP>
+      <RSEXP>
+       <PARAMETER>EV_TOTAL_PARTS</PARAMETER>
+       <REFERENCE>X</REFERENCE>
+       <TYP>INT2</TYP>
+      </RSEXP>
+      <RSEXP>
+       <PARAMETER>EV_TOTAL_QUESTIONS</PARAMETER>
+       <REFERENCE>X</REFERENCE>
+       <TYP>INT2</TYP>
+      </RSEXP>
+      <RSEXP>
        <PARAMETER>ET_MESSAGES</PARAMETER>
        <REFERENCE>X</REFERENCE>
        <TYP>SYMSG_TAB</TYP>
@@ -788,16 +803,26 @@
       <RSFDO>
        <PARAMETER>IS_DB_QUIZ</PARAMETER>
        <KIND>P</KIND>
-       <STEXT>Neptune Quiz App: DB Quiz</STEXT>
       </RSFDO>
       <RSFDO>
        <PARAMETER>EV_HAS_PARTS</PARAMETER>
        <KIND>P</KIND>
       </RSFDO>
       <RSFDO>
+       <PARAMETER>EV_HAS_QUESTIONS</PARAMETER>
+       <KIND>P</KIND>
+      </RSFDO>
+      <RSFDO>
+       <PARAMETER>EV_TOTAL_PARTS</PARAMETER>
+       <KIND>P</KIND>
+      </RSFDO>
+      <RSFDO>
+       <PARAMETER>EV_TOTAL_QUESTIONS</PARAMETER>
+       <KIND>P</KIND>
+      </RSFDO>
+      <RSFDO>
        <PARAMETER>ET_MESSAGES</PARAMETER>
        <KIND>P</KIND>
-       <STEXT>List of system messages in T100 format</STEXT>
       </RSFDO>
      </DOCUMENTATION>
     </item>

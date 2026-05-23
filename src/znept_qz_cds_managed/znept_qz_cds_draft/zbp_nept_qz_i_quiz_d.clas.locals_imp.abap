@@ -55,9 +55,11 @@ CLASS lhc_quiz IMPLEMENTATION.
 
     result = VALUE #(
       FOR ls_quiz IN lt_quiz ( %tky = ls_quiz-%tky
+
                                %features-%action-publish = COND #( WHEN ls_quiz-published = zcl_nept_qz_data_provider=>gc_quiz_published
                                                                    THEN if_abap_behv=>fc-o-disabled
                                                                    ELSE if_abap_behv=>fc-o-enabled )
+
                                %features-%action-unpublish = COND #( WHEN ls_quiz-published = zcl_nept_qz_data_provider=>gc_quiz_private
                                                                      THEN if_abap_behv=>fc-o-disabled
                                                                      ELSE if_abap_behv=>fc-o-enabled ) ) ).

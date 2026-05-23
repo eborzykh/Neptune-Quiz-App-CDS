@@ -24,12 +24,15 @@ CLASS zcl_nept_qz_data_cds DEFINITION
       EXPORTING
         !es_db_quiz  TYPE znept_qz_db_tests_s
         !et_messages TYPE zif_nept_qz_quiz_const=>tt_if_t100_message .
-    CLASS-METHODS quiz_has_parts
+    CLASS-METHODS quiz_get_info
       IMPORTING
-        !is_db_quiz   TYPE znept_qz_db_tests_s
+        !is_db_quiz         TYPE znept_qz_db_tests_s
       EXPORTING
-        !ev_has_parts TYPE abap_bool
-        !et_messages  TYPE zif_nept_qz_quiz_const=>tt_if_t100_message .
+        !ev_has_parts       TYPE abap_bool
+        !ev_has_questions   TYPE abap_bool
+        !ev_total_parts     TYPE int2
+        !ev_total_questions TYPE int2
+        !et_messages        TYPE zif_nept_qz_quiz_const=>tt_if_t100_message .
     CLASS-METHODS quiz_read
       IMPORTING
         !is_db_quiz  TYPE znept_qz_db_tests_s
@@ -1139,41 +1142,6 @@ CLASS zcl_nept_qz_data_cds IMPLEMENTATION.
   ENDMETHOD.
 
 
-  METHOD quiz_has_parts.
-
-    DATA: ls_db_quiz TYPE znept_qz_tst,
-          ls_db_part TYPE znept_qz_prt.
-
-    REFRESH et_messages.
-
-    CLEAR ev_has_parts.
-
-    IF is_db_quiz-test_id IS INITIAL.
-      APPEND NEW zcx_nept_qz_cds( textid = zcx_nept_qz_cds=>quiz_key_initial ) TO et_messages.
-    ENDIF.
-
-    IF NOT et_messages[] IS INITIAL.
-      RETURN.
-    ENDIF.
-
-    SELECT SINGLE * FROM znept_qz_tst INTO ls_db_quiz
-      WHERE test_id = is_db_quiz-test_id.
-
-    IF sy-subrc <> 0.
-      APPEND NEW zcx_nept_qz_cds( textid = zcx_nept_qz_cds=>quiz_not_exist ) TO et_messages.
-      RETURN.
-    ENDIF.
-
-    SELECT SINGLE * FROM znept_qz_prt INTO ls_db_part
-      WHERE test_id = is_db_quiz-test_id.
-
-    IF sy-subrc = 0.
-      ev_has_parts = abap_true.
-    ENDIF.
-
-  ENDMETHOD.
-
-
   METHOD question_assign.
 
     DATA: ls_db_question TYPE znept_qz_qst,
@@ -2090,6 +2058,54 @@ CLASS zcl_nept_qz_data_cds IMPLEMENTATION.
 
     IF lv_db_error = abap_true OR lv_do_commit = abap_false.
       APPEND NEW zcx_nept_qz_cds( textid = zcx_nept_qz_cds=>quiz_create_error ) TO et_messages.
+    ENDIF.
+
+  ENDMETHOD.
+
+  METHOD quiz_get_info.
+
+    DATA: ls_db_quiz     TYPE znept_qz_tst,
+          ls_db_part     TYPE znept_qz_prt,
+          ls_db_question TYPE znept_qz_qst.
+
+    REFRESH et_messages.
+
+    CLEAR: ev_has_parts, ev_has_questions, ev_total_parts, ev_total_questions.
+
+    IF is_db_quiz-test_id IS INITIAL.
+      APPEND NEW zcx_nept_qz_cds( textid = zcx_nept_qz_cds=>quiz_key_initial ) TO et_messages.
+    ENDIF.
+
+    IF NOT et_messages[] IS INITIAL.
+      RETURN.
+    ENDIF.
+
+    SELECT SINGLE * FROM znept_qz_tst INTO ls_db_quiz
+      WHERE test_id = is_db_quiz-test_id.
+
+    IF sy-subrc <> 0.
+      APPEND NEW zcx_nept_qz_cds( textid = zcx_nept_qz_cds=>quiz_not_exist ) TO et_messages.
+      RETURN.
+    ENDIF.
+
+    SELECT COUNT( * ) FROM znept_qz_prt INTO ev_total_parts
+      WHERE test_id = is_db_quiz-test_id.
+
+    IF sy-subrc <> 0.
+      CLEAR ev_total_parts.
+    ENDIF.
+    IF ev_total_parts > 0.
+      ev_has_parts = abap_true.
+    ENDIF.
+
+    SELECT COUNT( * ) FROM znept_qz_qst INTO ev_total_questions
+      WHERE test_id = is_db_quiz-test_id.
+
+    IF sy-subrc <> 0.
+      CLEAR ev_total_questions.
+    ENDIF.
+    IF ev_total_questions > 0.
+      ev_has_questions = abap_true.
     ENDIF.
 
   ENDMETHOD.

@@ -25,9 +25,9 @@ late numbering
   mapping for znept_qz_tst
   {
     TestId = test_id;
+
     Description = description;
     Published = published;
-
     UploadAt = upload_at;
     UploadOn = upload_on;
     UploadBy = upload_by;
@@ -57,6 +57,7 @@ late numbering
   {
     TestId = test_id;
     PartId = part_id;
+
     Description = description;
   }
 }
@@ -89,6 +90,7 @@ late numbering
     TestId = test_id;
     PartId = part_id;
     QuestionId = question_id;
+
     Question = question;
     Explanation = explanation;
   }
@@ -119,6 +121,7 @@ late numbering
     TestId = test_id;
     QuestionId = question_id;
     VariantId = variant_id;
+
     Variant = variant;
     Correct = correct;
   }
