@@ -52,6 +52,10 @@ annotate view ZNEPT_QZ_C_QUIZ_U with
                  position: 30,
                  targetElement: '_Question' } ]
 
+  @UI: { lineItem: [ { position: 1, label: 'Quiz ID' } ],
+         fieldGroup: [ { qualifier: 'attributes', position: 1, label: 'Quiz ID' } ] }
+  TestId;
+
   @UI: { lineItem: [ { position: 10, label: 'Name', importance: #HIGH, cssDefault: { width: '25rem' } } ],
          fieldGroup: [ { qualifier: 'attributes', position: 10, label: 'Name' } ] }
   @Search.defaultSearchElement: true
@@ -71,7 +75,7 @@ annotate view ZNEPT_QZ_C_QUIZ_U with
 
   @EndUserText.label: 'Visibility'
   @EndUserText.quickInfo: 'Visible for all users'
-  @UI: { lineItem: [ { position: 50, importance: #HIGH, label: 'Visibility ' },
+  @UI: { lineItem: [ { position: 50, importance: #HIGH, label: 'Visibility ', cssDefault: { width: '10rem' } },
                      { type: #FOR_ACTION, dataAction: 'Trivia', label: 'Trivia', iconUrl: 'sap-icon://activate' },
                      { type: #FOR_ACTION, dataAction: 'Publish', label: 'Publish' },
                      { type: #FOR_ACTION, dataAction: 'Unpublish', label: 'Unpublish' } ],
@@ -89,6 +93,11 @@ annotate view ZNEPT_QZ_C_QUIZ_U with
   @UI: { lineItem: [ { exclude: true, position: 70, importance: #LOW, label: 'Questions'  } ],
          fieldGroup: [ { qualifier: 'count_details', position: 20, label: 'Questions' } ] }
   Question_Count;
+
+  @EndUserText.label: 'Version'
+  @EndUserText.quickInfo: 'Version (mobile sync)'
+  @UI: { fieldGroup: [ { qualifier: 'count_details', position: 30, label: 'Version' } ] }
+  Version;
 
   @UI.hidden: true
   UploadBy;

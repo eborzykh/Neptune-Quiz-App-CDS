@@ -16,7 +16,7 @@ late numbering
   action ( features : instance ) Unpublish;
   action ( features : instance ) Trivia parameter ZNEPT_QZ_A_QUIZ_TRIVIA;
 
-  field ( readonly ) TestId, Published, UploadAt, UploadOn, Upload_By_Name, Part_Count, Question_Count;
+  field ( readonly ) TestId, Published, UploadAt, UploadOn, Upload_By_Name, Part_Count, Question_Count, Version;
   field ( mandatory ) Description;
 
   association _Part { create; }
@@ -31,6 +31,7 @@ late numbering
     UploadAt = upload_at;
     UploadOn = upload_on;
     UploadBy = upload_by;
+    Version = version;
   }
 }
 
@@ -48,7 +49,7 @@ late numbering
   action ( features : instance ) movePartFirst;
   action ( features : instance ) movePartLast;
 
-  field ( readonly ) TestId, PartId;
+  field ( readonly ) TestId, PartId, Version;
   field ( mandatory ) Description;
 
   association _Quiz;
@@ -59,6 +60,7 @@ late numbering
     PartId = part_id;
 
     Description = description;
+    Version = version;
   }
 }
 
@@ -78,7 +80,7 @@ late numbering
   action ( features : instance ) assignPart parameter ZNEPT_QZ_A_QUESTION_ASSIGN;
   action ( features : instance ) refreshQuestion;
 
-  field ( readonly ) TestId, QuestionId;
+  field ( readonly ) TestId, QuestionId, Version;
   field ( readonly : update ) PartId;
   field ( mandatory ) Question;
 
@@ -93,6 +95,7 @@ late numbering
 
     Question = question;
     Explanation = explanation;
+    Version = version;
   }
 }
 
@@ -110,7 +113,7 @@ late numbering
   action ( features : instance ) moveVariantFirst;
   action ( features : instance ) moveVariantLast;
 
-  field ( readonly ) TestId, QuestionId, VariantId;
+  field ( readonly ) TestId, QuestionId, VariantId, Version;
   field ( mandatory ) Variant;
 
   association _Quiz abbreviation Quiz;
@@ -124,5 +127,6 @@ late numbering
 
     Variant = variant;
     Correct = correct;
+    Version = version;
   }
 }

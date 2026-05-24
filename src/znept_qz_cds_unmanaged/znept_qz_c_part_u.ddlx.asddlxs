@@ -23,7 +23,16 @@ annotate view ZNEPT_QZ_C_PART_U with
                      { type: #FOR_ACTION, dataAction: 'movePartUp', label: 'Up' } ] }
   TestId;
 
+  @UI: { lineItem: [ { position: 10, label: 'Part ID' } ],
+         identification: [ { position: 10, label: 'Part ID' } ] }
+  PartId;
+
   @UI: { lineItem: [  { position: 20, label: 'Description', cssDefault: { width: '40rem' } } ],
          identification:[ { position: 20, label: 'Part Description' } ] }
   Description;
+
+  @EndUserText.label: 'Version'
+  @EndUserText.quickInfo: 'Version (mobile sync)'
+  @UI: { identification: [ { position: 30, label: 'Version' } ] }
+  Version;
 }

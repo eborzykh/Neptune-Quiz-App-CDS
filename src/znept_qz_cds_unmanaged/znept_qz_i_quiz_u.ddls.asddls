@@ -13,19 +13,18 @@ define root view entity ZNEPT_QZ_I_QUIZ_U
 {
 
   key _Quiz.TestId         as TestId,
- 
+
       _Quiz.UploadOn       as UploadOn,
       _Quiz.UploadAt       as UploadAt,
       _Quiz.UploadBy       as UploadBy,
-
       _Quiz.Description    as Description,
       _Quiz.Published      as Published,
-
       _Quiz.PublishedText  as PublishedText,
       _Quiz.Upload_By_Name as Upload_By_Name,
       _Quiz.Part_Count     as Part_Count,
       _Quiz.Question_Count as Question_Count,
-
+      _Quiz.Version        as Version,
+      
       /* Associations */
 
       _Part,

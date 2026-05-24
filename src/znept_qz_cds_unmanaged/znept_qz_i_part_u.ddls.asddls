@@ -16,8 +16,8 @@ define view entity ZNEPT_QZ_I_PART_U
   key _Part.PartId      as PartId,
 
       _Part.Description as Description,
-
       _Part.Sort        as Sort,
+      _Part.Version     as Version,
 
       /* Associations */
 

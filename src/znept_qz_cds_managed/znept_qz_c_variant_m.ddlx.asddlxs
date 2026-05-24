@@ -26,7 +26,8 @@ annotate view ZNEPT_QZ_C_VARIANT_M with
          identification:[ { position: 10, label: 'Variant ID' } ] }
   VariantId;
 
-  @UI: { lineItem: [ { position: 20, label: 'Variant', cssDefault: { width: '50rem' } },
+  @UI: { multiLineText: true, 
+         lineItem: [ { position: 20, label: 'Variant', cssDefault: { width: '50rem' } },
                      { type: #FOR_ACTION, dataAction: 'moveVariantLast', label: 'Last' },
                      { type: #FOR_ACTION, dataAction: 'moveVariantFirst', label: 'First' },
                      { type: #FOR_ACTION, dataAction: 'moveVariantDown', label: 'Down' },
@@ -34,7 +35,7 @@ annotate view ZNEPT_QZ_C_VARIANT_M with
          identification:[ { position: 20, label: 'Variant' } ] }
   Variant;
 
-  @UI: { lineItem: [ { position: 30, label: 'Is correct answer' } ],
+  @UI: { lineItem: [ { position: 30, label: 'Is correct answer', cssDefault: { width: '10rem' } } ],
          identification:[ { position: 30, label: 'Is correct answer' } ] }
   @Consumption.valueHelpDefinition: [ { entity: { name: 'ZNEPT_QZ_I_VARIANT_CORRECT_VH', element: 'Correct' } } ]
   Correct;

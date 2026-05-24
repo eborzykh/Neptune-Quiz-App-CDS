@@ -34,7 +34,8 @@ annotate view ZNEPT_QZ_C_QUESTION_M with
          identification:[ { position: 5, label: 'Part' } ] }
   PartId;
 
-  @UI: { lineItem: [ { position: 30, label: 'Question', cssDefault: { width: '50rem' } },
+  @UI: { multiLineText: true,
+         lineItem: [ { position: 30, label: 'Question', cssDefault: { width: '40rem' } },
                      { type: #FOR_ACTION, dataAction: 'moveQuestionLast', label: 'Last', position: 40 },
                      { type: #FOR_ACTION, dataAction: 'moveQuestionFirst', label: 'First', position: 30 },
                      { type: #FOR_ACTION, dataAction: 'moveQuestionDown', label: 'Down', position: 20 },
@@ -44,7 +45,8 @@ annotate view ZNEPT_QZ_C_QUESTION_M with
          identification: [ { position: 20, label: 'Question' } ] }
   Question;
 
-  @UI: { lineItem: [ { hidden: true } ],
+  @UI: { multiLineText: true,
+         lineItem: [ { hidden: true } ],
          identification: [ { position: 30, label: 'Explanation' } ] }
   Explanation;
 

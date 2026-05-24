@@ -11,7 +11,6 @@ define view entity ZNEPT_QZ_C_QUESTION_U
   key QuestionId,
 
       SortQuestion,
-      
       SortPart,
 
       @Consumption.valueHelpDefinition: [ { entity: {name: 'ZNEPT_QZ_I_QUESTION_ASSIGN_VH', element: 'PartId' },
@@ -24,6 +23,8 @@ define view entity ZNEPT_QZ_C_QUESTION_U
 
       Question,
       Explanation,
+      
+      Version,
 
       /* Associations */
 

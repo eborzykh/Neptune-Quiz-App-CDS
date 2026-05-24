@@ -12,19 +12,21 @@ define root view entity ZNEPT_QZ_C_QUIZ_U
       @Search.defaultSearchElement: true
   key TestId,
 
+      UploadOn,
+      UploadAt,
+      UploadBy,
+      
       Description,
 
       @ObjectModel.text.element: ['PublishedText']
       Published,
       PublishedText,
 
-      UploadOn,
-      UploadAt,
-      UploadBy,
-
       Part_Count,
       Question_Count,
       Upload_By_Name,
+      
+      Version,
       
       /* Associations */
 

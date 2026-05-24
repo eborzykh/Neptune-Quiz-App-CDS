@@ -21,8 +21,8 @@ define view entity ZNEPT_QZ_I_VARIANT_U
       _Variant.Correct     as Correct,
       _Correct.CorrectText as CorrectText,
       _Variant.Variant     as Variant,
-
       _Variant.Sort        as SortVariant,
+      _Variant.Vesrion     as Version,
 
       /* Associations */
 

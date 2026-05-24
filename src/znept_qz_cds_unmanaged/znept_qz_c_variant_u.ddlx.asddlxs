@@ -26,14 +26,23 @@ annotate view ZNEPT_QZ_C_VARIANT_U with
   @UI.hidden: true
   QuestionId;
 
+  @UI: { lineItem: [ { position: 10, label: 'Variant ID' } ],
+         identification:[ { position: 10, label: 'Variant ID' } ] }
+  VariantId;
+
   @UI: { multiLineText: true,
-         lineItem: [ { position: 10, label: 'Variant', cssDefault: { width: '50rem' } } ],
-         identification: [ { position: 10, label: 'Variant' } ] }
+         lineItem: [ { position: 20, label: 'Variant', cssDefault: { width: '50rem' } } ],
+         identification: [ { position: 20, label: 'Variant' } ] }
   Variant;
 
-  @UI: { lineItem: [ { position: 20, label: 'Is correct answer' } ],
-         identification: [ { position: 20, label: 'Is correct answer' } ] }
+  @UI: { lineItem: [ { position: 30, label: 'Is correct answer', cssDefault: { width: '10rem' } } ],
+         identification: [ { position: 30, label: 'Is correct answer' } ] }
   Correct;
+
+  @EndUserText.label: 'Version'
+  @EndUserText.quickInfo: 'Version (mobile sync)'
+  @UI: { identification: [ { position: 40, label: 'Version' } ] }
+  Version;
 
   @UI.hidden: true
   CorrectText;
