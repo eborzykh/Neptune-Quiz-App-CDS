@@ -80,8 +80,8 @@ CLASS lhc_quiz IMPLEMENTATION.
 
       LOOP AT lt_quiz INTO DATA(ls_quiz).
 
-        DATA(lv_auth_change) = COND #( WHEN ls_quiz-uploadby = sy-uname THEN if_abap_behv=>fc-o-enabled
-                                                                        ELSE if_abap_behv=>fc-o-disabled ).
+        DATA(lv_auth_change) = COND #( WHEN ls_quiz-uploadby = sy-uname THEN if_abap_behv=>auth-allowed
+                                                                        ELSE if_abap_behv=>auth-unauthorized ).
 
         APPEND INITIAL LINE TO result ASSIGNING FIELD-SYMBOL(<fs_result>).
         <fs_result>-%key = ls_quiz-%key.
@@ -878,9 +878,8 @@ CLASS lhc_part IMPLEMENTATION.
 
       READ TABLE lt_quiz INDEX 1 INTO DATA(ls_quiz).
       IF sy-subrc = 0.
-        DATA(lv_auth_change) = COND #( WHEN ls_quiz-uploadby = sy-uname THEN if_abap_behv=>fc-o-enabled
-                                                                        ELSE if_abap_behv=>fc-o-disabled ).
-
+        DATA(lv_auth_change) = COND #( WHEN ls_quiz-uploadby = sy-uname THEN if_abap_behv=>auth-allowed
+                                                                        ELSE if_abap_behv=>auth-unauthorized ).
         LOOP AT keys INTO DATA(ls_keys).
 
           APPEND INITIAL LINE TO result ASSIGNING FIELD-SYMBOL(<fs_result>).
@@ -1370,9 +1369,8 @@ CLASS lhc_question IMPLEMENTATION.
 
       READ TABLE lt_quiz INDEX 1 INTO DATA(ls_quiz).
       IF sy-subrc = 0.
-        DATA(lv_auth_change) = COND #( WHEN ls_quiz-uploadby = sy-uname THEN if_abap_behv=>fc-o-enabled
-                                                                        ELSE if_abap_behv=>fc-o-disabled ).
-
+        DATA(lv_auth_change) = COND #( WHEN ls_quiz-uploadby = sy-uname THEN if_abap_behv=>auth-allowed
+                                                                        ELSE if_abap_behv=>auth-unauthorized ).
         LOOP AT keys INTO DATA(ls_keys).
 
           APPEND INITIAL LINE TO result ASSIGNING FIELD-SYMBOL(<fs_result>).
@@ -2049,9 +2047,8 @@ CLASS lhc_variant IMPLEMENTATION.
 
       READ TABLE lt_quiz INDEX 1 INTO DATA(ls_quiz).
       IF sy-subrc = 0.
-        DATA(lv_auth_change) = COND #( WHEN ls_quiz-uploadby = sy-uname THEN if_abap_behv=>fc-o-enabled
-                                                                        ELSE if_abap_behv=>fc-o-disabled ).
-
+        DATA(lv_auth_change) = COND #( WHEN ls_quiz-uploadby = sy-uname THEN if_abap_behv=>auth-allowed
+                                                                        ELSE if_abap_behv=>auth-unauthorized ).
         LOOP AT keys INTO DATA(ls_keys).
 
           APPEND INITIAL LINE TO result ASSIGNING FIELD-SYMBOL(<fs_result>).

@@ -39,8 +39,8 @@ CLASS lhc_quiz IMPLEMENTATION.
 
       LOOP AT lt_quiz INTO DATA(ls_quiz).
 
-        DATA(lv_auth_change) = COND #( WHEN ls_quiz-uploadby = sy-uname THEN if_abap_behv=>fc-o-enabled
-                                                                        ELSE if_abap_behv=>fc-o-disabled ).
+        DATA(lv_auth_change) = COND #( WHEN ls_quiz-uploadby = sy-uname THEN if_abap_behv=>auth-allowed
+                                                                        ELSE if_abap_behv=>auth-unauthorized ).
 
         APPEND INITIAL LINE TO result ASSIGNING FIELD-SYMBOL(<fs_result>).
         <fs_result>-%key = ls_quiz-%key.
