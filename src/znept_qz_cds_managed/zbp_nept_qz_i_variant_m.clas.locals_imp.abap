@@ -23,7 +23,7 @@ CLASS lhc_variant DEFINITION INHERITING FROM cl_abap_behavior_handler.
       IMPORTING keys FOR ACTION variant~movevariantup.
 
     METHODS get_instance_authorizations FOR INSTANCE AUTHORIZATION
-      importing REQUEST requested_authorizations FOR variant RESULT result.
+      keys REQUEST requested_authorizations FOR variant RESULT result.
 
     METHODS setsort FOR DETERMINE ON SAVE
       IMPORTING keys FOR variant~setsort.
@@ -225,6 +225,36 @@ CLASS lhc_variant IMPLEMENTATION.
   ENDMETHOD.
 
   METHOD get_instance_authorizations.
+
+    IF requested_authorizations-%action-movevariantdown = if_abap_behv=>mk-on
+    OR requested_authorizations-%action-movevariantfirst = if_abap_behv=>mk-on
+    OR requested_authorizations-%action-movevariantlast = if_abap_behv=>mk-on
+    OR requested_authorizations-%action-movevariantup = if_abap_behv=>mk-on.
+
+      READ ENTITIES OF znept_qz_i_quiz_m IN LOCAL MODE
+        ENTITY quiz
+          FIELDS ( uploadby )
+          WITH CORRESPONDING #( keys )
+          RESULT DATA(lt_quiz).
+
+      READ TABLE lt_quiz INDEX 1 INTO DATA(ls_quiz).
+      IF sy-subrc = 0.
+        DATA(lv_auth_change) = COND #( WHEN ls_quiz-uploadby = sy-uname THEN if_abap_behv=>fc-o-enabled
+                                                                        ELSE if_abap_behv=>fc-o-disabled ).
+
+        LOOP AT keys INTO DATA(ls_keys).
+
+          APPEND INITIAL LINE TO result ASSIGNING FIELD-SYMBOL(<fs_result>).
+          <fs_result>-%key = ls_keys-%key.
+
+          <fs_result>-%action-movevariantdown = lv_auth_change.
+          <fs_result>-%action-movevariantfirst = lv_auth_change.
+          <fs_result>-%action-movevariantlast = lv_auth_change.
+          <fs_result>-%action-movevariantup = lv_auth_change.
+        ENDLOOP.
+      ENDIF.
+    ENDIF.
+
   ENDMETHOD.
 
 ENDCLASS.

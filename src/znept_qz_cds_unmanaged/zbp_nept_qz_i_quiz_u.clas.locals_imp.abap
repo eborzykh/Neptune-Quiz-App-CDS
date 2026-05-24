@@ -7,9 +7,6 @@ CLASS lhc_quiz DEFINITION INHERITING FROM cl_abap_behavior_handler.
     TYPES tt_part_failed    TYPE TABLE FOR FAILED   znept_qz_i_part_u.
     TYPES tt_part_reported  TYPE TABLE FOR REPORTED znept_qz_i_part_u.
 
-    METHODS get_instance_authorizations FOR INSTANCE AUTHORIZATION
-      importing REQUEST requested_authorizations FOR quiz RESULT result.
-
     METHODS create FOR MODIFY
       IMPORTING entities FOR CREATE quiz.
 
@@ -46,6 +43,9 @@ CLASS lhc_quiz DEFINITION INHERITING FROM cl_abap_behavior_handler.
     METHODS cba_part FOR MODIFY
       IMPORTING entities_cba FOR CREATE quiz\_part.
 
+    METHODS get_instance_authorizations FOR INSTANCE AUTHORIZATION
+      keys REQUEST requested_authorizations FOR quiz RESULT result.
+
     METHODS get_instance_features FOR INSTANCE FEATURES
       IMPORTING keys REQUEST requested_features FOR quiz RESULT result.
 
@@ -65,6 +65,35 @@ ENDCLASS.
 CLASS lhc_quiz IMPLEMENTATION.
 
   METHOD get_instance_authorizations.
+
+    IF requested_authorizations-%update = if_abap_behv=>mk-on
+    OR requested_authorizations-%delete = if_abap_behv=>mk-on
+    OR requested_authorizations-%action-publish = if_abap_behv=>mk-on
+    OR requested_authorizations-%action-unpublish = if_abap_behv=>mk-on
+    OR requested_authorizations-%action-trivia = if_abap_behv=>mk-on.
+
+      READ ENTITIES OF znept_qz_i_quiz_u IN LOCAL MODE
+        ENTITY quiz
+          FIELDS ( uploadby )
+          WITH CORRESPONDING #( keys )
+        RESULT DATA(lt_quiz).
+
+      LOOP AT lt_quiz INTO DATA(ls_quiz).
+
+        DATA(lv_auth_change) = COND #( WHEN ls_quiz-uploadby = sy-uname THEN if_abap_behv=>fc-o-enabled
+                                                                        ELSE if_abap_behv=>fc-o-disabled ).
+
+        APPEND INITIAL LINE TO result ASSIGNING FIELD-SYMBOL(<fs_result>).
+        <fs_result>-%key = ls_quiz-%key.
+
+        <fs_result>-%update = lv_auth_change.
+        <fs_result>-%delete = lv_auth_change.
+        <fs_result>-%action-publish = lv_auth_change.
+        <fs_result>-%action-unpublish = lv_auth_change.
+        <fs_result>-%action-trivia = lv_auth_change.
+      ENDLOOP.
+    ENDIF.
+
   ENDMETHOD.
 
 **********************************************************************
@@ -536,7 +565,7 @@ CLASS lhc_part DEFINITION INHERITING FROM cl_abap_behavior_handler.
       IMPORTING keys REQUEST requested_features FOR part RESULT result.
 
     METHODS get_instance_authorizations FOR INSTANCE AUTHORIZATION
-      importing REQUEST requested_authorizations FOR part RESULT result.
+      keys REQUEST requested_authorizations FOR part RESULT result.
 
     METHODS movepartdown FOR MODIFY
       IMPORTING keys FOR ACTION part~movepartdown.
@@ -835,6 +864,37 @@ CLASS lhc_part IMPLEMENTATION.
   ENDMETHOD.
 
   METHOD get_instance_authorizations.
+
+    IF requested_authorizations-%action-movepartdown = if_abap_behv=>mk-on
+    OR requested_authorizations-%action-movepartfirst = if_abap_behv=>mk-on
+    OR requested_authorizations-%action-movepartlast = if_abap_behv=>mk-on
+    OR requested_authorizations-%action-movepartup = if_abap_behv=>mk-on.
+
+      READ ENTITIES OF znept_qz_i_quiz_u IN LOCAL MODE
+        ENTITY quiz
+          FIELDS ( uploadby )
+          WITH CORRESPONDING #( keys )
+          RESULT DATA(lt_quiz).
+
+      READ TABLE lt_quiz INDEX 1 INTO DATA(ls_quiz).
+      IF sy-subrc = 0.
+        DATA(lv_auth_change) = COND #( WHEN ls_quiz-uploadby = sy-uname THEN if_abap_behv=>fc-o-enabled
+                                                                        ELSE if_abap_behv=>fc-o-disabled ).
+
+        LOOP AT keys INTO DATA(ls_keys).
+
+          APPEND INITIAL LINE TO result ASSIGNING FIELD-SYMBOL(<fs_result>).
+          <fs_result>-%key = ls_keys-%key.
+
+          <fs_result>-%action-movepartdown = lv_auth_change.
+          <fs_result>-%action-movepartfirst = lv_auth_change.
+          <fs_result>-%action-movepartlast = lv_auth_change.
+          <fs_result>-%action-movepartup = lv_auth_change.
+
+        ENDLOOP.
+      ENDIF.
+    ENDIF.
+
   ENDMETHOD.
 
   METHOD movepartdown.
@@ -991,7 +1051,7 @@ CLASS lhc_question DEFINITION INHERITING FROM cl_abap_behavior_handler.
       IMPORTING entities_cba FOR CREATE question\_variant.
 
     METHODS get_instance_authorizations FOR INSTANCE AUTHORIZATION
-      importing REQUEST requested_authorizations FOR question RESULT result.
+      keys REQUEST requested_authorizations FOR question RESULT result.
 
     METHODS assignpart FOR MODIFY
       IMPORTING keys FOR ACTION question~assignpart.
@@ -1294,6 +1354,40 @@ CLASS lhc_question IMPLEMENTATION.
   ENDMETHOD.
 
   METHOD get_instance_authorizations.
+
+    IF requested_authorizations-%action-assignpart = if_abap_behv=>mk-on
+    OR requested_authorizations-%action-movequestiondown = if_abap_behv=>mk-on
+    OR requested_authorizations-%action-movequestionfirst = if_abap_behv=>mk-on
+    OR requested_authorizations-%action-movequestionlast = if_abap_behv=>mk-on
+    OR requested_authorizations-%action-movequestionup = if_abap_behv=>mk-on
+    OR requested_authorizations-%action-refreshquestion = if_abap_behv=>mk-on.
+
+      READ ENTITIES OF znept_qz_i_quiz_u IN LOCAL MODE
+        ENTITY quiz
+          FIELDS ( uploadby )
+          WITH CORRESPONDING #( keys )
+          RESULT DATA(lt_quiz).
+
+      READ TABLE lt_quiz INDEX 1 INTO DATA(ls_quiz).
+      IF sy-subrc = 0.
+        DATA(lv_auth_change) = COND #( WHEN ls_quiz-uploadby = sy-uname THEN if_abap_behv=>fc-o-enabled
+                                                                        ELSE if_abap_behv=>fc-o-disabled ).
+
+        LOOP AT keys INTO DATA(ls_keys).
+
+          APPEND INITIAL LINE TO result ASSIGNING FIELD-SYMBOL(<fs_result>).
+          <fs_result>-%key = ls_keys-%key.
+
+          <fs_result>-%action-assignpart = lv_auth_change.
+          <fs_result>-%action-movequestiondown = lv_auth_change.
+          <fs_result>-%action-movequestionfirst = lv_auth_change.
+          <fs_result>-%action-movequestionlast = lv_auth_change.
+          <fs_result>-%action-movequestionup = lv_auth_change.
+          <fs_result>-%action-refreshquestion = lv_auth_change.
+
+        ENDLOOP.
+      ENDIF.
+    ENDIF.
 
   ENDMETHOD.
 
@@ -1650,7 +1744,7 @@ CLASS lhc_variant DEFINITION INHERITING FROM cl_abap_behavior_handler.
       IMPORTING keys REQUEST requested_features FOR variant RESULT result.
 
     METHODS get_instance_authorizations FOR INSTANCE AUTHORIZATION
-      importing REQUEST requested_authorizations FOR variant RESULT result.
+      keys REQUEST requested_authorizations FOR variant RESULT result.
 
     METHODS movevariantdown FOR MODIFY
       IMPORTING keys FOR ACTION variant~movevariantdown.
@@ -1941,6 +2035,36 @@ CLASS lhc_variant IMPLEMENTATION.
   ENDMETHOD.
 
   METHOD get_instance_authorizations.
+
+    IF requested_authorizations-%action-movevariantdown = if_abap_behv=>mk-on
+    OR requested_authorizations-%action-movevariantfirst = if_abap_behv=>mk-on
+    OR requested_authorizations-%action-movevariantlast = if_abap_behv=>mk-on
+    OR requested_authorizations-%action-movevariantup = if_abap_behv=>mk-on.
+
+      READ ENTITIES OF znept_qz_i_quiz_u IN LOCAL MODE
+        ENTITY quiz
+          FIELDS ( uploadby )
+          WITH CORRESPONDING #( keys )
+          RESULT DATA(lt_quiz).
+
+      READ TABLE lt_quiz INDEX 1 INTO DATA(ls_quiz).
+      IF sy-subrc = 0.
+        DATA(lv_auth_change) = COND #( WHEN ls_quiz-uploadby = sy-uname THEN if_abap_behv=>fc-o-enabled
+                                                                        ELSE if_abap_behv=>fc-o-disabled ).
+
+        LOOP AT keys INTO DATA(ls_keys).
+
+          APPEND INITIAL LINE TO result ASSIGNING FIELD-SYMBOL(<fs_result>).
+          <fs_result>-%key = ls_keys-%key.
+
+          <fs_result>-%action-movevariantdown = lv_auth_change.
+          <fs_result>-%action-movevariantfirst = lv_auth_change.
+          <fs_result>-%action-movevariantlast = lv_auth_change.
+          <fs_result>-%action-movevariantup = lv_auth_change.
+        ENDLOOP.
+      ENDIF.
+    ENDIF.
+
   ENDMETHOD.
 
   METHOD movevariantdown.

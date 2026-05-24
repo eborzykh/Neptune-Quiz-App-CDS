@@ -99,6 +99,41 @@ CLASS lhc_question IMPLEMENTATION.
   ENDMETHOD.
 
   METHOD get_instance_authorizations.
+
+    IF requested_authorizations-%action-assignpart = if_abap_behv=>mk-on
+    OR requested_authorizations-%action-movequestiondown = if_abap_behv=>mk-on
+    OR requested_authorizations-%action-movequestionfirst = if_abap_behv=>mk-on
+    OR requested_authorizations-%action-movequestionlast = if_abap_behv=>mk-on
+    OR requested_authorizations-%action-movequestionup = if_abap_behv=>mk-on
+    OR requested_authorizations-%action-refreshquestion = if_abap_behv=>mk-on.
+
+      READ ENTITIES OF znept_qz_i_quiz_d IN LOCAL MODE
+        ENTITY quiz
+          FIELDS ( uploadby )
+          WITH CORRESPONDING #( keys )
+          RESULT DATA(lt_quiz).
+
+      READ TABLE lt_quiz INDEX 1 INTO DATA(ls_quiz).
+      IF sy-subrc = 0.
+        DATA(lv_auth_change) = COND #( WHEN ls_quiz-uploadby = sy-uname THEN if_abap_behv=>fc-o-enabled
+                                                                        ELSE if_abap_behv=>fc-o-disabled ).
+
+        LOOP AT keys INTO DATA(ls_keys).
+
+          APPEND INITIAL LINE TO result ASSIGNING FIELD-SYMBOL(<fs_result>).
+          <fs_result>-%key = ls_keys-%key.
+
+          <fs_result>-%action-assignpart = lv_auth_change.
+          <fs_result>-%action-movequestiondown = lv_auth_change.
+          <fs_result>-%action-movequestionfirst = lv_auth_change.
+          <fs_result>-%action-movequestionlast = lv_auth_change.
+          <fs_result>-%action-movequestionup = lv_auth_change.
+          <fs_result>-%action-refreshquestion = lv_auth_change.
+
+        ENDLOOP.
+      ENDIF.
+    ENDIF.
+
   ENDMETHOD.
 
   METHOD assignpart.

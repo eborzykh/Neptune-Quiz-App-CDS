@@ -90,6 +90,37 @@ CLASS lhc_part IMPLEMENTATION.
   ENDMETHOD.
 
   METHOD get_instance_authorizations.
+
+    IF requested_authorizations-%action-movepartdown = if_abap_behv=>mk-on
+    OR requested_authorizations-%action-movepartfirst = if_abap_behv=>mk-on
+    OR requested_authorizations-%action-movepartlast = if_abap_behv=>mk-on
+    OR requested_authorizations-%action-movepartup = if_abap_behv=>mk-on.
+
+      READ ENTITIES OF znept_qz_i_quiz_d IN LOCAL MODE
+        ENTITY quiz
+          FIELDS ( uploadby )
+          WITH CORRESPONDING #( keys )
+          RESULT DATA(lt_quiz).
+
+      READ TABLE lt_quiz INDEX 1 INTO DATA(ls_quiz).
+      IF sy-subrc = 0.
+        DATA(lv_auth_change) = COND #( WHEN ls_quiz-uploadby = sy-uname THEN if_abap_behv=>fc-o-enabled
+                                                                        ELSE if_abap_behv=>fc-o-disabled ).
+
+        LOOP AT keys INTO DATA(ls_keys).
+
+          APPEND INITIAL LINE TO result ASSIGNING FIELD-SYMBOL(<fs_result>).
+          <fs_result>-%key = ls_keys-%key.
+
+          <fs_result>-%action-movepartdown = lv_auth_change.
+          <fs_result>-%action-movepartfirst = lv_auth_change.
+          <fs_result>-%action-movepartlast = lv_auth_change.
+          <fs_result>-%action-movepartup = lv_auth_change.
+
+        ENDLOOP.
+      ENDIF.
+    ENDIF.
+
   ENDMETHOD.
 
 

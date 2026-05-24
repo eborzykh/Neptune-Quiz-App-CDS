@@ -24,6 +24,35 @@ ENDCLASS.
 CLASS lhc_quiz IMPLEMENTATION.
 
   METHOD get_instance_authorizations.
+
+    IF requested_authorizations-%update = if_abap_behv=>mk-on
+    OR requested_authorizations-%delete = if_abap_behv=>mk-on
+    OR requested_authorizations-%action-publish = if_abap_behv=>mk-on
+    OR requested_authorizations-%action-unpublish = if_abap_behv=>mk-on.
+*    OR requested_authorizations-%action-trivia = if_abap_behv=>mk-on.
+
+      READ ENTITIES OF znept_qz_i_quiz_d IN LOCAL MODE
+        ENTITY quiz
+          FIELDS ( uploadby )
+          WITH CORRESPONDING #( keys )
+        RESULT DATA(lt_quiz).
+
+      LOOP AT lt_quiz INTO DATA(ls_quiz).
+
+        DATA(lv_auth_change) = COND #( WHEN ls_quiz-uploadby = sy-uname THEN if_abap_behv=>fc-o-enabled
+                                                                        ELSE if_abap_behv=>fc-o-disabled ).
+
+        APPEND INITIAL LINE TO result ASSIGNING FIELD-SYMBOL(<fs_result>).
+        <fs_result>-%key = ls_quiz-%key.
+
+        <fs_result>-%update = lv_auth_change.
+        <fs_result>-%delete = lv_auth_change.
+        <fs_result>-%action-publish = lv_auth_change.
+        <fs_result>-%action-unpublish = lv_auth_change.
+*        <fs_result>-%action-trivia = lv_auth_change.
+      ENDLOOP.
+    ENDIF.
+
   ENDMETHOD.
 
   METHOD setversion.
