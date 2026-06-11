@@ -1,0 +1,8 @@
+//
+abstract;
+strict;
+with hierarchy;
+define behavior for ZNEPT_QZ_A_QUIZ_FILE_PAR
+{
+  association _StreamFile with hierarchy;
+}

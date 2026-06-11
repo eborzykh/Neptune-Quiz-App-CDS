@@ -44,9 +44,11 @@ define root view entity ZNEPT_QZ_I_USAGE
 
       _Activity_Sync._Quiz.Description                                                        as Description,
 
-      _R_Question.Question_Count                                                              as Total,
-
       _R_Progress.Progress                                                                    as Progress,
+
+      @EndUserText.label: 'Total'
+      @EndUserText.quickInfo: 'Total number of questions'
+      _R_Question.Question_Count                                                              as Total,
 
       @EndUserText.label: 'Correct'
       @EndUserText.quickInfo: 'Number of questions answered correctly'

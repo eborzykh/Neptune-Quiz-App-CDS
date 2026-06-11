@@ -1,11 +1,12 @@
 //
 abstract;
-
-define behavior for ZNEPT_QZ_A_QUIZ_FILE alias _File
+strict;
+with hierarchy;
+define behavior for ZNEPT_QZ_A_QUIZ_FILE
 {
 
-  field ( mandatory ) StreamFile;
-  field ( mandatory ) Filename;
-  field ( mandatory ) MimeType;
+//  field ( mandatory ) StreamFile;
+//  field ( mandatory ) Filename;
+//  field ( mandatory ) MimeType;
 
 }
