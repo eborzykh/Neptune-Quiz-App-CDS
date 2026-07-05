@@ -1,0 +1,6 @@
+@EndUserText.label: 'Neptune Quiz App (CDS Custom Entity)'
+define service ZNEPT_QZ_UI_CQUIZ {
+  expose ZNEPT_QZ_I_CQUIZ as Quiz;
+  expose ZNEPT_QZ_I_CQUESTION as Question;
+  expose ZNEPT_QZ_I_CVARIANT as Variant;
+}
