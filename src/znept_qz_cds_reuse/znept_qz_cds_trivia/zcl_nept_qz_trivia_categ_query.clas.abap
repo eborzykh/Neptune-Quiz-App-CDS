@@ -1,3 +1,4 @@
+"! <p class="shorttext synchronized" lang="en">Neptune Quiz App (CDS): Trivia Category Query</p>
 CLASS zcl_nept_qz_trivia_categ_query DEFINITION
   PUBLIC FINAL
   CREATE PUBLIC.
@@ -15,7 +16,11 @@ CLASS zcl_nept_qz_trivia_categ_query IMPLEMENTATION.
     DATA: lt_cat_query_vh TYPE STANDARD TABLE OF znept_qz_i_trivia_cat_query_vh WITH EMPTY KEY.
     DATA: lt_trivia_category TYPE znept_qz_trivia_categ_t.
 
-    zcl_nept_qz_src_trivia=>get_categories( IMPORTING et_category = lt_trivia_category ).
+    TRY.
+        zcl_nept_qz_src_trivia=>get_categories( IMPORTING et_category = lt_trivia_category ).
+      CATCH zcx_nept_qz_src_trivia_api.
+        RAISE EXCEPTION TYPE zcx_nept_qz_trivia_cat_q_pro.
+    ENDTRY.
 
     LOOP AT lt_trivia_category ASSIGNING FIELD-SYMBOL(<fs_trivia_category>).
       APPEND INITIAL LINE TO lt_cat_query_vh ASSIGNING FIELD-SYMBOL(<fs_cat_query_vh>).

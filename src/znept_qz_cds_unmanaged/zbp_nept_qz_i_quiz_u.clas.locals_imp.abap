@@ -329,7 +329,7 @@ CLASS lhc_quiz IMPLEMENTATION.
 
       reported-quiz = VALUE #( FOR ls_quiz IN keys ( %tky = ls_quiz-%tky
                                                      %msg = new_message_with_text( severity = if_abap_behv_message=>severity-success
-                                                                                   text = 'Published' )
+                                                                                   text = 'Published'(003) )
                                                      %element-published = if_abap_behv=>mk-on
                                                      %op-%action-publish = if_abap_behv=>mk-on ) ).
     ENDIF.
@@ -369,7 +369,7 @@ CLASS lhc_quiz IMPLEMENTATION.
 
       reported-quiz = VALUE #( FOR ls_quiz IN keys ( %tky = ls_quiz-%tky
                                                      %msg = new_message_with_text( severity = if_abap_behv_message=>severity-success
-                                                                                   text = 'Unpublished' )
+                                                                                   text = 'Unpublished'(002) )
                                                      %element-published = if_abap_behv=>mk-on
                                                      %op-%action-unpublish = if_abap_behv=>mk-on ) ).
     ENDIF.
@@ -475,7 +475,13 @@ CLASS lhc_quiz IMPLEMENTATION.
     IF requested_features-%action-trivia = if_abap_behv=>mk-on.
       LOOP AT lt_quiz ASSIGNING FIELD-SYMBOL(<fs_quiz>).
         IF <fs_quiz>-description CS zcl_nept_qz_src_trivia=>gc_src_name AND <fs_quiz>-question_count = 0 AND <fs_quiz>-part_count = 0.
-          zcl_nept_qz_src_trivia=>get_count_overall( IMPORTING ev_questions = DATA(lv_trivia_total) ).
+
+          TRY.
+              zcl_nept_qz_src_trivia=>get_count_overall( IMPORTING ev_questions = DATA(lv_trivia_total) ).
+            CATCH zcx_nept_qz_src_trivia_api.
+              CLEAR lv_trivia_total.
+          ENDTRY.
+
           EXIT.
         ENDIF.
       ENDLOOP.
@@ -529,11 +535,11 @@ CLASS lhc_quiz IMPLEMENTATION.
             ct_reported  = reported-quiz ).
 
 * display toast like message
-
-      reported-quiz = VALUE #( FOR ls_quiz IN keys ( %tky = ls_quiz-%tky
-                                                     %msg = new_message_with_text( severity = if_abap_behv_message=>severity-success
-                                                                                   text = 'Created with Trivia' ) ) ).
-
+      IF lt_messages[] IS INITIAL.
+        reported-quiz = VALUE #( FOR ls_quiz IN keys ( %tky = ls_quiz-%tky
+                                                       %msg = new_message_with_text( severity = if_abap_behv_message=>severity-success
+                                                                                     text = 'Created with Trivia'(001) ) ) ).
+      ENDIF.
     ENDIF.
 
   ENDMETHOD.

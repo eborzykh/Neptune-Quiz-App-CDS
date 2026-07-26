@@ -5,12 +5,16 @@
 
 define view entity ZNEPT_QZ_R_PROGRESS_QUESTION
   with parameters
+    @EndUserText.label: 'Count correctly answered'
     @Consumption.defaultValue: ''
     p_correct    : boolean,
+    @EndUserText.label: 'Count improved answers'
     @Consumption.defaultValue: ''
     p_improved   : boolean,
+    @EndUserText.label: 'Count incorrectly answered'
     @Consumption.defaultValue: ''
     p_incorrect  : boolean,
+    @EndUserText.label: 'Count unanswered'
     @Consumption.defaultValue: ''
     p_unanswered : boolean
 

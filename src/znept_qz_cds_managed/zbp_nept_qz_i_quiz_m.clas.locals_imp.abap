@@ -22,6 +22,8 @@ CLASS lhc_quiz DEFINITION INHERITING FROM cl_abap_behavior_handler.
 
     METHODS get_instance_authorizations FOR INSTANCE AUTHORIZATION
       keys REQUEST requested_authorizations FOR quiz RESULT result.
+    METHODS fordescription FOR VALIDATE ON SAVE
+      IMPORTING keys FOR quiz~fordescription.
 
 ENDCLASS.
 
@@ -78,7 +80,13 @@ CLASS lhc_quiz IMPLEMENTATION.
     IF requested_features-%action-trivia = if_abap_behv=>mk-on.
       LOOP AT lt_quiz ASSIGNING FIELD-SYMBOL(<fs_quiz>).
         IF <fs_quiz>-description CS zcl_nept_qz_src_trivia=>gc_src_name AND <fs_quiz>-question_count = 0 AND <fs_quiz>-part_count = 0.
-          zcl_nept_qz_src_trivia=>get_count_overall( IMPORTING ev_questions = DATA(lv_trivia_total) ).
+
+          TRY.
+              zcl_nept_qz_src_trivia=>get_count_overall( IMPORTING ev_questions = DATA(lv_trivia_total) ).
+            CATCH zcx_nept_qz_src_trivia_api.
+              CLEAR lv_trivia_total.
+          ENDTRY.
+
           EXIT.
         ENDIF.
       ENDLOOP.
@@ -287,6 +295,30 @@ CLASS lhc_quiz IMPLEMENTATION.
         <fs_result>-%action-trivia = lv_auth_change.
       ENDLOOP.
     ENDIF.
+
+  ENDMETHOD.
+
+  METHOD fordescription.
+
+    READ ENTITIES OF znept_qz_i_quiz_m IN LOCAL MODE
+      ENTITY quiz
+        FIELDS ( description )
+        WITH CORRESPONDING #( keys )
+      RESULT DATA(quiz).
+
+    LOOP AT quiz INTO DATA(ls_quiz).
+      IF ls_quiz-description IS INITIAL.
+        APPEND INITIAL LINE TO failed-quiz ASSIGNING FIELD-SYMBOL(<fs_failed_quiz>).
+        <fs_failed_quiz>-%tky = ls_quiz-%tky.
+
+        APPEND INITIAL LINE TO reported-quiz ASSIGNING FIELD-SYMBOL(<fs_reported_quiz>).
+        <fs_reported_quiz>-%tky = ls_quiz-%tky.
+        <fs_reported_quiz>-%msg = new_message( id = 'ZNEPT_QZ_CDS'
+                                               number = '180'
+                                               severity = if_abap_behv_message=>severity-error ).
+        <fs_reported_quiz>-%element-description = if_abap_behv=>mk-on.
+      ENDIF.
+    ENDLOOP.
 
   ENDMETHOD.
 

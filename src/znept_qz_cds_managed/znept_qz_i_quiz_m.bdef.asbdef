@@ -24,6 +24,8 @@ extensible
   field ( readonly ) TestId, UploadAt, UploadOn, UploadBy, Upload_By_Name, Part_Count, Question_Count, UI_Published, Version;
   field ( mandatory ) Description;
 
+  validation forDescription on save { field Description; }
+
   determination setTestETag on modify { create; }
 
   // it will be calling the method on listed fields create/update and specified operation

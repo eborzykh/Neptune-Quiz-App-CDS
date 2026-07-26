@@ -18,6 +18,8 @@ CLASS lhc_quiz DEFINITION INHERITING FROM cl_abap_behavior_handler.
 
     METHODS settestetag FOR DETERMINE ON MODIFY
       IMPORTING keys FOR quiz~settestetag.
+    METHODS fordescription FOR VALIDATE ON SAVE
+      IMPORTING keys FOR quiz~fordescription.
 
 ENDCLASS.
 
@@ -167,6 +169,30 @@ CLASS lhc_quiz IMPLEMENTATION.
                                                  uploadby = sy-uname
                                                  uploadon = sy-datum
                                                  uploadat = sy-timlo ) ).
+  ENDMETHOD.
+
+  METHOD fordescription.
+
+    READ ENTITIES OF znept_qz_i_quiz_d IN LOCAL MODE
+      ENTITY quiz
+        FIELDS ( description )
+        WITH CORRESPONDING #( keys )
+      RESULT DATA(quiz).
+
+    LOOP AT quiz INTO DATA(ls_quiz).
+      IF ls_quiz-description IS INITIAL.
+        APPEND INITIAL LINE TO failed-quiz ASSIGNING FIELD-SYMBOL(<fs_failed_quiz>).
+        <fs_failed_quiz>-%tky = ls_quiz-%tky.
+
+        APPEND INITIAL LINE TO reported-quiz ASSIGNING FIELD-SYMBOL(<fs_reported_quiz>).
+        <fs_reported_quiz>-%tky = ls_quiz-%tky.
+        <fs_reported_quiz>-%msg = new_message( id = 'ZNEPT_QZ_CDS'
+                                               number = '180'
+                                               severity = if_abap_behv_message=>severity-error ).
+        <fs_reported_quiz>-%element-description = if_abap_behv=>mk-on.
+      ENDIF.
+    ENDLOOP.
+
   ENDMETHOD.
 
 ENDCLASS.

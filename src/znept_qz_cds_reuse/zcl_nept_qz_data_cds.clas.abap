@@ -2034,12 +2034,17 @@ CLASS zcl_nept_qz_data_cds IMPLEMENTATION.
     CLEAR ls_db_tests_key.
     ls_db_tests_key-test_id = is_db_quiz-test_id.
 
-    zcl_nept_qz_src_trivia=>get_quiz( EXPORTING iv_category = iv_category
-                                                iv_difficulty = iv_difficulty
-                                                iv_count = iv_count
-                                      IMPORTING et_db_parts = DATA(lt_db_parts)
-                                                et_db_questions = DATA(lt_db_questions)
-                                                et_db_variants = DATA(lt_db_variants) ).
+    TRY.
+        zcl_nept_qz_src_trivia=>get_quiz( EXPORTING iv_category = iv_category
+                                                    iv_difficulty = iv_difficulty
+                                                    iv_count = iv_count
+                                          IMPORTING et_db_parts = DATA(lt_db_parts)
+                                                    et_db_questions = DATA(lt_db_questions)
+                                                    et_db_variants = DATA(lt_db_variants) ).
+      CATCH zcx_nept_qz_src_trivia_api INTO DATA(lr_trivia_api).
+        APPEND lr_trivia_api TO et_messages.
+        RETURN.
+    ENDTRY.
 
     IF NOT lt_db_questions[] IS INITIAL.
 
