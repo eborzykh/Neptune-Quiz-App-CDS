@@ -79,7 +79,8 @@ annotate view ZNEPT_QZ_C_QUIZ_D with
          fieldGroup: [ { qualifier: 'attributes', position: 20 } ] }
 
   @UI: { lineItem: [ { type: #FOR_ACTION, dataAction: 'Publish', label: 'Publish' },
-                     { type: #FOR_ACTION, dataAction: 'Unpublish', label: 'Unpublish' } ] }
+                     { type: #FOR_ACTION, dataAction: 'Unpublish', label: 'Unpublish' },
+                     { type: #FOR_ACTION, dataAction: 'Trivia', label: 'Trivia', iconUrl: 'sap-icon://activate' } ] }
   UI_Published;
 
   @EndUserText.label: 'Version'

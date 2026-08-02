@@ -34,7 +34,7 @@ extensible
   association _Part { create; }
   association _Question { create; }
 
-  mapping for znept_qz_tst
+  mapping for znept_qz_tst corresponding
   {
     TestId = test_id;
 
@@ -74,7 +74,7 @@ late numbering
 
   association _Quiz;
 
-  mapping for ZNEPT_QZ_PRT
+  mapping for ZNEPT_QZ_PRT corresponding
   {
     TestId = test_id;
     PartId = part_id;
@@ -114,7 +114,7 @@ late numbering
   association _Quiz;
   association _Variant { create; }
 
-  mapping for ZNEPT_QZ_QST
+  mapping for ZNEPT_QZ_QST corresponding
   {
     TestId = test_id;
     QuestionId = question_id;
@@ -153,7 +153,7 @@ late numbering
   association _Quiz;
   association _Question;
 
-  mapping for znept_qz_var
+  mapping for znept_qz_var corresponding
   {
     TestId = test_id;
     QuestionId = question_id;

@@ -18,8 +18,12 @@ CLASS lhc_quiz DEFINITION INHERITING FROM cl_abap_behavior_handler.
 
     METHODS settestetag FOR DETERMINE ON MODIFY
       IMPORTING keys FOR quiz~settestetag.
+
     METHODS fordescription FOR VALIDATE ON SAVE
       IMPORTING keys FOR quiz~fordescription.
+
+    METHODS trivia FOR MODIFY
+      IMPORTING keys FOR ACTION quiz~trivia RESULT result.
 
 ENDCLASS.
 
@@ -30,8 +34,8 @@ CLASS lhc_quiz IMPLEMENTATION.
     IF requested_authorizations-%update = if_abap_behv=>mk-on
     OR requested_authorizations-%delete = if_abap_behv=>mk-on
     OR requested_authorizations-%action-publish = if_abap_behv=>mk-on
-    OR requested_authorizations-%action-unpublish = if_abap_behv=>mk-on.
-*    OR requested_authorizations-%action-trivia = if_abap_behv=>mk-on.
+    OR requested_authorizations-%action-unpublish = if_abap_behv=>mk-on
+    OR requested_authorizations-%action-trivia = if_abap_behv=>mk-on.
 
       READ ENTITIES OF znept_qz_i_quiz_d IN LOCAL MODE
         ENTITY quiz
@@ -51,7 +55,7 @@ CLASS lhc_quiz IMPLEMENTATION.
         <fs_result>-%delete = lv_auth_change.
         <fs_result>-%action-publish = lv_auth_change.
         <fs_result>-%action-unpublish = lv_auth_change.
-*        <fs_result>-%action-trivia = lv_auth_change.
+        <fs_result>-%action-trivia = lv_auth_change.
       ENDLOOP.
     ENDIF.
 
@@ -118,7 +122,7 @@ CLASS lhc_quiz IMPLEMENTATION.
 
     reported-quiz = VALUE #( FOR ls_quiz IN lt_quiz ( %tky = ls_quiz-%tky
                                                       %msg = new_message_with_text( severity = if_abap_behv_message=>severity-success
-                                                                                    text = 'Published' )
+                                                                                    text = 'Published'(003) )
                                                       %element-published = if_abap_behv=>mk-on
                                                       %op-%action-publish = if_abap_behv=>mk-on ) ).
   ENDMETHOD.
@@ -145,7 +149,7 @@ CLASS lhc_quiz IMPLEMENTATION.
 
     reported-quiz = VALUE #( FOR ls_quiz IN lt_quiz ( %tky = ls_quiz-%tky
                                                       %msg = new_message_with_text( severity = if_abap_behv_message=>severity-success
-                                                                                    text = 'Unpublished' )
+                                                                                    text = 'Unpublished'(002) )
                                                       %element-published = if_abap_behv=>mk-on
                                                       %op-%action-unpublish = if_abap_behv=>mk-on ) ).
 
@@ -192,6 +196,70 @@ CLASS lhc_quiz IMPLEMENTATION.
         <fs_reported_quiz>-%element-description = if_abap_behv=>mk-on.
       ENDIF.
     ENDLOOP.
+
+  ENDMETHOD.
+
+  METHOD trivia.
+
+**********************************************************************
+*
+*                TO DO: to be replaced with EML
+*
+**********************************************************************
+
+    DATA: lt_messages     TYPE symsg_tab.
+
+    READ TABLE keys INDEX 1 INTO DATA(ls_keys).
+    IF sy-subrc = 0.
+      DATA(ls_db_quiz_in) = VALUE znept_qz_db_tests_s( test_id = ls_keys-testid ).
+
+      CALL FUNCTION 'ZNEPT_QZ_QUIZ_TRIVIA'
+        EXPORTING
+          is_db_quiz    = ls_db_quiz_in
+          iv_category   = ls_keys-%param-p_category
+          iv_difficulty = ls_keys-%param-p_difficulty
+          iv_count      = ls_keys-%param-p_count
+        IMPORTING
+          et_messages   = lt_messages.
+
+      IF lt_messages IS NOT INITIAL.
+        APPEND INITIAL LINE TO failed-quiz ASSIGNING FIELD-SYMBOL(<fs_failed_quiz>).
+        <fs_failed_quiz>-%tky = ls_keys-%tky.
+
+        LOOP AT lt_messages ASSIGNING FIELD-SYMBOL(<fs_messages>).
+          APPEND INITIAL LINE TO reported-quiz ASSIGNING FIELD-SYMBOL(<fs_reported_quiz>).
+          <fs_reported_quiz>-%tky = ls_keys-%tky.
+          <fs_reported_quiz>-%msg = new_message( id = <fs_messages>-msgid
+                                                 number = <fs_messages>-msgno
+                                                 v1 = <fs_messages>-msgv1
+                                                 v2 = <fs_messages>-msgv2
+                                                 v3 = <fs_messages>-msgv3
+                                                 v4 = <fs_messages>-msgv4
+                                                 severity = if_abap_behv_message=>severity-error ).
+          <fs_reported_quiz>-%element-description = if_abap_behv=>mk-on.
+        ENDLOOP.
+      ENDIF.
+
+* display toast like message
+
+      IF lt_messages[] IS INITIAL.
+        reported-quiz = VALUE #( FOR ls_key IN keys ( %tky = ls_key-%tky
+                                                      %msg = new_message_with_text( severity = if_abap_behv_message=>severity-success
+                                                                                    text = 'Created with Trivia'(001) )
+                                                      %op-%action-trivia = if_abap_behv=>mk-on ) ).
+      ENDIF.
+
+* read changed data for action result (does not work without it in _O4)
+
+      READ ENTITIES OF znept_qz_i_quiz_d IN LOCAL MODE
+        ENTITY quiz
+          ALL FIELDS WITH
+          CORRESPONDING #( keys )
+        RESULT DATA(lt_quiz).
+
+      result = VALUE #( FOR ls_quiz IN lt_quiz ( %tky = ls_quiz-%tky %param = ls_quiz ) ).
+
+    ENDIF.
 
   ENDMETHOD.
 

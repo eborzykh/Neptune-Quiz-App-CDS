@@ -17,6 +17,7 @@ define behavior for ZNEPT_QZ_C_QUIZ_D alias Quiz
 
   use action Publish;
   use action Unpublish;
+  use action Trivia;
 
   use association _Part { create; with draft; }
   use association _Question { create; with draft; }

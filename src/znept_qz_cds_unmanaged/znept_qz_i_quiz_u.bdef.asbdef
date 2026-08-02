@@ -22,7 +22,7 @@ late numbering
   association _Part { create; }
   association _Question { create; }
 
-  mapping for znept_qz_tst
+  mapping for znept_qz_tst corresponding
   {
     TestId = test_id;
 
@@ -54,7 +54,7 @@ late numbering
 
   association _Quiz;
 
-  mapping for znept_qz_prt
+  mapping for znept_qz_prt corresponding
   {
     TestId = test_id;
     PartId = part_id;
@@ -87,7 +87,7 @@ late numbering
   association _Quiz;
   association _Variant { create; }
 
-  mapping for znept_qz_qst
+  mapping for znept_qz_qst corresponding
   {
     TestId = test_id;
     PartId = part_id;
@@ -119,7 +119,7 @@ late numbering
   association _Quiz abbreviation Quiz;
   association _Question;
 
-  mapping for znept_qz_var
+  mapping for znept_qz_var corresponding
   {
     TestId = test_id;
     QuestionId = question_id;
