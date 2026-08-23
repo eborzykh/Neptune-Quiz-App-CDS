@@ -59,6 +59,7 @@ late numbering
     TestId = test_id;
     PartId = part_id;
 
+    Sort = sort;
     Description = description;
     Version = version;
   }
@@ -93,6 +94,7 @@ late numbering
     PartId = part_id;
     QuestionId = question_id;
 
+    Sort = sort;
     Question = question;
     Explanation = explanation;
     Version = version;
@@ -125,6 +127,7 @@ late numbering
     QuestionId = question_id;
     VariantId = variant_id;
 
+    Sort = sort;
     Variant = variant;
     Correct = correct;
     Version = version;

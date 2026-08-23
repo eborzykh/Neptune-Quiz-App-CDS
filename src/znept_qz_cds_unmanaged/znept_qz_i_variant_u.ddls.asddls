@@ -18,6 +18,7 @@ define view entity ZNEPT_QZ_I_VARIANT_U
   key _Variant.QuestionId  as QuestionId,
   key _Variant.VariantId   as VariantId,
 
+      _Variant.Sort        as Sort,
       _Variant.Correct     as Correct,
       _Correct.CorrectText as CorrectText,
       _Variant.Variant     as Variant,

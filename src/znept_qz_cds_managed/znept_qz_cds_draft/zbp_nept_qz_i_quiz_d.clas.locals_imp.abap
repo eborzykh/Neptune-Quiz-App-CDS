@@ -1,4 +1,8 @@
-CLASS lhc_quiz DEFINITION INHERITING FROM cl_abap_behavior_handler.
+*
+CLASS ltcl_quiz_d DEFINITION DEFERRED FOR TESTING.
+
+CLASS lhc_quiz DEFINITION INHERITING FROM cl_abap_behavior_handler
+  FRIENDS ltcl_quiz_d.
   PRIVATE SECTION.
 
     METHODS get_instance_authorizations FOR INSTANCE AUTHORIZATION
@@ -84,9 +88,25 @@ CLASS lhc_quiz IMPLEMENTATION.
 
     READ ENTITIES OF znept_qz_i_quiz_d IN LOCAL MODE
       ENTITY quiz
-        FIELDS ( published )
+        FIELDS ( description published )
           WITH CORRESPONDING #( keys )
         RESULT DATA(lt_quiz).
+
+* don`t call API more often than we need
+    IF requested_features-%action-trivia = if_abap_behv=>mk-on.
+      LOOP AT lt_quiz ASSIGNING FIELD-SYMBOL(<fs_quiz>).
+        IF <fs_quiz>-description CS zcl_nept_qz_src_trivia=>gc_src_name AND <fs_quiz>-question_count = 0 AND <fs_quiz>-part_count = 0.
+
+          TRY.
+              zcl_nept_qz_src_trivia=>get_count_overall( IMPORTING ev_questions = DATA(lv_trivia_total) ).
+            CATCH zcx_nept_qz_src_trivia_api.
+              CLEAR lv_trivia_total.
+          ENDTRY.
+
+          EXIT.
+        ENDIF.
+      ENDLOOP.
+    ENDIF.
 
     result = VALUE #(
       FOR ls_quiz IN lt_quiz ( %tky = ls_quiz-%tky
@@ -97,7 +117,14 @@ CLASS lhc_quiz IMPLEMENTATION.
 
                                %features-%action-unpublish = COND #( WHEN ls_quiz-published = zcl_nept_qz_data_provider=>gc_quiz_private
                                                                      THEN if_abap_behv=>fc-o-disabled
-                                                                     ELSE if_abap_behv=>fc-o-enabled ) ) ).
+                                                                     ELSE if_abap_behv=>fc-o-enabled )
+
+                               %features-%action-trivia = COND #( WHEN ( lv_trivia_total > 0 AND ls_quiz-description CS zcl_nept_qz_src_trivia=>gc_src_name
+                                                                                             AND ls_quiz-question_count = 0
+                                                                                             AND ls_quiz-part_count = 0 )
+                                                                     THEN if_abap_behv=>fc-o-enabled
+                                                                     ELSE if_abap_behv=>fc-o-disabled ) ) ).
+
   ENDMETHOD.
 
   METHOD publish.

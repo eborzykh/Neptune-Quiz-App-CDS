@@ -1,4 +1,7 @@
-CLASS lhc_question DEFINITION INHERITING FROM cl_abap_behavior_handler.
+CLASS ltcl_question_d DEFINITION DEFERRED FOR TESTING.
+
+CLASS lhc_question DEFINITION INHERITING FROM cl_abap_behavior_handler
+  FRIENDS ltcl_question_d.
 
   PRIVATE SECTION.
 
@@ -113,24 +116,25 @@ CLASS lhc_question IMPLEMENTATION.
           WITH CORRESPONDING #( keys )
           RESULT DATA(lt_quiz).
 
-      READ TABLE lt_quiz INDEX 1 INTO DATA(ls_quiz).
-      IF sy-subrc = 0.
-        DATA(lv_auth_change) = COND #( WHEN ls_quiz-uploadby = sy-uname THEN if_abap_behv=>auth-allowed
-                                                                        ELSE if_abap_behv=>auth-unauthorized ).
-        LOOP AT keys INTO DATA(ls_keys).
+      LOOP AT keys INTO DATA(ls_keys).
+        READ TABLE lt_quiz WITH KEY testid = ls_keys-testid INTO DATA(ls_quiz).
+        IF sy-subrc = 0.
+          DATA(lv_auth_change) = COND #( WHEN ls_quiz-uploadby = sy-uname THEN if_abap_behv=>auth-allowed
+                                                                          ELSE if_abap_behv=>auth-unauthorized ).
+        ELSE.
+          lv_auth_change = if_abap_behv=>auth-unauthorized.
+        ENDIF.
 
-          APPEND INITIAL LINE TO result ASSIGNING FIELD-SYMBOL(<fs_result>).
-          <fs_result>-%key = ls_keys-%key.
+        APPEND INITIAL LINE TO result ASSIGNING FIELD-SYMBOL(<fs_result>).
+        <fs_result>-%key = ls_keys-%key.
 
-          <fs_result>-%action-assignpart = lv_auth_change.
-          <fs_result>-%action-movequestiondown = lv_auth_change.
-          <fs_result>-%action-movequestionfirst = lv_auth_change.
-          <fs_result>-%action-movequestionlast = lv_auth_change.
-          <fs_result>-%action-movequestionup = lv_auth_change.
-          <fs_result>-%action-refreshquestion = lv_auth_change.
-
-        ENDLOOP.
-      ENDIF.
+        <fs_result>-%action-assignpart = lv_auth_change.
+        <fs_result>-%action-movequestiondown = lv_auth_change.
+        <fs_result>-%action-movequestionfirst = lv_auth_change.
+        <fs_result>-%action-movequestionlast = lv_auth_change.
+        <fs_result>-%action-movequestionup = lv_auth_change.
+        <fs_result>-%action-refreshquestion = lv_auth_change.
+      ENDLOOP.
     ENDIF.
 
   ENDMETHOD.

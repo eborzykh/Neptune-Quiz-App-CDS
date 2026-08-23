@@ -1,5 +1,8 @@
-CLASS lhc_part DEFINITION INHERITING FROM cl_abap_behavior_handler.
+*
+CLASS ltcl_part_d DEFINITION DEFERRED FOR TESTING.
 
+CLASS lhc_part DEFINITION INHERITING FROM cl_abap_behavior_handler
+  FRIENDS ltcl_part_d.
   PRIVATE SECTION.
 
     TYPES tt_part_keys TYPE TABLE FOR KEY OF znept_qz_i_quiz_d\\part.
@@ -102,22 +105,23 @@ CLASS lhc_part IMPLEMENTATION.
           WITH CORRESPONDING #( keys )
           RESULT DATA(lt_quiz).
 
-      READ TABLE lt_quiz INDEX 1 INTO DATA(ls_quiz).
-      IF sy-subrc = 0.
-        DATA(lv_auth_change) = COND #( WHEN ls_quiz-uploadby = sy-uname THEN if_abap_behv=>auth-allowed
-                                                                        ELSE if_abap_behv=>auth-unauthorized ).
-        LOOP AT keys INTO DATA(ls_keys).
+      LOOP AT keys INTO DATA(ls_keys).
+        READ TABLE lt_quiz WITH KEY testid = ls_keys-testid INTO DATA(ls_quiz).
+        IF sy-subrc = 0.
+          DATA(lv_auth_change) = COND #( WHEN ls_quiz-uploadby = sy-uname THEN if_abap_behv=>auth-allowed
+                                                                          ELSE if_abap_behv=>auth-unauthorized ).
+        ELSE.
+          lv_auth_change = if_abap_behv=>auth-unauthorized.
+        ENDIF.
 
-          APPEND INITIAL LINE TO result ASSIGNING FIELD-SYMBOL(<fs_result>).
-          <fs_result>-%key = ls_keys-%key.
+        APPEND INITIAL LINE TO result ASSIGNING FIELD-SYMBOL(<fs_result>).
+        <fs_result>-%key = ls_keys-%key.
 
-          <fs_result>-%action-movepartdown = lv_auth_change.
-          <fs_result>-%action-movepartfirst = lv_auth_change.
-          <fs_result>-%action-movepartlast = lv_auth_change.
-          <fs_result>-%action-movepartup = lv_auth_change.
-
-        ENDLOOP.
-      ENDIF.
+        <fs_result>-%action-movepartdown = lv_auth_change.
+        <fs_result>-%action-movepartfirst = lv_auth_change.
+        <fs_result>-%action-movepartlast = lv_auth_change.
+        <fs_result>-%action-movepartup = lv_auth_change.
+      ENDLOOP.
     ENDIF.
 
   ENDMETHOD.

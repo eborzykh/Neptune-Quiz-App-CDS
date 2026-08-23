@@ -1,4 +1,7 @@
-CLASS lhc_quiz DEFINITION INHERITING FROM cl_abap_behavior_handler.
+CLASS ltcl_quiz_u DEFINITION DEFERRED FOR TESTING.
+
+CLASS lhc_quiz DEFINITION INHERITING FROM cl_abap_behavior_handler
+  FRIENDS ltcl_quiz_u.
   PRIVATE SECTION.
 
     TYPES tt_quiz_failed    TYPE TABLE FOR FAILED   znept_qz_i_quiz_u.
@@ -79,7 +82,6 @@ CLASS lhc_quiz IMPLEMENTATION.
         RESULT DATA(lt_quiz).
 
       LOOP AT lt_quiz INTO DATA(ls_quiz).
-
         DATA(lv_auth_change) = COND #( WHEN ls_quiz-uploadby = sy-uname THEN if_abap_behv=>auth-allowed
                                                                         ELSE if_abap_behv=>auth-unauthorized ).
 
@@ -546,7 +548,10 @@ CLASS lhc_quiz IMPLEMENTATION.
 
 ENDCLASS.
 
-CLASS lhc_part DEFINITION INHERITING FROM cl_abap_behavior_handler.
+CLASS ltcl_part_u DEFINITION DEFERRED FOR TESTING.
+
+CLASS lhc_part DEFINITION INHERITING FROM cl_abap_behavior_handler
+  FRIENDS ltcl_part_u.
   PRIVATE SECTION.
 
     TYPES tt_part_failed    TYPE TABLE FOR FAILED   znept_qz_i_part_u.
@@ -1028,7 +1033,10 @@ CLASS lhc_part IMPLEMENTATION.
 
 ENDCLASS.
 
-CLASS lhc_question DEFINITION INHERITING FROM cl_abap_behavior_handler.
+CLASS ltcl_question_u DEFINITION DEFERRED FOR TESTING.
+
+CLASS lhc_question DEFINITION INHERITING FROM cl_abap_behavior_handler
+  FRIENDS ltcl_question_u.
   PRIVATE SECTION.
 
     TYPES tt_question_failed    TYPE TABLE FOR FAILED   znept_qz_i_question_u.
@@ -1720,7 +1728,10 @@ CLASS lhc_question IMPLEMENTATION.
 
 ENDCLASS.
 
-CLASS lhc_variant DEFINITION INHERITING FROM cl_abap_behavior_handler.
+CLASS ltcl_variant_u DEFINITION DEFERRED FOR TESTING.
+
+CLASS lhc_variant DEFINITION INHERITING FROM cl_abap_behavior_handler
+  FRIENDS ltcl_variant_u.
   PRIVATE SECTION.
 
     TYPES tt_variant_failed    TYPE TABLE FOR FAILED   znept_qz_i_variant_u.

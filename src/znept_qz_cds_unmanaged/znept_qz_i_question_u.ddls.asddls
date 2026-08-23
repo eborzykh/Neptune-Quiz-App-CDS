@@ -17,6 +17,7 @@ define view entity ZNEPT_QZ_I_QUESTION_U
   key _Question.TestId      as TestId,
   key _Question.QuestionId  as QuestionId,
 
+      _Question.Sort        as Sort, 
       _Question.PartId      as PartId,
       _Question.Question    as Question,
       _Question.Explanation as Explanation,

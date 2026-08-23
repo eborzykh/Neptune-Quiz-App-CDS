@@ -1,4 +1,7 @@
-CLASS lhc_variant DEFINITION INHERITING FROM cl_abap_behavior_handler.
+CLASS ltcl_variant_d DEFINITION DEFERRED FOR TESTING.
+
+CLASS lhc_variant DEFINITION INHERITING FROM cl_abap_behavior_handler
+  FRIENDS ltcl_variant_d.
 
   PRIVATE SECTION.
 
@@ -65,7 +68,7 @@ CLASS lhc_variant IMPLEMENTATION.
           MOVE-CORRESPONDING <fs_variant> TO <fs_variant_sort>.
           SELECT MIN( sort ) AS sort_top, MAX( sort ) AS sort_bottom
             INTO ( @<fs_variant_sort>-sort_top, @<fs_variant_sort>-sort_bottom )
-            FROM znept_qz_i_variant_m
+            FROM znept_qz_i_variant_d
             WHERE testid     = @<fs_variant>-testid
               AND questionid = @<fs_variant>-questionid.
         ENDIF.
@@ -105,21 +108,23 @@ CLASS lhc_variant IMPLEMENTATION.
           WITH CORRESPONDING #( keys )
           RESULT DATA(lt_quiz).
 
-      READ TABLE lt_quiz INDEX 1 INTO DATA(ls_quiz).
-      IF sy-subrc = 0.
-        DATA(lv_auth_change) = COND #( WHEN ls_quiz-uploadby = sy-uname THEN if_abap_behv=>auth-allowed
-                                                                        ELSE if_abap_behv=>auth-unauthorized ).
-        LOOP AT keys INTO DATA(ls_keys).
+      LOOP AT keys INTO DATA(ls_keys).
+        READ TABLE lt_quiz WITH KEY testid = ls_keys-testid INTO DATA(ls_quiz).
+        IF sy-subrc = 0.
+          DATA(lv_auth_change) = COND #( WHEN ls_quiz-uploadby = sy-uname THEN if_abap_behv=>auth-allowed
+                                                                          ELSE if_abap_behv=>auth-unauthorized ).
+        ELSE.
+          lv_auth_change = if_abap_behv=>auth-unauthorized.
+        ENDIF.
 
-          APPEND INITIAL LINE TO result ASSIGNING FIELD-SYMBOL(<fs_result>).
-          <fs_result>-%key = ls_keys-%key.
+        APPEND INITIAL LINE TO result ASSIGNING FIELD-SYMBOL(<fs_result>).
+        <fs_result>-%key = ls_keys-%key.
 
-          <fs_result>-%action-movevariantdown = lv_auth_change.
-          <fs_result>-%action-movevariantfirst = lv_auth_change.
-          <fs_result>-%action-movevariantlast = lv_auth_change.
-          <fs_result>-%action-movevariantup = lv_auth_change.
-        ENDLOOP.
-      ENDIF.
+        <fs_result>-%action-movevariantdown = lv_auth_change.
+        <fs_result>-%action-movevariantfirst = lv_auth_change.
+        <fs_result>-%action-movevariantlast = lv_auth_change.
+        <fs_result>-%action-movevariantup = lv_auth_change.
+      ENDLOOP.
     ENDIF.
 
   ENDMETHOD.

@@ -1,5 +1,8 @@
 *
-CLASS lhc_quiz DEFINITION INHERITING FROM cl_abap_behavior_handler.
+CLASS ltcl_quiz_m DEFINITION DEFERRED FOR TESTING.
+
+CLASS lhc_quiz DEFINITION INHERITING FROM cl_abap_behavior_handler
+  FRIENDS ltcl_quiz_m.
   PRIVATE SECTION.
 
     METHODS settestetag FOR DETERMINE ON MODIFY
