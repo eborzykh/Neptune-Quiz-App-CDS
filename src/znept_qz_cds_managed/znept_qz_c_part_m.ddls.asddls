@@ -12,7 +12,6 @@ define view entity ZNEPT_QZ_C_PART_M
 
       Sort,
       Description,
-      
       Version,
 
       /* Associations */

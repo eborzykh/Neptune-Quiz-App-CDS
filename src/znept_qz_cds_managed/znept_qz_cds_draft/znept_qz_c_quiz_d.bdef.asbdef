@@ -2,6 +2,7 @@
 projection;
 strict;
 use draft;
+use side effects;
 
 define behavior for ZNEPT_QZ_C_QUIZ_D alias Quiz
 {
@@ -28,9 +29,9 @@ define behavior for ZNEPT_QZ_C_PART_D alias Part
   use update;
   use delete;
 
+  use action movePartFirst;
   use action movePartUp;
   use action movePartDown;
-  use action movePartFirst;
   use action movePartLast;
 
   use association _Quiz { with draft; }
@@ -41,9 +42,9 @@ define behavior for ZNEPT_QZ_C_QUESTION_D alias Question
   use update;
   use delete;
 
+  use action moveQuestionFirst;
   use action moveQuestionUp;
   use action moveQuestionDown;
-  use action moveQuestionFirst;
   use action moveQuestionLast;
 
   use action assignPart;
@@ -58,9 +59,9 @@ define behavior for ZNEPT_QZ_C_VARIANT_D alias Variant
   use update;
   use delete;
 
+  use action moveVariantFirst;
   use action moveVariantUp;
   use action moveVariantDown;
-  use action moveVariantFirst;
   use action moveVariantLast;
 
   use association _Quiz { with draft; }

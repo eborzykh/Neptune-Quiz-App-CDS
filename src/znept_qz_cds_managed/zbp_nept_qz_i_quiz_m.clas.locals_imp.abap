@@ -28,6 +28,8 @@ CLASS lhc_quiz DEFINITION INHERITING FROM cl_abap_behavior_handler
 
     METHODS fordescription FOR VALIDATE ON SAVE
       IMPORTING keys FOR quiz~fordescription.
+    METHODS get_global_authorizations FOR GLOBAL AUTHORIZATION
+      IMPORTING REQUEST requested_authorizations FOR quiz RESULT result.
 
 ENDCLASS.
 
@@ -383,6 +385,10 @@ CLASS lhc_quiz IMPLEMENTATION.
         <fs_reported_quiz>-%element-description = if_abap_behv=>mk-on.
       ENDIF.
     ENDLOOP.
+
+  ENDMETHOD.
+
+  METHOD get_global_authorizations.
 
   ENDMETHOD.
 

@@ -1,5 +1,5 @@
 //
-@Metadata.layer: #CUSTOMER
+@Metadata.layer: #CORE
 
 @UI.chart: [ { qualifier: 'columnChart',
                title: 'Progress Summary',

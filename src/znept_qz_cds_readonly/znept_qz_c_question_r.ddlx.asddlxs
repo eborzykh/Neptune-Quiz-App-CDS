@@ -1,5 +1,5 @@
 //
-@Metadata.layer: #CUSTOMER
+@Metadata.layer: #CORE
 @UI.headerInfo.description.label: 'Questions (Extension)'
 
 @UI: { headerInfo: { typeName: 'Question', typeNamePlural: 'Questions' } }

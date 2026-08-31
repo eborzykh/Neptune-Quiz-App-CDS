@@ -9,7 +9,9 @@ CLASS zcl_nept_qz_trivia_categ_query DEFINITION
 ENDCLASS.
 
 
-CLASS zcl_nept_qz_trivia_categ_query IMPLEMENTATION.
+
+CLASS ZCL_NEPT_QZ_TRIVIA_CATEG_QUERY IMPLEMENTATION.
+
 
   METHOD if_rap_query_provider~select.
 
@@ -41,5 +43,4 @@ CLASS zcl_nept_qz_trivia_categ_query IMPLEMENTATION.
     ENDIF.
 
   ENDMETHOD.
-
 ENDCLASS.

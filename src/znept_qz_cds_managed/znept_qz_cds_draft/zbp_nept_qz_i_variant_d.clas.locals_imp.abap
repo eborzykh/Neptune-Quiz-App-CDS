@@ -30,6 +30,8 @@ CLASS lhc_variant DEFINITION INHERITING FROM cl_abap_behavior_handler
 
     METHODS setversion FOR DETERMINE ON SAVE
       IMPORTING keys FOR variant~setversion.
+    METHODS get_global_authorizations FOR GLOBAL AUTHORIZATION
+      IMPORTING REQUEST requested_authorizations FOR variant RESULT result.
 
     METHODS movevariant
       IMPORTING
@@ -259,6 +261,9 @@ CLASS lhc_variant IMPLEMENTATION.
         UPDATE FIELDS ( version )
           WITH VALUE #( FOR variant IN lt_variant ( %tky = variant-%tky version = variant-version ) ).
 
+  ENDMETHOD.
+
+  METHOD get_global_authorizations.
   ENDMETHOD.
 
 ENDCLASS.

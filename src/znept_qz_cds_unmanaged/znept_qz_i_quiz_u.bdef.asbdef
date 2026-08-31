@@ -5,7 +5,7 @@ strict ( 1 );
 define behavior for ZNEPT_QZ_I_QUIZ_U alias Quiz
 implementation in class zbp_nept_qz_i_quiz_u unique
 lock master
-authorization master ( instance )
+authorization master ( global, instance )
 late numbering
 {
   create;
@@ -23,16 +23,15 @@ late numbering
   association _Question { create; }
 
   mapping for znept_qz_tst corresponding
-  {
-    TestId = test_id;
-
-    Description = description;
-    Published = published;
-    UploadAt = upload_at;
-    UploadOn = upload_on;
-    UploadBy = upload_by;
-    Version = version;
-  }
+    {
+      TestId      = test_id;
+      Description = description;
+      Published   = published;
+      UploadAt    = upload_at;
+      UploadOn    = upload_on;
+      UploadBy    = upload_by;
+      Version     = version;
+    }
 }
 
 define behavior for ZNEPT_QZ_I_PART_U alias Part
@@ -44,25 +43,32 @@ late numbering
   update;
   delete;
 
+  action ( features : instance ) movePartFirst;
   action ( features : instance ) movePartUp;
   action ( features : instance ) movePartDown;
-  action ( features : instance ) movePartFirst;
   action ( features : instance ) movePartLast;
 
   field ( readonly ) TestId, PartId, Version;
   field ( mandatory ) Description;
 
+  side effects
+  {
+    action movePartFirst affects entity _Quiz._Question;
+    action movePartUp affects entity _Quiz._Question;
+    action movePartDown affects entity _Quiz._Question;
+    action movePartLast affects entity _Quiz._Question;
+  }
+
   association _Quiz;
 
   mapping for znept_qz_prt corresponding
-  {
-    TestId = test_id;
-    PartId = part_id;
-
-    Sort = sort;
-    Description = description;
-    Version = version;
-  }
+    {
+      TestId      = test_id;
+      PartId      = part_id;
+      Sort        = sort;
+      Description = description;
+      Version     = version;
+    }
 }
 
 define behavior for ZNEPT_QZ_I_QUESTION_U alias Question
@@ -74,9 +80,9 @@ late numbering
   update;
   delete;
 
+  action ( features : instance ) moveQuestionFirst;
   action ( features : instance ) moveQuestionUp;
   action ( features : instance ) moveQuestionDown;
-  action ( features : instance ) moveQuestionFirst;
   action ( features : instance ) moveQuestionLast;
   action ( features : instance ) assignPart parameter ZNEPT_QZ_A_QUESTION_ASSIGN;
   action ( features : instance ) refreshQuestion;
@@ -89,16 +95,15 @@ late numbering
   association _Variant { create; }
 
   mapping for znept_qz_qst corresponding
-  {
-    TestId = test_id;
-    PartId = part_id;
-    QuestionId = question_id;
-
-    Sort = sort;
-    Question = question;
-    Explanation = explanation;
-    Version = version;
-  }
+    {
+      TestId      = test_id;
+      PartId      = part_id;
+      QuestionId  = question_id;
+      Sort        = sort;
+      Question    = question;
+      Explanation = explanation;
+      Version     = version;
+    }
 }
 
 define behavior for ZNEPT_QZ_I_VARIANT_U alias Variant
@@ -110,9 +115,9 @@ late numbering
   update;
   delete;
 
+  action ( features : instance ) moveVariantFirst;
   action ( features : instance ) moveVariantUp;
   action ( features : instance ) moveVariantDown;
-  action ( features : instance ) moveVariantFirst;
   action ( features : instance ) moveVariantLast;
 
   field ( readonly ) TestId, QuestionId, VariantId, Version;
@@ -122,14 +127,13 @@ late numbering
   association _Question;
 
   mapping for znept_qz_var corresponding
-  {
-    TestId = test_id;
-    QuestionId = question_id;
-    VariantId = variant_id;
-
-    Sort = sort;
-    Variant = variant;
-    Correct = correct;
-    Version = version;
-  }
+    {
+      TestId     = test_id;
+      QuestionId = question_id;
+      VariantId  = variant_id;
+      Sort       = sort;
+      Variant    = variant;
+      Correct    = correct;
+      Version    = version;
+    }
 }

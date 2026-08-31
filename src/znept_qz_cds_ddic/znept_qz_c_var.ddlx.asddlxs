@@ -1,4 +1,4 @@
-@Metadata.layer: #CUSTOMER
+@Metadata.layer: #CORE
 
 @UI.headerInfo.description.label: 'Variants'
 

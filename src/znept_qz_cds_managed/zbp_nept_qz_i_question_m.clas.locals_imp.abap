@@ -35,6 +35,8 @@ CLASS lhc_question DEFINITION INHERITING FROM cl_abap_behavior_handler
 
     METHODS get_instance_authorizations FOR INSTANCE AUTHORIZATION
       keys REQUEST requested_authorizations FOR question RESULT result.
+    METHODS get_global_authorizations FOR GLOBAL AUTHORIZATION
+      IMPORTING REQUEST requested_authorizations FOR question RESULT result.
 
     METHODS movequestion
       IMPORTING
@@ -361,6 +363,10 @@ CLASS lhc_question IMPLEMENTATION.
         <fs_result>-%action-refreshquestion = lv_auth_change.
       ENDLOOP.
     ENDIF.
+
+  ENDMETHOD.
+
+  METHOD get_global_authorizations.
 
   ENDMETHOD.
 

@@ -51,6 +51,8 @@ CLASS lhc_quiz DEFINITION INHERITING FROM cl_abap_behavior_handler
 
     METHODS get_instance_features FOR INSTANCE FEATURES
       IMPORTING keys REQUEST requested_features FOR quiz RESULT result.
+    METHODS get_global_authorizations FOR GLOBAL AUTHORIZATION
+      IMPORTING REQUEST requested_authorizations FOR quiz RESULT result.
 
     METHODS map_messages
       IMPORTING
@@ -546,6 +548,9 @@ CLASS lhc_quiz IMPLEMENTATION.
 
   ENDMETHOD.
 
+  METHOD get_global_authorizations.
+  ENDMETHOD.
+
 ENDCLASS.
 
 CLASS ltcl_part_u DEFINITION DEFERRED FOR TESTING.
@@ -589,6 +594,8 @@ CLASS lhc_part DEFINITION INHERITING FROM cl_abap_behavior_handler
 
     METHODS movepartup FOR MODIFY
       IMPORTING keys FOR ACTION part~movepartup.
+    METHODS get_global_authorizations FOR GLOBAL AUTHORIZATION
+      IMPORTING REQUEST requested_authorizations FOR part RESULT result.
 
     METHODS map_messages
       IMPORTING
@@ -1031,6 +1038,9 @@ CLASS lhc_part IMPLEMENTATION.
 
   ENDMETHOD.
 
+  METHOD get_global_authorizations.
+  ENDMETHOD.
+
 ENDCLASS.
 
 CLASS ltcl_question_u DEFINITION DEFERRED FOR TESTING.
@@ -1086,6 +1096,8 @@ CLASS lhc_question DEFINITION INHERITING FROM cl_abap_behavior_handler
 
     METHODS refreshquestion FOR MODIFY
       IMPORTING keys FOR ACTION question~refreshquestion.
+    METHODS get_global_authorizations FOR GLOBAL AUTHORIZATION
+      IMPORTING REQUEST requested_authorizations FOR question RESULT result.
 
     METHODS map_messages
       IMPORTING
@@ -1726,6 +1738,9 @@ CLASS lhc_question IMPLEMENTATION.
 
   ENDMETHOD.
 
+  METHOD get_global_authorizations.
+  ENDMETHOD.
+
 ENDCLASS.
 
 CLASS ltcl_variant_u DEFINITION DEFERRED FOR TESTING.
@@ -1772,6 +1787,8 @@ CLASS lhc_variant DEFINITION INHERITING FROM cl_abap_behavior_handler
 
     METHODS movevariantup FOR MODIFY
       IMPORTING keys FOR ACTION variant~movevariantup.
+    METHODS get_global_authorizations FOR GLOBAL AUTHORIZATION
+      IMPORTING REQUEST requested_authorizations FOR variant RESULT result.
 
     METHODS map_messages
       IMPORTING
@@ -2211,6 +2228,9 @@ CLASS lhc_variant IMPLEMENTATION.
 
     ENDLOOP.
 
+  ENDMETHOD.
+
+  METHOD get_global_authorizations.
   ENDMETHOD.
 
 ENDCLASS.

@@ -1,22 +1,11 @@
 {
-"BASEINFO":
-{
-"FROM":
-[
-"ZNEPT_QZ_I_VAR"
-],
-"ASSOCIATED":
-[
-"ZNEPT_QZ_C_QST",
-"ZNEPT_QZ_C_TST"
-],
-"BASE":
-[],
-"ANNO_REF":
-[],
-"SCALAR_FUNCTION":
-[],
-"VERSION":0,
-"ANNOREF_EVALUATION_ERROR":""
-}
+  "BASEINFO": {
+    "FROM": [
+      "ZNEPT_QZ_I_VAR"
+    ],
+    "ASSOCIATED": [
+      "ZNEPT_QZ_C_QST",
+      "ZNEPT_QZ_C_TST"
+    ]
+  }
 }

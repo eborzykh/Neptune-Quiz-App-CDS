@@ -27,7 +27,9 @@ CLASS zcl_nept_qz_cds_bs_adjust_data DEFINITION
 ENDCLASS.
 
 
-CLASS zcl_nept_qz_cds_bs_adjust_data IMPLEMENTATION.
+
+CLASS ZCL_NEPT_QZ_CDS_BS_ADJUST_DATA IMPLEMENTATION.
+
 
   METHOD adjust_via_request.
 

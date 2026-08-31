@@ -10,7 +10,10 @@ CLASS zcl_nept_qz_api_custom_source DEFINITION
   PRIVATE SECTION.
 ENDCLASS.
 
-CLASS zcl_nept_qz_api_custom_source IMPLEMENTATION.
+
+
+CLASS ZCL_NEPT_QZ_API_CUSTOM_SOURCE IMPLEMENTATION.
+
 
   METHOD if_rap_query_provider~select.
 
@@ -60,5 +63,4 @@ CLASS zcl_nept_qz_api_custom_source IMPLEMENTATION.
     ENDIF.
 
   ENDMETHOD.
-
 ENDCLASS.

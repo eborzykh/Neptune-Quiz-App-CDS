@@ -1,5 +1,5 @@
 //
-@Metadata.layer: #CUSTOMER
+@Metadata.layer: #CORE
 @UI.headerInfo.description.label: 'Parts'
 
 @UI: { headerInfo: { typeName: 'Part',

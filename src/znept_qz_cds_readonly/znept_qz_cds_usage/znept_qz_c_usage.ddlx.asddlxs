@@ -1,5 +1,5 @@
 //
-@Metadata.layer: #CUSTOMER
+@Metadata.layer: #CORE
 
 @UI.headerInfo: { typeName: 'Quiz Usage Report',
                   typeNamePlural: 'Quiz Usage List',

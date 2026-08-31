@@ -1,4 +1,5 @@
-@Metadata.layer: #CUSTOMER
+@Metadata.layer: #CORE
+
 @UI.headerInfo.description.label: 'Quiz'
 
 annotate view ZNEPT_QZ_C_TST with

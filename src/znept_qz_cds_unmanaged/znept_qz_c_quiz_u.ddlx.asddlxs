@@ -1,5 +1,5 @@
 //
-@Metadata.layer: #CUSTOMER
+@Metadata.layer: #CORE
 @UI.headerInfo.description.label: 'Quiz (Extension)'
 
 @UI: { headerInfo: { typeName: 'Unmanaged scenario',

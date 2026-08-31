@@ -26,7 +26,7 @@ ENDCLASS.
 
 
 
-CLASS zcl_nept_qz_quiz_auxiliary IMPLEMENTATION.
+CLASS ZCL_NEPT_QZ_QUIZ_AUXILIARY IMPLEMENTATION.
 
 
   METHOD get_cause_from_message.

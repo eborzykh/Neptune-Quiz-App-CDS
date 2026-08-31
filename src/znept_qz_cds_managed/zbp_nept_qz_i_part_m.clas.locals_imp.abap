@@ -30,6 +30,8 @@ CLASS lhc_part DEFINITION INHERITING FROM cl_abap_behavior_handler
 
     METHODS get_instance_authorizations FOR INSTANCE AUTHORIZATION
       keys REQUEST requested_authorizations FOR part RESULT result.
+    METHODS get_global_authorizations FOR GLOBAL AUTHORIZATION
+      IMPORTING REQUEST requested_authorizations FOR part RESULT result.
 
     METHODS movepart
       IMPORTING
@@ -279,6 +281,10 @@ CLASS lhc_part IMPLEMENTATION.
 
       ENDLOOP.
     ENDIF.
+
+  ENDMETHOD.
+
+  METHOD get_global_authorizations.
 
   ENDMETHOD.
 

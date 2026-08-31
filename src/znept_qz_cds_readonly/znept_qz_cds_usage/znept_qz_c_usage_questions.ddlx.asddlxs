@@ -1,5 +1,6 @@
 //
-@Metadata.layer: #CUSTOMER
+@Metadata.layer: #CORE
+
 @UI.headerInfo.description.label: 'Questions (Extension)'
 
 @UI.presentationVariant: [ { sortOrder: [ { by: 'Sort', direction: #ASC } ] } ]

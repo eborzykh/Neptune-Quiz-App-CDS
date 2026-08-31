@@ -1,25 +1,17 @@
 {
-"BASEINFO":
-{
-"FROM":
-[
-"ZNEPT_QZ_I_PQUESTION"
-],
-"ASSOCIATED":
-[
-"ZNEPT_QZ_A_PQUIZ",
-"ZNEPT_QZ_A_PVARIANT",
-"ZNEPT_QZ_I_PART"
-],
-"BASE":
-[
-"ZNEPT_QZ_I_PQUESTION"
-],
-"ANNO_REF":
-[],
-"SCALAR_FUNCTION":
-[],
-"VERSION":0,
-"ANNOREF_EVALUATION_ERROR":""
-}
+  "BASEINFO": {
+    "FROM": [
+      "ZNEPT_QZ_I_PQUESTION"
+    ],
+    "ASSOCIATED": [
+      "ZNEPT_QZ_A_PQUIZ",
+      "ZNEPT_QZ_A_PVARIANT",
+      "ZNEPT_QZ_I_PART",
+      "ZNEPT_QZ_I_PQUIZ",
+      "ZNEPT_QZ_I_PVARIANT"
+    ],
+    "BASE": [
+      "ZNEPT_QZ_I_PQUESTION"
+    ]
+  }
 }

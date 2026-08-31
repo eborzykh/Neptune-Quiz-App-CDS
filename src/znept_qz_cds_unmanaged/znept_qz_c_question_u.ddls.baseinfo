@@ -1,26 +1,19 @@
 {
-"BASEINFO":
-{
-"FROM":
-[
-"ZNEPT_QZ_I_PART_U",
-"ZNEPT_QZ_I_QUESTION_U"
-],
-"ASSOCIATED":
-[
-"ZNEPT_QZ_C_PART_U",
-"ZNEPT_QZ_C_QUIZ_U",
-"ZNEPT_QZ_C_VARIANT_U"
-],
-"BASE":
-[
-"ZNEPT_QZ_I_QUESTION_U"
-],
-"ANNO_REF":
-[],
-"SCALAR_FUNCTION":
-[],
-"VERSION":0,
-"ANNOREF_EVALUATION_ERROR":""
-}
+  "BASEINFO": {
+    "FROM": [
+      "ZNEPT_QZ_I_PART_U",
+      "ZNEPT_QZ_I_QUESTION_U"
+    ],
+    "ASSOCIATED": [
+      "ZNEPT_QZ_C_PART_U",
+      "ZNEPT_QZ_C_QUIZ_U",
+      "ZNEPT_QZ_C_VARIANT_U",
+      "ZNEPT_QZ_I_PART_U",
+      "ZNEPT_QZ_I_QUIZ_U",
+      "ZNEPT_QZ_I_VARIANT_U"
+    ],
+    "BASE": [
+      "ZNEPT_QZ_I_QUESTION_U"
+    ]
+  }
 }

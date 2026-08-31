@@ -8,7 +8,7 @@ persistent table znept_qz_tst
 draft table znept_qz_tst_d
 lock master
 total etag ETag
-authorization master ( instance )
+authorization master ( global, instance )
 late numbering
 {
   create;
@@ -16,7 +16,7 @@ late numbering
   delete;
 
   draft action Edit;
-  draft action Activate;
+  draft action Activate optimized;
   draft action Discard;
   draft action Resume;
   draft determine action Prepare
@@ -42,20 +42,24 @@ late numbering
   // it will be calling the method on listed fields create/update and specified operation
   determination setVersion on save { field Description; }
 
+  side effects
+  {
+    $self affects entity _Question;
+  }
+
   association _Part { create; with draft; }
   association _Question { create; with draft; }
 
   mapping for znept_qz_tst corresponding
-  {
-    TestId = test_id;
-
-    UploadAt = upload_at;
-    UploadOn = upload_on;
-    UploadBy = upload_by;
-    Description = description;
-    Published = published;
-    Version = version;
-  }
+    {
+      TestId      = test_id;
+      UploadAt    = upload_at;
+      UploadOn    = upload_on;
+      UploadBy    = upload_by;
+      Description = description;
+      Published   = published;
+      Version     = version;
+    }
 }
 
 define behavior for ZNEPT_QZ_I_PART_D alias Part
@@ -69,9 +73,9 @@ late numbering
   update;
   delete;
 
+  action ( features : instance ) movePartFirst;
   action ( features : instance ) movePartUp;
   action ( features : instance ) movePartDown;
-  action ( features : instance ) movePartFirst;
   action ( features : instance ) movePartLast;
 
   // readonly is still updated in IN LOCAL MODE
@@ -82,17 +86,24 @@ late numbering
   determination setVersion on save { delete; field Description, Sort; }
   determination setSort on save { field Sort; }
 
+  side effects
+  {
+    action movePartFirst affects entity _Quiz._Question;
+    action movePartUp affects entity _Quiz._Question;
+    action movePartDown affects entity _Quiz._Question;
+    action movePartLast affects entity _Quiz._Question;
+  }
+
   association _Quiz { with draft; }
 
   mapping for znept_qz_prt corresponding
-  {
-    TestId = test_id;
-    PartId = part_id;
-
-    Description = description;
-    Sort = sort;
-    Version = version;
-  }
+    {
+      TestId      = test_id;
+      PartId      = part_id;
+      Description = description;
+      Sort        = sort;
+      Version     = version;
+    }
 }
 
 define behavior for ZNEPT_QZ_I_QUESTION_D alias Question
@@ -106,9 +117,9 @@ late numbering
   update;
   delete;
 
+  action ( features : instance ) moveQuestionFirst;
   action ( features : instance ) moveQuestionUp;
   action ( features : instance ) moveQuestionDown;
-  action ( features : instance ) moveQuestionFirst;
   action ( features : instance ) moveQuestionLast;
 
   action ( features : instance ) assignPart parameter ZNEPT_QZ_A_QUESTION_ASSIGN;
@@ -126,16 +137,15 @@ late numbering
   association _Variant { create; with draft; }
 
   mapping for znept_qz_qst corresponding
-  {
-    TestId = test_id;
-    QuestionId = question_id;
-
-    PartId = part_id;
-    Question = question;
-    Explanation = explanation;
-    Sort = sort;
-    Version = version;
-  }
+    {
+      TestId      = test_id;
+      QuestionId  = question_id;
+      PartId      = part_id;
+      Question    = question;
+      Explanation = explanation;
+      Sort        = sort;
+      Version     = version;
+    }
 }
 
 define behavior for ZNEPT_QZ_I_VARIANT_D alias Variant
@@ -149,9 +159,9 @@ late numbering
   update;
   delete;
 
+  action ( features : instance ) moveVariantFirst;
   action ( features : instance ) moveVariantUp;
   action ( features : instance ) moveVariantDown;
-  action ( features : instance ) moveVariantFirst;
   action ( features : instance ) moveVariantLast;
 
   // readonly is still updated in IN LOCAL MODE
@@ -166,14 +176,13 @@ late numbering
   association _Question { with draft; }
 
   mapping for znept_qz_var corresponding
-  {
-    TestId = test_id;
-    QuestionId = question_id;
-    VariantId = variant_id;
-
-    Variant = variant;
-    Correct = correct;
-    Sort = sort;
-    Version = version;
-  }
+    {
+      TestId     = test_id;
+      QuestionId = question_id;
+      VariantId  = variant_id;
+      Variant    = variant;
+      Correct    = correct;
+      Sort       = sort;
+      Version    = version;
+    }
 }

@@ -28,6 +28,8 @@ CLASS lhc_quiz DEFINITION INHERITING FROM cl_abap_behavior_handler
 
     METHODS trivia FOR MODIFY
       IMPORTING keys FOR ACTION quiz~trivia RESULT result.
+    METHODS get_global_authorizations FOR GLOBAL AUTHORIZATION
+      IMPORTING REQUEST requested_authorizations FOR quiz RESULT result.
 
 ENDCLASS.
 
@@ -287,6 +289,10 @@ CLASS lhc_quiz IMPLEMENTATION.
       result = VALUE #( FOR ls_quiz IN lt_quiz ( %tky = ls_quiz-%tky %param = ls_quiz ) ).
 
     ENDIF.
+
+  ENDMETHOD.
+
+  METHOD get_global_authorizations.
 
   ENDMETHOD.
 

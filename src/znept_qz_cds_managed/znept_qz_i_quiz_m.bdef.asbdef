@@ -10,7 +10,7 @@ with additional save
 etag master ETag
 lock master
 late numbering
-authorization master ( instance )
+authorization master ( global, instance )
 extensible
 {
   create;
@@ -34,7 +34,7 @@ extensible
   association _Part { create; }
   association _Question { create; }
 
-  mapping for znept_qz_tst corresponding
+  mapping for znept_qz_tst corresponding extensible
   {
     TestId = test_id;
 
@@ -60,9 +60,9 @@ late numbering
 
   // O2 gives error on loading /UI log/ (O4 does not refresh UI without it): Part for operation xxxx not supported.
   // action ( features : instance ) movePart____ result [1..*] $self;
+  action ( features : instance ) movePartFirst;
   action ( features : instance ) movePartUp;
   action ( features : instance ) movePartDown;
-  action ( features : instance ) movePartFirst;
   action ( features : instance ) movePartLast;
 
   field ( readonly ) TestId, PartId, Version;
@@ -71,6 +71,14 @@ late numbering
   // it will be calling the method on listed fields create/update and specified operation
   determination setVersion on save { delete; field Description, Sort; }
   determination setSort on save { field Sort; }
+
+  side effects
+  {
+    action movePartFirst affects entity _Quiz._Question;
+    action movePartUp affects entity _Quiz._Question;
+    action movePartDown affects entity _Quiz._Question;
+    action movePartLast affects entity _Quiz._Question;
+  }
 
   association _Quiz;
 
@@ -96,9 +104,9 @@ late numbering
   update;
   delete;
 
+  action ( features : instance ) moveQuestionFirst;
   action ( features : instance ) moveQuestionUp;
   action ( features : instance ) moveQuestionDown;
-  action ( features : instance ) moveQuestionFirst;
   action ( features : instance ) moveQuestionLast;
 
   action ( features : instance ) assignPart parameter ZNEPT_QZ_A_QUESTION_ASSIGN;
@@ -138,9 +146,9 @@ late numbering
   update;
   delete;
 
+  action ( features : instance ) moveVariantFirst;
   action ( features : instance ) moveVariantUp;
   action ( features : instance ) moveVariantDown;
-  action ( features : instance ) moveVariantFirst;
   action ( features : instance ) moveVariantLast;
 
   field ( readonly ) TestId, QuestionId, VariantId, Version;

@@ -36,6 +36,8 @@ CLASS lhc_question DEFINITION INHERITING FROM cl_abap_behavior_handler
 
     METHODS refreshquestion FOR MODIFY
       IMPORTING keys FOR ACTION question~refreshquestion.
+    METHODS get_global_authorizations FOR GLOBAL AUTHORIZATION
+      IMPORTING REQUEST requested_authorizations FOR question RESULT result.
 
     METHODS movequestion
       IMPORTING
@@ -364,6 +366,9 @@ CLASS lhc_question IMPLEMENTATION.
         DELETE FROM
           VALUE #( FOR question IN lt_question_copy ( %tky = question-%tky ) ).
 
+  ENDMETHOD.
+
+  METHOD get_global_authorizations.
   ENDMETHOD.
 
 ENDCLASS.

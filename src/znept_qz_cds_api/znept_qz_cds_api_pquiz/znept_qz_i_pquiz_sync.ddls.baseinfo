@@ -1,20 +1,8 @@
 {
-"BASEINFO":
-{
-"FROM":
-[
-"ZNEPT_QZ_I_ACTIVITY_SYNC",
-"ZNEPT_QZ_I_QUIZ"
-],
-"ASSOCIATED":
-[],
-"BASE":
-[],
-"ANNO_REF":
-[],
-"SCALAR_FUNCTION":
-[],
-"VERSION":0,
-"ANNOREF_EVALUATION_ERROR":""
-}
+  "BASEINFO": {
+    "FROM": [
+      "ZNEPT_QZ_I_ACTIVITY_SYNC",
+      "ZNEPT_QZ_I_QUIZ"
+    ]
+  }
 }
