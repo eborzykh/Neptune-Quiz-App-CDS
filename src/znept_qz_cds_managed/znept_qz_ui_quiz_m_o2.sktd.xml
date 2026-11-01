@@ -1,0 +1,79 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<abapGit version="v1.0.0" serializer="LCL_OBJECT_SKTD" serializer_version="v1.0.0">
+ <asx:abap xmlns:asx="http://www.sap.com/abapxml" version="1.0">
+  <asx:values>
+   <SKTD>
+    <METADATA>
+     <DESCRIPTION>Documentation for ZNEPT_QZ_UI_QUIZ_M_O2</DESCRIPTION>
+     <LANGUAGE>EN</LANGUAGE>
+     <ABAP_LANGU_VERSION>0</ABAP_LANGU_VERSION>
+    </METADATA>
+    <REF_OBJECT>
+     <TYPE>SRVB/SVB</TYPE>
+     <NAME>ZNEPT_QZ_UI_QUIZ_M_O2</NAME>
+    </REF_OBJECT>
+    <ELEMENTS>
+     <item>
+      <ID>ZNEPT_QZ_UI_QUIZ_M_O2</ID>
+      <REF>
+       <URI>/sap/bc/adt/businessservices/bindings/znept_qz_ui_quiz_m_o2</URI>
+       <TYPE>SRVB/SVB</TYPE>
+       <NAME>ZNEPT_QZ_UI_QUIZ_M_O2</NAME>
+       <DESCRIPTION>Quiz (CDS Managed O2)</DESCRIPTION>
+      </REF>
+      <SHORTTEXT_OBLIGATION>forbidden</SHORTTEXT_OBLIGATION>
+      <LONGTEXT_OBLIGATION>forbidden</LONGTEXT_OBLIGATION>
+     </item>
+     <item>
+      <ID>ZNEPT_QZ_UI_QUIZ_M_O2ZNEPT_QZ_UI_QUIZ_M_O2</ID>
+      <REF>
+       <NAME>ZNEPT_QZ_UI_QUIZ_M_O2</NAME>
+       <DESCRIPTION>Service</DESCRIPTION>
+      </REF>
+      <PARENT>ZNEPT_QZ_UI_QUIZ_M_O2</PARENT>
+      <CAN_HAVE_DOCUMENTATION>X</CAN_HAVE_DOCUMENTATION>
+      <SHORTTEXT_OBLIGATION>forbidden</SHORTTEXT_OBLIGATION>
+      <LONGTEXT_OBLIGATION>optional</LONGTEXT_OBLIGATION>
+     </item>
+     <item>
+      <ID>ZNEPT_QZ_UI_QUIZ_M_O2ZNEPT_QZ_UI_QUIZ_M_O2version</ID>
+      <REF>
+       <NAME>Versions</NAME>
+      </REF>
+      <PARENT>ZNEPT_QZ_UI_QUIZ_M_O2ZNEPT_QZ_UI_QUIZ_M_O2</PARENT>
+      <SHORTTEXT_OBLIGATION>forbidden</SHORTTEXT_OBLIGATION>
+      <LONGTEXT_OBLIGATION>forbidden</LONGTEXT_OBLIGATION>
+     </item>
+     <item>
+      <ID>ZNEPT_QZ_UI_QUIZ_M_O2ZNEPT_QZ_UI_QUIZ_M_O20001</ID>
+      <REF>
+       <NAME>1.0.0</NAME>
+      </REF>
+      <PARENT>ZNEPT_QZ_UI_QUIZ_M_O2ZNEPT_QZ_UI_QUIZ_M_O2version</PARENT>
+      <CAN_HAVE_DOCUMENTATION>X</CAN_HAVE_DOCUMENTATION>
+      <SHORTTEXT_OBLIGATION>forbidden</SHORTTEXT_OBLIGATION>
+      <LONGTEXT_OBLIGATION>optional</LONGTEXT_OBLIGATION>
+     </item>
+     <item>
+      <ID>ZNEPT_QZ_UI_QUIZ_M_O2#ZNEPT_QZ_UI_QUIZ_M_O2#1.0.0change-log</ID>
+      <REF>
+       <NAME>change-log</NAME>
+       <DESCRIPTION>Version 1.0.0</DESCRIPTION>
+      </REF>
+      <PARENT>ZNEPT_QZ_UI_QUIZ_M_O2ZNEPT_QZ_UI_QUIZ_M_O2version</PARENT>
+      <CAN_HAVE_DOCUMENTATION>X</CAN_HAVE_DOCUMENTATION>
+      <SHORTTEXT_OBLIGATION>forbidden</SHORTTEXT_OBLIGATION>
+      <LONGTEXT_OBLIGATION>optional</LONGTEXT_OBLIGATION>
+      <INSTRUCTION_ID>changelog</INSTRUCTION_ID>
+     </item>
+    </ELEMENTS>
+    <INSTRUCTIONS>
+     <item>
+      <ID>changelog</ID>
+      <TEXT>Mention changes made to API and specify version number</TEXT>
+     </item>
+    </INSTRUCTIONS>
+   </SKTD>
+  </asx:values>
+ </asx:abap>
+</abapGit>

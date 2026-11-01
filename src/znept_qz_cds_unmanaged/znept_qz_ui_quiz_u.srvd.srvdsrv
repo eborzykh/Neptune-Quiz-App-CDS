@@ -1,11 +1,9 @@
 @EndUserText.label: 'Neptune Quiz App (CDS Unmanaged)'
+@ObjectModel.leadingEntity.name: 'ZNEPT_QZ_C_QUIZ_U'
+@AbapCatalog.extensibility.extensible: true
 define service ZNEPT_QZ_UI_QUIZ_U {
-  expose ZNEPT_QZ_C_QUIZ_U as Quiz;
-  expose ZNEPT_QZ_C_PART_U as Part;
+  expose ZNEPT_QZ_C_QUIZ_U     as Quiz;
+  expose ZNEPT_QZ_C_PART_U     as Part;
   expose ZNEPT_QZ_C_QUESTION_U as Question;
-  expose ZNEPT_QZ_C_VARIANT_U as Variant;
-  expose ZNEPT_QZ_I_TRIVIA_CAT_DM_VH;
-  expose ZNEPT_QZ_I_TRIVIA_CAT_QUERY_VH;
-  expose ZNEPT_QZ_I_TRIVIA_DIFFICULT_VH;
-  expose ZNEPT_QZ_I_TRIVIA_DIFFPARAM_VH;
+  expose ZNEPT_QZ_C_VARIANT_U  as Variant;
 }

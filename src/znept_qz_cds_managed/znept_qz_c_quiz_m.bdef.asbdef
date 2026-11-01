@@ -1,9 +1,11 @@
 //
 projection;
-strict( 1 );
+strict ( 2 );
 use side effects;
+extensible;
 
 define behavior for ZNEPT_QZ_C_QUIZ_M alias Quiz
+extensible
 {
   use create;
   use update;
@@ -11,13 +13,14 @@ define behavior for ZNEPT_QZ_C_QUIZ_M alias Quiz
 
   use action Publish;
   use action Unpublish;
-  use action Trivia;
 
   use association _Part { create; }
   use association _Question { create; }
+//  use association _Variant { }
 }
 
 define behavior for ZNEPT_QZ_C_PART_M alias Part
+extensible
 {
   use update;
   use delete;
@@ -27,10 +30,11 @@ define behavior for ZNEPT_QZ_C_PART_M alias Part
   use action movePartDown;
   use action movePartLast;
 
-  use association _Quiz;
+  use association _Quiz { }
 }
 
 define behavior for ZNEPT_QZ_C_QUESTION_M alias Question
+extensible
 {
   use update;
   use delete;
@@ -43,11 +47,12 @@ define behavior for ZNEPT_QZ_C_QUESTION_M alias Question
   use action assignPart;
   use action refreshQuestion;
 
-  use association _Quiz;
+  use association _Quiz { }
   use association _Variant { create; }
 }
 
 define behavior for ZNEPT_QZ_C_VARIANT_M alias Variant
+extensible
 {
   use update;
   use delete;
@@ -57,6 +62,6 @@ define behavior for ZNEPT_QZ_C_VARIANT_M alias Variant
   use action moveVariantDown;
   use action moveVariantLast;
 
-  use association _Quiz;
-  use association _Question;
+  use association _Quiz { }
+  use association _Question { }
 }

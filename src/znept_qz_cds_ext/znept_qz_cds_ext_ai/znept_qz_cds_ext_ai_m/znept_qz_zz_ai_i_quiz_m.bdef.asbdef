@@ -1,0 +1,10 @@
+extension implementation in class zbp_nept_qz_zz_ai_i_quiz_m unique;
+
+extend behavior for Quiz
+{
+
+  factory action ( authorization : none, features : instance ) AIQuizClone parameter ZNEPT_QZ_A_QUIZ_AI_CLONE [1] { default function GetDfltsFor_AIQuizClone; }
+
+  static action ( authorization : none, features : global ) AIQuizCreate parameter ZNEPT_QZ_A_QUIZ_AI_CREATE result [1] $self { default function GetDfltsFor_AIQuizCreate; }
+
+}

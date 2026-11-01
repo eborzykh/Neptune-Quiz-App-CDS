@@ -1,0 +1,15 @@
+extension for projection;
+
+extend behavior for Quiz
+{
+
+  use action pasteQuiz;
+
+}
+
+extend behavior for Question
+{
+
+  use action pasteQuestion;
+
+}

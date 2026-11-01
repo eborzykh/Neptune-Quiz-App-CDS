@@ -1,0 +1,41 @@
+{
+  "formatVersion": "1",
+  "header": {
+    "description": "Neptune Quiz App (CDS): Questions (Basic Reuse)",
+    "originalLanguage": "en"
+  },
+  "generalInformation": {
+    "objectType": "DDLS",
+    "objectName": "ZNEPT_QZ_I_QUESTION"
+  },
+  "fields": [
+    {
+      "name": "TESTID",
+      "nature": "general"
+    },
+    {
+      "name": "QUESTIONID",
+      "nature": "general"
+    },
+    {
+      "name": "PARTID",
+      "nature": "general"
+    },
+    {
+      "name": "QUESTION",
+      "nature": "general"
+    },
+    {
+      "name": "EXPLANATION",
+      "nature": "general"
+    },
+    {
+      "name": "VERSION",
+      "nature": "general"
+    },
+    {
+      "name": "SORT",
+      "nature": "general"
+    }
+  ]
+}

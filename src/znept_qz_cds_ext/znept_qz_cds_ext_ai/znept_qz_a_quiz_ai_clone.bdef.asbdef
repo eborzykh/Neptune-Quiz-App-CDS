@@ -1,0 +1,6 @@
+abstract;
+
+define behavior for ZNEPT_QZ_A_QUIZ_AI_CLONE alias _AI_Clone
+{
+  field ( mandatory ) p_Name, p_Count, p_Key, p_Model;
+}

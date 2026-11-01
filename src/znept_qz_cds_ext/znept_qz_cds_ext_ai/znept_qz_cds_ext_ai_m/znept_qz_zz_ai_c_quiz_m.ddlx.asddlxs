@@ -1,0 +1,12 @@
+@Metadata.layer: #CUSTOMER
+
+annotate entity ZNEPT_QZ_C_QUIZ_M with
+{
+  @UI.hidden: true
+  @UI: { lineItem: [
+  //  https://me.sap.com/notes/3754805 ????
+  //  { position: 5, type: #FOR_ACTION_GROUP, actionGroupId: 'ZZ_AIGroup', label: 'AI Tools' },
+                     { position: 10, type: #FOR_ACTION, dataAction: 'AIQuizCreate', label: 'Create (AI)' },
+                     { position: 20, type: #FOR_ACTION, dataAction: 'AIQuizClone', label: 'Clone (AI)' } ] }
+  ZZ_AIQuiz;
+}

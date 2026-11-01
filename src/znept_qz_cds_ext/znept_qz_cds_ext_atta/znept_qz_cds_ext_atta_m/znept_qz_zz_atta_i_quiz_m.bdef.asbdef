@@ -1,0 +1,33 @@
+extension implementation in class zbp_nept_qz_zz_atta_i_quiz_m unique;
+
+extend behavior for Quiz
+{
+  association _ZZ_Attachment { create; }
+}
+
+define behavior for ZNEPT_QZ_ZZ_I_ATTA_M alias ZZ_Attachment
+implementation in class zbp_nept_qz_zz_atta_m unique
+with additional save
+persistent table znept_qz_att
+etag master Etag
+lock dependent
+authorization dependent
+late numbering
+{
+  update;
+  delete;
+
+  field ( readonly ) TestId;
+  field ( readonly : update ) QuestionId;
+
+  association _Quiz { }
+
+  mapping for znept_qz_att corresponding
+    {
+      TestId     = test_id;
+      QuestionId = question_id;
+      Attachment = attachment;
+      Filename   = filename;
+      MimeType   = mime_type;
+    }
+}

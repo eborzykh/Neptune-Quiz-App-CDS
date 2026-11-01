@@ -1,0 +1,8 @@
+abstract;
+
+define behavior for ZNEPT_QZ_A_QUIZ_AI_CREATE alias _AI_Create
+{
+
+  field ( mandatory ) p_Name, p_Count, p_Topic, p_Key, p_Model;
+
+}

@@ -1,0 +1,7 @@
+{
+  "BASEINFO": {
+    "FROM": [
+      "ZNEPT_QZ_I_QUIZ"
+    ]
+  }
+}

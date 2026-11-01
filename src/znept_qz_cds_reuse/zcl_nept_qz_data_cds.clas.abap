@@ -165,17 +165,10 @@ CLASS zcl_nept_qz_data_cds DEFINITION
         !et_messages   TYPE zif_nept_qz_quiz_const=>tt_if_t100_message .
     CLASS-METHODS convert_messages
       IMPORTING
-        it_messages TYPE zif_nept_qz_quiz_const=>tt_if_t100_message
+        !it_messages TYPE zif_nept_qz_quiz_const=>tt_if_t100_message
       EXPORTING
-        et_messages TYPE symsg_tab .
-    CLASS-METHODS quiz_trivia
-      IMPORTING
-        is_db_quiz    TYPE znept_qz_db_tests_s
-        iv_category   TYPE znept_qz_trivia_category_id_de
-        iv_difficulty TYPE znept_qz_trivia_diffparam_de
-        iv_count      TYPE int2
-      EXPORTING
-        et_messages   TYPE zif_nept_qz_quiz_const=>tt_if_t100_message.
+        !et_messages TYPE symsg_tab .
+
   PROTECTED SECTION.
   PRIVATE SECTION.
 
@@ -213,7 +206,7 @@ ENDCLASS.
 
 
 
-CLASS ZCL_NEPT_QZ_DATA_CDS IMPLEMENTATION.
+CLASS zcl_nept_qz_data_cds IMPLEMENTATION.
 
 
   METHOD convert_messages.
@@ -1550,56 +1543,6 @@ CLASS ZCL_NEPT_QZ_DATA_CDS IMPLEMENTATION.
   ENDMETHOD.
 
 
-  METHOD quiz_trivia.
-
-    DATA: ls_db_tests_key TYPE znept_qz_db_tests_key_s,
-          lv_db_error     TYPE abap_bool,
-          lv_do_commit    TYPE abap_bool.
-
-    REFRESH et_messages.
-
-    IF is_db_quiz-test_id IS INITIAL.
-      APPEND NEW zcx_nept_qz_cds( textid = zcx_nept_qz_cds=>quiz_key_initial ) TO et_messages.
-      RETURN.
-    ENDIF.
-
-    CLEAR ls_db_tests_key.
-    ls_db_tests_key-test_id = is_db_quiz-test_id.
-
-    TRY.
-        zcl_nept_qz_src_trivia=>get_quiz( EXPORTING iv_category = iv_category
-                                                    iv_difficulty = iv_difficulty
-                                                    iv_count = iv_count
-                                          IMPORTING et_db_parts = DATA(lt_db_parts)
-                                                    et_db_questions = DATA(lt_db_questions)
-                                                    et_db_variants = DATA(lt_db_variants) ).
-      CATCH zcx_nept_qz_src_trivia_api INTO DATA(lr_trivia_api).
-        APPEND lr_trivia_api TO et_messages.
-        RETURN.
-    ENDTRY.
-
-    IF NOT lt_db_questions[] IS INITIAL.
-
-      CALL METHOD zcl_nept_qz_data_provider=>add
-        EXPORTING
-          iv_test_id      = is_db_quiz-test_id
-          iv_published    = abap_false
-          it_db_parts     = lt_db_parts
-          it_db_questions = lt_db_questions
-          it_db_variants  = lt_db_variants
-        IMPORTING
-          ev_db_error     = lv_db_error
-          ev_do_commit    = lv_do_commit.
-
-    ENDIF.
-
-    IF lv_db_error = abap_true OR lv_do_commit = abap_false.
-      APPEND NEW zcx_nept_qz_cds( textid = zcx_nept_qz_cds=>quiz_create_error ) TO et_messages.
-    ENDIF.
-
-  ENDMETHOD.
-
-
   METHOD quiz_update.
 
     DATA: ls_db_tests_key TYPE znept_qz_db_tests_key_s,
@@ -2116,4 +2059,5 @@ CLASS ZCL_NEPT_QZ_DATA_CDS IMPLEMENTATION.
     ENDCASE.
 
   ENDMETHOD.
+
 ENDCLASS.

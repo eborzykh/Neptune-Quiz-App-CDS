@@ -13,7 +13,7 @@ define view entity ZNEPT_QZ_C_PART_D
       Sort,
       Description,
 
-      Version,
+      Version, 
 
       /* Associations */
 

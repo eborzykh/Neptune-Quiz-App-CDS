@@ -5,7 +5,8 @@ CLASS ltcl_quiz_d DEFINITION FINAL FOR TESTING
   PRIVATE SECTION.
 
     CONSTANTS: c_test_id_1 TYPE znept_qz_test_id_de VALUE '001',
-               c_test_id_2 TYPE znept_qz_test_id_de VALUE '002'.
+               c_test_id_2 TYPE znept_qz_test_id_de VALUE '002',
+               c_test_id_4 TYPE znept_qz_test_id_de VALUE '004'.
 
     CLASS-DATA:
       class_under_test     TYPE REF TO lhc_quiz,
@@ -187,7 +188,6 @@ CLASS ltcl_quiz_d IMPLEMENTATION.
     requested_authorizations-%update = if_abap_behv=>mk-on.
     requested_authorizations-%action-publish = if_abap_behv=>mk-on.
     requested_authorizations-%action-unpublish = if_abap_behv=>mk-on.
-    requested_authorizations-%action-trivia = if_abap_behv=>mk-on.
 
     result_exp = VALUE #(
       (
@@ -196,7 +196,6 @@ CLASS ltcl_quiz_d IMPLEMENTATION.
         %update = if_abap_behv=>auth-allowed
         %action-publish = if_abap_behv=>auth-allowed
         %action-unpublish = if_abap_behv=>auth-allowed
-        %action-trivia = if_abap_behv=>auth-allowed
       )
       (
         testid = c_test_id_2
@@ -204,7 +203,6 @@ CLASS ltcl_quiz_d IMPLEMENTATION.
         %update = if_abap_behv=>auth-unauthorized
         %action-publish = if_abap_behv=>auth-unauthorized
         %action-unpublish = if_abap_behv=>auth-unauthorized
-        %action-trivia = if_abap_behv=>auth-unauthorized
       )
     ).
 
@@ -236,26 +234,37 @@ CLASS ltcl_quiz_d IMPLEMENTATION.
           result_act TYPE TABLE FOR INSTANCE FEATURES RESULT znept_qz_i_quiz_d\\quiz,
           result_exp TYPE TABLE FOR INSTANCE FEATURES RESULT znept_qz_i_quiz_d\\quiz.
 
+
     mock_data_quiz = VALUE #(
       (
-        testid      = c_test_id_1
-        uploadon    = cl_abap_context_info=>get_system_date( )
-        uploadat    = cl_abap_context_info=>get_system_time( )
-        uploadby    = cl_abap_context_info=>get_user_technical_name( )
-        published   = zcl_nept_qz_data_provider=>gc_quiz_private
-        description = |Quiz Description { c_test_id_1 }|
+        testid         = c_test_id_1
+        uploadon       = cl_abap_context_info=>get_system_date( )
+        uploadat       = cl_abap_context_info=>get_system_time( )
+        uploadby       = cl_abap_context_info=>get_user_technical_name( )
+        published      = zcl_nept_qz_data_provider=>gc_quiz_private
+        description    = |Quiz Description { c_test_id_1 }|
         question_count = 10
-        part_count = 2
+        part_count     = 2
       )
       (
-        testid      = c_test_id_2
-        uploadon    = cl_abap_context_info=>get_system_date( )
-        uploadat    = cl_abap_context_info=>get_system_time( )
-        uploadby    = cl_abap_context_info=>get_user_technical_name( )
-        published   = zcl_nept_qz_data_provider=>gc_quiz_published
-        description = |Quiz TRIVIA|
+        testid         = c_test_id_2
+        uploadon       = cl_abap_context_info=>get_system_date( )
+        uploadat       = cl_abap_context_info=>get_system_time( )
+        uploadby       = cl_abap_context_info=>get_user_technical_name( )
+        published      = zcl_nept_qz_data_provider=>gc_quiz_private
+        description    = |Quiz Description { c_test_id_2 }|
         question_count = 0
-        part_count = 0
+        part_count     = 0
+      )
+      (
+        testid         = c_test_id_4
+        uploadon       = cl_abap_context_info=>get_system_date( )
+        uploadat       = cl_abap_context_info=>get_system_time( )
+        uploadby       = cl_abap_context_info=>get_user_technical_name( )
+        published      = zcl_nept_qz_data_provider=>gc_quiz_published
+        description    = |Quiz Description { c_test_id_4 }|
+        question_count = 0
+        part_count     = 0
       )
     ).
     cds_test_environment->insert_test_data( mock_data_quiz ).
@@ -263,21 +272,23 @@ CLASS ltcl_quiz_d IMPLEMENTATION.
     requested = VALUE #(
       %action-publish   = if_abap_behv=>mk-on
       %action-unpublish = if_abap_behv=>mk-on
-      %action-trivia    = if_abap_behv=>mk-on
     ).
 
     result_exp = VALUE #(
       (
-        testid = c_test_id_1
-        %action-publish = if_abap_behv=>fc-o-enabled
+        testid            = c_test_id_1
+        %action-publish   = if_abap_behv=>fc-o-enabled
         %action-unpublish = if_abap_behv=>fc-o-disabled
-        %action-trivia = if_abap_behv=>fc-o-disabled
       )
       (
-        testid = c_test_id_2
-        %action-publish = if_abap_behv=>fc-o-disabled
+        testid            = c_test_id_2
+        %action-publish   = if_abap_behv=>fc-o-disabled
+        %action-unpublish = if_abap_behv=>fc-o-disabled
+      )
+      (
+        testid            = c_test_id_4
+        %action-publish   = if_abap_behv=>fc-o-disabled
         %action-unpublish = if_abap_behv=>fc-o-enabled
-        %action-trivia = if_abap_behv=>fc-o-enabled
       )
     ).
 

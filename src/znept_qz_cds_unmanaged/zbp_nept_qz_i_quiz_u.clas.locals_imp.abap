@@ -28,9 +28,6 @@ CLASS lhc_quiz DEFINITION INHERITING FROM cl_abap_behavior_handler
     METHODS unpublish FOR MODIFY
       IMPORTING keys FOR ACTION quiz~unpublish.
 
-    METHODS trivia FOR MODIFY
-      IMPORTING keys FOR ACTION quiz~trivia.
-
     METHODS lock FOR LOCK
       IMPORTING keys FOR LOCK quiz.
 
@@ -51,6 +48,7 @@ CLASS lhc_quiz DEFINITION INHERITING FROM cl_abap_behavior_handler
 
     METHODS get_instance_features FOR INSTANCE FEATURES
       IMPORTING keys REQUEST requested_features FOR quiz RESULT result.
+
     METHODS get_global_authorizations FOR GLOBAL AUTHORIZATION
       IMPORTING REQUEST requested_authorizations FOR quiz RESULT result.
 
@@ -74,8 +72,7 @@ CLASS lhc_quiz IMPLEMENTATION.
     IF requested_authorizations-%update = if_abap_behv=>mk-on
     OR requested_authorizations-%delete = if_abap_behv=>mk-on
     OR requested_authorizations-%action-publish = if_abap_behv=>mk-on
-    OR requested_authorizations-%action-unpublish = if_abap_behv=>mk-on
-    OR requested_authorizations-%action-trivia = if_abap_behv=>mk-on.
+    OR requested_authorizations-%action-unpublish = if_abap_behv=>mk-on.
 
       READ ENTITIES OF znept_qz_i_quiz_u IN LOCAL MODE
         ENTITY quiz
@@ -94,7 +91,6 @@ CLASS lhc_quiz IMPLEMENTATION.
         <fs_result>-%delete = lv_auth_change.
         <fs_result>-%action-publish = lv_auth_change.
         <fs_result>-%action-unpublish = lv_auth_change.
-        <fs_result>-%action-trivia = lv_auth_change.
       ENDLOOP.
     ENDIF.
 
@@ -475,76 +471,16 @@ CLASS lhc_quiz IMPLEMENTATION.
       <fs_quiz_add_info>-part_count = lv_total_parts.
     ENDLOOP.
 
-* we don`t want to call API more than we need
-    IF requested_features-%action-trivia = if_abap_behv=>mk-on.
-      LOOP AT lt_quiz ASSIGNING FIELD-SYMBOL(<fs_quiz>).
-        IF <fs_quiz>-description CS zcl_nept_qz_src_trivia=>gc_src_name AND <fs_quiz>-question_count = 0 AND <fs_quiz>-part_count = 0.
-
-          TRY.
-              zcl_nept_qz_src_trivia=>get_count_overall( IMPORTING ev_questions = DATA(lv_trivia_total) ).
-            CATCH zcx_nept_qz_src_trivia_api.
-              CLEAR lv_trivia_total.
-          ENDTRY.
-
-          EXIT.
-        ENDIF.
-      ENDLOOP.
-    ENDIF.
-
     result = VALUE #(
       FOR ls_quiz_read_result IN lt_quiz ( %tky = ls_quiz_read_result-%tky
 
-        %features-%action-publish = COND #( WHEN ls_quiz_read_result-published = zcl_nept_qz_data_provider=>gc_quiz_published
-                                                      THEN if_abap_behv=>fc-o-disabled ELSE if_abap_behv=>fc-o-enabled )
+                                           %features-%action-publish = COND #( WHEN ls_quiz_read_result-published = zcl_nept_qz_data_provider=>gc_quiz_private AND ls_quiz_read_result-Question_Count > 0
+                                                                               THEN if_abap_behv=>fc-o-enabled
+                                                                               ELSE if_abap_behv=>fc-o-disabled )
 
-        %features-%action-unpublish = COND #( WHEN ls_quiz_read_result-published = zcl_nept_qz_data_provider=>gc_quiz_private
-                                                      THEN if_abap_behv=>fc-o-disabled ELSE if_abap_behv=>fc-o-enabled )
-
-        %features-%action-trivia = COND #( WHEN ( lv_trivia_total > 0 AND ls_quiz_read_result-description CS zcl_nept_qz_src_trivia=>gc_src_name
-                                                                      AND ls_quiz_read_result-question_count = 0
-                                                                      AND ls_quiz_read_result-part_count = 0 )
-                                                      THEN if_abap_behv=>fc-o-enabled ELSE if_abap_behv=>fc-o-disabled ) ) ).
-  ENDMETHOD.
-
-**********************************************************************
-*
-* Trivia quiz
-*
-**********************************************************************
-
-  METHOD trivia.
-
-    DATA: lt_messages     TYPE symsg_tab.
-
-    READ TABLE keys INDEX 1 INTO DATA(ls_keys).
-    IF sy-subrc = 0.
-      DATA(ls_db_quiz_in) = VALUE znept_qz_db_tests_s( test_id = ls_keys-testid ).
-
-      CALL FUNCTION 'ZNEPT_QZ_QUIZ_TRIVIA'
-        EXPORTING
-          is_db_quiz    = ls_db_quiz_in
-          iv_category   = ls_keys-%param-p_category
-          iv_difficulty = ls_keys-%param-p_difficulty
-          iv_count      = ls_keys-%param-p_count
-        IMPORTING
-          et_messages   = lt_messages.
-
-      map_messages(
-          EXPORTING
-            iv_cid       = ls_keys-%cid_ref
-            iv_quiz_id   = ls_keys-testid
-            it_messages  = lt_messages
-          CHANGING
-            ct_failed    = failed-quiz
-            ct_reported  = reported-quiz ).
-
-* display toast like message
-      IF lt_messages[] IS INITIAL.
-        reported-quiz = VALUE #( FOR ls_quiz IN keys ( %tky = ls_quiz-%tky
-                                                       %msg = new_message_with_text( severity = if_abap_behv_message=>severity-success
-                                                                                     text = 'Created with Trivia'(001) ) ) ).
-      ENDIF.
-    ENDIF.
+                                           %features-%action-unpublish = COND #( WHEN ls_quiz_read_result-published = zcl_nept_qz_data_provider=>gc_quiz_published
+                                                                                 THEN if_abap_behv=>fc-o-enabled
+                                                                                 ELSE if_abap_behv=>fc-o-disabled ) ) ).
 
   ENDMETHOD.
 

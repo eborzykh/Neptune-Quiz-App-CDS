@@ -1,6 +1,7 @@
 //
 @EndUserText.label: 'Parts (Basic)'
 @AccessControl.authorizationCheck: #NOT_REQUIRED
+@Metadata.ignorePropagatedAnnotations: false
 @VDM.viewType: #COMPOSITE
 
 define view entity ZNEPT_QZ_I_PART_M
@@ -15,7 +16,7 @@ define view entity ZNEPT_QZ_I_PART_M
   key _Part.TestId      as TestId,
   key _Part.PartId      as PartId,
 
-      _Part.Sort        as Sort,
+      _Part.Sort        as Sort, 
       _Part.Description as Description,
       _Part.Version     as Version,
 

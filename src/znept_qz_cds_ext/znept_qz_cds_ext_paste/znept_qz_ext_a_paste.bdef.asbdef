@@ -1,0 +1,6 @@
+abstract;
+
+define behavior for ZNEPT_QZ_EXT_A_PASTE //alias <alias_name>
+{
+  field ( mandatory ) StreamText;
+}

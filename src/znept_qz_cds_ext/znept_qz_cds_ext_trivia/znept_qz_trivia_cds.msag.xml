@@ -1,0 +1,62 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<abapGit version="v1.0.0" serializer="LCL_OBJECT_MSAG" serializer_version="v1.0.0">
+ <asx:abap xmlns:asx="http://www.sap.com/abapxml" version="1.0">
+  <asx:values>
+   <T100A>
+    <ARBGB>ZNEPT_QZ_TRIVIA_CDS</ARBGB>
+    <MASTERLANG>E</MASTERLANG>
+    <STEXT>Neptune Quiz App: Trivia Messages</STEXT>
+   </T100A>
+   <T100>
+    <T100>
+     <SPRSL>E</SPRSL>
+     <ARBGB>ZNEPT_QZ_TRIVIA_CDS</ARBGB>
+     <MSGNR>000</MSGNR>
+     <TEXT>&amp;1 &amp;2 &amp;3 &amp;4</TEXT>
+    </T100>
+    <T100>
+     <SPRSL>E</SPRSL>
+     <ARBGB>ZNEPT_QZ_TRIVIA_CDS</ARBGB>
+     <MSGNR>009</MSGNR>
+     <TEXT>Quiz Key initial</TEXT>
+    </T100>
+    <T100>
+     <SPRSL>E</SPRSL>
+     <ARBGB>ZNEPT_QZ_TRIVIA_CDS</ARBGB>
+     <MSGNR>032</MSGNR>
+     <TEXT>Quiz &amp;1 is locked by &amp;2</TEXT>
+    </T100>
+    <T100>
+     <SPRSL>E</SPRSL>
+     <ARBGB>ZNEPT_QZ_TRIVIA_CDS</ARBGB>
+     <MSGNR>046</MSGNR>
+     <TEXT>You are not authorized</TEXT>
+    </T100>
+    <T100>
+     <SPRSL>E</SPRSL>
+     <ARBGB>ZNEPT_QZ_TRIVIA_CDS</ARBGB>
+     <MSGNR>100</MSGNR>
+     <TEXT>Error on creating Quiz</TEXT>
+    </T100>
+    <T100>
+     <SPRSL>E</SPRSL>
+     <ARBGB>ZNEPT_QZ_TRIVIA_CDS</ARBGB>
+     <MSGNR>150</MSGNR>
+     <TEXT>Your changes have been saved.</TEXT>
+    </T100>
+    <T100>
+     <SPRSL>E</SPRSL>
+     <ARBGB>ZNEPT_QZ_TRIVIA_CDS</ARBGB>
+     <MSGNR>180</MSGNR>
+     <TEXT>You cannot leave Description empty</TEXT>
+    </T100>
+    <T100>
+     <SPRSL>E</SPRSL>
+     <ARBGB>ZNEPT_QZ_TRIVIA_CDS</ARBGB>
+     <MSGNR>200</MSGNR>
+     <TEXT>Created with Trivia</TEXT>
+    </T100>
+   </T100>
+  </asx:values>
+ </asx:abap>
+</abapGit>

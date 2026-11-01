@@ -75,12 +75,10 @@ annotate view ZNEPT_QZ_C_QUIZ_D with
 
   @EndUserText.label: 'Visibility'
   @EndUserText.quickInfo: 'Visible for all users'
-  @UI: { lineItem: [ { position: 50, importance: #HIGH, cssDefault: { width: '10rem' } } ],
-         fieldGroup: [ { qualifier: 'attributes', position: 20 } ] }
-
-  @UI: { lineItem: [ { type: #FOR_ACTION, dataAction: 'Publish', label: 'Publish' },
-                     { type: #FOR_ACTION, dataAction: 'Unpublish', label: 'Unpublish' },
-                     { type: #FOR_ACTION, dataAction: 'Trivia', label: 'Trivia', iconUrl: 'sap-icon://activate' } ] }
+  @UI: { lineItem: [ { position: 50, importance: #HIGH, cssDefault: { width: '10rem' } },
+                     { type: #FOR_ACTION, dataAction: 'Publish', label: 'Publish' },
+                     { type: #FOR_ACTION, dataAction: 'Unpublish', label: 'Unpublish' } ],
+       fieldGroup: [ { qualifier: 'attributes', position: 20 } ] }
   UI_Published;
 
   @EndUserText.label: 'Version'

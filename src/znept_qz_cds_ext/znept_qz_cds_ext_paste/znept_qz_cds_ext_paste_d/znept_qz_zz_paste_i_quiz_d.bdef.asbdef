@@ -1,0 +1,20 @@
+extension implementation in class zbp_nept_qz_zz_paste_i_quiz_d unique;
+
+extend behavior for Quiz
+{
+
+  action ( authorization : instance, features : instance ) pasteQuiz parameter ZNEPT_QZ_EXT_A_PASTE;
+
+  side effects
+  {
+    action pasteQuiz affects entity _Part, entity _Question; // permissions ( action pasteQuiz );
+  }
+
+}
+
+extend behavior for Question
+{
+
+  action ( authorization : none, features : instance ) pasteQuestion parameter ZNEPT_QZ_EXT_A_PASTE;
+
+}

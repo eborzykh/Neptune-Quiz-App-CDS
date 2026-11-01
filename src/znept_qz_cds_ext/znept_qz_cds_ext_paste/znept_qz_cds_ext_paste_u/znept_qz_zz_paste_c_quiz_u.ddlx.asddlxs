@@ -1,0 +1,13 @@
+@Metadata.layer: #CUSTOMER
+
+annotate entity ZNEPT_QZ_C_QUIZ_U with
+{
+
+  @UI.hidden: true
+  @UI.identification: [
+      { type: #FOR_ACTION, dataAction: 'pasteQuiz', label: 'Paste' },
+      { position: 100 }
+   ]
+  ZZ_Paste;
+
+}

@@ -1,9 +1,11 @@
 //
 projection;
-strict ( 1 );
+strict ( 2 );
 use side effects;
+extensible;
 
 define behavior for ZNEPT_QZ_C_QUIZ_U alias quiz
+extensible
 {
   use create;
   use update;
@@ -11,13 +13,13 @@ define behavior for ZNEPT_QZ_C_QUIZ_U alias quiz
 
   use action Publish;
   use action Unpublish;
-  use action Trivia;
 
   use association _Part { create; }
   use association _Question { create; }
 }
 
 define behavior for ZNEPT_QZ_C_PART_U alias part
+extensible
 {
   use create;
   use update;
@@ -32,6 +34,7 @@ define behavior for ZNEPT_QZ_C_PART_U alias part
 }
 
 define behavior for ZNEPT_QZ_C_QUESTION_U alias question
+extensible
 {
   use create;
   use update;
@@ -50,6 +53,7 @@ define behavior for ZNEPT_QZ_C_QUESTION_U alias question
 }
 
 define behavior for ZNEPT_QZ_C_VARIANT_U alias variant
+extensible
 {
   use create;
   use update;

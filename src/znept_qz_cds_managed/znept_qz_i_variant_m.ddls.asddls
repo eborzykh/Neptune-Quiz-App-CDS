@@ -1,6 +1,7 @@
 //
 @EndUserText.label: 'Variants (Basic)'
 @AccessControl.authorizationCheck: #NOT_REQUIRED
+@Metadata.ignorePropagatedAnnotations: false
 @VDM.viewType: #COMPOSITE
 
 define view entity ZNEPT_QZ_I_VARIANT_M

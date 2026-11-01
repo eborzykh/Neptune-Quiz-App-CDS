@@ -1,0 +1,7 @@
+@Metadata.layer: #CORE
+annotate entity ZNEPT_QZ_EXT_A_PASTE with
+{
+  @UI.multiLineText: true
+  @EndUserText.label: 'Paste new quiz here'
+  StreamText;
+}

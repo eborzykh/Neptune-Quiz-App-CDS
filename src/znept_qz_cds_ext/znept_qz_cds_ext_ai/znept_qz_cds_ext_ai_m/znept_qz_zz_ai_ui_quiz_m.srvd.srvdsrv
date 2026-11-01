@@ -1,0 +1,5 @@
+extend service ZNEPT_QZ_UI_QUIZ_M with {
+  expose ZZNEPT_QZ_I_AI_DIFFPAR_VH;
+  expose ZZNEPT_QZ_I_AI_MODEL_VH;
+  expose ZZNEPT_QZ_I_AI_PROGRESS_VH;
+}

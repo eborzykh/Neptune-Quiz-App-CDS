@@ -4,6 +4,12 @@
 @VDM.viewType: #CONSUMPTION
 @Metadata.allowExtensions: true
 
+@AbapCatalog.extensibility: {
+  extensible: true,
+  allowNewDatasources: true,
+  allowNewCompositions: true
+}
+
 define view entity ZNEPT_QZ_C_QUESTION_M
   as projection on ZNEPT_QZ_I_QUESTION_M
 
@@ -18,16 +24,16 @@ define view entity ZNEPT_QZ_C_QUESTION_M
                                             useForValidation: true } ]
       @ObjectModel.text.element: ['PartDescription']
       PartId,
-      _Part.Description as PartDescription,      
-      
+      _Part.Description as PartDescription,
+
       Question,
       Explanation,
 
       Version,
-      
-      SortQuestion,       
-      SortPart,
 
+      SortQuestion,
+      SortPart,
+      
       /* Associations */
 
       _Quiz    : redirected to parent ZNEPT_QZ_C_QUIZ_M,

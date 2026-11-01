@@ -1,0 +1,8 @@
+extension implementation in class zbp_nept_qz_zz_trivia_i_quiz_d unique;
+
+extend behavior for Quiz
+{
+
+  static action ( authorization : none, features : global ) triviaQuiz parameter ZNEPT_QZ_A_QUIZ_TRIVIA result [1] $self { default function GetDfltsFor_triviaQuiz; }
+
+}

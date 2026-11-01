@@ -1,0 +1,6 @@
+extend service ZNEPT_QZ_UI_QUIZ_D with {
+  expose ZZNEPT_QZ_I_TRIVIA_CAT_DM_VH;
+  expose ZZNEPT_QZ_I_TRIVIA_CAT_QUER_VH;
+  expose ZZNEPT_QZ_I_TRIVIA_DIFFIC_VH;
+  expose ZZNEPT_QZ_I_TRIVIA_DIFFPAR_VH;
+}

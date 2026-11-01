@@ -2,6 +2,8 @@
 @Metadata.layer: #CORE
 @UI.headerInfo.description.label: 'Quiz (Extension)'
 
+@Search.searchable: true
+
 @UI: { headerInfo: { typeName: 'Managed scenario (no draft)',
                      typeNamePlural: 'Practice tests (managed)' ,
                      title: { type: #STANDARD, value: 'TestId' } } }
@@ -76,7 +78,6 @@ annotate view ZNEPT_QZ_C_QUIZ_M with
   @EndUserText.label: 'Visibility'
   @EndUserText.quickInfo: 'Visible for all users'
   @UI: { lineItem: [ { position: 50, importance: #HIGH, label: 'Visibility ', cssDefault: { width: '10rem' } },
-                     { type: #FOR_ACTION, dataAction: 'Trivia', label: 'Trivia' },
                      { type: #FOR_ACTION, dataAction: 'Publish', label: 'Publish' },
                      { type: #FOR_ACTION, dataAction: 'Unpublish', label: 'Unpublish' } ],
          fieldGroup: [ { qualifier: 'attributes', position: 20 } ] }
@@ -99,4 +100,6 @@ annotate view ZNEPT_QZ_C_QUIZ_M with
   @UI.hidden: true
   UploadBy;
 
+  @UI.hidden: true
+  ETag;
 }

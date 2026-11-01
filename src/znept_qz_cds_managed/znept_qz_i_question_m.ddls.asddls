@@ -1,7 +1,13 @@
 //
 @EndUserText.label: 'Questions (Basic)'
 @AccessControl.authorizationCheck: #NOT_REQUIRED
+@Metadata.ignorePropagatedAnnotations: false
 @VDM.viewType: #COMPOSITE
+
+@AbapCatalog.extensibility: {
+  extensible: true,
+  allowNewCompositions: true
+}
 
 define view entity ZNEPT_QZ_I_QUESTION_M
   as select from ZNEPT_QZ_I_QUESTION as _Question
@@ -21,10 +27,10 @@ define view entity ZNEPT_QZ_I_QUESTION_M
       _Question.PartId      as PartId,
       _Question.Question    as Question,
       _Question.Explanation as Explanation,
-      
+
       _Question.Version     as Version,
-      
-      _Question.Sort        as SortQuestion,       
+
+      _Question.Sort        as SortQuestion,
       _Part.Sort            as SortPart,
 
       /* Associations */

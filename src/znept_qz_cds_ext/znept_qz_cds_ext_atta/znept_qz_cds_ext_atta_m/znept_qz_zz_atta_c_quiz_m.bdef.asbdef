@@ -1,0 +1,16 @@
+extension for projection;
+
+extend behavior for Quiz
+{
+
+  use association _ZZ_Attachment { create; }
+
+}
+
+define behavior for ZNEPT_QZ_ZZ_C_ATTA_M alias ZZ_Attachment
+{
+  use update;
+  use delete;
+
+  use association _Quiz { }
+}

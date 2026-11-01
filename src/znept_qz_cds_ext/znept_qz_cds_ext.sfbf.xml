@@ -1,0 +1,42 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<abapGit version="v1.0.0" serializer="LCL_OBJECT_SFBF" serializer_version="v1.0.0">
+ <asx:abap xmlns:asx="http://www.sap.com/abapxml" version="1.0">
+  <asx:values>
+   <HEADER>
+    <BFUNCTION>ZNEPT_QZ_CDS_EXT</BFUNCTION>
+    <TYPE>S</TYPE>
+    <REVERSIBLE>X</REVERSIBLE>
+    <S4H_OP_STATE>5</S4H_OP_STATE>
+    <S4H_PC_STATE>2</S4H_PC_STATE>
+   </HEADER>
+   <NAME32>Neptune Quiz App (CDS)</NAME32>
+   <NAME80>Neptune Quiz App (CDS Extensions)</NAME80>
+   <ASSIGNED_SWITCHES>
+    <SFW_SWBF_OUTTAB_LINE>
+     <BFUNCTION>ZNEPT_QZ_CDS_EXT</BFUNCTION>
+     <SWITCH_ID>ZNEPT_QZ_CDS_EXT_AI</SWITCH_ID>
+     <SWITCHTYPE>A</SWITCHTYPE>
+     <NAME32>Neptune Quiz App (CDS)</NAME32>
+    </SFW_SWBF_OUTTAB_LINE>
+    <SFW_SWBF_OUTTAB_LINE>
+     <BFUNCTION>ZNEPT_QZ_CDS_EXT</BFUNCTION>
+     <SWITCH_ID>ZNEPT_QZ_CDS_EXT_ATTA</SWITCH_ID>
+     <SWITCHTYPE>A</SWITCHTYPE>
+     <NAME32>Neptune Quiz App (CDS)</NAME32>
+    </SFW_SWBF_OUTTAB_LINE>
+    <SFW_SWBF_OUTTAB_LINE>
+     <BFUNCTION>ZNEPT_QZ_CDS_EXT</BFUNCTION>
+     <SWITCH_ID>ZNEPT_QZ_CDS_EXT_PASTE</SWITCH_ID>
+     <SWITCHTYPE>A</SWITCHTYPE>
+     <NAME32>Neptune Quiz App (CDS)</NAME32>
+    </SFW_SWBF_OUTTAB_LINE>
+    <SFW_SWBF_OUTTAB_LINE>
+     <BFUNCTION>ZNEPT_QZ_CDS_EXT</BFUNCTION>
+     <SWITCH_ID>ZNEPT_QZ_CDS_EXT_TRIVIA</SWITCH_ID>
+     <SWITCHTYPE>A</SWITCHTYPE>
+     <NAME32>Neptune Quiz App (CDS)</NAME32>
+    </SFW_SWBF_OUTTAB_LINE>
+   </ASSIGNED_SWITCHES>
+  </asx:values>
+ </asx:abap>
+</abapGit>

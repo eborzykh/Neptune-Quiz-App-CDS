@@ -1,7 +1,12 @@
 //
 managed implementation in class zbp_nept_qz_i_quiz_m unique;
-strict ( 1 );
-extensible;
+strict ( 2 );
+extensible
+{
+  with determinations on modify;
+  with determinations on save;
+  with validations on save;
+  with additional save; }
 
 define behavior for ZNEPT_QZ_I_QUIZ_M alias Quiz
 implementation in class zbp_nept_qz_i_quiz_m unique
@@ -9,8 +14,8 @@ persistent table znept_qz_tst
 with additional save
 etag master ETag
 lock master
-late numbering
 authorization master ( global, instance )
+late numbering
 extensible
 {
   create;
@@ -19,7 +24,6 @@ extensible
 
   action ( features : instance ) Publish result [1] $self;
   action ( features : instance ) Unpublish result [1] $self;
-  action ( features : instance ) Trivia parameter ZNEPT_QZ_A_QUIZ_TRIVIA result [1] $self;
 
   field ( readonly ) TestId, UploadAt, UploadOn, UploadBy, Upload_By_Name, Part_Count, Question_Count, UI_Published, Version;
   field ( mandatory ) Description;
@@ -33,27 +37,30 @@ extensible
 
   association _Part { create; }
   association _Question { create; }
+//  association _Variant { }
 
   mapping for znept_qz_tst corresponding extensible
-  {
-    TestId = test_id;
+    {
+      TestId      = test_id;
 
-    UploadAt = upload_at;
-    UploadOn = upload_on;
-    UploadBy = upload_by;
-    Description = description;
-    Published = published;
-    Version = version;
-  }
+      UploadAt    = upload_at;
+      UploadOn    = upload_on;
+      UploadBy    = upload_by;
+      Description = description;
+      Published   = published;
+      Version     = version;
+    }
 }
 
 define behavior for ZNEPT_QZ_I_PART_M alias Part
 implementation in class zbp_nept_qz_i_part_m unique
 with additional save
 persistent table znept_qz_prt
+etag dependent by _Quiz
 lock dependent by _Quiz
 authorization dependent by _Quiz
 late numbering
+extensible
 {
   update;
   delete;
@@ -72,34 +79,37 @@ late numbering
   determination setVersion on save { delete; field Description, Sort; }
   determination setSort on save { field Sort; }
 
+  // when Part order is changed it should refresh Question list and Version counter
   side effects
   {
-    action movePartFirst affects entity _Quiz._Question;
-    action movePartUp affects entity _Quiz._Question;
-    action movePartDown affects entity _Quiz._Question;
-    action movePartLast affects entity _Quiz._Question;
+    action movePartFirst affects entity _Quiz._Question, field _Quiz.Version;
+    action movePartUp affects entity _Quiz._Question, field _Quiz.Version;
+    action movePartDown affects entity _Quiz._Question, field _Quiz.Version;
+    action movePartLast affects entity _Quiz._Question, field _Quiz.Version;
   }
 
-  association _Quiz;
+  association _Quiz { }
 
-  mapping for ZNEPT_QZ_PRT corresponding
-  {
-    TestId = test_id;
-    PartId = part_id;
+  mapping for znept_qz_prt corresponding extensible
+    {
+      TestId      = test_id;
+      PartId      = part_id;
 
-    Sort = sort;
-    Description = description;
-    Version = version;
-  }
+      Sort        = sort;
+      Description = description;
+      Version     = version;
+    }
 }
 
 define behavior for ZNEPT_QZ_I_QUESTION_M alias Question
 implementation in class zbp_nept_qz_i_question_m unique
 with additional save
 persistent table znept_qz_qst
+etag dependent by _Quiz
 lock dependent by _Quiz
 authorization dependent by _Quiz
 late numbering
+extensible
 {
   update;
   delete;
@@ -112,36 +122,47 @@ late numbering
   action ( features : instance ) assignPart parameter ZNEPT_QZ_A_QUESTION_ASSIGN;
   action ( features : instance ) refreshQuestion;
 
-  field ( readonly ) TestId, PartId, QuestionId, Version;
+  field ( readonly ) TestId, QuestionId, Version;
   field ( mandatory ) Question;
 
   // it will be calling the method on listed fields create/update and specified operation
   determination setVersion on save { delete; field Question, Explanation, Sort, PartId; }
   determination setSort on save { field Sort; }
 
-  association _Quiz;
+  // when Question order is changed it should refresh Version counter
+  side effects
+  {
+    action moveQuestionFirst affects field _Quiz.Version;
+    action moveQuestionUp affects field _Quiz.Version;
+    action moveQuestionDown affects field _Quiz.Version;
+    action moveQuestionLast affects field _Quiz.Version;
+  }
+
+  association _Quiz { }
   association _Variant { create; }
 
-  mapping for ZNEPT_QZ_QST corresponding
-  {
-    TestId = test_id;
-    QuestionId = question_id;
+  mapping for znept_qz_qst corresponding extensible
+    {
+      TestId      = test_id;
+      QuestionId  = question_id;
 
-    Sort = sort;
-    PartId = part_id;
-    Question = question;
-    Explanation = explanation;
-    Version = version;
-  }
+      Sort        = sort;
+      PartId      = part_id;
+      Question    = question;
+      Explanation = explanation;
+      Version     = version;
+    }
 }
 
 define behavior for ZNEPT_QZ_I_VARIANT_M alias Variant
 implementation in class zbp_nept_qz_i_variant_m unique
 with additional save
 persistent table znept_qz_var
+etag dependent by _Quiz
 lock dependent by _Quiz
 authorization dependent by _Quiz
 late numbering
+extensible
 {
   update;
   delete;
@@ -158,18 +179,18 @@ late numbering
   determination setVersion on save { delete; field Variant, Correct, Sort; }
   determination setSort on save { field Sort; }
 
-  association _Quiz;
-  association _Question;
+  association _Quiz { }
+  association _Question { }
 
-  mapping for znept_qz_var corresponding
-  {
-    TestId = test_id;
-    QuestionId = question_id;
-    VariantId = variant_id;
+  mapping for znept_qz_var corresponding extensible
+    {
+      TestId     = test_id;
+      QuestionId = question_id;
+      VariantId  = variant_id;
 
-    Sort = sort;
-    Variant = variant;
-    Correct = correct;
-    Version = version;
-  }
+      Sort       = sort;
+      Variant    = variant;
+      Correct    = correct;
+      Version    = version;
+    }
 }

@@ -1,0 +1,10 @@
+{
+  "BASEINFO": {
+    "FROM": [
+      "ZNEPT_QZ_I_QUIZ"
+    ],
+    "ASSOCIATED": [
+      "ZNEPT_QZ_ZZ_I_ATTA_M"
+    ]
+  }
+}

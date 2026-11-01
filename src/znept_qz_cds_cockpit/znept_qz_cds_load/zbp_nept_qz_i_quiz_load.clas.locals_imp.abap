@@ -173,18 +173,18 @@ CLASS lhc_quiz IMPLEMENTATION.
 
       IF NOT lv_db_error IS INITIAL.
         INSERT VALUE #(
-          %msg = new_message_with_text( text = 'Error on adding questions'
+          %msg = new_message_with_text( text = 'Error on adding questions'(001)
           severity = if_abap_behv_message=>severity-error )
         ) INTO TABLE reported-quiz.
       ELSE.
         INSERT VALUE #(
-          %msg = new_message_with_text( text = 'Questions were added'
+          %msg = new_message_with_text( text = 'Questions were added'(002)
           severity = if_abap_behv_message=>severity-information )
         ) INTO TABLE reported-quiz.
       ENDIF.
     ELSE.
       INSERT VALUE #(
-        %msg = new_message_with_text( text = 'No questions were added'
+        %msg = new_message_with_text( text = 'No questions were added'(003)
         severity = if_abap_behv_message=>severity-error )
       ) INTO TABLE reported-quiz.
     ENDIF.

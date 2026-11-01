@@ -1,0 +1,10 @@
+extension for projection;
+
+extend behavior for Quiz
+{
+  use action AIQuizClone;
+  use action AIQuizCreate;
+
+  use function GetDfltsFor_AIQuizClone;
+  use function GetDfltsFor_AIQuizCreate;
+}

@@ -1,0 +1,33 @@
+{
+  "formatVersion": "1",
+  "header": {
+    "description": "Neptune Quiz App (CDS): Parts (Basic Reuse)",
+    "originalLanguage": "en"
+  },
+  "generalInformation": {
+    "objectType": "DDLS",
+    "objectName": "ZNEPT_QZ_I_PART"
+  },
+  "fields": [
+    {
+      "name": "TESTID",
+      "nature": "general"
+    },
+    {
+      "name": "PARTID",
+      "nature": "general"
+    },
+    {
+      "name": "DESCRIPTION",
+      "nature": "general"
+    },
+    {
+      "name": "VERSION",
+      "nature": "general"
+    },
+    {
+      "name": "SORT",
+      "nature": "general"
+    }
+  ]
+}

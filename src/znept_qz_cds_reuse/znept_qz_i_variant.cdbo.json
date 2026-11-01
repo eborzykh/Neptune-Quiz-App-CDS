@@ -1,0 +1,41 @@
+{
+  "formatVersion": "1",
+  "header": {
+    "description": "Neptune Quiz App (CDS): Variants (Basic Reuse)",
+    "originalLanguage": "en"
+  },
+  "generalInformation": {
+    "objectType": "DDLS",
+    "objectName": "ZNEPT_QZ_I_VARIANT"
+  },
+  "fields": [
+    {
+      "name": "TESTID",
+      "nature": "general"
+    },
+    {
+      "name": "QUESTIONID",
+      "nature": "general"
+    },
+    {
+      "name": "VARIANTID",
+      "nature": "general"
+    },
+    {
+      "name": "CORRECT",
+      "nature": "general"
+    },
+    {
+      "name": "VARIANT",
+      "nature": "general"
+    },
+    {
+      "name": "VESRION",
+      "nature": "general"
+    },
+    {
+      "name": "SORT",
+      "nature": "general"
+    }
+  ]
+}

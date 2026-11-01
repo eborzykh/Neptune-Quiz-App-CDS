@@ -1,0 +1,8 @@
+@Metadata.layer: #CUSTOMER
+
+annotate entity ZNEPT_QZ_C_QUIZ_U with
+{
+  @UI.hidden: true
+  @UI: { lineItem: [ { type: #FOR_ACTION, dataAction: 'triviaQuiz', label: 'Create (Trivia)' } ] }
+  ZZ_Trivia;
+}

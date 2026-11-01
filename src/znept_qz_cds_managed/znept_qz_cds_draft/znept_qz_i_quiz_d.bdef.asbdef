@@ -1,7 +1,13 @@
 //
 managed implementation in class zbp_nept_qz_i_quiz_d unique;
-strict;
+strict( 2 );
 with draft;
+extensible
+{
+  with determinations on modify;
+  with determinations on save;
+  with validations on save;
+  with additional save; }
 
 define behavior for ZNEPT_QZ_I_QUIZ_D alias Quiz
 persistent table znept_qz_tst
@@ -10,6 +16,7 @@ lock master
 total etag ETag
 authorization master ( global, instance )
 late numbering
+extensible
 {
   create;
   update;
@@ -19,14 +26,13 @@ late numbering
   draft action Activate optimized;
   draft action Discard;
   draft action Resume;
-  draft determine action Prepare
+  draft determine action Prepare extensible
   {
     validation forDescription;
   }
 
   action ( features : instance ) Publish result [1] $self;
   action ( features : instance ) Unpublish result [1] $self;
-  action ( features : instance ) Trivia parameter ZNEPT_QZ_A_QUIZ_TRIVIA result [1] $self;
 
   // readonly is still updated in IN LOCAL MODE
   field ( readonly ) TestId, UploadAt, UploadOn, UploadBy, Upload_By_Name, Part_Count, Question_Count, UI_Published, Version;
@@ -50,7 +56,7 @@ late numbering
   association _Part { create; with draft; }
   association _Question { create; with draft; }
 
-  mapping for znept_qz_tst corresponding
+  mapping for znept_qz_tst corresponding extensible
     {
       TestId      = test_id;
       UploadAt    = upload_at;
@@ -69,6 +75,7 @@ draft table znept_qz_prt_d query ZNEPT_QZ_D_PART_D
 lock dependent by _Quiz
 authorization dependent by _Quiz
 late numbering
+extensible
 {
   update;
   delete;
@@ -86,17 +93,18 @@ late numbering
   determination setVersion on save { delete; field Description, Sort; }
   determination setSort on save { field Sort; }
 
+  // when Part order is changed it should refresh Question list and Version counter
   side effects
   {
-    action movePartFirst affects entity _Quiz._Question;
-    action movePartUp affects entity _Quiz._Question;
-    action movePartDown affects entity _Quiz._Question;
-    action movePartLast affects entity _Quiz._Question;
+    action movePartFirst affects entity _Quiz._Question, field _Quiz.Version;
+    action movePartUp affects entity _Quiz._Question, field _Quiz.Version;
+    action movePartDown affects entity _Quiz._Question, field _Quiz.Version;
+    action movePartLast affects entity _Quiz._Question, field _Quiz.Version;
   }
 
   association _Quiz { with draft; }
 
-  mapping for znept_qz_prt corresponding
+  mapping for znept_qz_prt corresponding extensible
     {
       TestId      = test_id;
       PartId      = part_id;
@@ -113,6 +121,7 @@ draft table znept_qz_qst_d query ZNEPT_QZ_D_QUESTION_D
 lock dependent by _Quiz
 authorization dependent by _Quiz
 late numbering
+extensible
 {
   update;
   delete;
@@ -133,10 +142,19 @@ late numbering
   determination setVersion on save { delete; field Question, Explanation, Sort, PartId; }
   determination setSort on save { field Sort; }
 
+  // when Question order is changed it should refresh Version counter
+  side effects
+  {
+    action moveQuestionFirst affects field _Quiz.Version;
+    action moveQuestionUp affects field _Quiz.Version;
+    action moveQuestionDown affects field _Quiz.Version;
+    action moveQuestionLast affects field _Quiz.Version;
+  }
+
   association _Quiz { with draft; }
   association _Variant { create; with draft; }
 
-  mapping for znept_qz_qst corresponding
+  mapping for znept_qz_qst corresponding extensible
     {
       TestId      = test_id;
       QuestionId  = question_id;
@@ -155,6 +173,7 @@ draft table znept_qz_var_d query ZNEPT_QZ_D_VARIANT_D
 lock dependent by _Quiz
 authorization dependent by _Quiz
 late numbering
+extensible
 {
   update;
   delete;
@@ -175,7 +194,7 @@ late numbering
   association _Quiz { with draft; }
   association _Question { with draft; }
 
-  mapping for znept_qz_var corresponding
+  mapping for znept_qz_var corresponding extensible
     {
       TestId     = test_id;
       QuestionId = question_id;

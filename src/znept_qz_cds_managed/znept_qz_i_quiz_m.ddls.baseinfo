@@ -5,7 +5,8 @@
     ],
     "ASSOCIATED": [
       "ZNEPT_QZ_I_PART_M",
-      "ZNEPT_QZ_I_QUESTION_M"
+      "ZNEPT_QZ_I_QUESTION_M",
+      "ZNEPT_QZ_I_VARIANT_M"
     ]
   }
 }

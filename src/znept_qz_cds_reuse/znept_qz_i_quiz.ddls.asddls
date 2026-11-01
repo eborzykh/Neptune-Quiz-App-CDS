@@ -18,12 +18,12 @@ define view entity ZNEPT_QZ_I_QUIZ
       _Quiz.upload_at                                                   as UploadAt,
       _Quiz.upload_by                                                   as UploadBy,
 
-      DATS_TIMS_TO_TSTMP ( _Quiz.upload_on, _Quiz.upload_at,
+      dats_tims_to_tstmp ( _Quiz.upload_on, _Quiz.upload_at,
                            $session.user_timezone, $session.client,
                            'NULL' )                                     as UploadTSTMP,
 
-      // ETag calculation
-      CONCAT(_Quiz.upload_by, CONCAT(_Quiz.upload_on, _Quiz.upload_at)) as ETag,
+      // Fields for ETag calculation
+      concat(_Quiz.upload_by, concat(_Quiz.upload_on, _Quiz.upload_at)) as ETag,
 
       // ----------------------------------------------------------------
       // ABAP SQL SELECT on CDS views return initial values for the virtual element,

@@ -20,14 +20,12 @@ CLASS lhc_quiz DEFINITION INHERITING FROM cl_abap_behavior_handler
     METHODS unpublish FOR MODIFY
       IMPORTING keys FOR ACTION quiz~unpublish RESULT result.
 
-    METHODS trivia FOR MODIFY
-      IMPORTING keys FOR ACTION quiz~trivia RESULT result.
-
     METHODS get_instance_authorizations FOR INSTANCE AUTHORIZATION
       keys REQUEST requested_authorizations FOR quiz RESULT result.
 
     METHODS fordescription FOR VALIDATE ON SAVE
       IMPORTING keys FOR quiz~fordescription.
+
     METHODS get_global_authorizations FOR GLOBAL AUTHORIZATION
       IMPORTING REQUEST requested_authorizations FOR quiz RESULT result.
 
@@ -82,36 +80,14 @@ CLASS lhc_quiz IMPLEMENTATION.
           WITH CORRESPONDING #( keys )
         RESULT DATA(lt_quiz).
 
-* don`t call API more often than we need
-    IF requested_features-%action-trivia = if_abap_behv=>mk-on.
-      LOOP AT lt_quiz ASSIGNING FIELD-SYMBOL(<fs_quiz>).
-        IF <fs_quiz>-description CS zcl_nept_qz_src_trivia=>gc_src_name AND <fs_quiz>-question_count = 0 AND <fs_quiz>-part_count = 0.
-
-          TRY.
-              zcl_nept_qz_src_trivia=>get_count_overall( IMPORTING ev_questions = DATA(lv_trivia_total) ).
-            CATCH zcx_nept_qz_src_trivia_api.
-              CLEAR lv_trivia_total.
-          ENDTRY.
-
-          EXIT.
-        ENDIF.
-      ENDLOOP.
-    ENDIF.
-
     result = VALUE #(
       FOR ls_quiz IN lt_quiz ( %tky = ls_quiz-%tky
 
-                               %features-%action-publish = COND #( WHEN ls_quiz-published = zcl_nept_qz_data_provider=>gc_quiz_published
-                                                                   THEN if_abap_behv=>fc-o-disabled
-                                                                   ELSE if_abap_behv=>fc-o-enabled )
+                               %features-%action-publish = COND #( WHEN ls_quiz-published = zcl_nept_qz_data_provider=>gc_quiz_private AND ls_quiz-Question_Count > 0
+                                                                   THEN if_abap_behv=>fc-o-enabled
+                                                                   ELSE if_abap_behv=>fc-o-disabled )
 
-                               %features-%action-unpublish = COND #( WHEN ls_quiz-published = zcl_nept_qz_data_provider=>gc_quiz_private
-                                                                     THEN if_abap_behv=>fc-o-disabled
-                                                                     ELSE if_abap_behv=>fc-o-enabled )
-
-                               %features-%action-trivia = COND #( WHEN ( lv_trivia_total > 0 AND ls_quiz-description CS zcl_nept_qz_src_trivia=>gc_src_name
-                                                                                             AND ls_quiz-question_count = 0
-                                                                                             AND ls_quiz-part_count = 0 )
+                               %features-%action-unpublish = COND #( WHEN ls_quiz-published = zcl_nept_qz_data_provider=>gc_quiz_published
                                                                      THEN if_abap_behv=>fc-o-enabled
                                                                      ELSE if_abap_behv=>fc-o-disabled ) ) ).
 
@@ -173,173 +149,12 @@ CLASS lhc_quiz IMPLEMENTATION.
 
   ENDMETHOD.
 
-  METHOD trivia.
-
-**********************************************************************
-*
-*                TO DO: to be replaced with EML
-*
-**********************************************************************
-
-    DATA: lt_messages     TYPE symsg_tab.
-
-    READ TABLE keys INDEX 1 INTO DATA(ls_keys).
-    IF sy-subrc = 0.
-      DATA(ls_db_quiz_in) = VALUE znept_qz_db_tests_s( test_id = ls_keys-testid ).
-
-      CALL FUNCTION 'ZNEPT_QZ_QUIZ_TRIVIA'
-        EXPORTING
-          is_db_quiz    = ls_db_quiz_in
-          iv_category   = ls_keys-%param-p_category
-          iv_difficulty = ls_keys-%param-p_difficulty
-          iv_count      = ls_keys-%param-p_count
-        IMPORTING
-          et_messages   = lt_messages.
-
-      IF lt_messages IS NOT INITIAL.
-        APPEND INITIAL LINE TO failed-quiz ASSIGNING FIELD-SYMBOL(<fs_failed_quiz>).
-        <fs_failed_quiz>-%tky = ls_keys-%tky.
-
-        LOOP AT lt_messages ASSIGNING FIELD-SYMBOL(<fs_messages>).
-          APPEND INITIAL LINE TO reported-quiz ASSIGNING FIELD-SYMBOL(<fs_reported_quiz>).
-          <fs_reported_quiz>-%tky = ls_keys-%tky.
-          <fs_reported_quiz>-%msg = new_message( id = <fs_messages>-msgid
-                                                 number = <fs_messages>-msgno
-                                                 v1 = <fs_messages>-msgv1
-                                                 v2 = <fs_messages>-msgv2
-                                                 v3 = <fs_messages>-msgv3
-                                                 v4 = <fs_messages>-msgv4
-                                                 severity = if_abap_behv_message=>severity-error ).
-          <fs_reported_quiz>-%element-description = if_abap_behv=>mk-on.
-        ENDLOOP.
-      ENDIF.
-
-* display toast like message
-
-      IF lt_messages[] IS INITIAL.
-        reported-quiz = VALUE #( FOR ls_key IN keys ( %tky = ls_key-%tky
-                                                      %msg = new_message_with_text( severity = if_abap_behv_message=>severity-success
-                                                                                    text = 'Created with Trivia'(003) )
-                                                      %op-%action-trivia = if_abap_behv=>mk-on ) ).
-      ENDIF.
-
-* read changed data for action result (does not work without it in _O4)
-
-      READ ENTITIES OF znept_qz_i_quiz_m IN LOCAL MODE
-        ENTITY quiz
-          ALL FIELDS WITH
-          CORRESPONDING #( keys )
-        RESULT DATA(lt_quiz).
-
-      result = VALUE #( FOR ls_quiz IN lt_quiz ( %tky = ls_quiz-%tky %param = ls_quiz ) ).
-
-    ENDIF.
-
-*    DATA lt_part_create TYPE TABLE FOR CREATE znept_qz_i_quiz_m\_part.
-*    DATA lt_question_create TYPE TABLE FOR CREATE znept_qz_i_quiz_m\_question.
-*    DATA lt_variant_create TYPE TABLE FOR CREATE znept_qz_i_quiz_m\\question\_variant.
-*
-*    LOOP AT keys INTO DATA(ls_keys).
-*      DATA(lv_category) = ls_keys-%param-p_category.
-*      DATA(lv_difficulty) = ls_keys-%param-p_difficulty.
-*      DATA(lv_count) = ls_keys-%param-p_count.
-*      DATA(lv_test_id) = ls_keys-testid.
-*      EXIT.
-*    ENDLOOP.
-*
-*    zcl_nept_qz_src_trivia=>get_quiz( EXPORTING iv_category = lv_category
-*                                                iv_difficulty = lv_difficulty
-*                                                iv_count = lv_count
-*                                      IMPORTING et_db_parts = DATA(lt_db_parts)
-*                                                et_db_questions = DATA(lt_db_questions)
-*                                                et_db_variants = DATA(lt_db_variants) ).
-*
-*    IF lt_db_questions[] IS INITIAL.
-*      RETURN.
-*    ENDIF.
-*
-** Parts
-*
-*    APPEND INITIAL LINE TO lt_part_create ASSIGNING FIELD-SYMBOL(<fs_part_create>).
-*    <fs_part_create>-%key-testid = lv_test_id.
-*
-*    LOOP AT lt_db_parts INTO DATA(ls_db_parts).
-*      APPEND INITIAL LINE TO <fs_part_create>-%target ASSIGNING FIELD-SYMBOL(<fs_part_target>).
-*      <fs_part_target>-%cid = 'P_' && ls_db_parts-part_id.
-*
-*      <fs_part_target>-%data-partid = ls_db_parts-part_id.
-*      <fs_part_target>-%data-description = ls_db_parts-description.
-*
-*      <fs_part_target>-%control-partid  = if_abap_behv=>mk-on.
-*      <fs_part_target>-%control-description = if_abap_behv=>mk-on.
-*    ENDLOOP.
-*
-*    MODIFY ENTITIES OF znept_qz_i_quiz_m IN LOCAL MODE
-*      ENTITY quiz
-*        CREATE BY \_part
-*          FROM lt_part_create.
-*
-** Questions
-*
-*    APPEND INITIAL LINE TO lt_question_create ASSIGNING FIELD-SYMBOL(<fs_question_create>).
-*    <fs_question_create>-%key-testid = lv_test_id.
-*
-*    LOOP AT lt_db_questions INTO DATA(ls_db_questions).
-*
-*      APPEND INITIAL LINE TO <fs_question_create>-%target ASSIGNING FIELD-SYMBOL(<fs_question_target>).
-*      <fs_question_target>-%cid = 'Q_' && ls_db_questions-question_id.
-*
-*      <fs_question_target>-%data-questionid = ls_db_questions-question_id.
-*      <fs_question_target>-%data-partid = ls_db_questions-part_id.
-*      <fs_question_target>-%data-question = ls_db_questions-question.
-*      <fs_question_target>-%data-explanation = ls_db_questions-explanation.
-*
-*      <fs_question_target>-%control-questionid  = if_abap_behv=>mk-on.
-*      <fs_question_target>-%control-partid      = if_abap_behv=>mk-on.
-*      <fs_question_target>-%control-question    = if_abap_behv=>mk-on.
-*      <fs_question_target>-%control-explanation = if_abap_behv=>mk-on.
-*
-*      APPEND INITIAL LINE TO lt_variant_create ASSIGNING FIELD-SYMBOL(<fs_variant_create>).
-*      <fs_variant_create>-%key-testid     = lv_test_id.
-*      <fs_variant_create>-%key-questionid = ls_db_questions-question_id.
-**      <fs_variant_create>-%cid_ref        = <fs_question_target>-%cid.
-*
-*      LOOP AT lt_db_variants INTO DATA(ls_db_variants) WHERE question_id = ls_db_questions-question_id.
-*
-*        APPEND INITIAL LINE TO <fs_variant_create>-%target ASSIGNING FIELD-SYMBOL(<fs_variant_target>).
-*        <fs_variant_target>-%cid = 'V_' && ls_db_questions-question_id && ls_db_variants-variant_id.
-*
-**        <fs_variant_target>-%data-questionid = ls_db_variants-question_id.
-*        <fs_variant_target>-%data-variantid = ls_db_variants-variant_id.
-*        <fs_variant_target>-%data-variant = ls_db_variants-variant.
-*        <fs_variant_target>-%data-correct = ls_db_variants-correct.
-*
-**        <fs_variant_target>-%control-questionid = if_abap_behv=>mk-on.
-*        <fs_variant_target>-%control-variantid = if_abap_behv=>mk-on.
-*        <fs_variant_target>-%control-correct = if_abap_behv=>mk-on.
-*        <fs_variant_target>-%control-variant = if_abap_behv=>mk-on.
-*      ENDLOOP.
-*    ENDLOOP.
-*
-*    MODIFY ENTITIES OF znept_qz_i_quiz_m IN LOCAL MODE
-*      ENTITY quiz
-*        CREATE BY \_question
-*          FROM lt_question_create.
-*
-*    MODIFY ENTITIES OF znept_qz_i_quiz_m IN LOCAL MODE
-*      ENTITY Question
-*        CREATE BY \_Variant
-*          FROM lt_variant_create.
-
-  ENDMETHOD.
-
   METHOD get_instance_authorizations.
 
     IF requested_authorizations-%update = if_abap_behv=>mk-on
     OR requested_authorizations-%delete = if_abap_behv=>mk-on
     OR requested_authorizations-%action-publish = if_abap_behv=>mk-on
-    OR requested_authorizations-%action-unpublish = if_abap_behv=>mk-on
-    OR requested_authorizations-%action-trivia = if_abap_behv=>mk-on.
+    OR requested_authorizations-%action-unpublish = if_abap_behv=>mk-on.
 
       READ ENTITIES OF znept_qz_i_quiz_m IN LOCAL MODE
         ENTITY quiz
@@ -358,7 +173,6 @@ CLASS lhc_quiz IMPLEMENTATION.
         <fs_result>-%delete = lv_auth_change.
         <fs_result>-%action-publish = lv_auth_change.
         <fs_result>-%action-unpublish = lv_auth_change.
-        <fs_result>-%action-trivia = lv_auth_change.
       ENDLOOP.
     ENDIF.
 

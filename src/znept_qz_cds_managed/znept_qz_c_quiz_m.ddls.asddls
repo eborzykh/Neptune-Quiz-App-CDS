@@ -6,6 +6,12 @@
 @Search.searchable: true
 @ObjectModel.semanticKey: ['TestId']
 
+@AbapCatalog.extensibility: {
+  extensible: true,
+  allowNewDatasources: true,
+  allowNewCompositions: true
+}
+
 define root view entity ZNEPT_QZ_C_QUIZ_M
   provider contract transactional_query
   as projection on ZNEPT_QZ_I_QUIZ_M as _Quiz
@@ -13,12 +19,14 @@ define root view entity ZNEPT_QZ_C_QUIZ_M
       @Search.defaultSearchElement: true
   key TestId,
 
+      ETag,
+
       UploadOn,
       UploadAt,
       UploadBy,
       Published,
       Description,
-      
+
       Version,
 
       Part_Count,
@@ -30,5 +38,6 @@ define root view entity ZNEPT_QZ_C_QUIZ_M
       /* Associations */
 
       _Part     : redirected to composition child ZNEPT_QZ_C_PART_M,
-      _Question : redirected to composition child ZNEPT_QZ_C_QUESTION_M
+      _Question : redirected to composition child ZNEPT_QZ_C_QUESTION_M,
+      _Variant  : redirected to ZNEPT_QZ_C_VARIANT_M
 }

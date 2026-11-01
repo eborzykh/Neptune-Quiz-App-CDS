@@ -1,0 +1,10 @@
+extension for projection;
+
+extend behavior for Quiz
+{
+
+  use action triviaQuiz;
+
+  use function GetDfltsFor_triviaQuiz;
+
+}
