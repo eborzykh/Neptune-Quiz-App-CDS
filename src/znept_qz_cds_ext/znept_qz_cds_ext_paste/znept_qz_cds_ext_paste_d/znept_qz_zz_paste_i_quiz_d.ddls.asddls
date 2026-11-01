@@ -2,5 +2,5 @@ extend view entity ZNEPT_QZ_I_QUIZ_D with
 {
   // This dummy fields is not to be displayed.
   // If multiple actions will be delivered via extensions mapped to the same field then only the last added will be active
-  'ZZ_Paste' as ZZ_Paste
+  'Z' as ZZ_Paste
 }

@@ -2,6 +2,7 @@ extension implementation in class zbp_nept_qz_zz_ai_i_quiz_m unique;
 
 extend behavior for Quiz
 {
+  // default function works from 2025
 
   factory action ( authorization : none, features : instance ) AIQuizClone parameter ZNEPT_QZ_A_QUIZ_AI_CLONE [1] { default function GetDfltsFor_AIQuizClone; }
 

@@ -1,3 +1,0 @@
-extend service ZNEPT_QZ_UI_QUIZ_M with {
-  expose ZNEPT_QZ_ZZ_C_ATTA_M as ZZ_Attachment;
-}
