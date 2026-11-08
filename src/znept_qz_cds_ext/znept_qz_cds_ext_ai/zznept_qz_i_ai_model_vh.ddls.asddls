@@ -1,4 +1,3 @@
-//
 @EndUserText.label: 'AI Models (Visual Help)'
 @ObjectModel: { query: { implementedBy: 'ABAP:ZCL_NEPT_QZ_AI_MODEL_QUERY' } }
 
@@ -6,12 +5,9 @@
 
 define custom entity ZZNEPT_QZ_I_AI_MODEL_VH
 {
-      //      @ObjectModel.text.element: ['ModelText']
-      @ObjectModel.text.element: ['Model']
-      @Semantics.text: true
+      @ObjectModel.text.element: ['ModelText']
   key Model     : znept_qz_ai_model_de;
 
-      //      @Semantics.text: true
-      @UI.hidden: true
+      @Semantics.text: true
       ModelText : znept_qz_ai_model_name_de;
 }

@@ -19,7 +19,8 @@ CLASS zcl_nept_qz_ai_model_query IMPLEMENTATION.
     DATA: lt_ai_model TYPE znept_qz_ai_model_t.
 
     TRY.
-        zcl_nept_qz_src_ai=>get_models( IMPORTING et_model = lt_ai_model ).
+        zcl_nept_qz_src_ai=>get_models( EXPORTING iv_api_key = zcl_nept_qz_src_util_api_key=>utilize(  )
+                                        IMPORTING et_model = lt_ai_model ).
       CATCH zcx_nept_qz_src_ai_api.
         RAISE EXCEPTION TYPE zcx_nept_qz_ai_model_q_pro.
     ENDTRY.

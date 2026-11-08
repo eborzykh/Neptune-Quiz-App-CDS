@@ -18,7 +18,7 @@ define root abstract entity ZNEPT_QZ_A_QUIZ_AI_CREATE
   p_Key   : znept_qz_ai_api_key_de;
 
   @EndUserText.label: 'Model'
-//  @Consumption.valueHelpDefinition: [ { entity: {name: 'ZZNEPT_QZ_I_AI_MODEL_VH', element: 'Model' }, useForValidation: true } ]
+  @Consumption.valueHelpDefinition: [ { entity: {name: 'ZZNEPT_QZ_I_AI_MODEL_VH', element: 'Model' }, useForValidation: true } ]
   p_Model : znept_qz_ai_model_de;
 
   //  @EndUserText.label: 'Max Completion Tokens'

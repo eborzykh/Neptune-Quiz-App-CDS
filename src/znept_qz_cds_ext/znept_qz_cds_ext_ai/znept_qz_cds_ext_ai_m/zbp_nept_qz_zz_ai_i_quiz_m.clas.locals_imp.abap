@@ -75,7 +75,7 @@ CLASS lhc_Quiz IMPLEMENTATION.
                                                       iv_progress = ls_keys-%param-p_Progress
                                                       iv_difficulty = ls_keys-%param-p_difficulty
                                                       iv_count = ls_keys-%param-p_count
-                                                      iv_api_key = ls_keys-%param-p_Key
+                                                      iv_api_key = zcl_nept_qz_src_util_api_key=>utilize( iv_value = ls_keys-%param-p_Key )
                                                       iv_model = ls_keys-%param-p_Model
 *                                                      iv_max_token = ls_keys-%param-p_MaxToken
                                             IMPORTING et_db_parts = DATA(lt_db_parts)
@@ -220,7 +220,7 @@ CLASS lhc_Quiz IMPLEMENTATION.
         zcl_nept_qz_src_ai=>get_quiz_create( EXPORTING iv_descriptiopn = ls_keys-%param-p_Name
                                                        iv_topic = ls_keys-%param-p_Topic
                                                        iv_count = ls_keys-%param-p_count
-                                                       iv_api_key = ls_keys-%param-p_Key
+                                                       iv_api_key = zcl_nept_qz_src_util_api_key=>utilize( iv_value = ls_keys-%param-p_Key )
                                                        iv_model = ls_keys-%param-p_Model
 *                                                       iv_max_token = ls_keys-%param-p_MaxToken
                                             IMPORTING et_db_parts = DATA(lt_db_parts)
@@ -380,6 +380,7 @@ CLASS lhc_Quiz IMPLEMENTATION.
       lr_result->%param-p_Count = zcl_nept_qz_src_ai=>gc_def_questions.
       lr_result->%param-p_Name = lv_description.
       lr_result->%param-p_Model = 'amazon.nova-lite-v1:0'.
+      lr_result->%param-p_Key = zcl_nept_qz_src_util_api_key=>mask(  ).
     ENDLOOP.
 
   ENDMETHOD.
@@ -392,6 +393,7 @@ CLASS lhc_Quiz IMPLEMENTATION.
       lr_result->%param-p_Name = 'AI Quiz'.
       lr_result->%param-p_Topic = 'Create a simple quiz about Istanbul.'.
       lr_result->%param-p_Model = 'amazon.nova-lite-v1:0'.
+      lr_result->%param-p_Key = zcl_nept_qz_src_util_api_key=>mask(  ).
     ENDLOOP.
 
   ENDMETHOD.
