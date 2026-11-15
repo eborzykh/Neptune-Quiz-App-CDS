@@ -13,7 +13,7 @@ CLASS zcl_nept_qz_ai_data_cds DEFINITION
         !iv_api_key     TYPE znept_qz_ai_api_key_de
         !iv_progress    TYPE znept_qz_ai_progress_de OPTIONAL
         !iv_difficulty  TYPE znept_qz_ai_diffparam_de OPTIONAL
-        !iv_max_token   TYPE int2 OPTIONAL
+        !iv_max_token   TYPE int4 OPTIONAL
         !iv_model       TYPE znept_qz_ai_model_de OPTIONAL
       EXPORTING
         !es_db_tests    TYPE znept_qz_db_tests_s
@@ -25,7 +25,7 @@ CLASS zcl_nept_qz_ai_data_cds DEFINITION
         !iv_description TYPE znept_qz_test_name_de
         !iv_count       TYPE int2
         !iv_api_key     TYPE znept_qz_ai_api_key_de
-        !iv_max_token   TYPE int2 OPTIONAL
+        !iv_max_token   TYPE int4 OPTIONAL
         !iv_model       TYPE znept_qz_ai_model_de OPTIONAL
       EXPORTING
         !es_db_tests    TYPE znept_qz_db_tests_s

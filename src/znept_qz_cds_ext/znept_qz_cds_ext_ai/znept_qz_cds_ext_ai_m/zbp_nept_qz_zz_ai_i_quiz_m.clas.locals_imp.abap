@@ -109,17 +109,6 @@ CLASS lhc_Quiz IMPLEMENTATION.
       RETURN.
     ENDIF.
 
-**********************************************************************
-    IF lines( lt_db_variants ) > 99.
-      APPEND INITIAL LINE TO reported-quiz ASSIGNING <fs_reported_quiz>.
-      <fs_reported_quiz>-%tky = ls_keys-%tky.
-      <fs_reported_quiz>-%msg = new_message_with_text( severity = if_abap_behv_message=>severity-error
-                                                       text = 'Limit on variants (must be < 99)' ).
-      <fs_reported_quiz>-%op-%action-AIQuizClone = if_abap_behv=>mk-on.
-      RETURN.
-    ENDIF.
-**********************************************************************
-
 * Convert to EML structures
 
     DATA lt_quiz_create TYPE TABLE FOR CREATE znept_qz_i_quiz_m\\Quiz.
@@ -178,9 +167,8 @@ CLASS lhc_Quiz IMPLEMENTATION.
 **********************************************************************
 *  some limitation with EML here when creating grand child entities
 *  Variants will be created with all unique VariantIds
-*  it limits the total number of Variants per Quiz up to max = 99.
-*  Domain for VariantId shall be expanded 2 -> 4 if this will not be resolved
 *  METHOD Adjust_Numbers receives all blank keys
+*  Domain for VariantId is expanded 2 -> 4
 **********************************************************************
 
     MODIFY ENTITIES OF znept_qz_i_quiz_m IN LOCAL MODE
@@ -254,17 +242,6 @@ CLASS lhc_Quiz IMPLEMENTATION.
       RETURN.
     ENDIF.
 
-**********************************************************************
-    IF lines( lt_db_variants ) > 99.
-      APPEND INITIAL LINE TO reported-quiz ASSIGNING <fs_reported_quiz>.
-      <fs_reported_quiz>-%cid = ls_keys-%cid.
-      <fs_reported_quiz>-%msg = new_message_with_text( severity = if_abap_behv_message=>severity-error
-                                                         text = 'Limit on variants (must be < 99)' ).
-      <fs_reported_quiz>-%op-%action-AIQuizCreate = if_abap_behv=>mk-on.
-      RETURN.
-    ENDIF.
-**********************************************************************
-
 * Convert to EML structures
 
     DATA lt_quiz_create TYPE TABLE FOR CREATE znept_qz_i_quiz_m\\Quiz.
@@ -323,9 +300,8 @@ CLASS lhc_Quiz IMPLEMENTATION.
 **********************************************************************
 *  some limitation with EML here when creating grand child entities
 *  Variants will be created with all unique VariantIds
-*  it limits the total number of Variants per Quiz up to max = 99.
-*  Domain for VariantId shall be expanded 2 -> 4 if this will not be resolved
 *  METHOD Adjust_Numbers receives all blank keys
+*  Domain for VariantId is expanded 2 -> 4
 **********************************************************************
 
     MODIFY ENTITIES OF znept_qz_i_quiz_m IN LOCAL MODE
